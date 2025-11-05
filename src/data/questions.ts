@@ -16,6 +16,7 @@ export const questions: Question[] = [
     options: ['4', '5', '6', '7'],
     correctAnswer: 1,
     points: 10,
+    explanation: 'Bei 2 + 3 kannst du zählen: Starte bei 2 und zähle 3 weiter: 2... 3, 4, 5! Das Ergebnis ist 5.',
   },
   {
     id: 'math-1-2',
@@ -25,6 +26,7 @@ export const questions: Question[] = [
     options: ['6', '7', '8', '9'],
     correctAnswer: 1,
     points: 10,
+    explanation: 'Bei 5 + 2 startest du bei 5 und zählst 2 weiter: 5... 6, 7! Das Ergebnis ist 7.',
   },
   {
     id: 'math-1-3',
@@ -43,6 +45,7 @@ export const questions: Question[] = [
     options: ['3', '4', '5', '6'],
     correctAnswer: 1,
     points: 10,
+    explanation: 'Bei 6 - 2 nimmst du von 6 etwas weg. Zähle rückwärts: 6... 5, 4! Du hast 2 weggenommen, also bleibt 4 übrig.',
   },
   {
     id: 'math-1-5',
@@ -62,6 +65,7 @@ export const questions: Question[] = [
     options: ['e', 'a', 'i', 'o'],
     correctAnswer: 0,
     points: 10,
+    explanation: 'Das Wort ist "Apfel"! Sprich es langsam: Ap-fel. Der fehlende Buchstabe ist "e".',
   },
   {
     id: 'deutsch-1-2',
@@ -99,6 +103,7 @@ export const questions: Question[] = [
     options: ['8', '10', '12', '14'],
     correctAnswer: 1,
     points: 15,
+    explanation: '2 × 5 bedeutet: 2 mal die Zahl 5. Das ist 5 + 5 = 10. Oder du denkst: 2 Fünfer sind 10!',
   },
   // Mathematik - Klasse 3
   {
@@ -127,6 +132,7 @@ export const questions: Question[] = [
     options: ['5', '6', '7', '8'],
     correctAnswer: 1,
     points: 20,
+    explanation: '24 ÷ 4 bedeutet: Wie oft passt 4 in 24? Du kannst rechnen: 4 + 4 + 4 + 4 + 4 + 4 = 24. Das sind 6 mal die 4, also ist das Ergebnis 6!',
   },
   {
     id: 'math-3-4',

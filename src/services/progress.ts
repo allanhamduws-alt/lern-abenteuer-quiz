@@ -12,6 +12,7 @@ import type {
   QuizResult,
   Question,
 } from '../types';
+import { checkEarnedBadges } from '../data/badges';
 
 /**
  * Initialisiert leeren Fortschritt für neuen Benutzer
@@ -130,7 +131,8 @@ export async function updateProgressAfterQuiz(
   userId: string,
   subject: SubjectProgress['subject'],
   results: QuizResult[],
-  questions: Question[]
+  questions: Question[],
+  quizDurationSeconds?: number
 ): Promise<Progress> {
   console.log('🔄 Aktualisiere Progress nach Quiz:', {
     userId,
@@ -238,6 +240,24 @@ export async function updateProgressAfterQuiz(
 
   // Lernstreak aktualisieren
   updateLearningStreak(progress);
+
+  // Badges prüfen und verleihen
+  const isPerfect = results.every((r) => r.isCorrect);
+  const totalTimeSeconds = quizDurationSeconds || results.reduce((sum, r) => (r.timeSpent || 0) + sum, 0);
+  
+  const newlyEarnedBadges = checkEarnedBadges(progress, {
+    isPerfect,
+    totalTimeSeconds,
+  });
+
+  if (newlyEarnedBadges.length > 0) {
+    newlyEarnedBadges.forEach((badgeId) => {
+      if (!progress.badges.includes(badgeId)) {
+        progress.badges.push(badgeId);
+        console.log(`🏆 Neues Badge verdient: ${badgeId}`);
+      }
+    });
+  }
 
   // Letzte Aktivität aktualisieren
   progress.lastActivity = new Date().toISOString();

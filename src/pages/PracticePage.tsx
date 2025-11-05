@@ -16,6 +16,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
+import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import type { User, Progress, Question } from '../types';
 
 export function PracticePage() {
@@ -104,7 +105,7 @@ export function PracticePage() {
       return (
         <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center">
           <Card>
-            <p className="text-xl">Lade Fragen...</p>
+            <LoadingSpinner text="Lade Fragen..." />
           </Card>
         </div>
       );

@@ -21,6 +21,7 @@ export function ResultsPage() {
   const totalPoints = location.state?.totalPoints || 0;
   const questions = (location.state?.questions || []) as Question[];
   const subject = location.state?.subject as Question['subject'] | undefined;
+  const quizDurationSeconds = location.state?.quizDurationSeconds as number | undefined;
   const correctAnswers = results.filter((r) => r.isCorrect).length;
   const totalQuestions = results.length;
   const [user, setUser] = useState<User | null>(null);
@@ -28,6 +29,8 @@ export function ResultsPage() {
   const [progressSynced, setProgressSynced] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(true);
+  const [newlyEarnedBadges, setNewlyEarnedBadges] = useState<string[]>([]);
+  const [progress, setProgress] = useState<any>(null);
 
   useEffect(() => {
     // Aktuellen Benutzer laden und Punkte synchronisieren
@@ -57,12 +60,34 @@ export function ResultsPage() {
           });
           
           try {
-            await updateProgressAfterQuiz(
+            const updatedProgress = await updateProgressAfterQuiz(
               currentUser.uid,
               subject,
               results,
-              questions
+              questions,
+              quizDurationSeconds
             );
+            setProgress(updatedProgress);
+            
+            // Prüfe neu verdiente Badges
+            const isPerfect = results.every((r) => r.isCorrect);
+            const totalTime = quizDurationSeconds || results.reduce((sum, r) => (r.timeSpent || 0) + sum, 0);
+            
+            const beforeBadges = updatedProgress.badges.length;
+            const earnedBadges = checkEarnedBadges(updatedProgress, {
+              isPerfect,
+              totalTimeSeconds: totalTime,
+            });
+            
+            // Lade Progress neu um aktuellen Stand zu haben
+            const freshProgress = await loadProgress(currentUser.uid);
+            const afterBadges = freshProgress.badges.length;
+            
+            if (afterBadges > beforeBadges) {
+              const newBadges = freshProgress.badges.slice(beforeBadges);
+              setNewlyEarnedBadges(newBadges);
+            }
+            
             setProgressSynced(true);
             console.log('✅ Fortschritt erfolgreich gespeichert!');
           } catch (progressError: any) {
@@ -145,6 +170,36 @@ export function ResultsPage() {
               </Badge>
             )}
           </Card>
+
+          {/* Neu verdiente Badges */}
+          {newlyEarnedBadges.length > 0 && (
+            <Card className="mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 animate-fade-in">
+              <div className="text-center">
+                <div className="text-5xl mb-3">🏆</div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  Neue Badges verdient!
+                </h3>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {newlyEarnedBadges.map((badgeId) => {
+                    const badge = getBadgeById(badgeId);
+                    if (!badge) return null;
+                    return (
+                      <div
+                        key={badgeId}
+                        className="bg-white rounded-lg p-4 shadow-lg border-2 border-yellow-400 transform hover:scale-105 transition-transform"
+                      >
+                        <div className="text-5xl mb-2">{badge.emoji}</div>
+                        <div className="font-bold text-lg">{badge.name}</div>
+                        <div className="text-sm text-gray-600 mt-1">
+                          {badge.description}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Detaillierte Ergebnisse */}
           <Card className="mb-6">

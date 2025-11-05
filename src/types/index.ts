@@ -14,6 +14,7 @@ export interface Question {
   points: number; // Punkte für richtige Antwort
   difficulty?: 'leicht' | 'mittel' | 'schwer'; // Schwierigkeitsgrad
   topic?: string; // Thema (z.B. "addition", "buchstaben")
+  explanation?: string; // Kindgerechte Erklärung bei falscher Antwort
 }
 
 // Quiz-Ergebnis Typ

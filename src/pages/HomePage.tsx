@@ -11,6 +11,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
+import { getAllBadges, getBadgeById } from '../data/badges';
 import type { User, Progress } from '../types';
 
 const subjects = [
@@ -146,6 +147,75 @@ export function HomePage() {
               <div className="text-center py-4">
                 <div className="text-gray-500">Lade Fortschritt...</div>
               </div>
+            </Card>
+          )}
+
+          {/* Badge-Galerie */}
+          {progress && (
+            <Card className="mb-6">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">
+                🏆 Deine Badges
+              </h3>
+              {progress.badges.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {progress.badges.map((badgeId) => {
+                    const badge = getBadgeById(badgeId);
+                    if (!badge) return null;
+                    return (
+                      <div
+                        key={badgeId}
+                        className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-4 text-center border-2 border-yellow-300 shadow-md hover:shadow-lg transition-shadow"
+                      >
+                        <div className="text-4xl mb-2">{badge.emoji}</div>
+                        <div className="font-bold text-sm">{badge.name}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <div className="text-4xl mb-2">🎯</div>
+                  <p>Noch keine Badges verdient!</p>
+                  <p className="text-sm mt-2">
+                    Spiele Quizzes und sammle Badges für deine Erfolge!
+                  </p>
+                </div>
+              )}
+              
+              {/* Alle verfügbaren Badges anzeigen (mit Verlauf) */}
+              {progress.badges.length > 0 && (
+                <details className="mt-4">
+                  <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800">
+                    Alle verfügbaren Badges anzeigen
+                  </summary>
+                  <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {getAllBadges().map((badge) => {
+                      const isEarned = progress.badges.includes(badge.id);
+                      return (
+                        <div
+                          key={badge.id}
+                          className={`rounded-lg p-4 text-center border-2 ${
+                            isEarned
+                              ? 'bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300 shadow-md'
+                              : 'bg-gray-50 border-gray-200 opacity-50'
+                          }`}
+                        >
+                          <div className="text-4xl mb-2">{badge.emoji}</div>
+                          <div className={`font-bold text-sm ${isEarned ? '' : 'text-gray-400'}`}>
+                            {badge.name}
+                          </div>
+                          <div className={`text-xs mt-1 ${isEarned ? 'text-gray-600' : 'text-gray-400'}`}>
+                            {badge.description}
+                          </div>
+                          {!isEarned && (
+                            <div className="text-xs text-gray-400 mt-2">🔒 Noch nicht verdient</div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </details>
+              )}
             </Card>
           )}
 

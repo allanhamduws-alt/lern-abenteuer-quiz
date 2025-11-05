@@ -25,17 +25,17 @@ export function Button({
   className,
 }: ButtonProps) {
   const baseStyles =
-    'font-bold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95';
 
   const variantStyles = {
     primary:
-      'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500',
+      'bg-primary-500 text-white hover:bg-primary-600 hover:shadow-lg focus:ring-primary-500',
     secondary:
-      'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500',
+      'bg-gray-200 text-gray-800 hover:bg-gray-300 hover:shadow-md focus:ring-gray-500',
     success:
-      'bg-success-500 text-white hover:bg-success-600 focus:ring-success-500',
-    danger: 'bg-error-500 text-white hover:bg-error-600 focus:ring-error-500',
-    warning: 'bg-warning-500 text-white hover:bg-warning-600 focus:ring-warning-500',
+      'bg-success-500 text-white hover:bg-success-600 hover:shadow-lg focus:ring-success-500',
+    danger: 'bg-error-500 text-white hover:bg-error-600 hover:shadow-lg focus:ring-error-500',
+    warning: 'bg-warning-500 text-white hover:bg-warning-600 hover:shadow-lg focus:ring-warning-500',
   };
 
   const sizeStyles = {
