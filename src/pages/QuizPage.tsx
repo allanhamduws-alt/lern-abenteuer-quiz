@@ -5,13 +5,16 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getRandomQuestions } from '../data/questions';
+import { getRandomQuestions, getAdaptiveQuestions } from '../data/questions';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Confetti } from '../components/ui/Confetti';
 import { Stars } from '../components/ui/Stars';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
+import { StoryCard } from '../components/story/StoryCard';
+import { InputQuestion } from '../components/quiz/InputQuestion';
+import { DragDropQuestion } from '../components/quiz/DragDropQuestion';
 import type { Question, QuizResult } from '../types';
 
 export function QuizPage() {
@@ -22,7 +25,7 @@ export function QuizPage() {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | string | string[] | null>(null);
   const [results, setResults] = useState<QuizResult[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
@@ -35,11 +38,13 @@ export function QuizPage() {
   const pointsAnimationRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Fragen laden - jetzt 8 Fragen statt 5
-    const quizQuestions = getRandomQuestions(
+    // Fragen laden - adaptive Auswahl für bessere Anpassung
+    const recentResults = results.map(r => ({ isCorrect: r.isCorrect }));
+    const quizQuestions = getAdaptiveQuestions(
       classLevel,
       subject as Question['subject'],
-      8
+      8,
+      recentResults
     );
     setQuestions(quizQuestions);
     setCurrentQuestionIndex(0); // Reset auf erste Frage
@@ -68,106 +73,129 @@ export function QuizPage() {
     quizStartTimeRef.current = quizStartTime;
   }, [results, currentQuestionIndex, questions, quizStartTime]);
 
-  // Automatisch zur nächsten Frage nach 2-3 Sekunden
-  useEffect(() => {
-    if (showResult && selectedAnswer !== null && currentQuestion && questions.length > 0) {
-      // Alten Timeout löschen falls vorhanden
-      if (autoNextTimeoutRef.current) {
-        clearTimeout(autoNextTimeoutRef.current);
-      }
-
-      // Neue Frage nach 2.5 Sekunden
-      autoNextTimeoutRef.current = setTimeout(() => {
-        const currentIdx = currentQuestionIndexRef.current;
-        const currentQuestions = questionsRef.current;
-        const currentResults = resultsRef.current;
-
-        if (currentIdx < currentQuestions.length - 1) {
-          // Zur nächsten Frage mit Transition
-          setIsTransitioning(true);
-          setTimeout(() => {
-            setCurrentQuestionIndex(currentIdx + 1);
-            setSelectedAnswer(null);
-            setShowResult(false);
-            setQuestionStartTime(Date.now());
-            setIsTransitioning(false);
-          }, 300);
-        } else {
-          // Quiz beendet
-          const totalPoints = currentResults.reduce(
-            (sum, r) => sum + r.points,
-            0
-          );
-          // Berechne Quiz-Dauer (Gesamtzeit)
-          const quizDurationSeconds = Math.round((Date.now() - quizStartTimeRef.current) / 1000);
+  // Navigation zur nächsten Frage (manuell per Pfeil)
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setSelectedAnswer(null);
+        setShowResult(false);
+        setQuestionStartTime(Date.now());
+        setIsTransitioning(false);
+      }, 300);
+    } else {
+      // Quiz beendet
+      const totalPoints = results.reduce((sum, r) => sum + r.points, 0);
+      const quizDurationSeconds = Math.round((Date.now() - quizStartTime) / 1000);
       
       navigate('/results', {
         state: {
-          results: currentResults,
+          results,
           totalPoints,
-          questions: currentQuestions,
+          questions,
           subject: subject as Question['subject'],
           classLevel,
           quizDurationSeconds,
         },
       });
-        }
-      }, 2500);
     }
+  };
 
-    // Cleanup beim Unmount oder wenn sich showResult ändert
-    return () => {
-      if (autoNextTimeoutRef.current) {
-        clearTimeout(autoNextTimeoutRef.current);
-      }
-    };
-  }, [showResult, selectedAnswer, navigate, subject, classLevel, currentQuestion, questions.length]);
+  // Navigation zur vorherigen Frage
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestionIndex(currentQuestionIndex - 1);
+        // Lade gespeicherte Antwort für diese Frage
+        const prevResult = results.find((r) => r.questionId === questions[currentQuestionIndex - 1].id);
+        setSelectedAnswer(prevResult?.selectedAnswer || null);
+        setShowResult(prevResult !== undefined);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
 
-  const handleAnswerSelect = (answerIndex: number) => {
+  // Universelle Antwort-Handler-Funktion
+  const handleAnswer = (answer: number | string | string[]) => {
     if (!showResult && currentQuestion) {
       // Antwort direkt setzen
-      setSelectedAnswer(answerIndex);
+      setSelectedAnswer(answer);
       // Ergebnis sofort anzeigen
       setShowResult(true);
 
-      // Ergebnis sofort speichern
-      const isCorrect = answerIndex === currentQuestion.correctAnswer;
+      // Ergebnis prüfen basierend auf Fragetyp
+      let isCorrect = false;
+      if (currentQuestion.type === 'input' || typeof currentQuestion.correctAnswer === 'string') {
+        // String-Vergleich für Input-Fragen
+        isCorrect = String(answer).toLowerCase().trim() === String(currentQuestion.correctAnswer).toLowerCase().trim();
+      } else if (currentQuestion.type === 'drag-drop' || Array.isArray(answer)) {
+        // Array-Vergleich für Drag & Drop
+        isCorrect = JSON.stringify(answer) === JSON.stringify(currentQuestion.correctAnswer);
+      } else {
+        // Number-Vergleich für Multiple-Choice
+        isCorrect = answer === currentQuestion.correctAnswer;
+      }
+
       const points = isCorrect ? currentQuestion.points : 0;
       const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
 
       const newResult: QuizResult = {
         questionId: currentQuestion.id,
-        selectedAnswer: answerIndex,
+        selectedAnswer: answer,
         isCorrect,
         points,
         timeSpent,
       };
 
-      const updatedResults = [...results, newResult];
+      // Prüfe ob bereits ein Result für diese Frage existiert und überschreibe es
+      const existingResultIndex = results.findIndex((r) => r.questionId === currentQuestion.id);
+      let updatedResults: QuizResult[];
+      if (existingResultIndex >= 0) {
+        updatedResults = [...results];
+        updatedResults[existingResultIndex] = newResult;
+      } else {
+        updatedResults = [...results, newResult];
+      }
       setResults(updatedResults);
 
-      // Animationen bei richtiger Antwort
-      if (isCorrect) {
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 2000);
+      // Punktzähler animieren
+      const currentPoints = results.reduce((sum, r) => sum + r.points, 0);
+      const newTotalPoints = updatedResults.reduce((sum, r) => sum + r.points, 0);
+      animatePoints(currentPoints, newTotalPoints);
 
-        // Punktzähler animieren
-        const currentPoints = results.reduce((sum, r) => sum + r.points, 0);
-        const newTotalPoints = currentPoints + points;
-        animatePoints(currentPoints, newTotalPoints);
-      }
+      // Konfetti nur bei größeren Erfolgen, nicht bei jeder richtigen Antwort
+      const totalPoints = updatedResults.reduce((sum, r) => sum + r.points, 0);
+      const pointMilestones = [50, 100, 200, 500, 1000];
+      const crossedMilestone = pointMilestones.some(
+        (milestone) => currentPoints < milestone && newTotalPoints >= milestone
+      );
 
       // Prüfe ob 100% erreicht wurde (alle Fragen richtig beantwortet)
       const totalCorrect = updatedResults.filter((r) => r.isCorrect).length;
       const totalQuestions = updatedResults.length;
-      if (totalCorrect === totalQuestions && totalQuestions === questions.length) {
-        // Verzögere Sterne-Animation bis nach Konfetti
+      const isPerfectQuiz = totalCorrect === totalQuestions && totalQuestions === questions.length;
+
+      // Konfetti nur bei Milestones oder perfektem Quiz
+      if (isCorrect && (crossedMilestone || isPerfectQuiz)) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
+      }
+
+      // Sterne bei perfektem Quiz
+      if (isPerfectQuiz) {
         setTimeout(() => {
           setShowStars(true);
           setTimeout(() => setShowStars(false), 2000);
         }, 500);
       }
     }
+  };
+
+  // Handler für Multiple-Choice (rückwärtskompatibel)
+  const handleAnswerSelect = (answerIndex: number) => {
+    handleAnswer(answerIndex);
   };
 
   // Animiert den Punktzähler hochzählen
@@ -258,9 +286,6 @@ export function QuizPage() {
           {/* Fortschrittsbalken */}
           <div className="mb-6">
             <div className="flex justify-between text-sm text-gray-600 mb-2">
-              <span>
-                Frage {currentQuestionIndex + 1} von {questions.length}
-              </span>
               <span
                 key={animatedPoints}
                 className="font-bold text-primary-600 animate-count-up inline-block"
@@ -268,9 +293,9 @@ export function QuizPage() {
                 {animatedPoints} Punkte
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+            <div className="w-full bg-gray-300 rounded-full h-4 overflow-hidden shadow-inner">
               <div
-                className="bg-gradient-to-r from-primary-500 to-primary-600 h-3 rounded-full transition-all duration-500 ease-out shadow-md animate-pulse-glow"
+                className="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full transition-all duration-500 ease-out shadow-md"
                 style={{
                   width: `${progressPercentage}%`,
                 }}
@@ -280,53 +305,82 @@ export function QuizPage() {
 
           {/* Frage-Karte */}
           <Card className={`mb-6 ${isTransitioning ? 'opacity-0' : 'opacity-100 animate-slide-in'} transition-opacity duration-300`}>
+            {/* Story-Card anzeigen, falls vorhanden */}
+            <StoryCard
+              character={currentQuestion.character}
+              storyText={currentQuestion.storyText}
+              world={currentQuestion.world}
+            />
+            
             <h2 className="text-3xl font-bold mb-6 text-gray-800">
               {currentQuestion.question}
             </h2>
 
-            <div className="space-y-3">
-              {currentQuestion.options.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(index)}
-                  disabled={showResult}
-                  className={`w-full p-4 rounded-lg text-left transition-all duration-300 ${
-                    showResult
-                      ? index === currentQuestion.correctAnswer
-                        ? 'bg-success-500 text-white shadow-lg scale-105'
-                        : selectedAnswer === index && selectedAnswer !== currentQuestion.correctAnswer
-                        ? 'bg-error-500 text-white'
-                        : 'bg-gray-100 text-gray-700 opacity-60'
-                      : selectedAnswer === index
-                      ? 'bg-primary-500 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md hover:scale-[1.02]'
-                  }`}
-                >
-                  <span className="font-bold mr-2">{String.fromCharCode(65 + index)}.</span>
-                  {option}
-                </button>
-              ))}
-            </div>
+            {/* Rendere verschiedene Fragetypen */}
+            {currentQuestion.type === 'input' ? (
+              <InputQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={typeof selectedAnswer === 'string' ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'drag-drop' ? (
+              <DragDropQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : (
+              /* Multiple-Choice (Standard) */
+              <>
+                <div className="space-y-3">
+                  {(currentQuestion.options || []).map((option, index) => {
+                    const isSelected = selectedAnswer === index;
+                    const isCorrectAnswer = index === currentQuestion.correctAnswer;
+                    const isWrong = isSelected && !isCorrectAnswer;
+                    
+                    // Bestimme die Button-Farbe basierend auf dem Ergebnis
+                    let buttonClasses = 'w-full p-4 rounded-lg text-left transition-all duration-300 ';
+                    
+                    if (showResult) {
+                      if (isCorrectAnswer) {
+                        // Richtige Antwort: GRÜN
+                        buttonClasses += 'bg-green-500 text-white shadow-lg scale-105 font-semibold';
+                      } else if (isWrong) {
+                        // Falsche ausgewählte Antwort: ROT
+                        buttonClasses += 'bg-red-500 text-white font-semibold';
+                      } else {
+                        // Andere Optionen: Grau ausgegraut
+                        buttonClasses += 'bg-gray-100 text-gray-500 opacity-60';
+                      }
+                    } else {
+                      // Nicht beantwortet: Standard grau
+                      buttonClasses += 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md hover:scale-[1.02]';
+                    }
+                    
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleAnswerSelect(index)}
+                        disabled={showResult}
+                        className={buttonClasses}
+                      >
+                        <span className="font-bold mr-2">{String.fromCharCode(65 + index)}.</span>
+                        {option}
+                      </button>
+                    );
+                  })}
+                </div>
 
-            {showResult && selectedAnswer !== null && (
-              <div className="mt-6 animate-fade-in">
-                <div
-                  className={`p-4 rounded-lg mb-4 ${
-                    selectedAnswer === currentQuestion.correctAnswer
-                      ? 'bg-success-50 text-success-800 border-2 border-success-300'
-                      : 'bg-error-50 text-error-800 border-2 border-error-300'
-                  }`}
-                >
-                  {selectedAnswer === currentQuestion.correctAnswer ? (
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">🎉</div>
-                      <div className="text-xl font-bold">Richtig! Sehr gut gemacht!</div>
-                    </div>
-                  ) : (
-                    <div>
+                {/* Erfolgs-Box nur bei falschen Antworten (für Erklärung) */}
+                {showResult && selectedAnswer !== null && typeof selectedAnswer === 'number' && 
+                 selectedAnswer !== currentQuestion.correctAnswer && (
+                  <div className="mt-6 animate-fade-in">
+                    <div className="p-4 rounded-lg mb-4 bg-error-50 text-error-800 border-2 border-error-300">
                       <div className="text-xl font-bold mb-2">💪 Fast richtig!</div>
                       <div className="mb-3">
-                        Die richtige Antwort ist: <strong>{currentQuestion.options[currentQuestion.correctAnswer]}</strong>
+                        Die richtige Antwort ist: <strong>{currentQuestion.options?.[currentQuestion.correctAnswer as number]}</strong>
                       </div>
                       {currentQuestion.explanation && (
                         <div className="bg-white bg-opacity-50 rounded-lg p-3 mt-3 border-l-4 border-primary-400">
@@ -338,14 +392,53 @@ export function QuizPage() {
                           </div>
                         </div>
                       )}
-                      <div className="text-sm mt-3 opacity-80">
-                        Weiter geht's automatisch in Kürze...
-                      </div>
                     </div>
-                  )}
-                </div>
-              </div>
+                  </div>
+                )}
+              </>
             )}
+
+            {/* Navigation-Pfeile unten */}
+            <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
+              <button
+                onClick={handlePreviousQuestion}
+                disabled={currentQuestionIndex === 0}
+                className={`p-3 rounded-lg transition-all duration-300 ${
+                  currentQuestionIndex === 0
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
+                    : 'bg-primary-100 text-primary-700 hover:bg-primary-200 shadow-md hover:shadow-lg'
+                }`}
+                title="Zurück zur vorherigen Frage"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <div className="text-sm text-gray-600 font-semibold">
+                Frage {currentQuestionIndex + 1} von {questions.length}
+              </div>
+              
+              <button
+                onClick={handleNextQuestion}
+                disabled={!showResult}
+                className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 flex items-center gap-2 ${
+                  !showResult
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
+                    : currentQuestionIndex === questions.length - 1
+                    ? 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95'
+                    : 'bg-green-500 text-white hover:bg-green-600 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95'
+                }`}
+                title={currentQuestionIndex === questions.length - 1 ? "Zur Auswertung" : "Zur nächsten Frage"}
+              >
+                <span className="text-base">
+                  {currentQuestionIndex === questions.length - 1 ? 'Auswertung' : 'Weiter'}
+                </span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
           </Card>
         </div>
       </div>
