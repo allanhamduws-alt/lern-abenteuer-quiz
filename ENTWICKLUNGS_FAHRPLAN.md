@@ -4,17 +4,22 @@
 
 ## 📍 Aktueller Stand
 
-**Status:** Phase 1 abgeschlossen ✅ - Phase 2 kann starten
+**Status:** Phase 2 abgeschlossen ✅ - Phase 3 kann starten
 - ✅ Sofortiges Feedback implementiert
 - ✅ Erfolgs-Animationen vorhanden
 - ✅ Badge-System funktioniert
 - ✅ Fehlererklärungen hinzugefügt
 - ✅ Visuelle Verbesserungen abgeschlossen
+- ✅ Storytelling-Elemente implementiert (Max & Luna)
+- ✅ Adaptive Schwierigkeit funktioniert
+- ✅ Verschiedene Fragetypen (Input, Drag & Drop)
+- ✅ UI-Verbesserungen (Navigation, Feedback, Fortschrittsbalken)
+- ✅ Fragen angepasst (Klasse 1-2 ohne StoryText, Klasse 3+ 50/50)
 - Quiz spielen funktioniert
 - Fortschritte werden gespeichert
 - Dashboard zeigt Daten an
 
-**Nächste Phase:** Phase 2 - Mittelfristige Features
+**Nächste Phase:** Phase 3 - Erweiterte Features (Mini-Spiele, Level-System)
 
 ---
 
@@ -137,74 +142,161 @@
 
 ---
 
-## 🚀 PHASE 2: Mittelfristige Features (2-4 Wochen)
+## 🚀 PHASE 2: Mittelfristige Features - ✅ ABGESCHLOSSEN
 
-### Sprint 2.1: Storytelling-Elemente
+### Sprint 2.1: Storytelling-Elemente ✅ ABGESCHLOSSEN
 
-**Aufgabe:** Fragen in Geschichten einbetten
+**Aufgabe:** Fragen in Geschichten einbetten ✅
 
 **Features:**
-1. Charaktere einführen (Max, Luna)
-2. Fragen-Format ändern: "Max hat 5 Äpfel..."
-3. Charaktere begleiten durch Quiz
-4. Verschiedene Welten pro Fach
+1. ✅ Charaktere eingeführt (Max 👦, Luna 👧)
+2. ✅ StoryCard-Komponente erstellt
+3. ✅ Verschiedene Welten pro Fach (Mathe-Land 🔢, Deutsch-Stadt 📚, etc.)
+4. ✅ Stories zu Fragen hinzugefügt (Klasse 3+)
+5. ✅ Klasse 1-2 ohne StoryText (kinderfreundlich)
 
-**Dateien ändern:**
-- `src/types/index.ts` (Story-Felder hinzufügen)
-- `src/data/questions.ts` (Stories hinzufügen)
-- `src/pages/QuizPage.tsx` (Story-Anzeige)
+**Dateien geändert:**
+- ✅ `src/types/index.ts` (Story-Felder hinzugefügt)
+- ✅ `src/data/questions.ts` (Stories hinzugefügt)
+- ✅ `src/pages/QuizPage.tsx` (Story-Anzeige)
+- ✅ `src/components/story/StoryCard.tsx` (neu)
+
+**Ergebnis:**
+- ✅ Emotionale Bindung durch Charaktere
+- ✅ Besseres Verständnis durch Kontext
+- ✅ Mehr Motivation durch Storytelling
 
 ---
 
-### Sprint 2.2: Adaptive Schwierigkeit
+### Sprint 2.2: Adaptive Schwierigkeit ✅ ABGESCHLOSSEN
 
-**Aufgabe:** Schwierigkeit automatisch anpassen
+**Aufgabe:** Schwierigkeit automatisch anpassen ✅
 
 **Implementierung:**
-1. Fragen haben Schwierigkeits-Level
-2. Algorithmus passt Dynamik an
-3. Startet mit mittlerer Schwierigkeit
-4. Passt sich an Performance an
+1. ✅ Alle Fragen mit Schwierigkeits-Level versehen (leicht/mittel/schwer)
+2. ✅ Adaptive Frage-Auswahl-Funktion (`getAdaptiveQuestions`)
+3. ✅ Startet mit mittlerer Schwierigkeit
+4. ✅ Passt sich basierend auf letzten 3 Antworten an:
+   - 3 richtige → schwierigere Fragen
+   - 3 falsche → leichtere Fragen
+   - Sonst → mittlere Schwierigkeit
 
-**Dateien ändern:**
-- `src/types/index.ts` (Difficulty-Level)
-- `src/data/questions.ts` (Levels zuweisen)
-- `src/services/progress.ts` (Adaptive-Logik)
+**Dateien geändert:**
+- ✅ `src/types/index.ts` (Difficulty-Level bereits vorhanden)
+- ✅ `src/data/questions.ts` (Levels zu allen Fragen zugewiesen)
+- ✅ `src/data/questions.ts` (Adaptive-Logik implementiert)
+- ✅ `src/pages/QuizPage.tsx` (Nutzt adaptive Fragen-Auswahl)
+
+**Ergebnis:**
+- ✅ Flow State für jedes Kind
+- ✅ Keine Frustration durch zu schwere Fragen
+- ✅ Keine Langeweile durch zu leichte Fragen
 
 ---
 
-### Sprint 2.3: Verschiedene Fragetypen
+### Sprint 2.3: Verschiedene Fragetypen ✅ ABGESCHLOSSEN
 
-**Aufgabe:** Nicht nur Multiple-Choice
+**Aufgabe:** Nicht nur Multiple-Choice ✅
 
 **Fragetypen:**
-1. Drag & Drop
-2. Eingabe-Fragen
-3. Bild-Aufgaben
-4. Audio-Fragen (optional)
+1. ✅ Multiple-Choice (bereits vorhanden)
+2. ✅ Input-Fragen (direkte Eingabe)
+3. ✅ Drag & Drop (implementiert)
+4. ⏳ Bild-Aufgaben (geplant)
+5. ⏳ Audio-Fragen (optional, geplant)
 
-**Dateien ändern:**
-- `src/types/index.ts` (Question-Type erweitern)
-- `src/components/quiz/` (neue Komponenten)
-- `src/pages/QuizPage.tsx` (Fragetyp-Rendering)
+**Dateien geändert:**
+- ✅ `src/types/index.ts` (Question-Type erweitert)
+- ✅ `src/components/quiz/InputQuestion.tsx` (neu)
+- ✅ `src/components/quiz/DragDropQuestion.tsx` (neu)
+- ✅ `src/pages/QuizPage.tsx` (Fragetyp-Rendering)
+
+**Ergebnis:**
+- ✅ Mehr Abwechslung
+- ✅ Verschiedene Lerntypen unterstützt
+- ✅ Interessanteres Quiz-Erlebnis
+
+---
+
+### Sprint 2.4: UI-Verbesserungen ✅ ABGESCHLOSSEN
+
+**Aufgabe:** Feedback und Navigation verbessern ✅
+
+**Features:**
+1. ✅ Direktes Feedback: Antworten werden sofort grün/rot beim Klick
+2. ✅ Navigation-Pfeile unten mit "Weiter"/"Auswertung" Button
+3. ✅ Grüner Fortschrittsbalken (sichtbarer)
+4. ✅ Konfetti nur bei Milestones/Badges (nicht bei jeder Antwort)
+5. ✅ Erfolgs-Box nur bei falschen Antworten (für Erklärung)
+6. ✅ Manuelle Navigation (kein automatisches Weiter)
+
+**Dateien geändert:**
+- ✅ `src/pages/QuizPage.tsx` (alle UI-Verbesserungen)
+- ✅ `src/components/quiz/InputQuestion.tsx` (Feedback angepasst)
+- ✅ `src/components/quiz/DragDropQuestion.tsx` (Feedback angepasst)
+
+**Ergebnis:**
+- ✅ Klareres visuelles Feedback
+- ✅ Bessere Kontrolle für Kinder
+- ✅ Professionelleres Erlebnis
+
+---
+
+## 🚀 PHASE 3: Erweiterte Features (Geplant)
+
+### Sprint 3.1: Mini-Spiele Foundation
+
+**Aufgabe:** Basis-System für Mini-Spiele erstellen
+
+**Features:**
+1. BaseGame-Komponente erstellen
+2. 1-2 einfache Spiele pro Fach
+3. 1-2 fortgeschrittene Spiele pro Fach
+4. Integration in QuizPage/HomePage
+
+**Ziel:** System etablieren, dann weitere Spiele hinzufügen
+
+---
+
+### Sprint 3.2: Level-System
+
+**Aufgabe:** Level-System pro Fach implementieren
+
+**Features:**
+1. Level pro Fach (z.B. "Mathe-Meister Level 3")
+2. Level-Up bei Meilensteinen
+3. Neue Features/Badges bei Level-Up
+4. Visualisierung: Level-Balken
+
+---
+
+### Sprint 3.3: Inhalte vervollständigen
+
+**Aufgabe:** Mehr Fragen für alle Fächer
+
+**Ziel:**
+- Mindestens 50 Fragen pro Fach (über alle Klassen)
+- Alle Fächer: Mathematik, Deutsch, Naturwissenschaften, Kunst, Logik
+- Mehr Storytelling-Variationen
 
 ---
 
 ## 📋 Konkrete Nächste Schritte (JETZT)
 
 ### Schritt 1: Prioritäten setzen
-✅ Entscheidung: Phase 1 abgeschlossen - Phase 2 starten
+✅ Entscheidung: Phase 2 abgeschlossen - Phase 3 starten
 
 ### Schritt 2: Erste Aufgabe beginnen
-**Sprint 2.1: Storytelling-Elemente**
-- Charaktere einführen (Max, Luna)
-- Fragen in Geschichten einbetten
-- Emotionale Bindung schaffen
+**Sprint 3.1: Mini-Spiele Foundation**
+- BaseGame-Komponente erstellen
+- Erstes einfaches Mini-Spiel (z.B. Zahlen-Sortierung)
+- System testen und validieren
 
 ### Schritt 3: Implementieren
 - Code-Änderungen vornehmen
 - Testen
 - Anpassen
+- Weitere Spiele hinzufügen
 
 ---
 
@@ -220,7 +312,14 @@
 - ✅ Kind verbindet sich emotional (Storytelling)
 - ✅ Schwierigkeit passt sich an
 - ✅ Abwechslung durch verschiedene Fragetypen
-- ✅ Langzeitmotivation durch Level-System
+- ✅ Besseres visuelles Feedback
+- ✅ Mehr Kontrolle durch manuelle Navigation
+
+### Phase 3 Erfolg (geplant):
+- ✅ Kind spielt Mini-Spiele als Belohnung
+- ✅ Level-System motiviert langfristig
+- ✅ Alle Fächer haben ausreichend Inhalte
+- ✅ Mehr Abwechslung durch verschiedene Aktivitäten
 
 ---
 
@@ -266,6 +365,6 @@ Vor jeder neuen Feature-Implementierung:
 
 **Dieser Fahrplan sollte regelmäßig aktualisiert werden!**
 
-*Letzte Aktualisierung: [Datum]*
-*Version: 1.0*
+*Letzte Aktualisierung: Phase 2 abgeschlossen*
+*Version: 2.0*
 

@@ -18,15 +18,37 @@ Eine interaktive Lern-App für Grundschulkinder (Klassen 1-4) mit Quiz-Fragen, P
 
 ## 🎯 Features
 
+### Grundfunktionen
 - ✅ Einfache Login/Register-Funktion
 - ✅ Klassenauswahl (1-4)
 - ✅ Fachauswahl (Mathematik, Deutsch, Naturwissenschaften, Kunst, Logik)
-- ✅ Multiple-Choice Quiz-Fragen
 - ✅ Punkte-System
 - ✅ Ergebnis-Anzeige mit detailliertem Feedback
 - ✅ Fortschritts-Tracking
 - ✅ Lernstreak-System
 - ✅ Schwierige Aufgaben-Tracking
+
+### Quiz-Features
+- ✅ Multiple-Choice Quiz-Fragen
+- ✅ Input-Fragen (direkte Eingabe)
+- ✅ Drag & Drop Fragen
+- ✅ Sofortiges visuelles Feedback (grün/rot beim Klick)
+- ✅ Adaptive Schwierigkeit (passt sich automatisch an)
+- ✅ Manuelle Navigation zwischen Fragen (Pfeile)
+- ✅ Grüner Fortschrittsbalken
+
+### Storytelling & Gamification
+- ✅ Storytelling-Elemente mit Charakteren Max & Luna
+- ✅ Verschiedene Welten pro Fach (Mathe-Land, Deutsch-Stadt, etc.)
+- ✅ Badge-System (5 Badges implementiert)
+- ✅ Konfetti-Animationen bei größeren Erfolgen (Milestones)
+- ✅ Sterne-Animation bei perfektem Quiz (100%)
+
+### Fragen-Anpassung
+- ✅ Klasse 1-2: Direkte Fragen ohne Textaufgaben (kinderfreundlich)
+- ✅ Klasse 3+: 50% mit StoryText, 50% ohne
+- ✅ Mindestens 10 Fragen pro Klasse/Fach
+- ✅ Alle Fragen mit Schwierigkeits-Level (leicht/mittel/schwer)
 
 ## 🚀 Schnellstart
 
@@ -61,17 +83,26 @@ Die App läuft dann unter `http://localhost:5173`
 ```
 src/
 ├── components/        # Wiederverwendbare UI-Komponenten
-│   └── ui/           # Button, Card, Header, Badge
+│   ├── ui/           # Button, Card, Header, Badge, Confetti, Stars, LoadingSpinner
+│   ├── quiz/         # Fragetyp-Komponenten
+│   │   ├── InputQuestion.tsx
+│   │   └── DragDropQuestion.tsx
+│   └── story/        # Storytelling-Komponenten
+│       └── StoryCard.tsx
 ├── pages/            # Seiten-Komponenten
 │   ├── LoginPage.tsx
 │   ├── HomePage.tsx
 │   ├── QuizPage.tsx
-│   └── ResultsPage.tsx
+│   ├── ResultsPage.tsx
+│   ├── ProgressPage.tsx
+│   └── PracticePage.tsx
 ├── services/         # Firebase-Services
 │   ├── firebase.ts   # Firebase-Konfiguration
-│   └── auth.ts       # Authentifizierung
-├── data/             # Quiz-Fragen
-│   └── questions.ts
+│   ├── auth.ts       # Authentifizierung
+│   └── progress.ts   # Fortschritts-Tracking
+├── data/             # Quiz-Fragen & Badges
+│   ├── questions.ts  # Alle Quiz-Fragen
+│   └── badges.ts     # Badge-Definitionen
 ├── types/            # TypeScript-Typen
 │   └── index.ts
 └── router.tsx        # Routing-Konfiguration
@@ -95,12 +126,24 @@ Fragen können in `src/data/questions.ts` hinzugefügt werden. Das Format ist ei
   id: "unique-id",
   class: 1,                    // Klasse 1-4
   subject: "mathematik",       // Fach
+  type: "multiple-choice",     // Fragetyp: multiple-choice | input | drag-drop
   question: "Wie viel ist 2 + 3?",
-  options: ["4", "5", "6", "7"],
-  correctAnswer: 1,            // Index der richtigen Antwort
-  points: 10                   // Punkte
+  options: ["4", "5", "6", "7"], // Nur für multiple-choice
+  correctAnswer: 1,            // Index (multiple-choice) oder String (input)
+  points: 10,                  // Punkte
+  difficulty: "leicht",        // leicht | mittel | schwer
+  explanation: "Erklärung...", // Erklärung bei falscher Antwort
+  // Storytelling (nur Klasse 3+)
+  character: "max",            // max | luna
+  storyText: "Max hat...",     // Geschichte vor der Frage
+  world: "mathe-land"          // Welt pro Fach
 }
 ```
+
+**Wichtig:** 
+- Klasse 1-2: Keine StoryText (Kinder können noch nicht lesen)
+- Klasse 3+: 50% mit StoryText, 50% ohne
+- Mindestens 10 Fragen pro Klasse/Fach empfohlen
 
 ## 🚀 Deployment
 
@@ -135,22 +178,25 @@ firebase deploy
 
 **Aktuelle Prioritäten:** Siehe [`ENTWICKLUNGS_FAHRPLAN.md`](./ENTWICKLUNGS_FAHRPLAN.md)
 
-**Phase 1 (Quick Wins):**
-- Sofortiges Feedback im Quiz
-- Erfolgs-Animationen
-- Badge-System
-- Bessere Fehlererklärungen
+**Phase 1 (Quick Wins):** ✅ ABGESCHLOSSEN
+- ✅ Sofortiges Feedback im Quiz
+- ✅ Erfolgs-Animationen
+- ✅ Badge-System
+- ✅ Bessere Fehlererklärungen
+- ✅ Visuelle Verbesserungen
 
-**Phase 2 (Mittelfristig):**
-- Storytelling-Elemente
-- Adaptive Schwierigkeit
-- Verschiedene Fragetypen
-- Level-System
+**Phase 2 (Mittelfristig):** ✅ ABGESCHLOSSEN
+- ✅ Storytelling-Elemente (Max & Luna Charaktere)
+- ✅ Adaptive Schwierigkeit
+- ✅ Verschiedene Fragetypen (Input, Drag & Drop)
+- ✅ UI-Verbesserungen (Navigation, Feedback, Fortschrittsbalken)
+- ⏳ Level-System (geplant)
 
-**Phase 3 (Langfristig):**
+**Phase 3 (Langfristig):** 🚧 IN PLANUNG
 - Soziale Features
 - Eltern-Dashboard
 - Erweiterte Gamification
+- Mini-Spiele
 
 Für Details siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md).
 

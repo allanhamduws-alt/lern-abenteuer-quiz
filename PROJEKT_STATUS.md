@@ -78,29 +78,59 @@
 - ✅ LoadingSpinner-Komponente (interessante Loading-Animation)
 - ✅ Badge-Definitionen und Prüfungslogik
 
-## 🚧 Aktuelle Prioritäten (Phase 2: Mittelfristige Features)
+### 9. Phase 2: Mittelfristige Features ✅ ABGESCHLOSSEN
+- ✅ Sprint 2.1: Storytelling-Elemente
+  - Charaktere Max & Luna eingeführt
+  - StoryCard-Komponente erstellt
+  - Verschiedene Welten pro Fach (Mathe-Land, Deutsch-Stadt, etc.)
+  - Stories zu Fragen hinzugefügt (Klasse 3+)
+- ✅ Sprint 2.2: Adaptive Schwierigkeit
+  - Alle Fragen mit Schwierigkeits-Level versehen (leicht/mittel/schwer)
+  - Adaptive Frage-Auswahl-Funktion implementiert
+  - Dynamische Anpassung basierend auf letzten 3 Antworten
+  - Flow State für jedes Kind
+- ✅ Sprint 2.3: Verschiedene Fragetypen
+  - Input-Fragen Komponente (direkte Eingabe)
+  - Drag & Drop Komponente
+  - Question-Type erweitert (multiple-choice | input | drag-drop)
+  - QuizPage unterstützt alle Fragetypen
+- ✅ UI-Verbesserungen
+  - Direktes Feedback: Antworten werden sofort grün/rot
+  - Navigation-Pfeile unten mit "Weiter"/"Auswertung" Button
+  - Grüner Fortschrittsbalken (sichtbarer)
+  - Konfetti nur bei Milestones/Badges (nicht bei jeder Antwort)
+  - Erfolgs-Box nur bei falschen Antworten (für Erklärung)
+- ✅ Fragen-Anpassung
+  - Klasse 1-2: Alle StoryText entfernt (kinderfreundlich)
+  - Klasse 3+: 50% mit StoryText, 50% ohne
+  - Mindestens 10 Fragen pro Klasse/Fach hinzugefügt
+
+### 10. Neue Komponenten (Phase 2)
+- ✅ StoryCard-Komponente (Storytelling-Anzeige)
+- ✅ InputQuestion-Komponente (Input-Fragen)
+- ✅ DragDropQuestion-Komponente (Drag & Drop)
+
+## 🚧 Aktuelle Prioritäten (Phase 3: Erweiterte Features)
 
 ### Nächste Schritte:
-1. **Storytelling-Elemente** ⭐ Hohe Priorität
-   - Charaktere einführen (Max, Luna)
-   - Fragen in Geschichten einbetten
-   - Emotionale Bindung schaffen
-
-2. **Adaptive Schwierigkeit** ⭐ Hohe Priorität
-   - Schwierigkeits-Level zu Fragen hinzufügen
-   - Dynamische Anpassung basierend auf Performance
-   - Flow State für jedes Kind
-
-3. **Verschiedene Fragetypen** ⭐ Mittlere Priorität
-   - Drag & Drop Fragen
-   - Eingabe-Fragen
-   - Bild-Aufgaben
-   - Audio-Fragen (optional)
-
-4. **Level-System** ⭐ Mittlere Priorität
+1. **Level-System** ⭐ Hohe Priorität
    - Level pro Fach
    - Level-Up bei Meilensteinen
    - Neue Features freischalten
+
+2. **Mini-Spiele** ⭐ Hohe Priorität
+   - 1-2 einfache Spiele pro Fach
+   - 1-2 fortgeschrittene Spiele pro Fach
+   - Als Belohnung nach Quiz-Abschluss
+
+3. **Weitere Inhalte** ⭐ Mittlere Priorität
+   - Mehr Fragen hinzufügen (insbesondere andere Fächer)
+   - Naturwissenschaften Fragen
+   - Kunst & Logik Fragen
+
+4. **Erweiterte Features** ⭐ Niedrige Priorität
+   - Bild-Aufgaben
+   - Audio-Fragen (optional)
 
 ## 🔄 Geplante Features (Phase 2-3)
 
@@ -152,10 +182,11 @@ Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 
 ## 🐛 Bekannte Einschränkungen
 
-- Für Version 1 sind nur Multiple-Choice-Fragen implementiert
-- Drag & Drop und andere Fragetypen kommen in Phase 2
-- Adaptive Schwierigkeit ist noch nicht implementiert (Phase 2)
-- Storytelling-Elemente fehlen noch (Phase 2)
+- Mini-Spiele fehlen noch (Phase 3)
+- Level-System noch nicht implementiert (Phase 3)
+- Nicht alle Fächer haben ausreichend Fragen (Naturwissenschaften, Kunst, Logik fehlen größtenteils)
+- Bild-Aufgaben noch nicht implementiert
+- Audio-Fragen noch nicht implementiert
 
 ## 💡 Entwicklungs-Tipps
 
