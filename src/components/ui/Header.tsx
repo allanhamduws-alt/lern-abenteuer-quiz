@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../services/auth';
 
 interface HeaderProps {
-  user?: { name: string; totalPoints: number } | null;
+  user?: { name: string; totalPoints: number; avatar?: string } | null;
 }
 
 export function Header({ user }: HeaderProps) {
@@ -30,9 +30,12 @@ export function Header({ user }: HeaderProps) {
           <div>
             <h1 className="text-2xl font-bold">🎓 Lern-Abenteuer-Quiz</h1>
             {user && (
-              <p className="text-sm text-primary-100">
-                Hallo {user.name}! • {user.totalPoints} Punkte
-              </p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xl">{user.avatar || '👦'}</span>
+                <p className="text-sm text-primary-100">
+                  Hallo {user.name}! • {user.totalPoints} Punkte
+                </p>
+              </div>
             )}
           </div>
           {user && (

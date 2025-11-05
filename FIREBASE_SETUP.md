@@ -66,9 +66,9 @@ const firebaseConfig = {
 
 3. Speichern Sie die Datei
 
-## Schritt 6: Firestore-Sicherheitsregeln (Wichtig für Produktion)
+## Schritt 6: Firestore-Sicherheitsregeln (WICHTIG!)
 
-Für die Entwicklung können Sie diese Regeln verwenden (unsicher für Produktion!):
+**Diese Regeln MÜSSEN Sie einrichten, sonst funktioniert die Registrierung nicht!**
 
 ```
 rules_version = '2';
@@ -78,15 +78,23 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+    
+    // Progress-Daten können nur vom eigenen Benutzer gelesen/geschrieben werden
+    match /progress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
   }
 }
 ```
 
 **So setzen Sie die Regeln:**
-1. Gehen Sie zu Firestore Database
+1. Gehen Sie zu Firestore Database in der Firebase-Konsole
 2. Klicken Sie auf den Tab "Regeln" oder "Rules"
-3. Fügen Sie die Regeln oben ein
-4. Klicken Sie auf "Veröffentlichen" oder "Publish"
+3. **Löschen Sie die alten Regeln** (falls vorhanden)
+4. Fügen Sie die Regeln oben ein
+5. Klicken Sie auf "Veröffentlichen" oder "Publish"
+
+**WICHTIG**: Ohne diese Regeln erhalten Sie den Fehler "Missing or insufficient permissions" beim Registrieren!
 
 ## Schritt 7: Testen
 
@@ -106,7 +114,18 @@ service cloud.firestore {
 - Lösung: Prüfen Sie, ob die Werte in `.env.local` korrekt sind (keine Anführungszeichen!)
 
 **Problem**: "Firebase: Missing or insufficient permissions"
-- Lösung: Prüfen Sie die Firestore-Regeln. Für Entwicklung können Sie temporär alle Lese-/Schreibrechte erlauben (nur für Tests!)
+- Lösung: Prüfen Sie die Firestore-Regeln. Sie MÜSSEN beide Collections (`users` und `progress`) erlauben!
+- Stellen Sie sicher, dass die Regeln in Schritt 6 korrekt eingerichtet sind
+- Falls Sie bereits registriert haben, aber die Regeln fehlen: Löschen Sie die alten Firestore-Daten und registrieren Sie sich erneut
+
+**Problem**: "Benutzer-Daten nicht gefunden" beim Login
+- Lösung: Stellen Sie sicher, dass die Firestore-Regeln korrekt sind
+- Prüfen Sie, ob der Benutzer in Firestore unter `users/{userId}` existiert
+- Falls nicht: Registrieren Sie sich erneut
+
+**Problem**: Profil-Daten werden nicht gespeichert
+- Lösung: Prüfen Sie die Firestore-Regeln für `/users/{userId}` Collection
+- Stellen Sie sicher, dass `allow write` aktiviert ist
 
 **Problem**: "Firebase: Email/Password is not enabled"
 - Lösung: Gehen Sie zu Authentication > Sign-in method und aktivieren Sie Email/Password

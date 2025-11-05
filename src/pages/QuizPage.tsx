@@ -22,34 +22,44 @@ export function QuizPage() {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [results, setResults] = useState<QuizResult[]>([]);
   const [showResult, setShowResult] = useState(false);
+  const [questionStartTime, setQuestionStartTime] = useState(Date.now());
 
   useEffect(() => {
-    // Fragen laden
+    // Fragen laden - jetzt 8 Fragen statt 5
     const quizQuestions = getRandomQuestions(
       classLevel,
       subject as Question['subject'],
-      5
+      8
     );
     setQuestions(quizQuestions);
+    setCurrentQuestionIndex(0); // Reset auf erste Frage
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setResults([]);
+    setQuestionStartTime(Date.now()); // Startzeit für erste Frage setzen
   }, [classLevel, subject]);
 
   const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswerSelect = (answerIndex: number) => {
-    setSelectedAnswer(answerIndex);
+    if (!showResult) {
+      setSelectedAnswer(answerIndex);
+    }
   };
 
   const handleNextQuestion = () => {
-    if (selectedAnswer === null) return;
+    if (selectedAnswer === null || !currentQuestion) return;
 
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
     const points = isCorrect ? currentQuestion.points : 0;
+    const timeSpent = Math.round((Date.now() - questionStartTime) / 1000); // Sekunden
 
     const newResult: QuizResult = {
       questionId: currentQuestion.id,
       selectedAnswer,
       isCorrect,
       points,
+      timeSpent,
     };
 
     const updatedResults = [...results, newResult];
@@ -59,6 +69,7 @@ export function QuizPage() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
       setShowResult(false);
+      setQuestionStartTime(Date.now()); // Neue Frage startet
     } else {
       // Quiz beendet
       const totalPoints = updatedResults.reduce(
@@ -69,10 +80,44 @@ export function QuizPage() {
         state: {
           results: updatedResults,
           totalPoints,
+          questions: questions, // Fragen auch weitergeben für Progress-Update
+          subject: subject as Question['subject'],
+          classLevel,
         },
       });
     }
   };
+
+  // Prüfe ob Fragen gefunden wurden
+  if (questions.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+        <Header />
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-3xl mx-auto">
+            <Card className="text-center">
+              <div className="text-6xl mb-4">😔</div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">
+                Keine Fragen gefunden
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Für das Fach "{subject}" in Klasse {classLevel} wurden keine Fragen gefunden.
+                <br />
+                Bitte wähle ein anderes Fach aus oder füge Fragen hinzu.
+              </p>
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={() => navigate('/home')}
+              >
+                Zurück zur Startseite
+              </Button>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!currentQuestion) {
     return (
@@ -157,9 +202,9 @@ export function QuizPage() {
                   >
                     {selectedAnswer === currentQuestion.correctAnswer
                       ? '🎉 Richtig! Sehr gut gemacht!'
-                      : `❌ Leider falsch. Die richtige Antwort ist: ${
+                      : `💪 Nicht aufgeben! Die richtige Antwort ist: ${
                           currentQuestion.options[currentQuestion.correctAnswer]
-                        }`}
+                        } - Du kannst es beim nächsten Mal schaffen!`}
                   </div>
                 ) : (
                   <Button

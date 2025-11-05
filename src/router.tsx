@@ -8,6 +8,8 @@ import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage';
 import { QuizPage } from './pages/QuizPage';
 import { ResultsPage } from './pages/ResultsPage';
+import { ProgressPage } from './pages/ProgressPage';
+import { PracticePage } from './pages/PracticePage';
 import { onAuthChange } from './services/auth';
 import { useState, useEffect } from 'react';
 import type { User as FirebaseUser } from 'firebase/auth';
@@ -62,6 +64,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <ResultsPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/progress',
+    element: (
+      <ProtectedRoute>
+        <ProgressPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/practice',
+    element: (
+      <ProtectedRoute>
+        <PracticePage />
       </ProtectedRoute>
     ),
   },

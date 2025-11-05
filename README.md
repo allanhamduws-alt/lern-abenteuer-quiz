@@ -2,6 +2,20 @@
 
 Eine interaktive Lern-App für Grundschulkinder (Klassen 1-4) mit Quiz-Fragen, Punkten und Gamification-Elementen.
 
+> **📚 Wichtige Dokumentation:**
+> - [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) - **Hauptleitfaden für alle Entwicklungen**
+> - [`ENTWICKLUNGS_FAHRPLAN.md`](./ENTWICKLUNGS_FAHRPLAN.md) - Konkreter Fahrplan für nächste Schritte
+> - [`PROJEKT_STATUS.md`](./PROJEKT_STATUS.md) - Aktueller Stand und Status
+> - [`FIREBASE_SETUP.md`](./FIREBASE_SETUP.md) - Firebase-Einrichtung
+
+## 📚 Dokumentation
+
+- **[ENTWICKLUNGSLEITFADEN.md](./ENTWICKLUNGSLEITFADEN.md)** - Umfassender Leitfaden mit Design-Philosophie, Best Practices und Features
+- **[ENTWICKLUNGS_FAHRPLAN.md](./ENTWICKLUNGS_FAHRPLAN.md)** - Konkreter Fahrplan für die nächsten Entwicklungsschritte
+- **[PROJEKT_STATUS.md](./PROJEKT_STATUS.md)** - Aktueller Stand und Status des Projekts
+- **[FIREBASE_SETUP.md](./FIREBASE_SETUP.md)** - Detaillierte Firebase-Einrichtungsanleitung
+- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** - Fehlerbehebung und häufige Probleme
+
 ## 🎯 Features
 
 - ✅ Einfache Login/Register-Funktion
@@ -10,6 +24,9 @@ Eine interaktive Lern-App für Grundschulkinder (Klassen 1-4) mit Quiz-Fragen, P
 - ✅ Multiple-Choice Quiz-Fragen
 - ✅ Punkte-System
 - ✅ Ergebnis-Anzeige mit detailliertem Feedback
+- ✅ Fortschritts-Tracking
+- ✅ Lernstreak-System
+- ✅ Schwierige Aufgaben-Tracking
 
 ## 🚀 Schnellstart
 
@@ -116,12 +133,26 @@ firebase deploy
 
 ## 📚 Weitere Entwicklung
 
-Für Version 2 sind geplant:
+**Aktuelle Prioritäten:** Siehe [`ENTWICKLUNGS_FAHRPLAN.md`](./ENTWICKLUNGS_FAHRPLAN.md)
+
+**Phase 1 (Quick Wins):**
+- Sofortiges Feedback im Quiz
+- Erfolgs-Animationen
 - Badge-System
-- Leaderboard
-- Adaptive Schwierigkeitsanpassung
-- Story-Embedded Quizzes
-- Minispiele
+- Bessere Fehlererklärungen
+
+**Phase 2 (Mittelfristig):**
+- Storytelling-Elemente
+- Adaptive Schwierigkeit
+- Verschiedene Fragetypen
+- Level-System
+
+**Phase 3 (Langfristig):**
+- Soziale Features
+- Eltern-Dashboard
+- Erweiterte Gamification
+
+Für Details siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md).
 
 ## 🐛 Fehlerbehebung
 

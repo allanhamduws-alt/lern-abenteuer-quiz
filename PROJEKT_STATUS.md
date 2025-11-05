@@ -1,5 +1,7 @@
 # Projekt-Status und Zusammenfassung
 
+> **⚠️ WICHTIG:** Für detaillierte Entwicklungs-Richtlinien, siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md)
+
 ## ✅ Abgeschlossene Aufgaben
 
 ### 1. Projekt-Setup
@@ -24,6 +26,8 @@
 - ✅ HomePage (Klassen- & Fachauswahl)
 - ✅ QuizPage (Quiz-Fragen mit Feedback)
 - ✅ ResultsPage (Ergebnis-Anzeige)
+- ✅ ProgressPage (Detaillierte Statistiken)
+- ✅ PracticePage (Schwierige Aufgaben üben)
 
 ### 5. Funktionalität
 - ✅ Firebase Authentication (Login/Register)
@@ -31,66 +35,84 @@
 - ✅ Punkte-System (lokal + Firebase-Synchronisation)
 - ✅ Protected Routes (geschützte Seiten)
 - ✅ Ergebnis-Berechnung und -Anzeige
+- ✅ Fortschritts-Tracking (Speichern & Laden)
+- ✅ Lernstreak-Tracking
+- ✅ Schwierige Aufgaben-Tracking
+- ✅ Fragen für Mathematik Klasse 1-4
 
 ### 6. Dokumentation
 - ✅ README.md mit Anleitung
 - ✅ Firebase-Setup-Anleitung (FIREBASE_SETUP.md)
+- ✅ Troubleshooting-Guide (TROUBLESHOOTING.md)
+- ✅ Entwicklungsleitfaden (ENTWICKLUNGSLEITFADEN.md)
 - ✅ .env.example Vorlage
 
-## 🔄 Optional für Version 1 (kann später hinzugefügt werden)
+## 🚧 Aktuelle Prioritäten (Phase 1: Quick Wins)
 
-- Adaptive Schwierigkeitsanpassung
-- Story-embedded Quizzes
-- Badge-System (Basis ist vorhanden)
-- Leaderboard
+### Nächste Schritte (sofort):
+1. **Sofortiges Feedback im Quiz** ⭐ Höchste Priorität
+   - Antwort direkt beim Klick prüfen
+   - Automatisch zur nächsten Frage nach 2-3 Sekunden
+   - Flow wird nicht unterbrochen
 
-## 📋 Nächste Schritte für Sie
+2. **Erfolgs-Animationen** ⭐ Hoher Impact
+   - Konfetti bei richtigen Antworten
+   - Punktzähler animiert hochzählen
+   - Fortschrittsbalken smooth wachsen
 
-### 1. Firebase einrichten
-Folgen Sie der Anleitung in `FIREBASE_SETUP.md`:
-- Firebase-Projekt erstellen
-- Authentication aktivieren
-- Firestore einrichten
-- Konfiguration in `.env.local` eintragen
+3. **Badge-System** ⭐ Langzeitmotivation
+   - 5-10 Badges implementieren
+   - Badge-Verleihung mit Animation
+   - Badge-Galerie auf HomePage
 
-### 2. App testen
-```bash
-npm run dev
-```
-Öffnen Sie `http://localhost:5173` im Browser
+4. **Bessere Fehlererklärungen** ⭐ Lerneffekt
+   - Kurze, kindgerechte Erklärungen
+   - Visuelle Hilfen optional
 
-### 3. Quiz-Fragen hinzufügen
-Bearbeiten Sie `src/data/questions.ts` und fügen Sie weitere Fragen hinzu.
+## 🔄 Geplante Features (Phase 2-3)
 
-### 4. GitHub Repository (optional)
-Wenn Sie bereit sind:
-```bash
-git init
-git add .
-git commit -m "Initial commit: Lern-Abenteuer-Quiz App"
-# Dann auf GitHub Repository erstellen und pushen
-```
+Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 
-### 5. Deployment (später)
-Wenn Firebase eingerichtet ist, können Sie die App deployen:
-```bash
-npm install -g firebase-tools
-firebase login
-firebase init hosting
-npm run build
-firebase deploy
-```
+### Phase 2 (Mittelfristig):
+- Storytelling-Elemente
+- Adaptive Schwierigkeit
+- Verschiedene Fragetypen
+- Level-System
 
-## 🎯 Was Sie jetzt tun können
+### Phase 3 (Langfristig):
+- Soziale Features
+- Eltern-Dashboard
+- Erweiterte Gamification
+- Offline-Modus
 
-1. **Firebase einrichten** - Folgen Sie `FIREBASE_SETUP.md`
-2. **App lokal testen** - `npm run dev` ausführen
-3. **Fragen hinzufügen** - `src/data/questions.ts` bearbeiten
-4. **Design anpassen** - Tailwind-Klassen in den Komponenten ändern
+## 📋 Nächste Schritte für Entwicklung
+
+1. **Konsultiere `ENTWICKLUNGSLEITFADEN.md`** vor jeder neuen Feature-Entwicklung
+2. **Folge den Prioritäten** - Phase 1 zuerst
+3. **Halte dich an die Design-Prinzipien** - Spielerisches Lernen steht im Vordergrund
+4. **Teste mit Fokus auf UX** - Wie fühlt es sich für ein Kind an?
+
+## 🎯 Entwicklungs-Richtlinien
+
+**Wichtigste Prinzipien:**
+- ✅ Sofortiges Feedback
+- ✅ Positive Verstärkung
+- ✅ Visuelle Klarheit
+- ✅ Spielerisches Lernen
+- ✅ Adaptive Schwierigkeit
+
+**Vermeiden:**
+- ❌ Komplexe Navigation
+- ❌ Negative Emotionen
+- ❌ Zu viele Optionen
+- ❌ Lange Texte
+
+Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 
 ## 📝 Wichtige Dateien
 
-- `src/data/questions.ts` - Hier können Sie Quiz-Fragen hinzufügen
+- `ENTWICKLUNGSLEITFADEN.md` - **Hauptleitfaden für alle Entwicklungen**
+- `src/data/questions.ts` - Quiz-Fragen hinzufügen
 - `.env.local` - Firebase-Konfiguration (müssen Sie erstellen)
 - `src/components/ui/` - UI-Komponenten zum Anpassen
 - `src/pages/` - Seiten-Komponenten
@@ -98,16 +120,17 @@ firebase deploy
 ## 🐛 Bekannte Einschränkungen
 
 - Für Version 1 sind nur Multiple-Choice-Fragen implementiert
-- Drag & Drop und andere Fragetypen kommen später
-- Adaptive Schwierigkeit ist noch nicht implementiert
-- Story-Embedded Quizzes sind noch nicht implementiert
+- Drag & Drop und andere Fragetypen kommen in Phase 2
+- Adaptive Schwierigkeit ist noch nicht implementiert (Phase 2)
+- Storytelling-Elemente fehlen noch (Phase 2)
 
-## 💡 Tipps
+## 💡 Entwicklungs-Tipps
 
-- Alle Komponenten haben deutsche Kommentare
-- Die Struktur ist einfach gehalten für Nicht-Programmierer
-- Fragen können einfach in `questions.ts` hinzugefügt werden
-- Design kann über Tailwind-Klassen angepasst werden
+- Alle neuen Features sollten dem Entwicklungsleitfaden entsprechen
+- Teste immer: "Würde ein 7-jähriges Kind das verstehen?"
+- Priorisiere UX über technische Perfektion
+- Feiere kleine Erfolge beim Entwickeln
 
-Viel Erfolg mit Ihrer Lern-App! 🚀
+Viel Erfolg mit der Lern-App! 🚀
+
 

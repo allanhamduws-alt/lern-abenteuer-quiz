@@ -16,8 +16,13 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [classLevel, setClassLevel] = useState<1 | 2 | 3 | 4>(1);
+  const [age, setAge] = useState<number | ''>('');
+  const [avatar, setAvatar] = useState('👦');
+  const [year, setYear] = useState<number>(new Date().getFullYear());
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const avatars = ['👦', '👧', '🧒', '👶', '🦸', '🦸‍♀️', '🧙', '🧙‍♀️', '🧚', '🧚‍♀️'];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +34,15 @@ export function LoginPage() {
         await loginUser(email, password);
         navigate('/home');
       } else {
-        await registerUser(email, password, name, classLevel);
+        await registerUser(
+          email,
+          password,
+          name,
+          classLevel,
+          age || undefined,
+          avatar,
+          year
+        );
         navigate('/home');
       }
     } catch (err: any) {
@@ -71,6 +84,65 @@ export function LoginPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Alter (optional)
+                </label>
+                <input
+                  type="number"
+                  min="5"
+                  max="12"
+                  value={age}
+                  onChange={(e) =>
+                    setAge(e.target.value ? parseInt(e.target.value) : '')
+                  }
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="Dein Alter"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Avatar wählen
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                  {avatars.map((av) => (
+                    <button
+                      key={av}
+                      type="button"
+                      onClick={() => setAvatar(av)}
+                      className={`text-3xl p-3 rounded-lg border-2 transition-all ${
+                        avatar === av
+                          ? 'border-primary-500 bg-primary-50 scale-110'
+                          : 'border-gray-300 hover:border-gray-400'
+                      }`}
+                    >
+                      {av}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Jahrgang
+                </label>
+                <select
+                  value={year}
+                  onChange={(e) => setYear(parseInt(e.target.value))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  {Array.from({ length: 5 }, (_, i) => {
+                    const yearOption = new Date().getFullYear() - i;
+                    return (
+                      <option key={yearOption} value={yearOption}>
+                        {yearOption}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Klasse
                 </label>
                 <select
@@ -78,6 +150,7 @@ export function LoginPage() {
                   onChange={(e) =>
                     setClassLevel(parseInt(e.target.value) as 1 | 2 | 3 | 4)
                   }
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value={1}>Klasse 1</option>

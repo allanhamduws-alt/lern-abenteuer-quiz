@@ -11,36 +11,93 @@ import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
 import { syncPoints } from '../utils/points';
 import { getCurrentUser } from '../services/auth';
-import type { QuizResult, User } from '../types';
+import { updateProgressAfterQuiz } from '../services/progress';
+import type { QuizResult, User, Question } from '../types';
 
 export function ResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const results = (location.state?.results || []) as QuizResult[];
   const totalPoints = location.state?.totalPoints || 0;
+  const questions = (location.state?.questions || []) as Question[];
+  const subject = location.state?.subject as Question['subject'] | undefined;
   const correctAnswers = results.filter((r) => r.isCorrect).length;
   const totalQuestions = results.length;
   const [user, setUser] = useState<User | null>(null);
   const [pointsSynced, setPointsSynced] = useState(false);
+  const [progressSynced, setProgressSynced] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(true);
 
   useEffect(() => {
     // Aktuellen Benutzer laden und Punkte synchronisieren
-    getCurrentUser().then((currentUser) => {
-      if (currentUser && totalPoints > 0 && !pointsSynced) {
-        syncPoints(currentUser, totalPoints)
-          .then(() => {
-            setPointsSynced(true);
-            // Benutzer-Daten neu laden für Header-Anzeige
-            getCurrentUser().then(setUser);
-          })
-          .catch((error) => {
-            console.error('Fehler bei der Punkte-Synchronisation:', error);
-          });
-      } else {
-        setUser(currentUser);
+    const syncData = async () => {
+      setIsSaving(true);
+      setError(null);
+      
+      const currentUser = await getCurrentUser();
+      if (!currentUser) {
+        setUser(null);
+        setIsSaving(false);
+        setError('Kein Benutzer eingeloggt');
+        return;
       }
-    });
-  }, [totalPoints, pointsSynced]);
+
+      setUser(currentUser);
+
+      try {
+        // Fortschritt aktualisieren (wenn Fragen und Subject vorhanden)
+        if (questions.length > 0 && subject && results.length > 0 && !progressSynced) {
+          console.log('Speichere Fortschritt:', {
+            userId: currentUser.uid,
+            subject,
+            resultsCount: results.length,
+            questionsCount: questions.length,
+            totalPoints,
+          });
+          
+          try {
+            await updateProgressAfterQuiz(
+              currentUser.uid,
+              subject,
+              results,
+              questions
+            );
+            setProgressSynced(true);
+            console.log('✅ Fortschritt erfolgreich gespeichert!');
+          } catch (progressError: any) {
+            console.error('❌ Fehler beim Speichern des Fortschritts:', progressError);
+            setError(`Fehler beim Speichern: ${progressError?.message || 'Unbekannter Fehler'}`);
+            // Weiter machen, Punkte können trotzdem gespeichert werden
+          }
+        }
+
+        // Punkte synchronisieren (auch wenn 0 Punkte)
+        if (!pointsSynced) {
+          console.log('Synchronisiere Punkte:', totalPoints);
+          try {
+            await syncPoints(currentUser, totalPoints);
+            setPointsSynced(true);
+            console.log('✅ Punkte erfolgreich synchronisiert!');
+          } catch (pointsError: any) {
+            console.error('❌ Fehler beim Synchronisieren der Punkte:', pointsError);
+            setError(`Fehler bei Punkten: ${pointsError?.message || 'Unbekannter Fehler'}`);
+          }
+        }
+
+        // Benutzer-Daten neu laden für Header-Anzeige
+        const updatedUser = await getCurrentUser();
+        setUser(updatedUser);
+      } catch (error: any) {
+        console.error('❌ Fehler bei der Synchronisation:', error);
+        setError(`Allgemeiner Fehler: ${error?.message || 'Unbekannter Fehler'}`);
+      } finally {
+        setIsSaving(false);
+      }
+    };
+
+    syncData();
+  }, []); // Nur einmal beim Mounten ausführen
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
@@ -132,9 +189,19 @@ export function ResultsPage() {
             <Button
               variant="primary"
               size="lg"
-              onClick={() => navigate('/home')}
+              onClick={async () => {
+                // Warte bis Speicherung abgeschlossen ist
+                if (isSaving) {
+                  alert('Bitte warten Sie, bis die Daten gespeichert sind...');
+                  return;
+                }
+                // Kurze Verzögerung, damit Daten gespeichert sind
+                await new Promise(resolve => setTimeout(resolve, 500));
+                navigate('/home');
+              }}
+              disabled={isSaving}
             >
-              Zurück zur Startseite
+              {isSaving ? 'Speichere...' : 'Zurück zur Startseite'}
             </Button>
             <Button
               variant="secondary"
@@ -143,6 +210,29 @@ export function ResultsPage() {
             >
               Quiz wiederholen
             </Button>
+          </div>
+          
+          {/* Status-Anzeige */}
+          <div className="mt-4 text-center space-y-2">
+            {isSaving && (
+              <div className="text-sm text-gray-500">
+                ⏳ Speichere Daten...
+              </div>
+            )}
+            {!isSaving && progressSynced && pointsSynced && (
+              <div className="text-sm text-green-600 font-semibold">
+                ✅ Fortschritt und Punkte gespeichert!
+              </div>
+            )}
+            {error && (
+              <div className="text-sm text-red-600 font-semibold p-3 bg-red-50 rounded-lg border-2 border-red-200">
+                ⚠️ Warnung: {error}
+                <br />
+                <span className="text-xs text-gray-600">
+                  Bitte prüfen Sie die Browser-Konsole (F12) für Details.
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

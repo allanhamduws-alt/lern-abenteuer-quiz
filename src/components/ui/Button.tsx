@@ -7,8 +7,8 @@ import clsx from 'clsx';
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'success' | 'danger';
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   type?: 'button' | 'submit';
@@ -35,6 +35,7 @@ export function Button({
     success:
       'bg-success-500 text-white hover:bg-success-600 focus:ring-success-500',
     danger: 'bg-error-500 text-white hover:bg-error-600 focus:ring-error-500',
+    warning: 'bg-warning-500 text-white hover:bg-warning-600 focus:ring-warning-500',
   };
 
   const sizeStyles = {
