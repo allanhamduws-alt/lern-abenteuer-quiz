@@ -77,13 +77,22 @@ export function Header({ user }: HeaderProps) {
           {user && (
             <div className="flex items-center gap-2">
               {user.role === 'parent' && (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => navigate('/parent-dashboard')}
-                >
-                  Eltern-Dashboard
-                </Button>
+                <>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => navigate('/admin')}
+                  >
+                    Verwaltung ⚙️
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => navigate('/parent-dashboard')}
+                  >
+                    Eltern-Dashboard
+                  </Button>
+                </>
               )}
               <Button variant="secondary" size="sm" onClick={handleLogout}>
                 Abmelden

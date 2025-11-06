@@ -18,6 +18,7 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
+  const [audioError, setAudioError] = useState<string | null>(null);
   const helpBoxRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null); // Für OpenAI Audio
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -131,13 +132,39 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
         window.speechSynthesis.cancel();
       }
       setIsSpeaking(false);
+      setAudioError(null);
       return;
+    }
+
+    // WICHTIG FÜR MOBILE: Audio-Element sofort beim User-Click initialisieren
+    // Mobile Browser blockieren Audio-Autoplay, auch wenn audio.play() nach User-Click aufgerufen wird
+    // Lösung: Audio-Element vorbereiten und play() Promise im User-Interaktions-Kontext starten
+    let audioElement: HTMLAudioElement | null = null;
+    
+    try {
+      // Erstelle Audio-Element sofort beim User-Click (vor KI-Generierung)
+      // Dies stellt sicher, dass der User-Interaktions-Kontext aktiv ist
+      audioElement = new Audio();
+      audioRef.current = audioElement;
+      
+      // WICHTIG: Versuche play() sofort zu starten (auch wenn noch kein src gesetzt ist)
+      // Mobile Browser benötigen play() im User-Interaktions-Kontext
+      // Das wird wahrscheinlich fehlschlagen ohne src, aber das ist OK - wir setzen src später
+      audioElement.play().catch((error) => {
+        console.warn('⚠️ Audio.play() fehlgeschlagen (erwartet bei Mobile ohne src):', error);
+        // Das ist OK - wir setzen src später
+      });
+      
+      console.log('🎤 Audio-Element initialisiert im User-Interaktions-Kontext');
+    } catch (error) {
+      console.warn('⚠️ Audio-Element konnte nicht initialisiert werden:', error);
     }
 
     // IMMER eine neue Erklärung generieren mit OpenAI (für frische, individuelle Erklärungen)
     let textToSpeak: string;
     
     setIsLoading(true);
+    setAudioError(null);
     console.log('🔄 Starte OpenAI API Anfrage...', {
       question: question.question.substring(0, 50),
       classLevel: question.class,
@@ -184,42 +211,87 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
     try {
       console.log('🎤 Verwende OpenAI TTS für realistische Stimme...');
       setIsSpeaking(true);
+      setAudioError(null);
       
       // 'nova' ist sehr natürlich und freundlich - perfekt für Kinder
       const audioUrl = await textToSpeech(textToSpeak, 'nova');
       
-      // Erstelle Audio-Element und speichere Referenz für Stopp-Funktion
-      const audio = new Audio(audioUrl);
+      // Verwende bereits erstelltes Audio-Element oder erstelle neues
+      const audio = audioElement || new Audio();
       audioRef.current = audio;
       
+      // Setze src und warte auf canplay
+      audio.src = audioUrl;
+      audio.load(); // Lade Audio explizit
+      
+      // Warte bis Audio geladen ist
+      await new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error('Audio-Ladezeit überschritten'));
+        }, 10000); // 10 Sekunden Timeout
+        
+        audio.oncanplay = () => {
+          clearTimeout(timeout);
+          resolve();
+        };
+        
+        audio.onerror = (error) => {
+          clearTimeout(timeout);
+          reject(error);
+        };
+      });
+      
+      // Jetzt play() aufrufen (im User-Interaktions-Kontext, wenn möglich)
+      try {
+        await audio.play();
+        console.log('✅ Audio wird abgespielt');
+      } catch (playError: any) {
+        console.error('❌ audio.play() fehlgeschlagen:', playError);
+        setAudioError('Audio konnte nicht abgespielt werden. Bitte versuche es erneut.');
+        setIsSpeaking(false);
+        
+        // Fallback auf Browser SpeechSynthesis
+        await fallbackToBrowserSpeech(textToSpeak);
+        return;
+      }
+      
+      // Warte auf Ende der Wiedergabe
       await new Promise<void>((resolve, reject) => {
         audio.onended = () => {
           URL.revokeObjectURL(audioUrl); // Cleanup
           audioRef.current = null;
+          setIsSpeaking(false);
           resolve();
         };
         
         audio.onerror = (error) => {
           URL.revokeObjectURL(audioUrl); // Cleanup
           audioRef.current = null;
+          setIsSpeaking(false);
+          setAudioError('Fehler beim Abspielen der Audio-Datei.');
           reject(error);
         };
-        
-        audio.play().catch(reject);
       });
       
       console.log('✅ Sprachausgabe beendet');
-      setIsSpeaking(false);
-    } catch (ttsError) {
+    } catch (ttsError: any) {
       console.warn('⚠️ OpenAI TTS nicht verfügbar, verwende Browser-Stimme als Fallback:', ttsError);
+      setAudioError(null); // Reset error für Fallback
       
       // Fallback auf Browser SpeechSynthesis
-      if (!('speechSynthesis' in window)) {
-        alert('Dein Browser unterstützt keine Sprachausgabe.');
-        setIsSpeaking(false);
-        return;
-      }
+      await fallbackToBrowserSpeech(textToSpeak);
+    }
+  };
 
+  // Fallback-Funktion für Browser SpeechSynthesis mit verbesserter Fehlerbehandlung
+  const fallbackToBrowserSpeech = async (textToSpeak: string): Promise<void> => {
+    if (!('speechSynthesis' in window)) {
+      setAudioError('Dein Browser unterstützt keine Sprachausgabe.');
+      setIsSpeaking(false);
+      return;
+    }
+
+    try {
       window.speechSynthesis.cancel();
       await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -237,13 +309,26 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
       utterance.pitch = 1.15;
       utterance.volume = 1.0;
       
-      utterance.onstart = () => setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
+      utterance.onstart = () => {
+        setIsSpeaking(true);
+        setAudioError(null);
+      };
       
-      setTimeout(() => {
-        window.speechSynthesis.speak(utterance);
-      }, 200);
+      utterance.onend = () => {
+        setIsSpeaking(false);
+      };
+      
+      utterance.onerror = (error) => {
+        console.error('❌ SpeechSynthesis Fehler:', error);
+        setAudioError('Fehler bei der Sprachausgabe. Bitte versuche es erneut.');
+        setIsSpeaking(false);
+      };
+      
+      window.speechSynthesis.speak(utterance);
+    } catch (error: any) {
+      console.error('❌ Fehler bei Browser SpeechSynthesis:', error);
+      setAudioError('Sprachausgabe konnte nicht gestartet werden. Bitte versuche es erneut.');
+      setIsSpeaking(false);
     }
   };
 
@@ -264,6 +349,7 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
         window.speechSynthesis.cancel();
       }
       setIsSpeaking(false);
+      setAudioError(null);
     }
     
   };
@@ -331,6 +417,14 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
           <p className="text-blue-900 mb-4 text-base leading-relaxed">
             {helpText}  {/* IMMER den Tipp anzeigen, nie die Erklärung */}
           </p>
+
+          {/* Fehlermeldung für Audio */}
+          {audioError && (
+            <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
+              <div className="font-semibold mb-1">⚠️ Audio-Fehler</div>
+              <div>{audioError}</div>
+            </div>
+          )}
 
           {/* Erklären-Button */}
           <button

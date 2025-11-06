@@ -13,6 +13,7 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import type { User } from '../types';
 import { collection, query, where, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
+import { generateLinkingCode, getCurrentLinkingCode } from '../services/linking';
 
 interface ChildAccount {
   uid: string;
@@ -31,6 +32,10 @@ export function AdminPage() {
   const [linkEmail, setLinkEmail] = useState('');
   const [linkError, setLinkError] = useState('');
   const [linkSuccess, setLinkSuccess] = useState('');
+  const [linkingCode, setLinkingCode] = useState<string | null>(null);
+  const [codeExpiresAt, setCodeExpiresAt] = useState<Date | null>(null);
+  const [codeLoading, setCodeLoading] = useState(false);
+  const [codeError, setCodeError] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
@@ -39,6 +44,7 @@ export function AdminPage() {
 
       if (currentUser?.role !== 'parent') {
         // Nicht-Eltern umleiten
+        setLoading(false);
         navigate('/home');
         return;
       }
@@ -74,6 +80,97 @@ export function AdminPage() {
 
     loadData();
   }, [navigate]);
+
+  // Lade aktuellen Verknüpfungscode
+  useEffect(() => {
+    const loadCode = async () => {
+      if (user?.uid && user?.role === 'parent') {
+        try {
+          const currentCode = await getCurrentLinkingCode(user.uid);
+          if (currentCode) {
+            setLinkingCode(currentCode.code);
+            setCodeExpiresAt(currentCode.expiresAt);
+          }
+        } catch (error) {
+          console.error('Fehler beim Laden des Codes:', error);
+        }
+      }
+    };
+
+    if (user) {
+      loadCode();
+    }
+  }, [user]);
+
+  // Aktualisiere Countdown für Code-Ablaufzeit
+  useEffect(() => {
+    if (!codeExpiresAt) return;
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const expires = codeExpiresAt;
+      
+      if (now >= expires) {
+        // Code ist abgelaufen
+        setLinkingCode(null);
+        setCodeExpiresAt(null);
+        return;
+      }
+    };
+
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, [codeExpiresAt]);
+
+  const handleGenerateCode = async () => {
+    if (!user?.uid) return;
+
+    setCodeLoading(true);
+    setCodeError('');
+
+    try {
+      const code = await generateLinkingCode(user.uid);
+      setLinkingCode(code);
+      
+      // Setze Ablaufzeit (1 Stunde)
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1);
+      setCodeExpiresAt(expiresAt);
+    } catch (error: any) {
+      console.error('Fehler beim Generieren des Codes:', error);
+      setCodeError(error.message || 'Fehler beim Generieren des Codes.');
+    } finally {
+      setCodeLoading(false);
+    }
+  };
+
+  const handleCopyCode = async () => {
+    if (!linkingCode) return;
+
+    try {
+      await navigator.clipboard.writeText(linkingCode);
+      setLinkSuccess('Code in Zwischenablage kopiert!');
+      setTimeout(() => setLinkSuccess(''), 3000);
+    } catch (error) {
+      console.error('Fehler beim Kopieren:', error);
+      setCodeError('Code konnte nicht kopiert werden.');
+    }
+  };
+
+  const getTimeRemaining = (): string => {
+    if (!codeExpiresAt) return '';
+    
+    const now = new Date();
+    const expires = codeExpiresAt;
+    const diff = expires.getTime() - now.getTime();
+    
+    if (diff <= 0) return 'Abgelaufen';
+    
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
 
   const handleLinkChild = async () => {
     setLinkError('');
@@ -203,10 +300,86 @@ export function AdminPage() {
             </div>
           </div>
 
-          {/* Kinder verknüpfen */}
+          {/* Code-Verknüpfung */}
+          <Card className="mb-6 bg-gradient-to-br from-pastel-purple-50 to-pastel-pink-50 border-2 border-pastel-purple-300">
+            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+              Code-Verknüpfung 🔗
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Generieren Sie einen Code, den Ihr Kind eingeben kann, um sich mit Ihrem Konto zu verknüpfen.
+            </p>
+            
+            {codeError && (
+              <div className="mb-4 p-3 bg-error-50 text-error-600 rounded-lg">
+                {codeError}
+              </div>
+            )}
+            
+            {linkSuccess && (
+              <div className="mb-4 p-3 bg-success-50 text-success-600 rounded-lg">
+                {linkSuccess}
+              </div>
+            )}
+
+            {linkingCode ? (
+              <div className="space-y-4">
+                <div className="bg-white rounded-lg p-6 border-2 border-pastel-purple-400 shadow-lg">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-600 mb-2">Ihr Verknüpfungscode:</div>
+                    <div className="text-5xl font-bold text-pastel-purple-600 mb-4 tracking-wider font-mono">
+                      {linkingCode}
+                    </div>
+                    {codeExpiresAt && (
+                      <div className="text-sm text-gray-600 mb-4">
+                        Gültig für: <span className="font-semibold">{getTimeRemaining()}</span>
+                      </div>
+                    )}
+                    <div className="flex gap-2 justify-center">
+                      <Button
+                        variant="primary"
+                        onClick={handleCopyCode}
+                        className="flex items-center gap-2"
+                      >
+                        📋 Code kopieren
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={handleGenerateCode}
+                        disabled={codeLoading}
+                      >
+                        🔄 Neuen Code generieren
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-sm text-gray-600 bg-info-50 p-3 rounded-lg">
+                  <div className="font-semibold mb-1">ℹ️ So funktioniert's:</div>
+                  <ol className="list-decimal list-inside space-y-1">
+                    <li>Geben Sie diesen Code Ihrem Kind</li>
+                    <li>Das Kind geht auf "Mit Eltern verknüpfen"</li>
+                    <li>Das Kind gibt den Code ein</li>
+                    <li>Die Verknüpfung wird automatisch erstellt</li>
+                  </ol>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center">
+                <Button
+                  variant="primary"
+                  onClick={handleGenerateCode}
+                  disabled={codeLoading}
+                  className="text-lg px-8 py-4"
+                >
+                  {codeLoading ? '⏳ Code wird generiert...' : '🔑 Code generieren'}
+                </Button>
+              </div>
+            )}
+          </Card>
+
+          {/* E-Mail-Verknüpfung */}
           <Card className="mb-6">
             <h3 className="text-2xl font-bold mb-4 text-gray-800">
-              Kind verknüpfen
+              E-Mail-Verknüpfung 📧
             </h3>
             <p className="text-gray-600 mb-4">
               Geben Sie die E-Mail-Adresse des Kind-Kontos ein, um es mit Ihrem Eltern-Konto zu verknüpfen.

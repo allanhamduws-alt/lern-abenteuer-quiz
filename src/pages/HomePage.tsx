@@ -401,6 +401,29 @@ export function HomePage() {
             </Card>
           )}
 
+          {/* Link Parent Button für Kinder ohne parentId */}
+          {user && (user.role === 'child' || !user.role) && (!user.parentId || user.parentId === '') && (
+            <Card className="mb-6 bg-gradient-to-br from-pastel-purple-50 to-pastel-pink-50 border-2 border-pastel-purple-300">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-1">
+                    🔗 Mit Eltern verknüpfen
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Hast du einen Code von deinen Eltern? Verknüpfe dein Konto!
+                  </p>
+                </div>
+                <Button
+                  variant="primary"
+                  onClick={() => navigate('/link-parent')}
+                  className="flex-shrink-0"
+                >
+                  Verknüpfen →
+                </Button>
+              </div>
+            </Card>
+          )}
+
           {/* Fachauswahl */}
           {user && (
             <Card className="mb-6">

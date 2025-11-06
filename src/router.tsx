@@ -13,6 +13,7 @@ import { PracticePage } from './pages/PracticePage';
 import { GamePage } from './pages/GamePage';
 import { ParentDashboardPage } from './pages/ParentDashboardPage';
 import { AdminPage } from './pages/AdminPage';
+import { LinkParentPage } from './pages/LinkParentPage';
 import { onAuthChange } from './services/auth';
 import { useState, useEffect } from 'react';
 import type { User as FirebaseUser } from 'firebase/auth';
@@ -107,6 +108,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <AdminPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/link-parent',
+    element: (
+      <ProtectedRoute>
+        <LinkParentPage />
       </ProtectedRoute>
     ),
   },
