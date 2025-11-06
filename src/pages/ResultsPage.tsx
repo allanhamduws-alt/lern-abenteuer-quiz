@@ -142,7 +142,7 @@ export function ResultsPage() {
   }, []); // Nur einmal beim Mounten ausführen
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+    <div className="min-h-screen bg-gradient-to-br from-pastel-green-100 via-pastel-yellow-100 to-pastel-green-50">
       <Header user={user || undefined} />
 
       {levelUp && (

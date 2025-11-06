@@ -1,6 +1,6 @@
 /**
  * Wiederverwendbare Button-Komponente
- * Einfache, kindgerechte Buttons mit verschiedenen Varianten
+ * Gradient-Buttons mit Pastell-Farben für bessere Sichtbarkeit
  */
 
 import clsx from 'clsx';
@@ -25,17 +25,19 @@ export function Button({
   className,
 }: ButtonProps) {
   const baseStyles =
-    'font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95';
+    'font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95 shadow-lg';
 
   const variantStyles = {
     primary:
-      'bg-primary-500 text-white hover:bg-primary-600 hover:shadow-lg focus:ring-primary-500',
+      'bg-gradient-to-r from-pastel-blue-400 to-pastel-purple-400 text-white hover:from-pastel-blue-500 hover:to-pastel-purple-500 hover:shadow-xl focus:ring-pastel-purple-300',
     secondary:
-      'bg-gray-200 text-gray-800 hover:bg-gray-300 hover:shadow-md focus:ring-gray-500',
+      'bg-gradient-to-r from-pastel-gray-300 to-pastel-blue-300 text-gray-800 hover:from-pastel-gray-400 hover:to-pastel-blue-400 hover:shadow-xl focus:ring-pastel-blue-300 border-2 border-pastel-blue-200',
     success:
-      'bg-success-500 text-white hover:bg-success-600 hover:shadow-lg focus:ring-success-500',
-    danger: 'bg-error-500 text-white hover:bg-error-600 hover:shadow-lg focus:ring-error-500',
-    warning: 'bg-warning-500 text-white hover:bg-warning-600 hover:shadow-lg focus:ring-warning-500',
+      'bg-gradient-to-r from-pastel-green-400 to-pastel-green-300 text-white hover:from-pastel-green-500 hover:to-pastel-green-400 hover:shadow-xl focus:ring-pastel-green-300',
+    danger: 
+      'bg-gradient-to-r from-pastel-pink-400 to-pastel-purple-400 text-white hover:from-pastel-pink-500 hover:to-pastel-purple-500 hover:shadow-xl focus:ring-pastel-pink-300',
+    warning: 
+      'bg-gradient-to-r from-pastel-orange-400 to-pastel-yellow-400 text-white hover:from-pastel-orange-500 hover:to-pastel-yellow-500 hover:shadow-xl focus:ring-pastel-orange-300',
   };
 
   const sizeStyles = {
@@ -53,7 +55,7 @@ export function Button({
         baseStyles,
         variantStyles[variant],
         sizeStyles[size],
-        disabled && 'opacity-50 cursor-not-allowed',
+        disabled && 'opacity-50 cursor-not-allowed hover:scale-100',
         className
       )}
     >

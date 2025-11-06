@@ -11,6 +11,8 @@ import { ResultsPage } from './pages/ResultsPage';
 import { ProgressPage } from './pages/ProgressPage';
 import { PracticePage } from './pages/PracticePage';
 import { GamePage } from './pages/GamePage';
+import { ParentDashboardPage } from './pages/ParentDashboardPage';
+import { AdminPage } from './pages/AdminPage';
 import { onAuthChange } from './services/auth';
 import { useState, useEffect } from 'react';
 import type { User as FirebaseUser } from 'firebase/auth';
@@ -89,6 +91,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <GamePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/parent-dashboard',
+    element: (
+      <ProtectedRoute>
+        <ParentDashboardPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin',
+    element: (
+      <ProtectedRoute>
+        <AdminPage />
       </ProtectedRoute>
     ),
   },

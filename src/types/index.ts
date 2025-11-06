@@ -48,12 +48,16 @@ export interface QuizResult {
   timeSpent?: number; // Zeit in Sekunden
 }
 
+// Benutzer-Rolle
+export type UserRole = 'child' | 'parent';
+
 // Benutzer-Typ
 export interface User {
   uid: string;
   email: string;
   name: string;
-  class: 1 | 2 | 3 | 4;
+  role?: UserRole; // Rolle: 'child' oder 'parent' (Standard: 'child')
+  class?: 1 | 2 | 3 | 4; // Nur für Kinder relevant
   age?: number; // Alter des Kindes
   avatar?: string; // Avatar-Emoji (z.B. "👦", "👧")
   year?: number; // Jahrgang (z.B. 2024)
@@ -62,6 +66,9 @@ export interface User {
   progress?: Progress; // Fortschritts-Daten
   createdAt: string; // ISO Date String - wann wurde Account erstellt
   lastLogin?: string; // ISO Date String - letzter Login
+  // Eltern-Felder
+  children?: string[]; // Array von UIDs der Kinder (nur für Eltern)
+  parentId?: string; // UID des Eltern-Kontos (nur für Kinder)
 }
 
 // Fortschritts-Typ

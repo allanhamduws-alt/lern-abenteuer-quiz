@@ -21,6 +21,7 @@ export function LoginPage() {
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [userRole, setUserRole] = useState<'child' | 'parent'>('child');
 
   const avatars = ['👦', '👧', '🧒', '👶', '🦸', '🦸‍♀️', '🧙', '🧙‍♀️', '🧚', '🧚‍♀️'];
 
@@ -31,19 +32,30 @@ export function LoginPage() {
 
     try {
       if (isLogin) {
-        await loginUser(email, password);
-        navigate('/home');
+        const loggedInUser = await loginUser(email, password);
+        // Leite Eltern zu ihrem Dashboard um
+        if (loggedInUser.role === 'parent') {
+          navigate('/parent-dashboard');
+        } else {
+          navigate('/home');
+        }
       } else {
-        await registerUser(
+        const newUser = await registerUser(
           email,
           password,
           name,
-          classLevel,
+          userRole === 'child' ? classLevel : undefined,
           age || undefined,
           avatar,
-          year
+          year,
+          userRole
         );
-        navigate('/home');
+        // Leite Eltern zu ihrem Dashboard um
+        if (newUser.role === 'parent') {
+          navigate('/parent-dashboard');
+        } else {
+          navigate('/home');
+        }
       }
     } catch (err: any) {
       setError(err.message || 'Ein Fehler ist aufgetreten');
@@ -53,7 +65,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-purple-100 to-pastel-blue-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
           {isLogin ? 'Anmelden' : 'Registrieren'}
@@ -70,6 +82,38 @@ export function LoginPage() {
             <>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Als registrieren
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setUserRole('child')}
+                    className={`p-3 rounded-lg border-2 transition-all ${
+                      userRole === 'child'
+                        ? 'border-pastel-blue-400 bg-gradient-to-br from-pastel-blue-50 to-pastel-purple-50'
+                        : 'border-gray-300 hover:border-pastel-blue-300'
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">👶</div>
+                    <div className="text-sm font-semibold">Kind</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUserRole('parent')}
+                    className={`p-3 rounded-lg border-2 transition-all ${
+                      userRole === 'parent'
+                        ? 'border-pastel-blue-400 bg-gradient-to-br from-pastel-blue-50 to-pastel-purple-50'
+                        : 'border-gray-300 hover:border-pastel-blue-300'
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">👨‍👩‍👧‍👦</div>
+                    <div className="text-sm font-semibold">Eltern</div>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Name
                 </label>
                 <input
@@ -82,10 +126,12 @@ export function LoginPage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Alter (optional)
-                </label>
+              {userRole === 'child' && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Alter (optional)
+                    </label>
                 <input
                   type="number"
                   min="5"
@@ -111,8 +157,8 @@ export function LoginPage() {
                       onClick={() => setAvatar(av)}
                       className={`text-3xl p-3 rounded-lg border-2 transition-all ${
                         avatar === av
-                          ? 'border-primary-500 bg-primary-50 scale-110'
-                          : 'border-gray-300 hover:border-gray-400'
+                          ? 'border-pastel-blue-500 bg-gradient-to-br from-pastel-blue-100 to-pastel-purple-100 scale-110'
+                          : 'border-gray-300 hover:border-pastel-blue-300'
                       }`}
                     >
                       {av}
@@ -141,24 +187,26 @@ export function LoginPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Klasse
-                </label>
-                <select
-                  value={classLevel}
-                  onChange={(e) =>
-                    setClassLevel(parseInt(e.target.value) as 1 | 2 | 3 | 4)
-                  }
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  <option value={1}>Klasse 1</option>
-                  <option value={2}>Klasse 2</option>
-                  <option value={3}>Klasse 3</option>
-                  <option value={4}>Klasse 4</option>
-                </select>
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Klasse
+                    </label>
+                    <select
+                      value={classLevel}
+                      onChange={(e) =>
+                        setClassLevel(parseInt(e.target.value) as 1 | 2 | 3 | 4)
+                      }
+                      required={userRole === 'child'}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value={1}>Klasse 1</option>
+                      <option value={2}>Klasse 2</option>
+                      <option value={3}>Klasse 3</option>
+                      <option value={4}>Klasse 4</option>
+                    </select>
+                  </div>
+                </>
+              )}
             </>
           )}
 

@@ -237,7 +237,7 @@ export function QuizPage() {
   // Prüfe ob Fragen gefunden wurden
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50">
         <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-3xl mx-auto">
@@ -267,7 +267,7 @@ export function QuizPage() {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50 flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Fragen..." />
         </Card>

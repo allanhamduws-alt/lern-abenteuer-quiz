@@ -24,7 +24,7 @@ export function GamePage() {
 
   if (!gameId || !gameComponents[gameId]) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-primary-900 mb-4">
             Spiel nicht gefunden

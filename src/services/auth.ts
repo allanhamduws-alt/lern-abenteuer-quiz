@@ -60,10 +60,11 @@ export async function registerUser(
   email: string,
   password: string,
   name: string,
-  classLevel: 1 | 2 | 3 | 4,
+  classLevel?: 1 | 2 | 3 | 4,
   age?: number,
   avatar?: string,
-  year?: number
+  year?: number,
+  role: 'child' | 'parent' = 'child'
 ): Promise<User> {
   try {
     // Benutzer in Firebase Authentication erstellen
@@ -76,19 +77,34 @@ export async function registerUser(
     const now = new Date().toISOString();
 
     // Benutzer-Daten in Firestore speichern (separater Try-Catch)
-    const userData: Omit<User, 'uid'> & { uid: string } = {
+    // Wichtig: Firestore erlaubt keine undefined Werte!
+    const userData: any = {
       uid: firebaseUser.uid,
       email,
       name,
-      class: classLevel,
-      age,
-      avatar,
-      year,
+      role,
       totalPoints: 0,
       quizzesCompleted: 0,
       createdAt: now,
       lastLogin: now,
     };
+
+    // Nur Felder hinzufügen wenn sie nicht undefined sind
+    if (classLevel !== undefined) {
+      userData.class = classLevel;
+    }
+    if (age !== undefined) {
+      userData.age = age;
+    }
+    if (avatar !== undefined) {
+      userData.avatar = avatar;
+    }
+    if (year !== undefined) {
+      userData.year = year;
+    }
+    if (role === 'parent') {
+      userData.children = [];
+    }
 
     try {
       await setDoc(doc(db, 'users', firebaseUser.uid), userData);
@@ -97,19 +113,22 @@ export async function registerUser(
       // Weiter machen, Auth war erfolgreich - User kann später nochmal speichern
     }
 
-    // Progress initialisieren (separater Try-Catch, damit Auth trotzdem funktioniert)
-    try {
-      const initialProgress = createEmptyProgress();
-      await setDoc(doc(db, 'progress', firebaseUser.uid), initialProgress);
-    } catch (progressError) {
-      console.error('Warnung: Progress konnte nicht initialisiert werden:', progressError);
-      // Weiter machen, Auth war erfolgreich
+    // Progress nur für Kinder initialisieren
+    if (role === 'child') {
+      try {
+        const initialProgress = createEmptyProgress();
+        await setDoc(doc(db, 'progress', firebaseUser.uid), initialProgress);
+      } catch (progressError) {
+        console.error('Warnung: Progress konnte nicht initialisiert werden:', progressError);
+        // Weiter machen, Auth war erfolgreich
+      }
     }
 
     return {
       uid: firebaseUser.uid,
       email,
       name,
+      role,
       class: classLevel,
       age,
       avatar,
@@ -118,6 +137,7 @@ export async function registerUser(
       quizzesCompleted: 0,
       createdAt: now,
       lastLogin: now,
+      ...(role === 'parent' ? { children: [] } : {}),
     };
   } catch (error) {
     console.error('Fehler bei der Registrierung:', error);

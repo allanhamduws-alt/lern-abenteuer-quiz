@@ -8,6 +8,86 @@
   font-weight: 400;
 }
 
+@theme {
+  /* Pastell-Farben für Tailwind v4 - müssen mit --color- beginnen */
+  --color-pastel-blue-50: #f0f4ff;
+  --color-pastel-blue-100: #e5edff;
+  --color-pastel-blue-200: #d1deff;
+  --color-pastel-blue-300: #a8c0ff;
+  --color-pastel-blue-400: #7a9aff;
+  --color-pastel-blue-500: #5b7eff;
+  --color-pastel-blue-600: #4a5fff;
+  --color-pastel-blue-700: #3d4df0;
+  --color-pastel-blue-800: #3542c5;
+  --color-pastel-blue-900: #363f9c;
+  
+  --color-pastel-purple-50: #faf5ff;
+  --color-pastel-purple-100: #f3e8ff;
+  --color-pastel-purple-200: #e9d5ff;
+  --color-pastel-purple-300: #d8b4fe;
+  --color-pastel-purple-400: #c084fc;
+  --color-pastel-purple-500: #a855f7;
+  --color-pastel-purple-600: #9333ea;
+  --color-pastel-purple-700: #7e22ce;
+  --color-pastel-purple-800: #6b21a8;
+  --color-pastel-purple-900: #581c87;
+  
+  --color-pastel-pink-50: #fdf2f8;
+  --color-pastel-pink-100: #fce7f3;
+  --color-pastel-pink-200: #fbcfe8;
+  --color-pastel-pink-300: #f9a8d4;
+  --color-pastel-pink-400: #f472b6;
+  --color-pastel-pink-500: #ec4899;
+  --color-pastel-pink-600: #db2777;
+  --color-pastel-pink-700: #be185d;
+  --color-pastel-pink-800: #9f1239;
+  --color-pastel-pink-900: #831843;
+  
+  --color-pastel-green-50: #f0fdf4;
+  --color-pastel-green-100: #dcfce7;
+  --color-pastel-green-200: #bbf7d0;
+  --color-pastel-green-300: #86efac;
+  --color-pastel-green-400: #4ade80;
+  --color-pastel-green-500: #22c55e;
+  --color-pastel-green-600: #16a34a;
+  --color-pastel-green-700: #15803d;
+  --color-pastel-green-800: #166534;
+  --color-pastel-green-900: #14532d;
+  
+  --color-pastel-orange-50: #fff7ed;
+  --color-pastel-orange-100: #ffedd5;
+  --color-pastel-orange-200: #fed7aa;
+  --color-pastel-orange-300: #fdba74;
+  --color-pastel-orange-400: #fb923c;
+  --color-pastel-orange-500: #f97316;
+  --color-pastel-orange-600: #ea580c;
+  --color-pastel-orange-700: #c2410c;
+  --color-pastel-orange-800: #9a3412;
+  --color-pastel-orange-900: #7c2d12;
+  
+  --color-pastel-yellow-50: #fefce8;
+  --color-pastel-yellow-100: #fef9c3;
+  --color-pastel-yellow-200: #fef08a;
+  --color-pastel-yellow-300: #fde047;
+  --color-pastel-yellow-400: #facc15;
+  --color-pastel-yellow-500: #eab308;
+  --color-pastel-yellow-600: #ca8a04;
+  --color-pastel-yellow-700: #a16207;
+  --color-pastel-yellow-800: #854d0e;
+  --color-pastel-yellow-900: #713f12;
+  
+  --color-pastel-gray-50: #f9fafb;
+  --color-pastel-gray-100: #f3f4f6;
+  --color-pastel-gray-200: #e5e7eb;
+  --color-pastel-gray-300: #d1d5db;
+  --color-pastel-gray-400: #9ca3af;
+  --color-pastel-gray-500: #6b7280;
+  --color-pastel-gray-600: #4b5563;
+  --color-pastel-gray-700: #374151;
+  --color-pastel-gray-800: #1f2937;
+  --color-pastel-gray-900: #111827;
+}
+
 body {
   margin: 0;
   min-width: 320px;

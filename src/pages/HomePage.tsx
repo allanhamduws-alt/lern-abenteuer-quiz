@@ -54,6 +54,13 @@ export function HomePage() {
     loadUserAndProgress();
   }, [location.pathname]); // Lädt neu wenn Route sich ändert
 
+  // Leite Eltern zum Eltern-Dashboard um
+  useEffect(() => {
+    if (user && user.role === 'parent') {
+      navigate('/parent-dashboard');
+    }
+  }, [user, navigate]);
+
   // Zusätzlich: Progress neu laden wenn Seite fokussiert wird (z.B. Tab zurück)
   useEffect(() => {
     const handleFocus = () => {
@@ -92,7 +99,7 @@ export function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+    <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-purple-100 to-pastel-blue-50">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
@@ -410,10 +417,10 @@ export function HomePage() {
                       e.preventDefault();
                       handleSubjectSelect(subject.id);
                     }}
-                    className={`p-6 rounded-lg text-left transition-all cursor-pointer relative z-10 w-full ${
+                    className={`p-6 rounded-xl text-left transition-all cursor-pointer relative z-10 w-full shadow-lg transform hover:scale-105 active:scale-95 ${
                       selectedSubject === subject.id
-                        ? 'bg-primary-500 text-white shadow-lg scale-105'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'
+                        ? 'bg-gradient-to-br from-pastel-blue-400 to-pastel-purple-400 text-white shadow-xl scale-105 border-2 border-pastel-purple-300'
+                        : 'bg-gradient-to-br from-white to-pastel-gray-50 text-gray-800 hover:from-pastel-blue-50 hover:to-pastel-purple-50 border-2 border-pastel-blue-200'
                     }`}
                     style={{ pointerEvents: 'auto' }}
                   >

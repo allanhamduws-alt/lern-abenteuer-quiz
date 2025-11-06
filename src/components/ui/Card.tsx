@@ -1,6 +1,6 @@
 /**
  * Card-Komponente für Quiz-Fragen und andere Inhalte
- * Bietet eine schöne, abgerundete Karte mit Schatten
+ * Sanfte Schatten und bessere Abgrenzung vom Hintergrund
  */
 
 import clsx from 'clsx';
@@ -21,7 +21,7 @@ export function Card({ children, className, padding = 'md' }: CardProps) {
   return (
     <div
       className={clsx(
-        'bg-white rounded-xl shadow-lg border border-gray-200',
+        'bg-white rounded-xl shadow-xl border-2 border-pastel-gray-200 backdrop-blur-sm',
         paddingStyles[padding],
         className
       )}
