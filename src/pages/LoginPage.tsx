@@ -67,12 +67,12 @@ export function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-gradient-card shadow-large animate-fade-in">
-        <h2 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
           {isLogin ? 'Anmelden' : 'Registrieren'}
         </h2>
 
         {error && (
-          <div className="mb-4 p-4 bg-gradient-to-r from-red-200 to-orange-200 text-red-900 rounded-xl border-2 border-red-400 shadow-medium">
+          <div className="mb-4 p-4 bg-gradient-to-r from-red-100 to-orange-100 text-red-900 rounded-xl border-2 border-red-300 shadow-medium">
             {error}
           </div>
         )}
@@ -88,26 +88,26 @@ export function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setUserRole('child')}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                    className={`p-4 rounded-lg border transition-colors duration-200 ${
                       userRole === 'child'
-                        ? 'border-purple-500 bg-gradient-to-br from-purple-400 to-pink-400 text-white shadow-colored-purple scale-105'
-                        : 'border-gray-300 hover:border-purple-300 bg-gradient-card shadow-soft'
+                        ? 'border-purple-500 bg-purple-600 text-white'
+                        : 'border-gray-300 hover:border-purple-300 bg-white'
                     }`}
                   >
-                    <div className="text-3xl mb-1">👶</div>
-                    <div className="text-sm font-bold">Kind</div>
+                    <div className="text-2xl mb-1">👶</div>
+                    <div className="text-sm font-semibold">Kind</div>
                   </button>
                   <button
                     type="button"
                     onClick={() => setUserRole('parent')}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                    className={`p-4 rounded-lg border transition-colors duration-200 ${
                       userRole === 'parent'
-                        ? 'border-purple-500 bg-gradient-to-br from-purple-400 to-pink-400 text-white shadow-colored-purple scale-105'
-                        : 'border-gray-300 hover:border-purple-300 bg-gradient-card shadow-soft'
+                        ? 'border-purple-500 bg-purple-600 text-white'
+                        : 'border-gray-300 hover:border-purple-300 bg-white'
                     }`}
                   >
-                    <div className="text-3xl mb-1">👨‍👩‍👧‍👦</div>
-                    <div className="text-sm font-bold">Eltern</div>
+                    <div className="text-2xl mb-1">👨‍👩‍👧‍👦</div>
+                    <div className="text-sm font-semibold">Eltern</div>
                   </button>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export function LoginPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-300 focus:border-purple-500 bg-white"
                   placeholder="Dein Name"
                 />
               </div>
@@ -140,7 +140,7 @@ export function LoginPage() {
                   onChange={(e) =>
                     setAge(e.target.value ? parseInt(e.target.value) : '')
                   }
-                  className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-300 focus:border-purple-500 bg-white"
                   placeholder="Dein Alter"
                 />
               </div>
@@ -155,10 +155,10 @@ export function LoginPage() {
                       key={av}
                       type="button"
                       onClick={() => setAvatar(av)}
-                      className={`text-4xl p-3 rounded-xl border-2 transition-all duration-300 transform hover:scale-110 ${
+                      className={`text-3xl p-3 rounded-lg border transition-colors duration-200 ${
                         avatar === av
-                          ? 'border-purple-500 bg-gradient-to-br from-purple-400 to-pink-400 shadow-colored-purple scale-110'
-                          : 'border-gray-300 hover:border-purple-300 bg-gradient-card shadow-soft'
+                          ? 'border-purple-500 bg-purple-600'
+                          : 'border-gray-300 hover:border-purple-300 bg-white'
                       }`}
                     >
                       {av}
@@ -174,7 +174,7 @@ export function LoginPage() {
                 <select
                   value={year}
                   onChange={(e) => setYear(parseInt(e.target.value))}
-                  className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-300 focus:border-purple-500 bg-white"
                 >
                   {Array.from({ length: 5 }, (_, i) => {
                     const yearOption = new Date().getFullYear() - i;
@@ -197,7 +197,7 @@ export function LoginPage() {
                         setClassLevel(parseInt(e.target.value) as 1 | 2 | 3 | 4)
                       }
                       required={userRole === 'child'}
-                      className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-300 focus:border-purple-500 bg-white"
                     >
                       <option value={1}>Klasse 1</option>
                       <option value={2}>Klasse 2</option>
@@ -219,7 +219,7 @@ export function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-300 focus:border-purple-500 bg-white"
               placeholder="deine@email.de"
             />
           </div>
@@ -233,7 +233,7 @@ export function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-300 focus:border-purple-500 bg-white"
               placeholder="Dein Passwort"
             />
           </div>

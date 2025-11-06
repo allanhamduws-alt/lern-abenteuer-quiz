@@ -1,6 +1,6 @@
 /**
  * Übungs-Seite für schwierige Aufgaben
- * Spielerischer Stil: Bunte Gradienten, animierte Karten, verbesserte Feedback-Animationen
+ * Spielerischer Stil: Bunte Gradienten, animierte Karten, motivierendes Design
  */
 
 import { useState, useEffect } from 'react';

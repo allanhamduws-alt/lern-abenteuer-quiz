@@ -5,14 +5,16 @@
 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { NumberSortGame } from '../components/games/NumberSortGame';
+import { WordMatchGame } from '../components/games/WordMatchGame';
+import { MemoryGame } from '../components/games/MemoryGame';
 import { syncPoints } from '../utils/points';
 import { getCurrentUser } from '../services/auth';
 import type { GameId, GameResult } from '../types';
 
 const gameComponents: Record<GameId, React.ComponentType<any>> = {
   'number-sort': NumberSortGame,
-  'word-match': () => null, // Später implementieren
-  'memory': () => null, // Später implementieren
+  'word-match': WordMatchGame,
+  'memory': MemoryGame,
 };
 
 export function GamePage() {

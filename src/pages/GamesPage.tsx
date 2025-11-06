@@ -1,6 +1,6 @@
 /**
  * Games-Seite - Spielerischer Stil
- * Bunte Gradienten, animierte Spiel-Karten
+ * Bunte Gradienten, animierte Spiel-Karten, spielerisches Design
  */
 
 import { useState, useEffect } from 'react';
@@ -19,7 +19,18 @@ const games = [
     description: 'Sortiere die Zahlen von klein nach groß',
     subject: 'mathematik',
   },
-  // Weitere Spiele können hier hinzugefügt werden
+  {
+    id: 'word-match',
+    name: 'Wörter zuordnen',
+    description: 'Finde die passenden Wort-Paare (Reime, Nomen-Verb, Synonyme)',
+    subject: 'deutsch',
+  },
+  {
+    id: 'memory',
+    name: 'Memory',
+    description: 'Finde die passenden Paare - klassisches Memory-Spiel',
+    subject: 'logik',
+  },
 ];
 
 export function GamesPage() {

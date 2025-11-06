@@ -124,48 +124,48 @@ export function ProgressPage() {
 
           {/* Gesamt-Statistiken */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-purple-100 to-pink-100 border-purple-300 animate-fade-in">
+            <Card className="hover:shadow-md transition-shadow">
               <div className="text-center">
-                <div className="text-5xl mb-2">📚</div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <div className="text-4xl mb-2">📚</div>
+                <div className="text-3xl font-bold text-black">
                   {progress.totalQuizzesCompleted}
                 </div>
-                <div className="text-sm font-semibold text-gray-700">Quizzes</div>
+                <div className="text-sm font-medium text-gray-600">Quizzes</div>
               </div>
             </Card>
-            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-yellow-100 to-orange-100 border-yellow-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <Card className="hover:shadow-md transition-shadow">
               <div className="text-center">
-                <div className="text-5xl mb-2">⭐</div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                <div className="text-4xl mb-2">⭐</div>
+                <div className="text-3xl font-bold text-black">
                   {progress.totalPoints}
                 </div>
-                <div className="text-sm font-semibold text-gray-700">Punkte</div>
+                <div className="text-sm font-medium text-gray-600">Punkte</div>
               </div>
             </Card>
-            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-orange-100 to-red-100 border-orange-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <Card className="hover:shadow-md transition-shadow">
               <div className="text-center">
-                <div className="text-5xl mb-2">🔥</div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                <div className="text-4xl mb-2">🔥</div>
+                <div className="text-3xl font-bold text-black">
                   {progress.learningStreak.current}
                 </div>
-                <div className="text-sm font-semibold text-gray-700">Tage Streak</div>
+                <div className="text-sm font-medium text-gray-600">Tage Streak</div>
               </div>
             </Card>
-            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-lime-100 to-green-100 border-lime-300 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <Card className="hover:shadow-md transition-shadow">
               <div className="text-center">
-                <div className="text-5xl mb-2">💪</div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-lime-600 to-green-600 bg-clip-text text-transparent">
+                <div className="text-4xl mb-2">💪</div>
+                <div className="text-3xl font-bold text-black">
                   {progress.difficultQuestions.filter((dq) => !dq.mastered).length}
                 </div>
-                <div className="text-sm font-semibold text-gray-700">Zu üben</div>
+                <div className="text-sm font-medium text-gray-600">Zu üben</div>
               </div>
             </Card>
           </div>
 
           {/* Badges Galerie */}
           {progress.badges.length > 0 && (
-            <Card className="mb-6 bg-gradient-to-r from-yellow-300 to-orange-300 border-2 border-yellow-500 shadow-large animate-fade-in">
-              <h3 className="text-3xl font-bold mb-4 text-yellow-900 drop-shadow-sm">
+            <Card className="mb-6">
+              <h3 className="text-xl font-bold mb-4 text-black">
                 🏆 Deine Badges
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -175,10 +175,10 @@ export function ProgressPage() {
                   return (
                     <div
                       key={badgeId}
-                      className="bg-white rounded-xl p-4 text-center border-2 border-yellow-400 shadow-medium hover:shadow-large transition-all transform hover:scale-110"
+                      className="bg-white rounded-lg p-4 text-center border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
                     >
-                      <div className="text-6xl mb-2">{badge.emoji}</div>
-                      <div className="font-bold text-sm text-gray-900">{badge.name}</div>
+                      <div className="text-5xl mb-2">{badge.emoji}</div>
+                      <div className="font-semibold text-sm text-gray-900">{badge.name}</div>
                     </div>
                   );
                 })}
@@ -188,7 +188,7 @@ export function ProgressPage() {
 
           {/* Detaillierte Fach-Statistiken */}
           <Card className="mb-6">
-            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+            <h3 className="text-xl font-bold mb-4 text-black">
               Fortschritt nach Fach
             </h3>
             <div className="space-y-4">
@@ -247,13 +247,13 @@ export function ProgressPage() {
                     {/* Level XP-Balken */}
                     {subjectProgress.level && subjectProgress.xp !== undefined && subjectProgress.xpToNextLevel && (
                       <div className="mb-3">
-                        <div className="flex justify-between text-xs text-gray-700 mb-1 font-semibold">
+                        <div className="flex justify-between text-xs text-gray-700 mb-1 font-medium">
                           <span>XP: {subjectProgress.xp} / {subjectProgress.xpToNextLevel}</span>
                           <span>→ Level {subjectProgress.level + 1}</span>
                         </div>
-                        <div className="w-full bg-white/60 rounded-full h-4 shadow-inner">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
                           <div
-                            className="h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 shadow-colored-purple"
+                            className="h-3 rounded-full bg-purple-500 transition-all duration-500"
                             style={{
                               width: `${Math.min(100, (subjectProgress.xp / subjectProgress.xpToNextLevel) * 100)}%`,
                             }}
@@ -264,14 +264,14 @@ export function ProgressPage() {
 
                     {/* Fortschrittsbalken */}
                     <div className="mb-3">
-                      <div className="w-full bg-white/60 rounded-full h-6 shadow-inner">
+                      <div className="w-full bg-gray-200 rounded-full h-4">
                         <div
-                          className={`h-6 rounded-full transition-all duration-500 ${
+                          className={`h-4 rounded-full transition-all duration-500 ${
                             progressPercent >= 80
-                              ? 'bg-gradient-success shadow-colored-lime'
+                              ? 'bg-green-500'
                               : progressPercent >= 60
-                              ? 'bg-gradient-warning shadow-lg'
-                              : 'bg-gradient-secondary shadow-colored-blue'
+                              ? 'bg-yellow-400'
+                              : 'bg-gray-400'
                           }`}
                           style={{
                             width: `${progressPercent}%`,
@@ -334,48 +334,48 @@ export function ProgressPage() {
           </Card>
 
           {/* Lernstreak Details */}
-          <Card className="mb-6 bg-gradient-to-r from-orange-200 to-red-200 border-2 border-orange-400 shadow-large">
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-700 to-red-700 bg-clip-text text-transparent">
+          <Card className="mb-6">
+            <h3 className="text-xl font-bold mb-4 text-black">
               🔥 Dein Lernstreak
             </h3>
             <div className="grid grid-cols-2 gap-6">
-              <div className="text-center p-5 bg-white rounded-xl shadow-medium transform hover:scale-105 transition-all">
-                <div className="text-sm text-gray-600 mb-2 font-semibold">
+              <div className="text-center p-5 bg-gray-50 rounded-lg">
+                <div className="text-sm text-gray-600 mb-2 font-medium">
                   Aktueller Streak
                 </div>
-                <div className="text-6xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-bold text-black mb-2">
                   {progress.learningStreak.current}
                 </div>
-                <div className="text-gray-600 font-semibold">Tage</div>
+                <div className="text-gray-600 font-medium">Tage</div>
               </div>
-              <div className="text-center p-5 bg-white rounded-xl shadow-medium transform hover:scale-105 transition-all">
-                <div className="text-sm text-gray-600 mb-2 font-semibold">
+              <div className="text-center p-5 bg-gray-50 rounded-lg">
+                <div className="text-sm text-gray-600 mb-2 font-medium">
                   Bester Streak
                 </div>
-                <div className="text-6xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-bold text-black mb-2">
                   {progress.learningStreak.longest}
                 </div>
-                <div className="text-gray-600 font-semibold">Tage</div>
+                <div className="text-gray-600 font-medium">Tage</div>
               </div>
             </div>
             {progress.learningStreak.current === 0 && (
-              <div className="mt-4 p-4 bg-gradient-to-r from-yellow-200 to-orange-200 rounded-xl text-yellow-900 border-2 border-yellow-400 shadow-medium">
+              <div className="mt-4 p-4 bg-yellow-50 rounded-lg text-yellow-900 border border-yellow-200">
                 <div className="flex items-center gap-2">
-                  <span className="text-3xl">💡</span>
+                  <span className="text-2xl">💡</span>
                   <div>
-                    <div className="font-bold text-lg">Starte heute deinen Lernstreak!</div>
-                    <div className="text-sm">Spiele jeden Tag ein Quiz, um deinen Streak aufzubauen! 🚀</div>
+                    <div className="font-semibold text-base">Starte heute deinen Lernstreak!</div>
+                    <div className="text-sm">Spiele jeden Tag ein Quiz, um deinen Streak aufzubauen!</div>
                   </div>
                 </div>
               </div>
             )}
             {progress.learningStreak.current > 0 && (
-              <div className="mt-4 p-4 bg-gradient-to-r from-green-200 to-emerald-200 rounded-xl text-green-900 border-2 border-green-400 shadow-medium">
+              <div className="mt-4 p-4 bg-green-50 rounded-lg text-green-900 border border-green-200">
                 <div className="flex items-center gap-2">
-                  <span className="text-3xl animate-bounce">🎉</span>
+                  <span className="text-2xl">🎉</span>
                   <div>
-                    <div className="font-bold text-lg">Super! Du lernst jeden Tag!</div>
-                    <div className="text-sm">Mach weiter so! Du bist großartig! 💪</div>
+                    <div className="font-semibold text-base">Super! Du lernst jeden Tag!</div>
+                    <div className="text-sm">Mach weiter so! Du bist großartig!</div>
                   </div>
                 </div>
               </div>

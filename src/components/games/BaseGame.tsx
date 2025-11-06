@@ -18,7 +18,7 @@ interface BaseGameWrapperProps {
 
 /**
  * BaseGame-Wrapper für alle Mini-Spiele
- * Stellt gemeinsame UI-Struktur bereit
+ * Spielerischer Stil: Bunte Gradienten, animierte Überschriften
  */
 export function BaseGame({
   title,
@@ -28,13 +28,13 @@ export function BaseGame({
   showExitButton = true,
 }: BaseGameWrapperProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+    <div className="min-h-screen bg-gradient-background">
       <Header />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-primary-900 mb-2">{title}</h1>
+        <div className="mb-6 animate-fade-in">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">{title}</h1>
           {description && (
-            <p className="text-lg text-primary-700">{description}</p>
+            <p className="text-lg text-gray-700 font-medium">{description}</p>
           )}
         </div>
 

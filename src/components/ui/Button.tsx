@@ -1,6 +1,6 @@
 /**
  * Wiederverwendbare Button-Komponente
- * Spielerischer Stil: Gradient-Hintergründe, abgerundete Ecken, Schatten, Animationen
+ * Spielerischer Stil: Gradienten, 3D-Effekte, bunte Farben
  */
 
 import clsx from 'clsx';
@@ -29,11 +29,11 @@ export function Button({
 
   const variantStyles = {
     primary:
-      'bg-gradient-primary text-white shadow-colored-lime hover:shadow-colored-lime hover:shadow-lg focus:ring-lime-300',
+      'bg-gradient-primary text-white shadow-colored-lime hover:shadow-large focus:ring-lime-300',
     secondary:
-      'bg-gradient-secondary text-white shadow-colored-blue hover:shadow-colored-blue hover:shadow-lg focus:ring-sky-300',
+      'bg-gradient-secondary text-white shadow-colored-blue hover:shadow-large focus:ring-sky-300',
     success:
-      'bg-gradient-success text-white shadow-colored-lime hover:shadow-colored-lime hover:shadow-lg focus:ring-green-300',
+      'bg-gradient-success text-white shadow-colored-lime hover:shadow-large focus:ring-green-300',
     danger: 
       'bg-gradient-danger text-white shadow-lg hover:shadow-xl focus:ring-red-300',
     warning: 
