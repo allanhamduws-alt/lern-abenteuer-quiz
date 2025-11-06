@@ -279,33 +279,65 @@ export function HomePage() {
                     : 0;
 
                   return (
-                    <div key={subject.id} className="border-2 border-gray-200 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
+                    <div key={subject.id} className="border-2 border-gray-300 rounded-lg p-4 bg-gray-50">
+                      <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-2xl">{subject.icon}</span>
-                          <span className="font-semibold">{subject.name}</span>
+                          <span className="font-semibold text-gray-900">{subject.name}</span>
                         </div>
-                        <Badge variant={progressPercent >= 80 ? 'success' : progressPercent >= 60 ? 'warning' : 'info'}>
-                          {progressPercent}%
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          {subjectProgress.level && (
+                            <Badge variant="info" className="text-sm font-bold">
+                              Level {subjectProgress.level}
+                            </Badge>
+                          )}
+                          <Badge variant={progressPercent >= 80 ? 'success' : progressPercent >= 60 ? 'warning' : 'info'}>
+                            {progressPercent}%
+                          </Badge>
+                        </div>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className={`h-2 rounded-full transition-all ${
-                            progressPercent >= 80
-                              ? 'bg-success-500'
-                              : progressPercent >= 60
-                              ? 'bg-warning-500'
-                              : 'bg-primary-500'
-                          }`}
-                          style={{
-                            width: `${progressPercent}%`,
-                          }}
-                        />
+                      
+                      {/* Level XP-Balken - nur wenn Level vorhanden */}
+                      {subjectProgress.level && subjectProgress.xp !== undefined && subjectProgress.xpToNextLevel && (
+                        <div className="mb-3">
+                          <div className="flex justify-between text-xs text-gray-800 mb-1 font-semibold">
+                            <span>XP: {subjectProgress.xp} / {subjectProgress.xpToNextLevel}</span>
+                            <span>→ Level {subjectProgress.level + 1}</span>
+                          </div>
+                          <div className="w-full bg-gray-400 rounded-full h-4 shadow-inner border border-gray-500">
+                            <div
+                              className="h-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all shadow-md border border-blue-700"
+                              style={{
+                                width: `${Math.min(100, (subjectProgress.xp / subjectProgress.xpToNextLevel) * 100)}%`,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Fortschrittsbalken - Quiz-Fortschritt */}
+                      <div className="mb-2">
+                        <div className="text-xs text-gray-800 mb-1 font-semibold">
+                          Richtige Antworten: {subjectProgress.correctAnswers} / {subjectProgress.totalQuestions}
+                        </div>
+                        <div className="w-full bg-gray-400 rounded-full h-4 shadow-inner border border-gray-500">
+                          <div
+                            className={`h-4 rounded-full transition-all shadow-md border ${
+                              progressPercent >= 80
+                                ? 'bg-green-600 border-green-700'
+                                : progressPercent >= 60
+                                ? 'bg-orange-500 border-orange-600'
+                                : 'bg-blue-600 border-blue-700'
+                            }`}
+                            style={{
+                              width: `${progressPercent}%`,
+                            }}
+                          />
+                        </div>
                       </div>
-                      <div className="text-xs text-gray-600 mt-1">
-                        {subjectProgress.quizzesCompleted} Quiz{subjectProgress.quizzesCompleted !== 1 ? 's' : ''} •{' '}
-                        {subjectProgress.correctAnswers}/{subjectProgress.totalQuestions} richtig
+                      
+                      <div className="text-xs text-gray-600 mt-2">
+                        {subjectProgress.quizzesCompleted} Quiz{subjectProgress.quizzesCompleted !== 1 ? 's' : ''} gespielt
                       </div>
                     </div>
                   );
@@ -316,6 +348,29 @@ export function HomePage() {
             <Card className="mb-6">
               <div className="text-center py-4">
                 <div className="text-gray-500">Lade Fortschritt...</div>
+              </div>
+            </Card>
+          )}
+
+          {/* Mini-Spiele Sektion */}
+          {user && (
+            <Card className="mb-6 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-1">
+                    🎮 Mini-Spiele
+                  </h3>
+                  <p className="text-gray-700">
+                    Teste dein Wissen spielerisch! Zahlen sortieren und mehr...
+                  </p>
+                </div>
+                <Button
+                  variant="primary"
+                  onClick={() => navigate(`/game?gameId=number-sort&class=${user.class}&subject=mathematik`)}
+                  className="text-lg px-6 py-3"
+                >
+                  🎯 Spielen →
+                </Button>
               </div>
             </Card>
           )}

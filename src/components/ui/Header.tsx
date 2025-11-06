@@ -28,7 +28,7 @@ export function Header({ user }: HeaderProps) {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">🎓 Lern-Abenteuer-Quiz</h1>
+            <h1 className="text-2xl font-bold text-white drop-shadow-lg">🎓 Lern-Abenteuer-Quiz</h1>
             {user && (
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-xl">{user.avatar || '👦'}</span>

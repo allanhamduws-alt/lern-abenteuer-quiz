@@ -9,9 +9,12 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
+import { LevelUp } from '../components/ui/LevelUp';
 import { syncPoints } from '../utils/points';
 import { getCurrentUser } from '../services/auth';
-import { updateProgressAfterQuiz } from '../services/progress';
+import { updateProgressAfterQuiz, loadProgress } from '../services/progress';
+import { checkEarnedBadges } from '../data/badges';
+import { getBadgeById } from '../data/badges';
 import type { QuizResult, User, Question } from '../types';
 
 export function ResultsPage() {
@@ -30,7 +33,7 @@ export function ResultsPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(true);
   const [newlyEarnedBadges, setNewlyEarnedBadges] = useState<string[]>([]);
-  const [progress, setProgress] = useState<any>(null);
+  const [levelUp, setLevelUp] = useState<{ oldLevel: number; newLevel: number; subject: string } | null>(null);
 
   useEffect(() => {
     // Aktuellen Benutzer laden und Punkte synchronisieren
@@ -60,6 +63,10 @@ export function ResultsPage() {
           });
           
           try {
+            // Alten Progress laden für Level-Up Vergleich
+            const oldProgress = await loadProgress(currentUser.uid);
+            const oldLevel = oldProgress.subjects[subject].level || 1;
+            
             const updatedProgress = await updateProgressAfterQuiz(
               currentUser.uid,
               subject,
@@ -67,14 +74,24 @@ export function ResultsPage() {
               questions,
               quizDurationSeconds
             );
-            setProgress(updatedProgress);
+            
+            // Prüfe Level-Up
+            const newLevel = updatedProgress.subjects[subject].level || 1;
+            
+            if (newLevel > oldLevel) {
+              setLevelUp({
+                oldLevel,
+                newLevel,
+                subject: subject.charAt(0).toUpperCase() + subject.slice(1),
+              });
+            }
             
             // Prüfe neu verdiente Badges
             const isPerfect = results.every((r) => r.isCorrect);
             const totalTime = quizDurationSeconds || results.reduce((sum, r) => (r.timeSpent || 0) + sum, 0);
             
             const beforeBadges = updatedProgress.badges.length;
-            const earnedBadges = checkEarnedBadges(updatedProgress, {
+            checkEarnedBadges(updatedProgress, {
               isPerfect,
               totalTimeSeconds: totalTime,
             });
@@ -127,6 +144,15 @@ export function ResultsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
       <Header user={user || undefined} />
+
+      {levelUp && (
+        <LevelUp
+          oldLevel={levelUp.oldLevel}
+          newLevel={levelUp.newLevel}
+          subject={levelUp.subject}
+          onClose={() => setLevelUp(null)}
+        />
+      )}
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">

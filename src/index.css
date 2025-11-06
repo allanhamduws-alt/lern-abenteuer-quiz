@@ -156,3 +156,14 @@ body {
   animation: bounce-dot 1.4s ease-in-out infinite;
   animation-delay: 0.4s;
 }
+
+/* Fix für sichtbare Zahlen in NumberSortGame */
+.number-button-text {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  background-color: #0284c7 !important; /* bg-primary-600 erzwingen */
+  font-weight: bold !important;
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}

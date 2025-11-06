@@ -32,6 +32,11 @@ export interface Question {
   // Für drag-drop Fragen
   dragItems?: string[]; // Items die gezogen werden können
   dropTargets?: string[]; // Ziele für Drag & Drop
+  // Bonus-Aufgabe (⭐)
+  isBonus?: boolean; // ⭐ Sternchen-Aufgabe (optional, fortgeschritten, gibt mehr Punkte)
+  bonusMultiplier?: number; // Multiplikator für Punkte bei Bonus-Aufgaben (Standard: 1.5)
+  // Hilfe-Feld
+  helpText?: string; // Altersgerechte Erklärung der Aufgabe (optional, kann durch KI generiert werden)
 }
 
 // Quiz-Ergebnis Typ
@@ -69,6 +74,9 @@ export interface SubjectProgress {
   topicsMastered: string[]; // Themen die gemeistert wurden
   topicsNeedingPractice: string[]; // Themen die Übung brauchen
   lastPlayed?: string; // ISO Date String
+  level?: number; // Level im Fach (1-100)
+  xp?: number; // Aktuelle XP im aktuellen Level
+  xpToNextLevel?: number; // XP benötigt für nächstes Level
 }
 
 // Gesamt-Fortschritt
@@ -121,5 +129,25 @@ export interface FirebaseConfig {
   authDomain: string;
   projectId: string;
   appId: string;
+}
+
+// Mini-Spiel Typen
+export type GameId = 'number-sort' | 'word-match' | 'memory';
+
+export interface GameResult {
+  gameId: GameId;
+  points: number;
+  completed: boolean;
+  timeSpent?: number; // Zeit in Sekunden
+  score?: number; // Optional: Score-Bewertung
+  mistakes?: number; // Anzahl der Fehler
+}
+
+export interface BaseGameProps {
+  gameId: GameId;
+  onComplete: (result: GameResult) => void;
+  onExit: () => void;
+  classLevel: 1 | 2 | 3 | 4;
+  subject?: Question['subject'];
 }
 

@@ -151,7 +151,7 @@ export function PracticePage() {
               </h2>
 
               <div className="space-y-3">
-                {currentQuestion.options.map((option, index) => (
+                {currentQuestion.options && currentQuestion.options.map((option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswerSelect(index)}
@@ -159,7 +159,7 @@ export function PracticePage() {
                     className={`w-full p-4 rounded-lg text-left transition-all ${
                       selectedAnswer === index
                         ? 'bg-primary-500 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : 'bg-gray-200 text-gray-800 hover:bg-gray-300 border border-gray-300'
                     } ${
                       showResult &&
                       index === currentQuestion.correctAnswer
@@ -204,11 +204,9 @@ export function PracticePage() {
                           <div className="text-2xl mb-2">💪 Nicht aufgeben!</div>
                           <div>
                             Die richtige Antwort ist:{' '}
-                            {
-                              currentQuestion.options[
-                                currentQuestion.correctAnswer
-                              ]
-                            }
+                            {currentQuestion.options && 
+                              typeof currentQuestion.correctAnswer === 'number' &&
+                              currentQuestion.options[currentQuestion.correctAnswer]}
                             . Versuche es beim nächsten Mal nochmal!
                           </div>
                         </>

@@ -10,6 +10,7 @@ import { QuizPage } from './pages/QuizPage';
 import { ResultsPage } from './pages/ResultsPage';
 import { ProgressPage } from './pages/ProgressPage';
 import { PracticePage } from './pages/PracticePage';
+import { GamePage } from './pages/GamePage';
 import { onAuthChange } from './services/auth';
 import { useState, useEffect } from 'react';
 import type { User as FirebaseUser } from 'firebase/auth';
@@ -80,6 +81,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <PracticePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/game',
+    element: (
+      <ProtectedRoute>
+        <GamePage />
       </ProtectedRoute>
     ),
   },

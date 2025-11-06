@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getRandomQuestions, getAdaptiveQuestions } from '../data/questions';
+import { getAdaptiveQuestions } from '../data/questions';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
@@ -15,6 +15,7 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { StoryCard } from '../components/story/StoryCard';
 import { InputQuestion } from '../components/quiz/InputQuestion';
 import { DragDropQuestion } from '../components/quiz/DragDropQuestion';
+import { HelpButton } from '../components/quiz/HelpButton';
 import type { Question, QuizResult } from '../types';
 
 export function QuizPage() {
@@ -34,8 +35,7 @@ export function QuizPage() {
   const [showStars, setShowStars] = useState(false);
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const autoNextTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const pointsAnimationRef = useRef<NodeJS.Timeout | null>(null);
+  const pointsAnimationRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     // Fragen laden - adaptive Auswahl für bessere Anpassung
@@ -138,12 +138,16 @@ export function QuizPage() {
         isCorrect = answer === currentQuestion.correctAnswer;
       }
 
-      const points = isCorrect ? currentQuestion.points : 0;
+      const points = isCorrect 
+        ? (currentQuestion.isBonus 
+            ? Math.round(currentQuestion.points * (currentQuestion.bonusMultiplier || 1.5))
+            : currentQuestion.points)
+        : 0;
       const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
 
       const newResult: QuizResult = {
         questionId: currentQuestion.id,
-        selectedAnswer: answer,
+        selectedAnswer: Array.isArray(answer) ? answer.join(',') : answer,
         isCorrect,
         points,
         timeSpent,
@@ -166,7 +170,6 @@ export function QuizPage() {
       animatePoints(currentPoints, newTotalPoints);
 
       // Konfetti nur bei größeren Erfolgen, nicht bei jeder richtigen Antwort
-      const totalPoints = updatedResults.reduce((sum, r) => sum + r.points, 0);
       const pointMilestones = [50, 100, 200, 500, 1000];
       const crossedMilestone = pointMilestones.some(
         (milestone) => currentPoints < milestone && newTotalPoints >= milestone
@@ -272,7 +275,6 @@ export function QuizPage() {
     );
   }
 
-  const totalPoints = results.reduce((sum, r) => sum + r.points, 0);
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
@@ -312,9 +314,28 @@ export function QuizPage() {
               world={currentQuestion.world}
             />
             
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">
-              {currentQuestion.question}
-            </h2>
+            {/* Bonus-Aufgabe Badge */}
+            {currentQuestion.isBonus && (
+              <div className="mb-4 flex items-center gap-2 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3 animate-fade-in">
+                <span className="text-2xl">⭐</span>
+                <div>
+                  <span className="font-bold text-yellow-700">Bonus-Aufgabe!</span>
+                  <span className="text-sm text-yellow-600 ml-2">Mehr Punkte wenn richtig!</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Frage mit Hilfe-Button */}
+            <div className="flex items-start justify-between mb-6">
+              <h2 className="text-3xl font-bold text-gray-800 flex-1">
+                {currentQuestion.question}
+              </h2>
+              {!showResult && (
+                <div className="ml-4">
+                  <HelpButton question={currentQuestion} />
+                </div>
+              )}
+            </div>
 
             {/* Rendere verschiedene Fragetypen */}
             {currentQuestion.type === 'input' ? (
@@ -352,11 +373,11 @@ export function QuizPage() {
                         buttonClasses += 'bg-red-500 text-white font-semibold';
                       } else {
                         // Andere Optionen: Grau ausgegraut
-                        buttonClasses += 'bg-gray-100 text-gray-500 opacity-60';
+                        buttonClasses += 'bg-gray-200 text-gray-600 opacity-70';
                       }
                     } else {
-                      // Nicht beantwortet: Standard grau
-                      buttonClasses += 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md hover:scale-[1.02]';
+                      // Nicht beantwortet: Standard grau mit besserem Kontrast
+                      buttonClasses += 'bg-gray-200 text-gray-800 hover:bg-gray-300 hover:shadow-md hover:scale-[1.02] border border-gray-300';
                     }
                     
                     return (

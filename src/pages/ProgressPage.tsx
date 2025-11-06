@@ -151,14 +151,14 @@ export function ProgressPage() {
                       </Badge>
                     </div>
 
-                    <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
+                    <div className="w-full bg-gray-400 rounded-full h-4 mb-2 shadow-inner border border-gray-500">
                       <div
-                        className={`h-3 rounded-full transition-all ${
+                        className={`h-4 rounded-full transition-all shadow-md border ${
                           progressPercent >= 80
-                            ? 'bg-success-500'
+                            ? 'bg-green-600 border-green-700'
                             : progressPercent >= 60
-                            ? 'bg-warning-500'
-                            : 'bg-primary-500'
+                            ? 'bg-orange-500 border-orange-600'
+                            : 'bg-blue-600 border-blue-700'
                         }`}
                         style={{
                           width: `${progressPercent}%`,

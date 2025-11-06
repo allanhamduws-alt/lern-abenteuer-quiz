@@ -76,10 +76,10 @@ export function DragDropQuestion({ question, onAnswer, showResult, selectedAnswe
                 onDragStart={() => handleDragStart(item)}
                 className={`p-4 rounded-lg cursor-move transition-all duration-300 ${
                   isUsed && !showResult
-                    ? 'bg-gray-200 text-gray-400 opacity-50 cursor-not-allowed'
+                    ? 'bg-gray-300 text-gray-500 opacity-60 cursor-not-allowed'
                     : showResult
-                    ? 'bg-gray-100 text-gray-600'
-                    : 'bg-primary-100 text-primary-700 hover:bg-primary-200 shadow-md hover:shadow-lg'
+                    ? 'bg-gray-200 text-gray-700'
+                    : 'bg-primary-100 text-primary-800 hover:bg-primary-200 shadow-md hover:shadow-lg border border-primary-300'
                 }`}
               >
                 {item}

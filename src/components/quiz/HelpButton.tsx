@@ -343,7 +343,7 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
             disabled={isLoading}
             className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 font-semibold ${
               isLoading
-                ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
+                ? 'bg-gray-200 text-gray-600 cursor-not-allowed'
                 : isSpeaking
                 ? 'bg-red-100 hover:bg-red-200 text-red-700'
                 : 'bg-green-100 hover:bg-green-200 text-green-700'

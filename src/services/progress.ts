@@ -55,6 +55,9 @@ function createEmptySubjectProgress(
     averageScore: 0,
     topicsMastered: [],
     topicsNeedingPractice: [],
+    level: 1,
+    xp: 0,
+    xpToNextLevel: 100,
   };
 }
 
@@ -67,7 +70,19 @@ export async function loadProgress(userId: string): Promise<Progress> {
     const progressDoc = await getDoc(progressRef);
 
     if (progressDoc.exists()) {
-      return progressDoc.data() as Progress;
+      const progress = progressDoc.data() as Progress;
+      
+      // Level für alle Fächer berechnen, falls nicht vorhanden
+      Object.values(progress.subjects).forEach((subjectProgress) => {
+        if (!subjectProgress.level) {
+          const levelData = calculateLevel(subjectProgress);
+          subjectProgress.level = levelData.level;
+          subjectProgress.xp = levelData.xp;
+          subjectProgress.xpToNextLevel = levelData.xpToNextLevel;
+        }
+      });
+      
+      return progress;
     }
 
     // Neuen Fortschritt erstellen
@@ -175,6 +190,7 @@ export async function updateProgressAfterQuiz(
     quizzesCompleted: subjectProgress.quizzesCompleted,
     totalQuestions: subjectProgress.totalQuestions,
     correctAnswers: subjectProgress.correctAnswers,
+    level: subjectProgress.level || 1,
   };
   
   subjectProgress.quizzesCompleted += 1;
@@ -185,6 +201,12 @@ export async function updateProgressAfterQuiz(
   );
   subjectProgress.lastPlayed = new Date().toISOString();
 
+  // Level berechnen und aktualisieren
+  const levelData = calculateLevel(subjectProgress);
+  subjectProgress.level = levelData.level;
+  subjectProgress.xp = levelData.xp;
+  subjectProgress.xpToNextLevel = levelData.xpToNextLevel;
+
   console.log(`📚 ${subject} Statistiken aktualisiert:`, {
     alt: oldSubjectStats,
     neu: {
@@ -192,6 +214,9 @@ export async function updateProgressAfterQuiz(
       totalQuestions: subjectProgress.totalQuestions,
       correctAnswers: subjectProgress.correctAnswers,
       averageScore: subjectProgress.averageScore,
+      level: subjectProgress.level,
+      xp: subjectProgress.xp,
+      xpToNextLevel: subjectProgress.xpToNextLevel,
     },
   });
 
@@ -373,6 +398,52 @@ export function getAllDifficultQuestions(
   progress: Progress
 ): DifficultQuestion[] {
   return progress.difficultQuestions.filter((dq) => !dq.mastered);
+}
+
+/**
+ * Berechnet Level basierend auf Fach-Fortschritt
+ * Formel: Level basiert auf Quizzes, richtige Antworten und Durchschnitt
+ */
+export function calculateLevel(subjectProgress: SubjectProgress): {
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+} {
+  // Basis-XP berechnen
+  const baseXP = subjectProgress.quizzesCompleted * 10 + 
+                 subjectProgress.correctAnswers * 2 + 
+                 Math.floor(subjectProgress.averageScore / 10);
+  
+  // Level berechnen: Level 1 = 0-99 XP, Level 2 = 100-399 XP, Level 3 = 400-899 XP, etc.
+  // Formel: Level = floor(sqrt(XP / 100)) + 1
+  const level = Math.max(1, Math.floor(Math.sqrt(baseXP / 100)) + 1);
+  
+  // XP für aktuelles Level berechnen
+  const xpForCurrentLevel = Math.pow(level - 1, 2) * 100;
+  const xp = baseXP - xpForCurrentLevel;
+  
+  // XP für nächstes Level berechnen
+  const xpForNextLevel = Math.pow(level, 2) * 100;
+  const xpToNextLevel = xpForNextLevel - xpForCurrentLevel;
+  
+  return {
+    level: Math.min(level, 100), // Max Level 100
+    xp: Math.max(0, xp),
+    xpToNextLevel: Math.max(100, xpToNextLevel),
+  };
+}
+
+/**
+ * Prüft ob Level-Up aufgetreten ist
+ */
+export function checkLevelUp(
+  oldProgress: SubjectProgress,
+  newProgress: SubjectProgress
+): boolean {
+  const oldLevel = oldProgress.level || 1;
+  const newLevel = calculateLevel(newProgress).level;
+  
+  return newLevel > oldLevel;
 }
 
 /**
