@@ -265,7 +265,7 @@ export function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Verwaltung..." />
         </Card>
@@ -278,7 +278,7 @@ export function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50">
+    <div className="min-h-screen bg-white">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
@@ -301,7 +301,7 @@ export function AdminPage() {
           </div>
 
           {/* Code-Verknüpfung */}
-          <Card className="mb-6 bg-gradient-to-br from-pastel-purple-50 to-pastel-pink-50 border-2 border-pastel-purple-300">
+          <Card className="mb-6 bg-purple-50 border-2 border-purple-300">
             <h3 className="text-2xl font-bold mb-4 text-gray-800">
               Code-Verknüpfung 🔗
             </h3>

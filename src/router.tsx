@@ -11,6 +11,8 @@ import { ResultsPage } from './pages/ResultsPage';
 import { ProgressPage } from './pages/ProgressPage';
 import { PracticePage } from './pages/PracticePage';
 import { GamePage } from './pages/GamePage';
+import { GamesPage } from './pages/GamesPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { ParentDashboardPage } from './pages/ParentDashboardPage';
 import { AdminPage } from './pages/AdminPage';
 import { LinkParentPage } from './pages/LinkParentPage';
@@ -32,8 +34,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center">
-        <div className="text-xl">Lädt...</div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-xl text-gray-700">Lädt...</div>
       </div>
     );
   }
@@ -92,6 +94,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <GamePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/games',
+    element: (
+      <ProtectedRoute>
+        <GamesPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/profile',
+    element: (
+      <ProtectedRoute>
+        <ProfilePage />
       </ProtectedRoute>
     ),
   },

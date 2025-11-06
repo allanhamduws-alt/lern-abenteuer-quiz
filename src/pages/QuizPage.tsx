@@ -237,7 +237,7 @@ export function QuizPage() {
   // Prüfe ob Fragen gefunden wurden
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50">
+      <div className="min-h-screen bg-white">
         <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-3xl mx-auto">
@@ -267,7 +267,7 @@ export function QuizPage() {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Fragen..." />
         </Card>
@@ -278,7 +278,7 @@ export function QuizPage() {
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+    <div className="min-h-screen bg-white">
       <Header />
       <Confetti show={showConfetti} />
       <Stars show={showStars} />
@@ -297,7 +297,7 @@ export function QuizPage() {
             </div>
             <div className="w-full bg-gray-300 rounded-full h-4 overflow-hidden shadow-inner">
               <div
-                className="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full transition-all duration-500 ease-out shadow-md"
+                className="bg-green-500 h-4 rounded-full transition-all duration-500 ease-out"
                 style={{
                   width: `${progressPercentage}%`,
                 }}

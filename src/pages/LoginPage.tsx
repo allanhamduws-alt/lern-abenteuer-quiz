@@ -65,7 +65,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-purple-100 to-pastel-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
           {isLogin ? 'Anmelden' : 'Registrieren'}
@@ -90,8 +90,8 @@ export function LoginPage() {
                     onClick={() => setUserRole('child')}
                     className={`p-3 rounded-lg border-2 transition-all ${
                       userRole === 'child'
-                        ? 'border-pastel-blue-400 bg-gradient-to-br from-pastel-blue-50 to-pastel-purple-50'
-                        : 'border-gray-300 hover:border-pastel-blue-300'
+                        ? 'border-purple-400 bg-purple-50'
+                        : 'border-gray-300 hover:border-purple-300'
                     }`}
                   >
                     <div className="text-2xl mb-1">👶</div>
@@ -102,8 +102,8 @@ export function LoginPage() {
                     onClick={() => setUserRole('parent')}
                     className={`p-3 rounded-lg border-2 transition-all ${
                       userRole === 'parent'
-                        ? 'border-pastel-blue-400 bg-gradient-to-br from-pastel-blue-50 to-pastel-purple-50'
-                        : 'border-gray-300 hover:border-pastel-blue-300'
+                        ? 'border-purple-400 bg-purple-50'
+                        : 'border-gray-300 hover:border-purple-300'
                     }`}
                   >
                     <div className="text-2xl mb-1">👨‍👩‍👧‍👦</div>
@@ -157,8 +157,8 @@ export function LoginPage() {
                       onClick={() => setAvatar(av)}
                       className={`text-3xl p-3 rounded-lg border-2 transition-all ${
                         avatar === av
-                          ? 'border-pastel-blue-500 bg-gradient-to-br from-pastel-blue-100 to-pastel-purple-100 scale-110'
-                          : 'border-gray-300 hover:border-pastel-blue-300'
+                          ? 'border-purple-500 bg-purple-100 scale-110'
+                          : 'border-gray-300 hover:border-purple-300'
                       }`}
                     >
                       {av}

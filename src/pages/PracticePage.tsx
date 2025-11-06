@@ -103,7 +103,7 @@ export function PracticePage() {
     const currentQuestion = practiceQuestions[currentQuestionIndex];
     if (!currentQuestion) {
       return (
-        <div className="min-h-screen bg-gradient-to-br from-pastel-orange-100 via-pastel-yellow-100 to-pastel-orange-50 flex items-center justify-center">
+        <div className="min-h-screen bg-white flex items-center justify-center">
           <Card>
             <LoadingSpinner text="Lade Fragen..." />
           </Card>
@@ -112,7 +112,7 @@ export function PracticePage() {
     }
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-orange-100 via-pastel-yellow-100 to-pastel-orange-50">
+      <div className="min-h-screen bg-white">
         <Header user={user || undefined} />
 
         <div className="container mx-auto px-4 py-8">
@@ -128,7 +128,7 @@ export function PracticePage() {
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div
-                  className="bg-warning-500 h-3 rounded-full transition-all duration-300"
+                  className="bg-yellow-400 h-3 rounded-full transition-all duration-300"
                   style={{
                     width: `${
                       ((currentQuestionIndex + 1) / practiceQuestions.length) *
@@ -146,9 +146,9 @@ export function PracticePage() {
                   💪 Diese Aufgabe hast du vorher falsch beantwortet
                 </Badge>
               </div>
-              <h2 className="text-3xl font-bold mb-6 text-gray-800">
-                {currentQuestion.question}
-              </h2>
+            <h2 className="text-3xl font-bold mb-6 text-gray-900">
+              {currentQuestion.question}
+            </h2>
 
               <div className="space-y-3">
                 {currentQuestion.options && currentQuestion.options.map((option, index) => (
@@ -158,18 +158,18 @@ export function PracticePage() {
                     disabled={showResult}
                     className={`w-full p-4 rounded-lg text-left transition-all ${
                       selectedAnswer === index
-                        ? 'bg-primary-500 text-white shadow-lg'
+                        ? 'bg-purple-600 text-white shadow-lg'
                         : 'bg-gray-200 text-gray-800 hover:bg-gray-300 border border-gray-300'
                     } ${
                       showResult &&
                       index === currentQuestion.correctAnswer
-                        ? 'bg-success-500 text-white'
+                        ? 'bg-green-500 text-white'
                         : ''
                     } ${
                       showResult &&
                       selectedAnswer === index &&
                       selectedAnswer !== currentQuestion.correctAnswer
-                        ? 'bg-error-500 text-white'
+                        ? 'bg-red-500 text-white'
                         : ''
                     }`}
                   >
@@ -187,8 +187,8 @@ export function PracticePage() {
                     <div
                       className={`p-4 rounded-lg mb-4 ${
                         selectedAnswer === currentQuestion.correctAnswer
-                          ? 'bg-success-50 text-success-800'
-                          : 'bg-error-50 text-error-800'
+                          ? 'bg-green-50 text-green-800'
+                          : 'bg-red-50 text-red-800'
                       }`}
                     >
                       {selectedAnswer === currentQuestion.correctAnswer ? (
@@ -248,14 +248,14 @@ export function PracticePage() {
 
   // Übersichts-Modus
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+    <div className="min-h-screen bg-white">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-4xl font-bold text-gray-800">
-              💪 Schwierige Aufgaben üben
+            <h2 className="text-3xl font-bold text-gray-900">
+              Schwierige Aufgaben üben
             </h2>
             <Button variant="secondary" onClick={() => navigate('/home')}>
               ← Zurück
@@ -278,10 +278,10 @@ export function PracticePage() {
             </Card>
           ) : (
             <>
-              <Card className="mb-6 bg-warning-50 border-2 border-warning-200">
+              <Card className="mb-6 bg-yellow-50 border-2 border-yellow-300">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
                       Bereit zum Üben?
                     </h3>
                     <p className="text-gray-600">
@@ -297,7 +297,7 @@ export function PracticePage() {
               </Card>
 
               <Card>
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">
                   Deine schwierigen Aufgaben
                 </h3>
                 <div className="space-y-3">
@@ -306,9 +306,9 @@ export function PracticePage() {
                     if (!question) return null;
 
                     return (
-                      <div
+                      <Card
                         key={difficultQ.questionId}
-                        className="border-2 border-warning-200 rounded-lg p-4 bg-warning-50"
+                        className="border-2 border-yellow-300 bg-yellow-50"
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
@@ -333,7 +333,7 @@ export function PracticePage() {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </Card>
                     );
                   })}
                 </div>

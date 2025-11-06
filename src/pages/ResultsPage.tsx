@@ -142,7 +142,7 @@ export function ResultsPage() {
   }, []); // Nur einmal beim Mounten ausführen
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pastel-green-100 via-pastel-yellow-100 to-pastel-green-50">
+    <div className="min-h-screen bg-white">
       <Header user={user || undefined} />
 
       {levelUp && (
@@ -199,7 +199,7 @@ export function ResultsPage() {
 
           {/* Neu verdiente Badges */}
           {newlyEarnedBadges.length > 0 && (
-            <Card className="mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 animate-fade-in">
+            <Card className="mb-6 bg-yellow-50 border-2 border-yellow-300 animate-fade-in">
               <div className="text-center">
                 <div className="text-5xl mb-3">🏆</div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">

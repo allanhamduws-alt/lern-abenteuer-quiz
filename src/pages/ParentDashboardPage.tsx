@@ -77,7 +77,7 @@ export function ParentDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-purple-100 via-pastel-pink-100 to-pastel-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Dashboard..." />
         </Card>
@@ -89,7 +89,7 @@ export function ParentDashboardPage() {
   const currentProgress = selectedChildData?.progress;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pastel-purple-100 via-pastel-pink-100 to-pastel-purple-50">
+    <div className="min-h-screen bg-white">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
@@ -124,8 +124,8 @@ export function ParentDashboardPage() {
                     onClick={() => setSelectedChild(child.uid)}
                     className={`p-4 rounded-xl text-left transition-all shadow-lg transform hover:scale-105 active:scale-95 ${
                       selectedChild === child.uid
-                        ? 'bg-gradient-to-br from-pastel-blue-400 to-pastel-purple-400 text-white shadow-xl scale-105 border-2 border-pastel-purple-300'
-                        : 'bg-gradient-to-br from-white to-pastel-gray-50 text-gray-800 hover:from-pastel-blue-50 hover:to-pastel-purple-50 border-2 border-pastel-blue-200'
+                        ? 'bg-purple-600 text-white shadow-xl scale-105 border-2 border-purple-700'
+                        : 'bg-white text-gray-800 hover:bg-gray-50 border-2 border-gray-200'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -336,7 +336,7 @@ export function ParentDashboardPage() {
               </Card>
 
               {/* Export-Bereich */}
-              <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200">
+              <Card className="bg-blue-50 border-2 border-blue-200">
                 <h3 className="text-xl font-bold mb-4 text-gray-800">
                   📄 Bericht exportieren
                 </h3>

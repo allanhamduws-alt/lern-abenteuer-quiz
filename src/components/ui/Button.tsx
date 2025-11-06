@@ -1,6 +1,6 @@
 /**
  * Wiederverwendbare Button-Komponente
- * Gradient-Buttons mit Pastell-Farben für bessere Sichtbarkeit
+ * LogicLike-Style: Flat Design, keine Gradienten
  */
 
 import clsx from 'clsx';
@@ -25,19 +25,19 @@ export function Button({
   className,
 }: ButtonProps) {
   const baseStyles =
-    'font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95 shadow-lg';
+    'font-bold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variantStyles = {
     primary:
-      'bg-gradient-to-r from-pastel-blue-400 to-pastel-purple-400 text-white hover:from-pastel-blue-500 hover:to-pastel-purple-500 hover:shadow-xl focus:ring-pastel-purple-300',
+      'bg-green-500 text-white hover:bg-green-600 focus:ring-green-300',
     secondary:
-      'bg-gradient-to-r from-pastel-gray-300 to-pastel-blue-300 text-gray-800 hover:from-pastel-gray-400 hover:to-pastel-blue-400 hover:shadow-xl focus:ring-pastel-blue-300 border-2 border-pastel-blue-200',
+      'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-300',
     success:
-      'bg-gradient-to-r from-pastel-green-400 to-pastel-green-300 text-white hover:from-pastel-green-500 hover:to-pastel-green-400 hover:shadow-xl focus:ring-pastel-green-300',
+      'bg-green-500 text-white hover:bg-green-600 focus:ring-green-300',
     danger: 
-      'bg-gradient-to-r from-pastel-pink-400 to-pastel-purple-400 text-white hover:from-pastel-pink-500 hover:to-pastel-purple-500 hover:shadow-xl focus:ring-pastel-pink-300',
+      'bg-red-500 text-white hover:bg-red-600 focus:ring-red-300',
     warning: 
-      'bg-gradient-to-r from-pastel-orange-400 to-pastel-yellow-400 text-white hover:from-pastel-orange-500 hover:to-pastel-yellow-500 hover:shadow-xl focus:ring-pastel-orange-300',
+      'bg-yellow-400 text-gray-800 hover:bg-yellow-500 focus:ring-yellow-300',
   };
 
   const sizeStyles = {
@@ -55,7 +55,7 @@ export function Button({
         baseStyles,
         variantStyles[variant],
         sizeStyles[size],
-        disabled && 'opacity-50 cursor-not-allowed hover:scale-100',
+        disabled && 'opacity-50 cursor-not-allowed',
         className
       )}
     >

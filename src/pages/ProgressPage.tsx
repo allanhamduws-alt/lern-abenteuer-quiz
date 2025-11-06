@@ -12,15 +12,16 @@ import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
+import { MathIcon, GermanIcon, ScienceIcon, ArtIcon, LogicIcon } from '../components/icons';
 import { getAllBadges, getBadgeById } from '../data/badges';
 import type { User, Progress } from '../types';
 
 const subjects = [
-  { id: 'mathematik', name: 'Mathematik', icon: '🔢' },
-  { id: 'deutsch', name: 'Deutsch', icon: '📚' },
-  { id: 'naturwissenschaften', name: 'Naturwissenschaften', icon: '🔬' },
-  { id: 'kunst', name: 'Kunst & Kreativität', icon: '🎨' },
-  { id: 'logik', name: 'Logik & Minispiele', icon: '🧩' },
+  { id: 'mathematik', name: 'Mathematik', icon: MathIcon },
+  { id: 'deutsch', name: 'Deutsch', icon: GermanIcon },
+  { id: 'naturwissenschaften', name: 'Naturwissenschaften', icon: ScienceIcon },
+  { id: 'kunst', name: 'Kunst & Kreativität', icon: ArtIcon },
+  { id: 'logik', name: 'Logik & Minispiele', icon: LogicIcon },
 ] as const;
 
 export function ProgressPage() {
@@ -40,7 +41,7 @@ export function ProgressPage() {
 
   if (!progress) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-purple-100 via-pastel-pink-100 to-pastel-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Fortschritt..." />
         </Card>
@@ -61,15 +62,15 @@ export function ProgressPage() {
   const overallProgress = totalSubjects > 0 ? Math.round((masteredSubjects / totalSubjects) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pastel-purple-100 via-pastel-pink-100 to-pastel-purple-50">
+    <div className="min-h-screen bg-white">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-4xl font-bold text-gray-800 mb-2">
-                Dein Fortschritt 📊
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Dein Fortschritt
               </h2>
               <p className="text-gray-600">
                 Schau dir an, wie weit du schon gekommen bist!
@@ -81,17 +82,17 @@ export function ProgressPage() {
           </div>
 
           {/* Hero-Statistik Card */}
-          <Card className="mb-6 bg-gradient-to-br from-pastel-purple-400 to-pastel-pink-400 text-white border-0 shadow-xl">
+          <Card className="mb-6 bg-purple-600 text-white border-0">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-5xl mb-3">🎯</div>
                 <div className="text-4xl font-bold mb-1">
                   {overallProgress}%
                 </div>
-                <div className="text-primary-100">Gesamt-Fortschritt</div>
+                <div className="text-purple-100">Gesamt-Fortschritt</div>
                 <div className="mt-3 w-full bg-white/20 rounded-full h-3">
                   <div
-                    className="bg-white h-3 rounded-full transition-all shadow-lg"
+                    className="bg-white h-3 rounded-full transition-all"
                     style={{ width: `${overallProgress}%` }}
                   />
                 </div>
@@ -101,8 +102,8 @@ export function ProgressPage() {
                 <div className="text-4xl font-bold mb-1">
                   {progress.badges.length}
                 </div>
-                <div className="text-primary-100">Badges</div>
-                <div className="text-sm text-primary-100 mt-2">
+                <div className="text-purple-100">Badges</div>
+                <div className="text-sm text-purple-100 mt-2">
                   von {getAllBadges().length} verfügbar
                 </div>
               </div>
@@ -111,9 +112,9 @@ export function ProgressPage() {
                 <div className="text-4xl font-bold mb-1">
                   {progress.learningStreak.current}
                 </div>
-                <div className="text-primary-100">Tage Streak</div>
+                <div className="text-purple-100">Tage Streak</div>
                 {progress.learningStreak.longest > 0 && (
-                  <div className="text-sm text-primary-100 mt-2">
+                  <div className="text-sm text-purple-100 mt-2">
                     Beste: {progress.learningStreak.longest} Tage
                   </div>
                 )}
@@ -123,37 +124,37 @@ export function ProgressPage() {
 
           {/* Gesamt-Statistiken */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <Card className="hover:shadow-lg transition-all transform hover:scale-105">
+            <Card className="hover:shadow-lg transition-all">
               <div className="text-center">
-                <div className="text-4xl mb-2 animate-bounce">📚</div>
-                <div className="text-3xl font-bold text-primary-600">
+                <div className="text-4xl mb-2">📚</div>
+                <div className="text-3xl font-bold text-purple-600">
                   {progress.totalQuizzesCompleted}
                 </div>
                 <div className="text-sm text-gray-600">Quizzes</div>
               </div>
             </Card>
-            <Card className="hover:shadow-lg transition-all transform hover:scale-105">
+            <Card className="hover:shadow-lg transition-all">
               <div className="text-center">
-                <div className="text-4xl mb-2 animate-pulse">⭐</div>
-                <div className="text-3xl font-bold text-warning-600">
+                <div className="text-4xl mb-2">⭐</div>
+                <div className="text-3xl font-bold text-yellow-500">
                   {progress.totalPoints}
                 </div>
                 <div className="text-sm text-gray-600">Punkte</div>
               </div>
             </Card>
-            <Card className="hover:shadow-lg transition-all transform hover:scale-105">
+            <Card className="hover:shadow-lg transition-all">
               <div className="text-center">
                 <div className="text-4xl mb-2">🔥</div>
-                <div className="text-3xl font-bold text-error-600">
+                <div className="text-3xl font-bold text-orange-500">
                   {progress.learningStreak.current}
                 </div>
                 <div className="text-sm text-gray-600">Tage Streak</div>
               </div>
             </Card>
-            <Card className="hover:shadow-lg transition-all transform hover:scale-105">
+            <Card className="hover:shadow-lg transition-all">
               <div className="text-center">
                 <div className="text-4xl mb-2">💪</div>
-                <div className="text-3xl font-bold text-warning-600">
+                <div className="text-3xl font-bold text-yellow-500">
                   {progress.difficultQuestions.filter((dq) => !dq.mastered).length}
                 </div>
                 <div className="text-sm text-gray-600">Zu üben</div>
@@ -163,8 +164,8 @@ export function ProgressPage() {
 
           {/* Badges Galerie */}
           {progress.badges.length > 0 && (
-            <Card className="mb-6 bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-300">
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">
+            <Card className="mb-6 bg-yellow-50 border-2 border-yellow-300">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">
                 🏆 Deine Badges
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -174,7 +175,7 @@ export function ProgressPage() {
                   return (
                     <div
                       key={badgeId}
-                      className="bg-white rounded-lg p-4 text-center border-2 border-yellow-400 shadow-md hover:shadow-lg transition-all transform hover:scale-105"
+                      className="bg-white rounded-lg p-4 text-center border-2 border-yellow-400 shadow-md hover:shadow-lg transition-all"
                     >
                       <div className="text-5xl mb-2">{badge.emoji}</div>
                       <div className="font-bold text-sm">{badge.name}</div>
@@ -187,8 +188,8 @@ export function ProgressPage() {
 
           {/* Detaillierte Fach-Statistiken */}
           <Card className="mb-6">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
-              📚 Fortschritt nach Fach
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">
+              Fortschritt nach Fach
             </h3>
             <div className="space-y-4">
               {subjects.map((subject) => {
@@ -206,13 +207,18 @@ export function ProgressPage() {
                     : 0;
 
                 return (
-                  <div
+                  <Card
                     key={subject.id}
-                    className="border-2 border-gray-200 rounded-lg p-5 hover:shadow-lg transition-all bg-gradient-to-r from-white to-gray-50"
+                    className="hover:shadow-lg transition-all"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-4">
-                        <span className="text-4xl">{subject.icon}</span>
+                        <div className="text-purple-600">
+                          {(() => {
+                            const IconComponent = subject.icon;
+                            return <IconComponent className="w-8 h-8" />;
+                          })()}
+                        </div>
                         <div>
                           <div className="font-bold text-xl">{subject.name}</div>
                           <div className="text-sm text-gray-600">
@@ -244,9 +250,9 @@ export function ProgressPage() {
                           <span>XP: {subjectProgress.xp} / {subjectProgress.xpToNextLevel}</span>
                           <span>→ Level {subjectProgress.level + 1}</span>
                         </div>
-                        <div className="w-full bg-gray-300 rounded-full h-3 shadow-inner">
+                        <div className="w-full bg-gray-300 rounded-full h-3">
                           <div
-                            className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all shadow-md"
+                            className="h-3 rounded-full bg-purple-600 transition-all"
                             style={{
                               width: `${Math.min(100, (subjectProgress.xp / subjectProgress.xpToNextLevel) * 100)}%`,
                             }}
@@ -257,14 +263,14 @@ export function ProgressPage() {
 
                     {/* Fortschrittsbalken */}
                     <div className="mb-3">
-                      <div className="w-full bg-gray-300 rounded-full h-5 shadow-inner border border-gray-400">
+                      <div className="w-full bg-gray-300 rounded-full h-5">
                         <div
-                          className={`h-5 rounded-full transition-all shadow-md border ${
+                          className={`h-5 rounded-full transition-all ${
                             progressPercent >= 80
-                              ? 'bg-gradient-to-r from-green-500 to-green-600 border-green-700'
+                              ? 'bg-green-500'
                               : progressPercent >= 60
-                              ? 'bg-gradient-to-r from-orange-400 to-orange-500 border-orange-600'
-                              : 'bg-gradient-to-r from-blue-500 to-blue-600 border-blue-700'
+                              ? 'bg-orange-500'
+                              : 'bg-blue-500'
                           }`}
                           style={{
                             width: `${progressPercent}%`,
@@ -276,7 +282,7 @@ export function ProgressPage() {
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="text-gray-600">Richtig: </span>
-                        <span className="font-semibold text-success-600">
+                        <span className="font-semibold text-green-600">
                           {subjectProgress.correctAnswers}/
                           {subjectProgress.totalQuestions}
                         </span>
@@ -320,15 +326,15 @@ export function ProgressPage() {
                         </div>
                       </div>
                     )}
-                  </div>
+                  </Card>
                 );
               })}
             </div>
           </Card>
 
           {/* Lernstreak Details */}
-          <Card className="mb-6 bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+          <Card className="mb-6 bg-orange-50 border-2 border-orange-200">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">
               🔥 Dein Lernstreak
             </h3>
             <div className="grid grid-cols-2 gap-6">
@@ -336,7 +342,7 @@ export function ProgressPage() {
                 <div className="text-sm text-gray-600 mb-2">
                   Aktueller Streak
                 </div>
-                <div className="text-5xl font-bold text-primary-600 mb-2">
+                <div className="text-5xl font-bold text-purple-600 mb-2">
                   {progress.learningStreak.current}
                 </div>
                 <div className="text-gray-600">Tage</div>
@@ -345,7 +351,7 @@ export function ProgressPage() {
                 <div className="text-sm text-gray-600 mb-2">
                   Bester Streak
                 </div>
-                <div className="text-5xl font-bold text-success-600 mb-2">
+                <div className="text-5xl font-bold text-green-600 mb-2">
                   {progress.learningStreak.longest}
                 </div>
                 <div className="text-gray-600">Tage</div>
@@ -376,8 +382,8 @@ export function ProgressPage() {
           </Card>
 
           {/* Nächste Ziele */}
-          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+          <Card className="bg-purple-50 border-2 border-purple-200">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">
               🎯 Deine nächsten Ziele
             </h3>
             <div className="space-y-3">

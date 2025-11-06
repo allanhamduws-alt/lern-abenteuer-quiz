@@ -1,12 +1,12 @@
 /**
  * Header-Komponente für die App
- * Zeigt Logo/Titel und Navigation an
+ * LogicLike-Style: Weißer Hintergrund, horizontale Navigation
  */
 
-import { Button } from './Button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { logoutUser } from '../../services/auth';
 import type { User } from '../../types';
+import { MathIcon, ProgressIcon, ProfileIcon, GameIcon } from '../icons';
 
 interface HeaderProps {
   user?: User | null;
@@ -26,13 +26,10 @@ export function Header({ user }: HeaderProps) {
   };
 
   const handleLogoClick = () => {
-    // Wenn auf Login-Seite, nichts tun
     if (location.pathname === '/login') {
       return;
     }
     
-    // Bestimme Ziel basierend auf User-Rolle oder aktueller Route
-    // Wenn User vorhanden ist, nutze die Rolle
     if (user) {
       if (user.role === 'parent') {
         navigate('/parent-dashboard');
@@ -40,8 +37,6 @@ export function Header({ user }: HeaderProps) {
         navigate('/home');
       }
     } else {
-      // Wenn kein User, aber auf geschützter Route
-      // Prüfe aktuelle Route für Hinweis
       const currentPath = location.pathname;
       if (currentPath.startsWith('/parent-dashboard') || currentPath.startsWith('/admin')) {
         navigate('/parent-dashboard');
@@ -51,55 +46,163 @@ export function Header({ user }: HeaderProps) {
     }
   };
 
-  return (
-    <header className="bg-gradient-to-r from-pastel-blue-500 to-pastel-purple-500 text-white shadow-lg border-b-2 border-pastel-purple-300">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <div>
+  const isActive = (path: string) => {
+    return location.pathname === path || location.pathname.startsWith(path + '/');
+  };
+
+  // Für Kinder: Hauptnavigation
+  if (user && user.role !== 'parent') {
+    return (
+      <header className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <h1 
+                onClick={handleLogoClick}
+                className="text-xl font-bold text-gray-900 cursor-pointer hover:text-purple-600 transition-colors"
+                style={{ userSelect: 'none' }}
+              >
+                Lern-Abenteuer-Quiz
+              </h1>
+              
+              <nav className="hidden md:flex items-center gap-1">
+                <button
+                  onClick={() => navigate('/home')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isActive('/home') 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <MathIcon className="w-5 h-5" />
+                  <span className="font-medium">Fächer</span>
+                </button>
+                
+                <button
+                  onClick={() => navigate('/progress')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isActive('/progress') 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <ProgressIcon className="w-5 h-5" />
+                  <span className="font-medium">Fortschritt</span>
+                </button>
+                
+                <button
+                  onClick={() => navigate('/profile')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isActive('/profile') 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <ProfileIcon className="w-5 h-5" />
+                  <span className="font-medium">Profil</span>
+                </button>
+                
+                <button
+                  onClick={() => navigate('/practice')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isActive('/practice') 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <span className="font-medium">Üben</span>
+                </button>
+                
+                <button
+                  onClick={() => navigate('/games')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isActive('/games') 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <GameIcon className="w-5 h-5" />
+                  <span className="font-medium">Spiele</span>
+                </button>
+              </nav>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              {user && (
+                <div className="hidden md:flex items-center gap-2 text-sm text-gray-600">
+                  <span>{user.name}</span>
+                  <span>•</span>
+                  <span>{user.totalPoints} Punkte</span>
+                </div>
+              )}
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Abmelden
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  // Für Eltern: Vereinfachte Navigation
+  if (user && user.role === 'parent') {
+    return (
+      <header className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
             <h1 
               onClick={handleLogoClick}
-              className={`text-2xl font-bold text-white drop-shadow-lg transition-colors cursor-pointer ${
-                user ? 'hover:text-pastel-blue-100 active:scale-95' : 'opacity-80'
-              }`}
+              className="text-xl font-bold text-gray-900 cursor-pointer hover:text-purple-600 transition-colors"
               style={{ userSelect: 'none' }}
             >
-              🎓 Lern-Abenteuer-Quiz
+              Lern-Abenteuer-Quiz
             </h1>
-            {user && (
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-xl">{user.avatar || '👦'}</span>
-                <p className="text-sm text-pastel-blue-100">
-                  Hallo {user.name}! • {user.totalPoints} Punkte
-                </p>
-              </div>
-            )}
-          </div>
-          {user && (
+            
             <div className="flex items-center gap-2">
-              {user.role === 'parent' && (
-                <>
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => navigate('/admin')}
-                  >
-                    Verwaltung ⚙️
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => navigate('/parent-dashboard')}
-                  >
-                    Eltern-Dashboard
-                  </Button>
-                </>
-              )}
-              <Button variant="secondary" size="sm" onClick={handleLogout}>
+              <button
+                onClick={() => navigate('/admin')}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  isActive('/admin') 
+                    ? 'bg-green-500 text-white' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                Verwaltung
+              </button>
+              <button
+                onClick={() => navigate('/parent-dashboard')}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  isActive('/parent-dashboard') 
+                    ? 'bg-green-500 text-white' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
                 Abmelden
-              </Button>
+              </button>
             </div>
-          )}
+          </div>
         </div>
+      </header>
+    );
+  }
+
+  // Für nicht eingeloggte Benutzer
+  return (
+    <header className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="container mx-auto px-4 py-3">
+        <h1 className="text-xl font-bold text-gray-900">
+          Lern-Abenteuer-Quiz
+        </h1>
       </div>
     </header>
   );
