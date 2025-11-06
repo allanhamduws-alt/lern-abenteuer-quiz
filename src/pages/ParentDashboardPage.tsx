@@ -1,6 +1,6 @@
 /**
  * Eltern-Dashboard-Seite
- * Übersicht über Fortschritt und Statistiken der Kinder
+ * Spielerischer Stil: Bunte Gradienten, animierte Karten
  */
 
 import { useState, useEffect } from 'react';
@@ -77,7 +77,7 @@ export function ParentDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Dashboard..." />
         </Card>
@@ -89,13 +89,13 @@ export function ParentDashboardPage() {
   const currentProgress = selectedChildData?.progress;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-background">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-4xl font-bold text-gray-800">
+          <div className="flex items-center justify-between mb-8 animate-fade-in">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Eltern-Dashboard 👨‍👩‍👧‍👦
             </h2>
             <div className="flex gap-2">
@@ -113,8 +113,8 @@ export function ParentDashboardPage() {
 
           {/* Kinder-Auswahl */}
           {children.length > 0 && (
-            <Card className="mb-6">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">
+            <Card className="mb-6 bg-gradient-card shadow-large animate-fade-in">
+              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                 Wähle ein Kind aus
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -122,20 +122,20 @@ export function ParentDashboardPage() {
                   <button
                     key={child.uid}
                     onClick={() => setSelectedChild(child.uid)}
-                    className={`p-4 rounded-xl text-left transition-all shadow-lg transform hover:scale-105 active:scale-95 ${
+                    className={`p-5 rounded-xl text-left transition-all shadow-medium transform hover:scale-105 ${
                       selectedChild === child.uid
-                        ? 'bg-purple-600 text-white shadow-xl scale-105 border-2 border-purple-700'
-                        : 'bg-white text-gray-800 hover:bg-gray-50 border-2 border-gray-200'
+                        ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-colored-purple scale-105 border-2 border-white'
+                        : 'bg-gradient-card text-gray-800 hover:shadow-large border-2 border-gray-200'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-4xl">{child.avatar || '👦'}</span>
+                      <span className="text-5xl transform hover:scale-110 transition-transform">{child.avatar || '👦'}</span>
                       <div>
                         <div className="font-bold text-lg">{child.name}</div>
-                        <div className="text-sm opacity-80">
+                        <div className="text-sm opacity-90">
                           Klasse {child.class} • {progress.totalPoints} Punkte
                         </div>
-                        <div className="text-sm opacity-80">
+                        <div className="text-sm opacity-90">
                           🔥 {progress.learningStreak.current} Tage Streak
                         </div>
                       </div>
@@ -151,47 +151,47 @@ export function ParentDashboardPage() {
             <>
               {/* Gesamt-Statistiken */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <Card>
+                <Card className="bg-gradient-to-br from-purple-100 to-pink-100 border-purple-300 shadow-medium transform hover:scale-105 transition-all">
                   <div className="text-center">
-                    <div className="text-3xl mb-2">📚</div>
-                    <div className="text-2xl font-bold text-primary-600">
+                    <div className="text-4xl mb-2">📚</div>
+                    <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {currentProgress.totalQuizzesCompleted}
                     </div>
-                    <div className="text-sm text-gray-600">Quizzes</div>
+                    <div className="text-sm font-semibold text-gray-700">Quizzes</div>
                   </div>
                 </Card>
-                <Card>
+                <Card className="bg-gradient-to-br from-yellow-100 to-orange-100 border-yellow-300 shadow-medium transform hover:scale-105 transition-all">
                   <div className="text-center">
-                    <div className="text-3xl mb-2">⭐</div>
-                    <div className="text-2xl font-bold text-warning-600">
+                    <div className="text-4xl mb-2">⭐</div>
+                    <div className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
                       {currentProgress.totalPoints}
                     </div>
-                    <div className="text-sm text-gray-600">Punkte</div>
+                    <div className="text-sm font-semibold text-gray-700">Punkte</div>
                   </div>
                 </Card>
-                <Card>
+                <Card className="bg-gradient-to-br from-orange-100 to-red-100 border-orange-300 shadow-medium transform hover:scale-105 transition-all">
                   <div className="text-center">
-                    <div className="text-3xl mb-2">🔥</div>
-                    <div className="text-2xl font-bold text-error-600">
+                    <div className="text-4xl mb-2">🔥</div>
+                    <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
                       {currentProgress.learningStreak.current}
                     </div>
-                    <div className="text-sm text-gray-600">Tage Streak</div>
+                    <div className="text-sm font-semibold text-gray-700">Tage Streak</div>
                   </div>
                 </Card>
-                <Card>
+                <Card className="bg-gradient-to-br from-lime-100 to-green-100 border-lime-300 shadow-medium transform hover:scale-105 transition-all">
                   <div className="text-center">
-                    <div className="text-3xl mb-2">🏆</div>
-                    <div className="text-2xl font-bold text-success-600">
+                    <div className="text-4xl mb-2">🏆</div>
+                    <div className="text-3xl font-bold bg-gradient-to-r from-lime-600 to-green-600 bg-clip-text text-transparent">
                       {currentProgress.badges.length}
                     </div>
-                    <div className="text-sm text-gray-600">Badges</div>
+                    <div className="text-sm font-semibold text-gray-700">Badges</div>
                   </div>
                 </Card>
               </div>
 
               {/* Fach-Statistiken */}
-              <Card className="mb-6">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">
+              <Card className="mb-6 shadow-large">
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                   Fortschritt nach Fach
                 </h3>
                 <div className="space-y-4">
@@ -212,13 +212,13 @@ export function ParentDashboardPage() {
                     return (
                       <div
                         key={subject.id}
-                        className="border-2 border-gray-200 rounded-lg p-4"
+                        className="border-2 border-gray-200 rounded-xl p-4 bg-gradient-card shadow-soft transform hover:scale-[1.01] transition-all"
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-3">
-                            <span className="text-3xl">{subject.icon}</span>
+                            <span className="text-4xl">{subject.icon}</span>
                             <div>
-                              <div className="font-bold text-lg">
+                              <div className="font-bold text-lg text-gray-800">
                                 {subject.name}
                               </div>
                               <div className="text-sm text-gray-600">
@@ -228,7 +228,7 @@ export function ParentDashboardPage() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold text-primary-600">
+                            <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                               {progressPercent}%
                             </div>
                             <div className="text-xs text-gray-600">
@@ -238,14 +238,14 @@ export function ParentDashboardPage() {
                           </div>
                         </div>
 
-                        <div className="w-full bg-gray-300 rounded-full h-4 mb-2">
+                        <div className="w-full bg-white/60 rounded-full h-5 shadow-inner">
                           <div
-                            className={`h-4 rounded-full transition-all ${
+                            className={`h-5 rounded-full transition-all duration-500 ${
                               progressPercent >= 80
-                                ? 'bg-green-600'
+                                ? 'bg-gradient-success shadow-colored-lime'
                                 : progressPercent >= 60
-                                ? 'bg-orange-500'
-                                : 'bg-blue-600'
+                                ? 'bg-gradient-warning shadow-lg'
+                                : 'bg-gradient-secondary shadow-colored-blue'
                             }`}
                             style={{
                               width: `${progressPercent}%`,
@@ -259,30 +259,30 @@ export function ParentDashboardPage() {
               </Card>
 
               {/* Lernstreak Details */}
-              <Card className="mb-6">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">
+              <Card className="mb-6 bg-gradient-to-r from-orange-200 to-red-200 border-2 border-orange-400 shadow-large">
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-700 to-red-700 bg-clip-text text-transparent">
                   🔥 Lernstreak Details
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-sm text-gray-600 mb-1">
+                  <div className="bg-white rounded-xl p-4 shadow-medium">
+                    <div className="text-sm text-gray-600 mb-1 font-semibold">
                       Aktueller Streak
                     </div>
-                    <div className="text-3xl font-bold text-primary-600">
+                    <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {currentProgress.learningStreak.current} Tage
                     </div>
                   </div>
-                  <div>
-                    <div className="text-sm text-gray-600 mb-1">
+                  <div className="bg-white rounded-xl p-4 shadow-medium">
+                    <div className="text-sm text-gray-600 mb-1 font-semibold">
                       Bester Streak
                     </div>
-                    <div className="text-3xl font-bold text-success-600">
+                    <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                       {currentProgress.learningStreak.longest} Tage
                     </div>
                   </div>
                 </div>
                 {currentProgress.learningStreak.current > 0 && (
-                  <div className="mt-4 p-3 bg-success-50 rounded-lg text-success-800 text-sm">
+                  <div className="mt-4 p-4 bg-gradient-to-r from-green-200 to-emerald-200 rounded-xl text-green-900 border-2 border-green-400 shadow-medium">
                     🎉 Großartig! {selectedChildData.child.name} lernt regelmäßig!
                   </div>
                 )}
@@ -291,11 +291,11 @@ export function ParentDashboardPage() {
               {/* Schwierige Aufgaben */}
               {currentProgress.difficultQuestions.filter((dq) => !dq.mastered)
                 .length > 0 && (
-                <Card className="mb-6 bg-warning-50 border-2 border-warning-200">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">
+                <Card className="mb-6 bg-gradient-to-r from-yellow-200 to-orange-200 border-2 border-yellow-400 shadow-large">
+                  <h3 className="text-xl font-bold mb-2 text-yellow-900">
                     💪 Schwierige Aufgaben
                   </h3>
-                  <p className="text-gray-700 mb-2">
+                  <p className="text-yellow-800">
                     {currentProgress.difficultQuestions.filter(
                       (dq) => !dq.mastered
                     ).length}{' '}
@@ -311,11 +311,11 @@ export function ParentDashboardPage() {
               )}
 
               {/* Aktuelle Aktivität */}
-              <Card className="mb-6">
-                <h3 className="text-xl font-bold mb-4 text-gray-800">
+              <Card className="mb-6 shadow-medium">
+                <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                   📅 Letzte Aktivität
                 </h3>
-                <div className="text-gray-700">
+                <div className="text-gray-700 text-lg">
                   {currentProgress.lastActivity ? (
                     <div>
                       Letzte Aktivität:{' '}
@@ -336,23 +336,25 @@ export function ParentDashboardPage() {
               </Card>
 
               {/* Export-Bereich */}
-              <Card className="bg-blue-50 border-2 border-blue-200">
-                <h3 className="text-xl font-bold mb-4 text-gray-800">
+              <Card className="bg-gradient-to-br from-blue-200 to-purple-200 border-2 border-blue-400 shadow-large">
+                <h3 className="text-xl font-bold mb-4 text-blue-900">
                   📄 Bericht exportieren
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-blue-800 mb-4">
                   Laden Sie einen detaillierten Fortschrittsbericht herunter.
                 </p>
                 <div className="flex gap-3 flex-wrap">
                   <Button
                     variant="primary"
                     onClick={() => exportReportAsText(selectedChildData.child, currentProgress)}
+                    className="shadow-colored-lime"
                   >
                     📄 Als Text exportieren
                   </Button>
                   <Button
                     variant="secondary"
                     onClick={() => exportReportAsHTML(selectedChildData.child, currentProgress)}
+                    className="shadow-colored-blue"
                   >
                     🖨️ Als HTML exportieren
                   </Button>
@@ -362,18 +364,19 @@ export function ParentDashboardPage() {
           )}
 
           {children.length === 0 && (
-            <Card>
+            <Card className="bg-gradient-to-br from-purple-200 to-pink-200 border-purple-400 shadow-large">
               <div className="text-center py-8">
-                <div className="text-4xl mb-4">👨‍👩‍👧‍👦</div>
-                <h3 className="text-xl font-bold mb-2 text-gray-800">
+                <div className="text-6xl mb-4">👨‍👩‍👧‍👦</div>
+                <h3 className="text-2xl font-bold mb-2 text-gray-800">
                   Noch keine Kinder verknüpft
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-700 mb-4 text-lg">
                   Verknüpfen Sie Kinder-Konten in der Verwaltung
                 </p>
                 <Button
                   variant="primary"
                   onClick={() => navigate('/admin')}
+                  className="shadow-colored-lime"
                 >
                   Zur Verwaltung →
                 </Button>

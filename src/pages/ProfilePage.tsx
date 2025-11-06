@@ -1,6 +1,6 @@
 /**
- * Profil-Seite - LogicLike-Style
- * Zeigt Profil-Info, Badges und Einstellungen
+ * Profil-Seite - Spielerischer Stil
+ * Bunte Gradienten, 3D-Effekte, animierte Badges
  */
 
 import { useState, useEffect } from 'react';
@@ -56,7 +56,7 @@ export function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-background">
         <Header user={user || undefined} />
         <div className="container mx-auto px-4 py-8">
           <Card>
@@ -72,27 +72,27 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-background">
       <Header user={user} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Profil-Info */}
-          <Card className="mb-6">
+          <Card className="mb-6 bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 border-purple-300 shadow-large animate-fade-in">
             <div className="flex items-center gap-6">
-              <div className="text-6xl">{user.avatar || '👦'}</div>
+              <div className="text-7xl transform hover:scale-110 transition-transform duration-300 drop-shadow-md">{user.avatar || '👦'}</div>
               <div className="flex-1">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-4xl font-bold text-white mb-3 drop-shadow-md">
                   {user.name}
                 </h2>
-                <div className="text-gray-600 space-y-1">
-                  <div>Klasse {user.class}</div>
+                <div className="text-white/90 space-y-1 text-lg">
+                  <div className="font-semibold">Klasse {user.class}</div>
                   {user.age && <div>Alter: {user.age} Jahre</div>}
                   {user.year && <div>Jahrgang: {user.year}</div>}
                   {progress && (
                     <>
-                      <div>Gesamt-Punkte: {progress.totalPoints}</div>
-                      <div>Lernstreak: {progress.learningStreak.current} Tage</div>
+                      <div className="font-bold">Gesamt-Punkte: {progress.totalPoints} ⭐</div>
+                      <div className="font-bold">Lernstreak: {progress.learningStreak.current} Tage 🔥</div>
                     </>
                   )}
                 </div>
@@ -102,10 +102,10 @@ export function ProfilePage() {
 
           {/* Badges-Galerie */}
           {progress && (
-            <Card className="mb-6">
+            <Card className="mb-6 bg-gradient-to-r from-yellow-300 to-orange-300 border-2 border-yellow-500 shadow-large animate-fade-in">
               <div className="flex items-center gap-2 mb-4">
-                <TrophyIcon className="w-6 h-6 text-yellow-500" />
-                <h3 className="text-2xl font-bold text-gray-900">
+                <TrophyIcon className="w-8 h-8 text-yellow-900 drop-shadow-md" />
+                <h3 className="text-3xl font-bold text-yellow-900 drop-shadow-sm">
                   Deine Badges
                 </h3>
               </div>
@@ -118,20 +118,20 @@ export function ProfilePage() {
                     return (
                       <div
                         key={badgeId}
-                        className="bg-yellow-50 rounded-lg p-4 text-center border-2 border-yellow-300"
+                        className="bg-white rounded-xl p-4 text-center border-2 border-yellow-400 shadow-medium hover:shadow-large transform hover:scale-110 transition-all duration-300"
                       >
-                        <div className="text-4xl mb-2">{badge.emoji}</div>
+                        <div className="text-5xl mb-2">{badge.emoji}</div>
                         <div className="font-bold text-sm text-gray-900">{badge.name}</div>
                       </div>
                     );
                   })}
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-500">
-                  <TrophyIcon className="w-12 h-12 mx-auto mb-2 text-gray-300" />
-                  <p>Noch keine Badges verdient!</p>
+                <div className="text-center py-8 text-yellow-900">
+                  <TrophyIcon className="w-16 h-16 mx-auto mb-3 text-yellow-700 opacity-50" />
+                  <p className="text-lg font-semibold">Noch keine Badges verdient!</p>
                   <p className="text-sm mt-2">
-                    Spiele Quizzes und sammle Badges für deine Erfolge!
+                    Spiele Quizzes und sammle Badges für deine Erfolge! 🎉
                   </p>
                 </div>
               )}
@@ -139,22 +139,22 @@ export function ProfilePage() {
               {/* Alle verfügbaren Badges */}
               {progress.badges.length > 0 && (
                 <details className="mt-6">
-                  <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800 mb-4">
+                  <summary className="cursor-pointer text-base font-semibold text-yellow-900 hover:text-yellow-800 mb-4 bg-white/60 px-4 py-2 rounded-xl shadow-soft">
                     Alle verfügbaren Badges anzeigen
                   </summary>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
                     {getAllBadges().map((badge) => {
                       const isEarned = progress.badges.includes(badge.id);
                       return (
                         <div
                           key={badge.id}
-                          className={`rounded-lg p-4 text-center border-2 ${
+                          className={`rounded-xl p-4 text-center border-2 transition-all duration-300 transform hover:scale-105 ${
                             isEarned
-                              ? 'bg-yellow-50 border-yellow-300'
-                              : 'bg-gray-50 border-gray-200 opacity-50'
+                              ? 'bg-white border-yellow-400 shadow-medium'
+                              : 'bg-white/50 border-gray-300 opacity-60'
                           }`}
                         >
-                          <div className="text-4xl mb-2">{badge.emoji}</div>
+                          <div className="text-5xl mb-2">{badge.emoji}</div>
                           <div className={`font-bold text-sm ${isEarned ? 'text-gray-900' : 'text-gray-400'}`}>
                             {badge.name}
                           </div>

@@ -1,6 +1,6 @@
 /**
  * Card-Komponente für Quiz-Fragen und andere Inhalte
- * LogicLike-Style: Weißer Hintergrund, subtiler Schatten, abgerundete Ecken
+ * Spielerischer Stil: Subtile Gradienten, diffuse Schatten, Hover-Effekte
  */
 
 import clsx from 'clsx';
@@ -21,7 +21,9 @@ export function Card({ children, className, padding = 'md' }: CardProps) {
   return (
     <div
       className={clsx(
-        'bg-white rounded-lg shadow-md border border-gray-200',
+        'bg-gradient-card rounded-xl shadow-medium border border-gray-100',
+        'transition-all duration-300 ease-out',
+        'hover:shadow-large hover:scale-[1.01]',
         paddingStyles[padding],
         className
       )}

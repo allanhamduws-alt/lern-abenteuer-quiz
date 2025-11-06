@@ -3,13 +3,13 @@
 
 /* Basis-Styles für die App */
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
 
 @theme {
-  /* LogicLike-Style Farbpalette - Flat Design */
+  /* Spielerische Farbpalette - Bunte Pastelltöne */
   /* Hauptfarben */
   --color-white: #ffffff;
   --color-black: #000000;
@@ -26,7 +26,49 @@
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
   
-  /* Lila/Purple (Hauptfarbe wie LogicLike) */
+  /* Bunte Pastell-Palette */
+  /* Lime-Grün */
+  --color-lime-50: #f7fee7;
+  --color-lime-100: #ecfccb;
+  --color-lime-200: #d9f99d;
+  --color-lime-300: #bef264;
+  --color-lime-400: #a3e635;
+  --color-lime-500: #84cc16;
+  --color-lime-600: #65a30d;
+  --color-lime-700: #4d7c0f;
+  
+  /* Himmelblau */
+  --color-sky-50: #f0f9ff;
+  --color-sky-100: #e0f2fe;
+  --color-sky-200: #bae6fd;
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+  --color-sky-700: #0369a1;
+  
+  /* Warmgelb */
+  --color-yellow-50: #fefce8;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+  --color-yellow-warm-400: #fcd34d;
+  --color-yellow-warm-500: #fde047;
+  
+  /* Spielerisches Pink */
+  --color-pink-50: #fdf2f8;
+  --color-pink-100: #fce7f3;
+  --color-pink-200: #fbcfe8;
+  --color-pink-300: #f9a8d4;
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+  --color-pink-700: #be185d;
+  
+  /* Helllila */
   --color-purple-50: #faf5ff;
   --color-purple-100: #f3e8ff;
   --color-purple-200: #e9d5ff;
@@ -35,10 +77,28 @@
   --color-purple-500: #a855f7;
   --color-purple-600: #9333ea;
   --color-purple-700: #7e22ce;
-  --color-purple-800: #6b21a8;
-  --color-purple-900: #581c87;
   
-  /* Grün (für Erfolg/Aktionen) */
+  /* Sanftes Orange */
+  --color-orange-50: #fff7ed;
+  --color-orange-100: #ffedd5;
+  --color-orange-200: #fed7aa;
+  --color-orange-300: #fdba74;
+  --color-orange-400: #fb923c;
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+  
+  /* Kräftiges Rot */
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  
+  /* Grün (für Erfolg) */
   --color-green-50: #f0fdf4;
   --color-green-100: #dcfce7;
   --color-green-200: #bbf7d0;
@@ -47,37 +107,41 @@
   --color-green-500: #22c55e;
   --color-green-600: #16a34a;
   --color-green-700: #15803d;
-  --color-green-800: #166534;
-  --color-green-900: #14532d;
   
-  /* Gelb (für Highlights) */
-  --color-yellow-50: #fefce8;
-  --color-yellow-100: #fef9c3;
-  --color-yellow-200: #fef08a;
-  --color-yellow-300: #fde047;
-  --color-yellow-400: #facc15;
-  --color-yellow-500: #eab308;
-  --color-yellow-600: #ca8a04;
+  /* Gradient-Definitionen */
+  --gradient-primary: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+  --gradient-secondary: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+  --gradient-success: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+  --gradient-warning: linear-gradient(135deg, #fcd34d 0%, #fde047 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  --gradient-background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+  --gradient-card: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
   
-  /* Kompatibilität: Pastell-Farben behalten für bestehende Komponenten */
-  --color-pastel-gray-50: #f9fafb;
-  --color-pastel-gray-100: #f3f4f6;
-  --color-pastel-gray-200: #e5e7eb;
-  --color-pastel-gray-300: #d1d5db;
-  --color-pastel-gray-400: #9ca3af;
-  --color-pastel-gray-500: #6b7280;
-  --color-pastel-purple-600: #9333ea;
-  --color-pastel-green-500: #22c55e;
-  --color-pastel-yellow-400: #facc15;
+  /* Schatten-Definitionen */
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-colored-lime: 0 4px 12px rgba(132, 204, 22, 0.3);
+  --shadow-colored-blue: 0 4px 12px rgba(56, 189, 248, 0.3);
+  --shadow-colored-purple: 0 4px 12px rgba(168, 85, 247, 0.3);
+  
+  /* Border-Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #ffffff;
-  color: #000000;
+  background: var(--gradient-background);
+  color: #1f2937;
   font-size: 16px; /* Mindestens 16px für gute Lesbarkeit */
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Kindgerechte Schriftarten */
@@ -87,42 +151,78 @@ body {
 
 /* Typografie-Hierarchie */
 h1 {
-  font-size: 2rem; /* 32px */
+  font-size: 2.5rem; /* 40px */
   font-weight: 700;
   line-height: 1.2;
+  font-family: 'Nunito', sans-serif;
+  color: #1f2937;
 }
 
 h2 {
-  font-size: 1.75rem; /* 28px */
+  font-size: 2rem; /* 32px */
   font-weight: 700;
   line-height: 1.3;
+  font-family: 'Nunito', sans-serif;
+  color: #1f2937;
 }
 
 h3 {
   font-size: 1.5rem; /* 24px */
   font-weight: 600;
   line-height: 1.4;
+  font-family: 'Nunito', sans-serif;
+  color: #374151;
 }
 
 p {
   font-size: 1rem; /* 16px */
-  line-height: 1.5;
+  line-height: 1.6;
+  font-family: 'Nunito', sans-serif;
+  color: #4b5563;
 }
 
 /* Animationen */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+  animation: fade-in 0.4s ease-out;
+}
+
+/* Bounce Animation für Erfolge */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 0.6s ease-in-out;
+}
+
+/* Scale Animation für Hover */
+@keyframes scale-up {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+.animate-scale-up {
+  animation: scale-up 0.2s ease-out;
 }
 
 /* Konfetti-Animation */

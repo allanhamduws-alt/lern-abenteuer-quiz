@@ -1,6 +1,6 @@
 /**
  * Wiederverwendbare Button-Komponente
- * LogicLike-Style: Flat Design, keine Gradienten
+ * Spielerischer Stil: Gradient-Hintergründe, abgerundete Ecken, Schatten, Animationen
  */
 
 import clsx from 'clsx';
@@ -25,19 +25,19 @@ export function Button({
   className,
 }: ButtonProps) {
   const baseStyles =
-    'font-bold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'font-bold rounded-xl transition-all duration-300 ease-out focus:outline-none focus:ring-4 focus:ring-offset-2 transform hover:scale-105 active:scale-95 active:shadow-pressed';
 
   const variantStyles = {
     primary:
-      'bg-green-500 text-white hover:bg-green-600 focus:ring-green-300',
+      'bg-gradient-primary text-white shadow-colored-lime hover:shadow-colored-lime hover:shadow-lg focus:ring-lime-300',
     secondary:
-      'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-300',
+      'bg-gradient-secondary text-white shadow-colored-blue hover:shadow-colored-blue hover:shadow-lg focus:ring-sky-300',
     success:
-      'bg-green-500 text-white hover:bg-green-600 focus:ring-green-300',
+      'bg-gradient-success text-white shadow-colored-lime hover:shadow-colored-lime hover:shadow-lg focus:ring-green-300',
     danger: 
-      'bg-red-500 text-white hover:bg-red-600 focus:ring-red-300',
+      'bg-gradient-danger text-white shadow-lg hover:shadow-xl focus:ring-red-300',
     warning: 
-      'bg-yellow-400 text-gray-800 hover:bg-yellow-500 focus:ring-yellow-300',
+      'bg-gradient-warning text-gray-800 shadow-lg hover:shadow-xl focus:ring-yellow-300',
   };
 
   const sizeStyles = {
@@ -55,7 +55,7 @@ export function Button({
         baseStyles,
         variantStyles[variant],
         sizeStyles[size],
-        disabled && 'opacity-50 cursor-not-allowed',
+        disabled && 'opacity-50 cursor-not-allowed transform-none hover:scale-100',
         className
       )}
     >

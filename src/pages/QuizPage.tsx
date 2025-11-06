@@ -1,6 +1,6 @@
 /**
  * Quiz-Seite
- * Hier werden die Quiz-Fragen angezeigt und beantwortet
+ * Spielerischer Stil: Bunte Gradienten, größere Karten, verbesserte Feedback-Animationen
  */
 
 import { useState, useEffect, useRef } from 'react';
@@ -237,13 +237,13 @@ export function QuizPage() {
   // Prüfe ob Fragen gefunden wurden
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-background">
         <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-3xl mx-auto">
             <Card className="text-center">
               <div className="text-6xl mb-4">😔</div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">
+              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                 Keine Fragen gefunden
               </h2>
               <p className="text-gray-600 mb-6">
@@ -267,7 +267,7 @@ export function QuizPage() {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Fragen..." />
         </Card>
@@ -278,7 +278,7 @@ export function QuizPage() {
   const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-background">
       <Header />
       <Confetti show={showConfetti} />
       <Stars show={showStars} />
@@ -287,17 +287,17 @@ export function QuizPage() {
         <div className="max-w-3xl mx-auto">
           {/* Fortschrittsbalken */}
           <div className="mb-6">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
+            <div className="flex justify-between text-sm font-semibold mb-2">
               <span
                 key={animatedPoints}
-                className="font-bold text-primary-600 animate-count-up inline-block"
+                className="font-bold text-lime-600 animate-count-up inline-block text-lg bg-white/60 px-3 py-1 rounded-xl shadow-soft"
               >
-                {animatedPoints} Punkte
+                ⭐ {animatedPoints} Punkte
               </span>
             </div>
-            <div className="w-full bg-gray-300 rounded-full h-4 overflow-hidden shadow-inner">
+            <div className="w-full bg-white/60 rounded-full h-6 overflow-hidden shadow-medium">
               <div
-                className="bg-green-500 h-4 rounded-full transition-all duration-500 ease-out"
+                className="bg-gradient-success h-6 rounded-full transition-all duration-500 ease-out shadow-colored-lime"
                 style={{
                   width: `${progressPercentage}%`,
                 }}
@@ -316,18 +316,18 @@ export function QuizPage() {
             
             {/* Bonus-Aufgabe Badge */}
             {currentQuestion.isBonus && (
-              <div className="mb-4 flex items-center gap-2 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3 animate-fade-in">
-                <span className="text-2xl">⭐</span>
+              <div className="mb-4 flex items-center gap-2 bg-gradient-to-r from-yellow-300 to-yellow-400 border-2 border-yellow-500 rounded-xl p-4 animate-fade-in shadow-colored-lime">
+                <span className="text-3xl">⭐</span>
                 <div>
-                  <span className="font-bold text-yellow-700">Bonus-Aufgabe!</span>
-                  <span className="text-sm text-yellow-600 ml-2">Mehr Punkte wenn richtig!</span>
+                  <span className="font-bold text-yellow-900 text-lg">Bonus-Aufgabe!</span>
+                  <span className="text-sm text-yellow-800 ml-2 font-semibold">Mehr Punkte wenn richtig!</span>
                 </div>
               </div>
             )}
             
             {/* Frage mit Hilfe-Button */}
             <div className="flex items-start justify-between mb-6">
-              <h2 className="text-3xl font-bold text-gray-800 flex-1">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent flex-1">
                 {currentQuestion.question}
               </h2>
               {!showResult && (
@@ -362,22 +362,22 @@ export function QuizPage() {
                     const isWrong = isSelected && !isCorrectAnswer;
                     
                     // Bestimme die Button-Farbe basierend auf dem Ergebnis
-                    let buttonClasses = 'w-full p-4 rounded-lg text-left transition-all duration-300 ';
+                    let buttonClasses = 'w-full p-5 rounded-xl text-left transition-all duration-300 transform font-semibold text-lg ';
                     
                     if (showResult) {
                       if (isCorrectAnswer) {
-                        // Richtige Antwort: GRÜN
-                        buttonClasses += 'bg-green-500 text-white shadow-lg scale-105 font-semibold';
+                        // Richtige Antwort: GRÜNER GRADIENT
+                        buttonClasses += 'bg-gradient-success text-white shadow-colored-lime scale-105 animate-bounce';
                       } else if (isWrong) {
-                        // Falsche ausgewählte Antwort: ROT
-                        buttonClasses += 'bg-red-500 text-white font-semibold';
+                        // Falsche ausgewählte Antwort: ROTER GRADIENT
+                        buttonClasses += 'bg-gradient-danger text-white shadow-lg';
                       } else {
                         // Andere Optionen: Grau ausgegraut
                         buttonClasses += 'bg-gray-200 text-gray-600 opacity-70';
                       }
                     } else {
-                      // Nicht beantwortet: Standard grau mit besserem Kontrast
-                      buttonClasses += 'bg-gray-200 text-gray-800 hover:bg-gray-300 hover:shadow-md hover:scale-[1.02] border border-gray-300';
+                      // Nicht beantwortet: Bunte Karte mit Hover
+                      buttonClasses += 'bg-gradient-card text-gray-800 hover:bg-white hover:shadow-large hover:scale-[1.02] border-2 border-gray-200';
                     }
                     
                     return (
@@ -398,17 +398,17 @@ export function QuizPage() {
                 {showResult && selectedAnswer !== null && typeof selectedAnswer === 'number' && 
                  selectedAnswer !== currentQuestion.correctAnswer && (
                   <div className="mt-6 animate-fade-in">
-                    <div className="p-4 rounded-lg mb-4 bg-error-50 text-error-800 border-2 border-error-300">
-                      <div className="text-xl font-bold mb-2">💪 Fast richtig!</div>
-                      <div className="mb-3">
-                        Die richtige Antwort ist: <strong>{currentQuestion.options?.[currentQuestion.correctAnswer as number]}</strong>
+                    <div className="p-5 rounded-xl mb-4 bg-gradient-to-r from-orange-100 to-yellow-100 text-orange-900 border-2 border-orange-300 shadow-medium">
+                      <div className="text-2xl font-bold mb-2">💪 Fast richtig!</div>
+                      <div className="mb-3 text-lg">
+                        Die richtige Antwort ist: <strong className="text-green-600">{currentQuestion.options?.[currentQuestion.correctAnswer as number]}</strong>
                       </div>
                       {currentQuestion.explanation && (
-                        <div className="bg-white bg-opacity-50 rounded-lg p-3 mt-3 border-l-4 border-primary-400">
-                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                        <div className="bg-white/80 rounded-xl p-4 mt-3 border-2 border-purple-300 shadow-soft">
+                          <div className="text-base font-bold text-purple-700 mb-2">
                             💡 So funktioniert es:
                           </div>
-                          <div className="text-sm text-gray-700">
+                          <div className="text-gray-700">
                             {currentQuestion.explanation}
                           </div>
                         </div>
@@ -420,14 +420,14 @@ export function QuizPage() {
             )}
 
             {/* Navigation-Pfeile unten */}
-            <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
+            <div className="flex justify-between items-center mt-6 pt-4 border-t-2 border-purple-200">
               <button
                 onClick={handlePreviousQuestion}
                 disabled={currentQuestionIndex === 0}
-                className={`p-3 rounded-lg transition-all duration-300 ${
+                className={`p-3 rounded-xl transition-all duration-300 transform ${
                   currentQuestionIndex === 0
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
-                    : 'bg-primary-100 text-primary-700 hover:bg-primary-200 shadow-md hover:shadow-lg'
+                    : 'bg-gradient-secondary text-white hover:scale-110 shadow-colored-blue'
                 }`}
                 title="Zurück zur vorherigen Frage"
               >
@@ -436,19 +436,19 @@ export function QuizPage() {
                 </svg>
               </button>
               
-              <div className="text-sm text-gray-600 font-semibold">
+              <div className="text-base text-gray-700 font-bold bg-white/60 px-4 py-2 rounded-xl shadow-soft">
                 Frage {currentQuestionIndex + 1} von {questions.length}
               </div>
               
               <button
                 onClick={handleNextQuestion}
                 disabled={!showResult}
-                className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 flex items-center gap-2 ${
+                className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center gap-2 transform ${
                   !showResult
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
                     : currentQuestionIndex === questions.length - 1
-                    ? 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95'
-                    : 'bg-green-500 text-white hover:bg-green-600 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95'
+                    ? 'bg-gradient-secondary text-white hover:scale-110 shadow-colored-blue'
+                    : 'bg-gradient-primary text-white hover:scale-110 shadow-colored-lime'
                 }`}
                 title={currentQuestionIndex === questions.length - 1 ? "Zur Auswertung" : "Zur nächsten Frage"}
               >

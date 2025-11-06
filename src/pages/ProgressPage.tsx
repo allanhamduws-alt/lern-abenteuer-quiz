@@ -1,6 +1,6 @@
 /**
  * Fortschritts-Seite
- * Zeigt detaillierte Fortschritts-Statistiken mit verbesserter Visualisierung
+ * Spielerischer Stil: Bunte Gradienten, animierte Progress-Bars, 3D-Effekte
  */
 
 import { useState, useEffect } from 'react';
@@ -41,7 +41,7 @@ export function ProgressPage() {
 
   if (!progress) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Fortschritt..." />
         </Card>
@@ -62,18 +62,18 @@ export function ProgressPage() {
   const overallProgress = totalSubjects > 0 ? Math.round((masteredSubjects / totalSubjects) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-background">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-8 animate-fade-in">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">
                 Dein Fortschritt
               </h2>
-              <p className="text-gray-600">
-                Schau dir an, wie weit du schon gekommen bist!
+              <p className="text-gray-600 text-lg">
+                Schau dir an, wie weit du schon gekommen bist! 🎉
               </p>
             </div>
             <Button variant="secondary" onClick={() => navigate('/home')}>
@@ -82,37 +82,37 @@ export function ProgressPage() {
           </div>
 
           {/* Hero-Statistik Card */}
-          <Card className="mb-6 bg-purple-600 text-white border-0">
+          <Card className="mb-6 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 text-white border-0 shadow-large animate-fade-in">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-5xl mb-3">🎯</div>
-                <div className="text-4xl font-bold mb-1">
+                <div className="text-6xl mb-3 animate-bounce">🎯</div>
+                <div className="text-5xl font-bold mb-2 drop-shadow-md">
                   {overallProgress}%
                 </div>
-                <div className="text-purple-100">Gesamt-Fortschritt</div>
-                <div className="mt-3 w-full bg-white/20 rounded-full h-3">
+                <div className="text-purple-100 text-lg font-semibold mb-3">Gesamt-Fortschritt</div>
+                <div className="mt-3 w-full bg-white/20 rounded-full h-4 shadow-inner">
                   <div
-                    className="bg-white h-3 rounded-full transition-all"
+                    className="bg-white h-4 rounded-full transition-all duration-500 shadow-colored-lime"
                     style={{ width: `${overallProgress}%` }}
                   />
                 </div>
               </div>
-              <div className="text-center border-l border-r border-white/20">
-                <div className="text-5xl mb-3">🏆</div>
-                <div className="text-4xl font-bold mb-1">
+              <div className="text-center border-l border-r border-white/30">
+                <div className="text-6xl mb-3 animate-bounce">🏆</div>
+                <div className="text-5xl font-bold mb-2 drop-shadow-md">
                   {progress.badges.length}
                 </div>
-                <div className="text-purple-100">Badges</div>
+                <div className="text-purple-100 text-lg font-semibold">Badges</div>
                 <div className="text-sm text-purple-100 mt-2">
                   von {getAllBadges().length} verfügbar
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-5xl mb-3">🔥</div>
-                <div className="text-4xl font-bold mb-1">
+                <div className="text-6xl mb-3 animate-bounce">🔥</div>
+                <div className="text-5xl font-bold mb-2 drop-shadow-md">
                   {progress.learningStreak.current}
                 </div>
-                <div className="text-purple-100">Tage Streak</div>
+                <div className="text-purple-100 text-lg font-semibold">Tage Streak</div>
                 {progress.learningStreak.longest > 0 && (
                   <div className="text-sm text-purple-100 mt-2">
                     Beste: {progress.learningStreak.longest} Tage
@@ -124,48 +124,48 @@ export function ProgressPage() {
 
           {/* Gesamt-Statistiken */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <Card className="hover:shadow-lg transition-all">
+            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-purple-100 to-pink-100 border-purple-300 animate-fade-in">
               <div className="text-center">
-                <div className="text-4xl mb-2">📚</div>
-                <div className="text-3xl font-bold text-purple-600">
+                <div className="text-5xl mb-2">📚</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {progress.totalQuizzesCompleted}
                 </div>
-                <div className="text-sm text-gray-600">Quizzes</div>
+                <div className="text-sm font-semibold text-gray-700">Quizzes</div>
               </div>
             </Card>
-            <Card className="hover:shadow-lg transition-all">
+            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-yellow-100 to-orange-100 border-yellow-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="text-center">
-                <div className="text-4xl mb-2">⭐</div>
-                <div className="text-3xl font-bold text-yellow-500">
+                <div className="text-5xl mb-2">⭐</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
                   {progress.totalPoints}
                 </div>
-                <div className="text-sm text-gray-600">Punkte</div>
+                <div className="text-sm font-semibold text-gray-700">Punkte</div>
               </div>
             </Card>
-            <Card className="hover:shadow-lg transition-all">
+            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-orange-100 to-red-100 border-orange-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="text-center">
-                <div className="text-4xl mb-2">🔥</div>
-                <div className="text-3xl font-bold text-orange-500">
+                <div className="text-5xl mb-2">🔥</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
                   {progress.learningStreak.current}
                 </div>
-                <div className="text-sm text-gray-600">Tage Streak</div>
+                <div className="text-sm font-semibold text-gray-700">Tage Streak</div>
               </div>
             </Card>
-            <Card className="hover:shadow-lg transition-all">
+            <Card className="hover:shadow-large transition-all transform hover:scale-105 bg-gradient-to-br from-lime-100 to-green-100 border-lime-300 animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="text-center">
-                <div className="text-4xl mb-2">💪</div>
-                <div className="text-3xl font-bold text-yellow-500">
+                <div className="text-5xl mb-2">💪</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-lime-600 to-green-600 bg-clip-text text-transparent">
                   {progress.difficultQuestions.filter((dq) => !dq.mastered).length}
                 </div>
-                <div className="text-sm text-gray-600">Zu üben</div>
+                <div className="text-sm font-semibold text-gray-700">Zu üben</div>
               </div>
             </Card>
           </div>
 
           {/* Badges Galerie */}
           {progress.badges.length > 0 && (
-            <Card className="mb-6 bg-yellow-50 border-2 border-yellow-300">
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">
+            <Card className="mb-6 bg-gradient-to-r from-yellow-300 to-orange-300 border-2 border-yellow-500 shadow-large animate-fade-in">
+              <h3 className="text-3xl font-bold mb-4 text-yellow-900 drop-shadow-sm">
                 🏆 Deine Badges
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -175,10 +175,10 @@ export function ProgressPage() {
                   return (
                     <div
                       key={badgeId}
-                      className="bg-white rounded-lg p-4 text-center border-2 border-yellow-400 shadow-md hover:shadow-lg transition-all"
+                      className="bg-white rounded-xl p-4 text-center border-2 border-yellow-400 shadow-medium hover:shadow-large transition-all transform hover:scale-110"
                     >
-                      <div className="text-5xl mb-2">{badge.emoji}</div>
-                      <div className="font-bold text-sm">{badge.name}</div>
+                      <div className="text-6xl mb-2">{badge.emoji}</div>
+                      <div className="font-bold text-sm text-gray-900">{badge.name}</div>
                     </div>
                   );
                 })}
@@ -188,7 +188,7 @@ export function ProgressPage() {
 
           {/* Detaillierte Fach-Statistiken */}
           <Card className="mb-6">
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Fortschritt nach Fach
             </h3>
             <div className="space-y-4">
@@ -209,18 +209,18 @@ export function ProgressPage() {
                 return (
                   <Card
                     key={subject.id}
-                    className="hover:shadow-lg transition-all"
+                    className="hover:shadow-large transition-all transform hover:scale-[1.01]"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-4">
-                        <div className="text-purple-600">
+                        <div className="transform transition-transform duration-300 hover:scale-110">
                           {(() => {
                             const IconComponent = subject.icon;
-                            return <IconComponent className="w-8 h-8" />;
+                            return <IconComponent className="w-10 h-10" />;
                           })()}
                         </div>
                         <div>
-                          <div className="font-bold text-xl">{subject.name}</div>
+                          <div className="font-bold text-xl text-gray-800">{subject.name}</div>
                           <div className="text-sm text-gray-600">
                             {subjectProgress.quizzesCompleted} Quiz{subjectProgress.quizzesCompleted !== 1 ? 's' : ''} abgeschlossen
                             {subjectProgress.level && (
@@ -238,6 +238,7 @@ export function ProgressPage() {
                             : 'info'
                         }
                         size="lg"
+                        className="bg-gradient-success text-white shadow-colored-lime"
                       >
                         {progressPercent}%
                       </Badge>
@@ -250,9 +251,9 @@ export function ProgressPage() {
                           <span>XP: {subjectProgress.xp} / {subjectProgress.xpToNextLevel}</span>
                           <span>→ Level {subjectProgress.level + 1}</span>
                         </div>
-                        <div className="w-full bg-gray-300 rounded-full h-3">
+                        <div className="w-full bg-white/60 rounded-full h-4 shadow-inner">
                           <div
-                            className="h-3 rounded-full bg-purple-600 transition-all"
+                            className="h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 shadow-colored-purple"
                             style={{
                               width: `${Math.min(100, (subjectProgress.xp / subjectProgress.xpToNextLevel) * 100)}%`,
                             }}
@@ -263,14 +264,14 @@ export function ProgressPage() {
 
                     {/* Fortschrittsbalken */}
                     <div className="mb-3">
-                      <div className="w-full bg-gray-300 rounded-full h-5">
+                      <div className="w-full bg-white/60 rounded-full h-6 shadow-inner">
                         <div
-                          className={`h-5 rounded-full transition-all ${
+                          className={`h-6 rounded-full transition-all duration-500 ${
                             progressPercent >= 80
-                              ? 'bg-green-500'
+                              ? 'bg-gradient-success shadow-colored-lime'
                               : progressPercent >= 60
-                              ? 'bg-orange-500'
-                              : 'bg-blue-500'
+                              ? 'bg-gradient-warning shadow-lg'
+                              : 'bg-gradient-secondary shadow-colored-blue'
                           }`}
                           style={{
                             width: `${progressPercent}%`,
@@ -333,48 +334,48 @@ export function ProgressPage() {
           </Card>
 
           {/* Lernstreak Details */}
-          <Card className="mb-6 bg-orange-50 border-2 border-orange-200">
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">
+          <Card className="mb-6 bg-gradient-to-r from-orange-200 to-red-200 border-2 border-orange-400 shadow-large">
+            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-700 to-red-700 bg-clip-text text-transparent">
               🔥 Dein Lernstreak
             </h3>
             <div className="grid grid-cols-2 gap-6">
-              <div className="text-center p-4 bg-white rounded-lg shadow-md">
-                <div className="text-sm text-gray-600 mb-2">
+              <div className="text-center p-5 bg-white rounded-xl shadow-medium transform hover:scale-105 transition-all">
+                <div className="text-sm text-gray-600 mb-2 font-semibold">
                   Aktueller Streak
                 </div>
-                <div className="text-5xl font-bold text-purple-600 mb-2">
+                <div className="text-6xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                   {progress.learningStreak.current}
                 </div>
-                <div className="text-gray-600">Tage</div>
+                <div className="text-gray-600 font-semibold">Tage</div>
               </div>
-              <div className="text-center p-4 bg-white rounded-lg shadow-md">
-                <div className="text-sm text-gray-600 mb-2">
+              <div className="text-center p-5 bg-white rounded-xl shadow-medium transform hover:scale-105 transition-all">
+                <div className="text-sm text-gray-600 mb-2 font-semibold">
                   Bester Streak
                 </div>
-                <div className="text-5xl font-bold text-green-600 mb-2">
+                <div className="text-6xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
                   {progress.learningStreak.longest}
                 </div>
-                <div className="text-gray-600">Tage</div>
+                <div className="text-gray-600 font-semibold">Tage</div>
               </div>
             </div>
             {progress.learningStreak.current === 0 && (
-              <div className="mt-4 p-4 bg-warning-100 rounded-lg text-warning-900 border-2 border-warning-300">
+              <div className="mt-4 p-4 bg-gradient-to-r from-yellow-200 to-orange-200 rounded-xl text-yellow-900 border-2 border-yellow-400 shadow-medium">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">💡</span>
+                  <span className="text-3xl">💡</span>
                   <div>
-                    <div className="font-semibold">Starte heute deinen Lernstreak!</div>
-                    <div className="text-sm">Spiele jeden Tag ein Quiz, um deinen Streak aufzubauen!</div>
+                    <div className="font-bold text-lg">Starte heute deinen Lernstreak!</div>
+                    <div className="text-sm">Spiele jeden Tag ein Quiz, um deinen Streak aufzubauen! 🚀</div>
                   </div>
                 </div>
               </div>
             )}
             {progress.learningStreak.current > 0 && (
-              <div className="mt-4 p-4 bg-success-100 rounded-lg text-success-900 border-2 border-success-300">
+              <div className="mt-4 p-4 bg-gradient-to-r from-green-200 to-emerald-200 rounded-xl text-green-900 border-2 border-green-400 shadow-medium">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl animate-pulse">🎉</span>
+                  <span className="text-3xl animate-bounce">🎉</span>
                   <div>
-                    <div className="font-semibold">Super! Du lernst jeden Tag!</div>
-                    <div className="text-sm">Mach weiter so! Du bist großartig!</div>
+                    <div className="font-bold text-lg">Super! Du lernst jeden Tag!</div>
+                    <div className="text-sm">Mach weiter so! Du bist großartig! 💪</div>
                   </div>
                 </div>
               </div>
@@ -382,58 +383,58 @@ export function ProgressPage() {
           </Card>
 
           {/* Nächste Ziele */}
-          <Card className="bg-purple-50 border-2 border-purple-200">
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">
+          <Card className="bg-gradient-to-br from-purple-200 to-pink-200 border-2 border-purple-400 shadow-large">
+            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent">
               🎯 Deine nächsten Ziele
             </h3>
             <div className="space-y-3">
               {progress.learningStreak.current < 7 && (
-                <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-                  <span className="text-2xl">🔥</span>
+                <div className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-medium transform hover:scale-[1.02] transition-all">
+                  <span className="text-3xl">🔥</span>
                   <div className="flex-1">
-                    <div className="font-semibold">7-Tage Lernstreak erreichen</div>
+                    <div className="font-bold text-lg text-gray-800">7-Tage Lernstreak erreichen</div>
                     <div className="text-sm text-gray-600">
                       Noch {7 - progress.learningStreak.current} Tag{7 - progress.learningStreak.current !== 1 ? 'e' : ''} bis zum Ziel!
                     </div>
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-lg font-bold text-purple-600">
                     {Math.round((progress.learningStreak.current / 7) * 100)}%
                   </div>
                 </div>
               )}
               {masteredSubjects < totalSubjects && (
-                <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-                  <span className="text-2xl">📚</span>
+                <div className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-medium transform hover:scale-[1.02] transition-all">
+                  <span className="text-3xl">📚</span>
                   <div className="flex-1">
-                    <div className="font-semibold">Alle Fächer meistern</div>
+                    <div className="font-bold text-lg text-gray-800">Alle Fächer meistern</div>
                     <div className="text-sm text-gray-600">
                       {masteredSubjects} von {totalSubjects} Fächern gemeistert
                     </div>
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-lg font-bold text-purple-600">
                     {Math.round((masteredSubjects / totalSubjects) * 100)}%
                   </div>
                 </div>
               )}
               {progress.badges.length < getAllBadges().length && (
-                <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
-                  <span className="text-2xl">🏆</span>
+                <div className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-medium transform hover:scale-[1.02] transition-all">
+                  <span className="text-3xl">🏆</span>
                   <div className="flex-1">
-                    <div className="font-semibold">Alle Badges sammeln</div>
+                    <div className="font-bold text-lg text-gray-800">Alle Badges sammeln</div>
                     <div className="text-sm text-gray-600">
                       {progress.badges.length} von {getAllBadges().length} Badges gesammelt
                     </div>
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-lg font-bold text-purple-600">
                     {Math.round((progress.badges.length / getAllBadges().length) * 100)}%
                   </div>
                 </div>
               )}
               {masteredSubjects === totalSubjects && progress.learningStreak.current >= 7 && progress.badges.length >= getAllBadges().length && (
-                <div className="text-center p-4 bg-yellow-100 rounded-lg border-2 border-yellow-300">
-                  <div className="text-4xl mb-2">🌟</div>
-                  <div className="font-bold text-lg">Du bist ein wahrer Lern-Meister!</div>
-                  <div className="text-sm text-gray-600 mt-1">Alle Ziele erreicht! Weiter so! 🎉</div>
+                <div className="text-center p-6 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-xl border-2 border-yellow-500 shadow-large">
+                  <div className="text-5xl mb-2 animate-bounce">🌟</div>
+                  <div className="font-bold text-xl text-yellow-900">Du bist ein wahrer Lern-Meister!</div>
+                  <div className="text-sm text-yellow-800 mt-1 font-semibold">Alle Ziele erreicht! Weiter so! 🎉</div>
                 </div>
               )}
             </div>

@@ -24,14 +24,14 @@ export function GamePage() {
 
   if (!gameId || !gameComponents[gameId]) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pastel-blue-100 via-pastel-green-100 to-pastel-blue-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-primary-900 mb-4">
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
+        <div className="text-center bg-gradient-card p-8 rounded-xl shadow-large border-2 border-purple-400">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-4">
             Spiel nicht gefunden
           </h1>
           <button
             onClick={() => navigate('/home')}
-            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+            className="px-6 py-3 bg-gradient-primary text-white rounded-xl hover:shadow-colored-lime transform hover:scale-105 transition-all shadow-medium"
           >
             Zurück zur Startseite
           </button>

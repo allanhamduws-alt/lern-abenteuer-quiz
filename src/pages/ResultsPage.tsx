@@ -1,6 +1,6 @@
 /**
  * Ergebnis-Seite
- * Zeigt die Quiz-Ergebnisse und Punkte an
+ * Spielerischer Stil: Feierlicher Hintergrund, bunte Ergebnis-Karten, Maskottchen-Integration
  */
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -142,7 +142,7 @@ export function ResultsPage() {
   }, []); // Nur einmal beim Mounten ausführen
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-background">
       <Header user={user || undefined} />
 
       {levelUp && (
@@ -157,41 +157,41 @@ export function ResultsPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           {/* Ergebnis-Übersicht */}
-          <Card className="mb-6 text-center">
-            <div className="text-6xl mb-4">
+          <Card className="mb-6 text-center bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 border-purple-300 shadow-large animate-fade-in">
+            <div className="text-7xl mb-4 animate-bounce">
               {correctAnswers === totalQuestions
                 ? '🎉'
                 : correctAnswers >= totalQuestions / 2
                 ? '👍'
                 : '💪'}
             </div>
-            <h2 className="text-4xl font-bold mb-4 text-gray-800">
+            <h2 className="text-4xl font-bold mb-6 text-white drop-shadow-md">
               Quiz beendet!
             </h2>
 
             <div className="grid grid-cols-3 gap-4 mb-6">
-              <div>
-                <div className="text-3xl font-bold text-primary-600">
+              <div className="bg-white/90 rounded-xl p-4 shadow-medium">
+                <div className="text-4xl font-bold bg-gradient-to-r from-lime-600 to-green-600 bg-clip-text text-transparent">
                   {totalPoints}
                 </div>
-                <div className="text-sm text-gray-600">Punkte</div>
+                <div className="text-sm font-semibold text-gray-700">Punkte</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-success-600">
+              <div className="bg-white/90 rounded-xl p-4 shadow-medium">
+                <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                   {correctAnswers}/{totalQuestions}
                 </div>
-                <div className="text-sm text-gray-600">Richtig</div>
+                <div className="text-sm font-semibold text-gray-700">Richtig</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-warning-600">
+              <div className="bg-white/90 rounded-xl p-4 shadow-medium">
+                <div className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
                   {Math.round((correctAnswers / totalQuestions) * 100)}%
                 </div>
-                <div className="text-sm text-gray-600">Prozent</div>
+                <div className="text-sm font-semibold text-gray-700">Prozent</div>
               </div>
             </div>
 
             {correctAnswers === totalQuestions && (
-              <Badge variant="success" size="lg" className="mb-4">
+              <Badge variant="success" size="lg" className="mb-4 bg-gradient-success text-white shadow-colored-lime text-lg px-6 py-3">
                 ⭐ Perfekt! Alle Fragen richtig!
               </Badge>
             )}
@@ -199,10 +199,10 @@ export function ResultsPage() {
 
           {/* Neu verdiente Badges */}
           {newlyEarnedBadges.length > 0 && (
-            <Card className="mb-6 bg-yellow-50 border-2 border-yellow-300 animate-fade-in">
+            <Card className="mb-6 bg-gradient-to-r from-yellow-300 to-orange-300 border-2 border-yellow-500 shadow-large animate-fade-in">
               <div className="text-center">
-                <div className="text-5xl mb-3">🏆</div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                <div className="text-6xl mb-3 animate-bounce">🏆</div>
+                <h3 className="text-3xl font-bold text-yellow-900 mb-4 drop-shadow-sm">
                   Neue Badges verdient!
                 </h3>
                 <div className="flex flex-wrap justify-center gap-4">
@@ -212,10 +212,10 @@ export function ResultsPage() {
                     return (
                       <div
                         key={badgeId}
-                        className="bg-white rounded-lg p-4 shadow-lg border-2 border-yellow-400 transform hover:scale-105 transition-transform"
+                        className="bg-white rounded-xl p-5 shadow-large border-2 border-yellow-400 transform hover:scale-110 transition-all duration-300 animate-fade-in"
                       >
-                        <div className="text-5xl mb-2">{badge.emoji}</div>
-                        <div className="font-bold text-lg">{badge.name}</div>
+                        <div className="text-6xl mb-2">{badge.emoji}</div>
+                        <div className="font-bold text-lg text-gray-800">{badge.name}</div>
                         <div className="text-sm text-gray-600 mt-1">
                           {badge.description}
                         </div>
@@ -229,33 +229,33 @@ export function ResultsPage() {
 
           {/* Detaillierte Ergebnisse */}
           <Card className="mb-6">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Deine Antworten:
             </h3>
             <div className="space-y-3">
               {results.map((result, index) => (
                 <div
                   key={index}
-                  className={`p-4 rounded-lg ${
+                  className={`p-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] ${
                     result.isCorrect
-                      ? 'bg-success-50 border-2 border-success-200'
-                      : 'bg-error-50 border-2 border-error-200'
+                      ? 'bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-300 shadow-soft'
+                      : 'bg-gradient-to-r from-red-100 to-orange-100 border-2 border-red-300 shadow-soft'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold">
+                    <span className="font-bold text-lg">
                       Frage {index + 1}
                     </span>
                     <div className="flex items-center gap-2">
                       {result.isCorrect ? (
                         <>
-                          <span className="text-success-600">✓ Richtig</span>
-                          <Badge variant="success">+{result.points} Punkte</Badge>
+                          <span className="text-green-700 font-bold">✓ Richtig</span>
+                          <Badge variant="success" className="bg-gradient-success text-white shadow-colored-lime">+{result.points} Punkte</Badge>
                         </>
                       ) : (
                         <>
-                          <span className="text-error-600">✗ Falsch</span>
-                          <Badge variant="warning">0 Punkte</Badge>
+                          <span className="text-red-700 font-bold">✗ Falsch</span>
+                          <Badge variant="warning" className="bg-gradient-warning text-gray-800">0 Punkte</Badge>
                         </>
                       )}
                     </div>

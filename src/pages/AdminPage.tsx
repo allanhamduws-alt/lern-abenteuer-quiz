@@ -1,6 +1,6 @@
 /**
  * Verwaltungsseite für Eltern
- * Verwaltung von Kinder-Konten, Einstellungen, Zeitlimits
+ * Spielerischer Stil: Bunte Gradienten, animierte Karten
  */
 
 import { useState, useEffect } from 'react';
@@ -265,7 +265,7 @@ export function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
         <Card>
           <LoadingSpinner text="Lade Verwaltung..." />
         </Card>
@@ -278,13 +278,13 @@ export function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-background">
       <Header user={user || undefined} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-4xl font-bold text-gray-800">
+          <div className="flex items-center justify-between mb-8 animate-fade-in">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Verwaltung ⚙️
             </h2>
             <div className="flex gap-2">
@@ -301,44 +301,44 @@ export function AdminPage() {
           </div>
 
           {/* Code-Verknüpfung */}
-          <Card className="mb-6 bg-purple-50 border-2 border-purple-300">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+          <Card className="mb-6 bg-gradient-to-br from-purple-200 to-pink-200 border-2 border-purple-400 shadow-large animate-fade-in">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-pink-700 bg-clip-text text-transparent">
               Code-Verknüpfung 🔗
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-700 mb-4 text-lg">
               Generieren Sie einen Code, den Ihr Kind eingeben kann, um sich mit Ihrem Konto zu verknüpfen.
             </p>
             
             {codeError && (
-              <div className="mb-4 p-3 bg-error-50 text-error-600 rounded-lg">
+              <div className="mb-4 p-4 bg-gradient-to-r from-red-200 to-orange-200 text-red-900 rounded-xl border-2 border-red-400 shadow-medium">
                 {codeError}
               </div>
             )}
             
             {linkSuccess && (
-              <div className="mb-4 p-3 bg-success-50 text-success-600 rounded-lg">
+              <div className="mb-4 p-4 bg-gradient-to-r from-green-200 to-emerald-200 text-green-900 rounded-xl border-2 border-green-400 shadow-medium">
                 {linkSuccess}
               </div>
             )}
 
             {linkingCode ? (
               <div className="space-y-4">
-                <div className="bg-white rounded-lg p-6 border-2 border-pastel-purple-400 shadow-lg">
+                <div className="bg-white rounded-xl p-6 border-2 border-purple-400 shadow-large">
                   <div className="text-center">
-                    <div className="text-sm text-gray-600 mb-2">Ihr Verknüpfungscode:</div>
-                    <div className="text-5xl font-bold text-pastel-purple-600 mb-4 tracking-wider font-mono">
+                    <div className="text-sm text-gray-600 mb-2 font-semibold">Ihr Verknüpfungscode:</div>
+                    <div className="text-6xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 tracking-wider font-mono">
                       {linkingCode}
                     </div>
                     {codeExpiresAt && (
-                      <div className="text-sm text-gray-600 mb-4">
-                        Gültig für: <span className="font-semibold">{getTimeRemaining()}</span>
+                      <div className="text-sm text-gray-700 mb-4 font-semibold">
+                        Gültig für: <span className="text-purple-600">{getTimeRemaining()}</span>
                       </div>
                     )}
                     <div className="flex gap-2 justify-center">
                       <Button
                         variant="primary"
                         onClick={handleCopyCode}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 shadow-colored-lime"
                       >
                         📋 Code kopieren
                       </Button>
@@ -346,14 +346,15 @@ export function AdminPage() {
                         variant="secondary"
                         onClick={handleGenerateCode}
                         disabled={codeLoading}
+                        className="shadow-colored-blue"
                       >
                         🔄 Neuen Code generieren
                       </Button>
                     </div>
                   </div>
                 </div>
-                <div className="text-sm text-gray-600 bg-info-50 p-3 rounded-lg">
-                  <div className="font-semibold mb-1">ℹ️ So funktioniert's:</div>
+                <div className="text-sm text-gray-700 bg-white/80 p-4 rounded-xl border-2 border-purple-300 shadow-soft">
+                  <div className="font-bold mb-2 text-lg">ℹ️ So funktioniert's:</div>
                   <ol className="list-decimal list-inside space-y-1">
                     <li>Geben Sie diesen Code Ihrem Kind</li>
                     <li>Das Kind geht auf "Mit Eltern verknüpfen"</li>
@@ -368,7 +369,7 @@ export function AdminPage() {
                   variant="primary"
                   onClick={handleGenerateCode}
                   disabled={codeLoading}
-                  className="text-lg px-8 py-4"
+                  className="text-lg px-8 py-4 shadow-colored-lime"
                 >
                   {codeLoading ? '⏳ Code wird generiert...' : '🔑 Code generieren'}
                 </Button>
@@ -377,22 +378,22 @@ export function AdminPage() {
           </Card>
 
           {/* E-Mail-Verknüpfung */}
-          <Card className="mb-6">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+          <Card className="mb-6 shadow-large">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               E-Mail-Verknüpfung 📧
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 mb-4 text-lg">
               Geben Sie die E-Mail-Adresse des Kind-Kontos ein, um es mit Ihrem Eltern-Konto zu verknüpfen.
             </p>
             
             {linkError && (
-              <div className="mb-4 p-3 bg-error-50 text-error-600 rounded-lg">
+              <div className="mb-4 p-4 bg-gradient-to-r from-red-200 to-orange-200 text-red-900 rounded-xl border-2 border-red-400 shadow-medium">
                 {linkError}
               </div>
             )}
             
             {linkSuccess && (
-              <div className="mb-4 p-3 bg-success-50 text-success-600 rounded-lg">
+              <div className="mb-4 p-4 bg-gradient-to-r from-green-200 to-emerald-200 text-green-900 rounded-xl border-2 border-green-400 shadow-medium">
                 {linkSuccess}
               </div>
             )}
@@ -403,24 +404,24 @@ export function AdminPage() {
                 value={linkEmail}
                 onChange={(e) => setLinkEmail(e.target.value)}
                 placeholder="kind@email.de"
-                className="flex-1 px-4 py-2 border-2 border-pastel-blue-300 rounded-lg focus:ring-2 focus:ring-pastel-purple-300 focus:border-pastel-purple-400 bg-white shadow-sm"
+                className="flex-1 px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft text-lg"
               />
-              <Button variant="primary" onClick={handleLinkChild}>
+              <Button variant="primary" onClick={handleLinkChild} className="shadow-colored-lime">
                 Verknüpfen
               </Button>
             </div>
           </Card>
 
           {/* Verknüpfte Kinder */}
-          <Card>
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+          <Card className="shadow-large">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Verknüpfte Kinder ({children.length})
             </h3>
             
             {children.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <div className="text-4xl mb-2">👶</div>
-                <p>Noch keine Kinder verknüpft</p>
+              <div className="text-center py-8 text-gray-600">
+                <div className="text-5xl mb-3">👶</div>
+                <p className="text-lg font-semibold">Noch keine Kinder verknüpft</p>
                 <p className="text-sm mt-2">
                   Verknüpfen Sie ein Kind-Konto oben, um dessen Fortschritt zu sehen.
                 </p>
@@ -430,26 +431,27 @@ export function AdminPage() {
                 {children.map((child) => (
                   <div
                     key={child.uid}
-                    className="border-2 border-gray-200 rounded-lg p-4 flex items-center justify-between"
+                    className="border-2 border-gray-200 rounded-xl p-4 flex items-center justify-between bg-gradient-card shadow-medium transform hover:scale-[1.01] transition-all"
                   >
                     <div className="flex items-center gap-4">
-                      <span className="text-4xl">{child.avatar || '👦'}</span>
+                      <span className="text-5xl transform hover:scale-110 transition-transform">{child.avatar || '👦'}</span>
                       <div>
-                        <div className="font-bold text-lg">{child.name}</div>
+                        <div className="font-bold text-lg text-gray-800">{child.name}</div>
                         <div className="text-sm text-gray-600">
                           {child.email}
                         </div>
                         {child.class && (
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 font-semibold">
                             Klasse {child.class} • {child.totalPoints} Punkte
                           </div>
                         )}
                       </div>
                     </div>
                     <Button
-                      variant="error"
+                      variant="danger"
                       size="sm"
                       onClick={() => handleUnlinkChild(child.uid)}
+                      className="shadow-lg"
                     >
                       Entfernen
                     </Button>
@@ -460,35 +462,35 @@ export function AdminPage() {
           </Card>
 
           {/* Einstellungen */}
-          <Card className="mt-6">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">
+          <Card className="mt-6 bg-gradient-card shadow-large">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Einstellungen
             </h3>
             <div className="space-y-4">
-              <div className="p-4 bg-info-50 rounded-lg">
-                <div className="font-semibold mb-2">⏰ Zeitlimits</div>
-                <p className="text-sm text-gray-600 mb-2">
+              <div className="p-5 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border-2 border-blue-300 shadow-soft">
+                <div className="font-bold mb-2 text-lg text-blue-900">⏰ Zeitlimits</div>
+                <p className="text-sm text-blue-800">
                   Zeitlimits für Kinder können hier in Zukunft eingestellt werden.
                 </p>
               </div>
               
-              <div className="p-4 bg-info-50 rounded-lg">
-                <div className="font-semibold mb-2">📧 Benachrichtigungen</div>
-                <p className="text-sm text-gray-600 mb-2">
+              <div className="p-5 bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl border-2 border-pink-300 shadow-soft">
+                <div className="font-bold mb-2 text-lg text-pink-900">📧 Benachrichtigungen</div>
+                <p className="text-sm text-pink-800">
                   E-Mail-Benachrichtigungen über Fortschritt können hier in Zukunft aktiviert werden.
                 </p>
               </div>
               
-              <div className="p-4 bg-info-50 rounded-lg">
-                <div className="font-semibold mb-2">📊 Berichte exportieren</div>
-                <p className="text-sm text-gray-600 mb-2">
+              <div className="p-5 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl border-2 border-green-300 shadow-soft">
+                <div className="font-bold mb-2 text-lg text-green-900">📊 Berichte exportieren</div>
+                <p className="text-sm text-green-800 mb-2">
                   Fortschrittsberichte können im Eltern-Dashboard exportiert werden.
                 </p>
                 <Button
                   variant="primary"
                   size="sm"
                   onClick={() => navigate('/parent-dashboard')}
-                  className="mt-2"
+                  className="mt-2 shadow-colored-lime"
                 >
                   Zum Dashboard →
                 </Button>

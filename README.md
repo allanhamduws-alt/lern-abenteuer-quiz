@@ -113,9 +113,20 @@ src/
 - **React 18** - UI-Framework
 - **TypeScript** - Typsicherheit
 - **Vite** - Build-Tool
-- **Tailwind CSS** - Styling
+- **Tailwind CSS** - Styling mit spielerischem Design-System
 - **Firebase** - Backend (Authentication + Firestore)
 - **React Router** - Navigation
+- **Nunito Font** - Kindgerechte, freundliche Schriftart
+
+## 🎨 Design-Stil
+
+Die App verwendet einen **spielerischen, bunten Stil** mit:
+- ✨ Bunte Gradienten (Purple → Pink → Orange)
+- 🎯 Abgerundete Ecken überall
+- 🌈 Pastell-Farbpalette
+- ✨ Sanfte Schatten und 3D-Effekte
+- 🎭 Animierte Übergänge und Hover-Effekte
+- 🎪 Spielerische Icons mit Gradienten
 
 ## 📝 Quiz-Fragen hinzufügen
 

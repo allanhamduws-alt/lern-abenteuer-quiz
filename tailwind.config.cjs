@@ -6,8 +6,31 @@ export default {
   ],
   theme: {
     extend: {
-      // Kindgerechte Farbpalette mit Pastell-Farben
+      // Spielerische Farbpalette mit bunten Pastelltönen
       colors: {
+        // Lime-Grün (Primär)
+        lime: {
+          50: '#f7fee7',
+          100: '#ecfccb',
+          200: '#d9f99d',
+          300: '#bef264',
+          400: '#a3e635',
+          500: '#84cc16',
+          600: '#65a30d',
+          700: '#4d7c0f',
+        },
+        // Himmelblau (Sekundär)
+        sky: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+        },
+        // Primär (kompatibel mit bestehendem Code)
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -109,18 +132,54 @@ export default {
         },
         success: {
           50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
           500: '#22c55e',
           600: '#16a34a',
+          700: '#15803d',
         },
         warning: {
-          50: '#fffbeb',
-          500: '#f59e0b',
-          600: '#d97706',
+          50: '#fefce8',
+          100: '#fef9c3',
+          200: '#fef08a',
+          300: '#fde047',
+          400: '#facc15',
+          500: '#eab308',
+          600: '#ca8a04',
+          700: '#a16207',
         },
         error: {
           50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
           500: '#ef4444',
           600: '#dc2626',
+          700: '#b91c1c',
+        },
+        // Zusätzliche bunte Farben
+        pink: {
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          300: '#f9a8d4',
+          400: '#f472b6',
+          500: '#ec4899',
+          600: '#db2777',
+          700: '#be185d',
+        },
+        orange: {
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#f97316',
+          600: '#ea580c',
+          700: '#c2410c',
         },
       },
       // Größere Schriftarten für Kinder
@@ -134,6 +193,33 @@ export default {
         '3xl': '1.875rem',
         '4xl': '2.25rem',
         '5xl': '3rem',
+      },
+      // Gradient-Definitionen
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #84cc16 0%, #a3e635 100%)',
+        'gradient-secondary': 'linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%)',
+        'gradient-success': 'linear-gradient(135deg, #22c55e 0%, #4ade80 100%)',
+        'gradient-warning': 'linear-gradient(135deg, #fcd34d 0%, #fde047 100%)',
+        'gradient-danger': 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        'gradient-background': 'linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%)',
+        'gradient-card': 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
+      },
+      // Erweiterte Schatten
+      boxShadow: {
+        'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
+        'medium': '0 4px 12px rgba(0, 0, 0, 0.12)',
+        'large': '0 8px 24px rgba(0, 0, 0, 0.15)',
+        'pressed': 'inset 0 2px 4px rgba(0, 0, 0, 0.1)',
+        'colored-lime': '0 4px 12px rgba(132, 204, 22, 0.3)',
+        'colored-blue': '0 4px 12px rgba(56, 189, 248, 0.3)',
+        'colored-purple': '0 4px 12px rgba(168, 85, 247, 0.3)',
+      },
+      // Border-Radius
+      borderRadius: {
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
       },
     },
   },

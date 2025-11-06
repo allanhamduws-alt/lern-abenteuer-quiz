@@ -303,22 +303,34 @@
 ### Design-Richtlinien:
 
 #### Farben:
-- **Primär:** Blau (Vertrauen, Lernen)
-- **Erfolg:** Grün (Positiv, Bestätigung)
-- **Fehler:** Rot (Sanft, nicht abschreckend)
-- **Warnung:** Orange/Gelb (Aufmerksamkeit)
-- **Hintergrund:** Warme Pastelltöne (freundlich, nicht grell)
+- **Primär:** Purple/Pink Gradienten (spielerisch, freundlich)
+- **Erfolg:** Grün mit Gradienten (Positiv, Bestätigung)
+- **Fehler:** Rot/Orange Gradienten (Sanft, nicht abschreckend)
+- **Warnung:** Orange/Gelb Gradienten (Aufmerksamkeit)
+- **Hintergrund:** Bunte Gradienten (Purple → Pink → Orange)
+- **Karten:** Subtile Gradienten mit sanften Schatten
 
 #### Typografie:
-- **Überschriften:** Groß, fett, kindgerecht
+- **Schriftart:** Nunito (freundlich, abgerundet, kindgerecht)
+- **Überschriften:** Groß, fett, mit Gradient-Text-Effekten
 - **Text:** Mindestens 16px, gute Lesbarkeit
 - **Buttons:** Groß (mindestens 44px Touch-Target)
+
+#### Design-Stil:
+- **Spielerisch:** Bunte Gradienten überall
+- **Abgerundet:** `rounded-xl` und `rounded-2xl` für alle Elemente
+- **3D-Effekte:** Sanfte Schatten (`shadow-medium`, `shadow-large`)
+- **Animationen:** Smooth Übergänge mit `transition-all duration-300`
+- **Hover-Effekte:** `hover:scale-105` für interaktive Elemente
+- **Gradient-Text:** Überschriften mit `bg-clip-text text-transparent`
 
 #### Animationen:
 - **Dauer:** 200-500ms für schnelle Aktionen
 - **Easing:** `ease-out` für natürliches Gefühl
 - **Konfetti:** 1-2 Sekunden bei Erfolgen
 - **Übergänge:** Smooth, nicht ruckelig
+- **Fade-in:** `animate-fade-in` für Seitenaufbau
+- **Bounce:** `animate-bounce` für wichtige Elemente
 
 #### Feedback:
 - **Sofort:** Bei jedem Klick
