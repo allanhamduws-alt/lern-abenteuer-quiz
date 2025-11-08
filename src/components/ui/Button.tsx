@@ -29,15 +29,15 @@ export function Button({
 
   const variantStyles = {
     primary:
-      'bg-gradient-primary text-white shadow-colored-lime hover:shadow-large focus:ring-lime-300',
+      'bg-green-600 text-white shadow-md hover:bg-green-700 hover:shadow-lg focus:ring-green-300',
     secondary:
-      'bg-gradient-secondary text-white shadow-colored-blue hover:shadow-large focus:ring-sky-300',
+      'bg-gray-200 text-gray-900 shadow-sm hover:bg-gray-300 hover:shadow-md focus:ring-gray-400',
     success:
-      'bg-gradient-success text-white shadow-colored-lime hover:shadow-large focus:ring-green-300',
+      'bg-green-600 text-white shadow-md hover:bg-green-700 hover:shadow-lg focus:ring-green-300',
     danger: 
-      'bg-gradient-danger text-white shadow-lg hover:shadow-xl focus:ring-red-300',
+      'bg-red-600 text-white shadow-md hover:bg-red-700 hover:shadow-lg focus:ring-red-300',
     warning: 
-      'bg-gradient-warning text-gray-800 shadow-lg hover:shadow-xl focus:ring-yellow-300',
+      'bg-yellow-400 text-gray-900 shadow-md hover:bg-yellow-500 hover:shadow-lg focus:ring-yellow-300',
   };
 
   const sizeStyles = {

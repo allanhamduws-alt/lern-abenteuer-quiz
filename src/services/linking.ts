@@ -62,7 +62,7 @@ export async function generateLinkingCode(parentId: string): Promise<string> {
     await Promise.all(deletePromises);
     
     // Generiere neuen Code
-    let code: string;
+    let code: string = '';
     let codeExists = true;
     
     // Stelle sicher, dass der Code eindeutig ist
@@ -85,15 +85,15 @@ export async function generateLinkingCode(parentId: string): Promise<string> {
     const createdAt = Timestamp.now();
     const expiresAt = Timestamp.fromMillis(createdAt.toMillis() + 60 * 60 * 1000); // +1 Stunde
     
-    await setDoc(doc(db, 'linkingCodes', code!), {
-      code: code!,
+    await setDoc(doc(db, 'linkingCodes', code), {
+      code: code,
       parentId: parentId,
       createdAt: createdAt,
       expiresAt: expiresAt,
     });
     
     console.log('✅ Verknüpfungscode generiert:', code);
-    return code!;
+    return code;
   } catch (error: any) {
     console.error('❌ Fehler beim Generieren des Verknüpfungscodes:', error);
     throw new Error('Fehler beim Generieren des Codes. Bitte versuchen Sie es erneut.');

@@ -86,11 +86,16 @@
   - StoryCard-Komponente erstellt
   - Verschiedene Welten pro Fach (Mathe-Land, Deutsch-Stadt, etc.)
   - Stories zu Fragen hinzugefügt (Klasse 3+)
-- ✅ Sprint 2.2: Adaptive Schwierigkeit
+- ✅ Sprint 2.2: Adaptive Schwierigkeit (ERWEITERT)
   - Alle Fragen mit Schwierigkeits-Level versehen (leicht/mittel/schwer)
   - Adaptive Frage-Auswahl-Funktion implementiert
-  - Dynamische Anpassung basierend auf letzten 3 Antworten
-  - Flow State für jedes Kind
+  - **NEU: Adaptiver Lern-Algorithmus implementiert**
+    - Skill-Level Berechnung pro Fach (0.0-1.0)
+    - Optimale Schwierigkeits-Verteilung basierend auf Skill-Level
+    - Langsame Anpassung nach jedem Quiz (12% pro Quiz)
+    - Zone of Proximal Development (~80% Erfolgsrate Ziel)
+    - Sicherheitsgrenzen für Anfänger und Fortgeschrittene
+  - Siehe [`ADAPTIVER_ALGORITHMUS.md`](./ADAPTIVER_ALGORITHMUS.md) für Details
 - ✅ Sprint 2.3: Verschiedene Fragetypen
   - Input-Fragen Komponente (direkte Eingabe)
   - Drag & Drop Komponente
@@ -187,7 +192,9 @@ Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 ## 📝 Wichtige Dateien
 
 - `ENTWICKLUNGSLEITFADEN.md` - **Hauptleitfaden für alle Entwicklungen**
+- `ADAPTIVER_ALGORITHMUS.md` - **Dokumentation des adaptiven Lern-Algorithmus** ⭐ NEU
 - `src/data/questions.ts` - Quiz-Fragen hinzufügen
+- `src/services/progress.ts` - Adaptiver Algorithmus & Progress-Tracking
 - `.env.local` - Firebase-Konfiguration (müssen Sie erstellen)
 - `src/components/ui/` - UI-Komponenten zum Anpassen
 - `src/pages/` - Seiten-Komponenten

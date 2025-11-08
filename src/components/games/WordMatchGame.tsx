@@ -185,16 +185,6 @@ export function WordMatchGame({
     }
   };
 
-  const getMatchedWord = (word: string) => {
-    return matches.get(word);
-  };
-
-  const getMatchForRight = (rightWord: string) => {
-    for (const [left, right] of matches.entries()) {
-      if (right === rightWord) return left;
-    }
-    return null;
-  };
 
   return (
     <BaseGame

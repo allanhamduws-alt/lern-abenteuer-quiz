@@ -7,9 +7,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getCurrentUser } from '../services/auth';
 import { loadProgress } from '../services/progress';
-import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
+import { Mascot } from '../components/Mascot';
+import { DailyChallengeCard } from '../components/ui/DailyChallengeCard';
 import { MathIcon, GermanIcon, ScienceIcon, ArtIcon, LogicIcon } from '../components/icons';
 import type { User, Progress } from '../types';
 
@@ -26,7 +27,6 @@ export function HomePage() {
   const location = useLocation();
   const [user, setUser] = useState<User | null>(null);
   const [progress, setProgress] = useState<Progress | null>(null);
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
 
   const loadUserAndProgress = async () => {
     try {
@@ -61,30 +61,49 @@ export function HomePage() {
     return () => window.removeEventListener('focus', handleFocus);
   }, [user]);
 
-  const handleStartQuiz = () => {
-    if (!user || !selectedSubject || !user.class) {
+  const handleSubjectClick = (subjectId: string) => {
+    if (!user || !user.class) {
       return;
     }
-    const quizUrl = `/quiz?class=${user.class}&subject=${selectedSubject}`;
+    const quizUrl = `/quiz?class=${user.class}&subject=${subjectId}`;
     navigate(quizUrl);
   };
 
-  const handleSubjectSelect = (subjectId: string) => {
-    setSelectedSubject(subjectId);
-  };
-
   // Farbzuordnung für Fächer
-  const subjectColors: Record<string, { gradient: string; shadow: string }> = {
-    mathematik: { gradient: 'from-lime-400 to-lime-500', shadow: 'shadow-colored-lime' },
-    deutsch: { gradient: 'from-sky-400 to-sky-500', shadow: 'shadow-colored-blue' },
-    naturwissenschaften: { gradient: 'from-purple-400 to-purple-500', shadow: 'shadow-colored-purple' },
-    kunst: { gradient: 'from-pink-400 to-pink-500', shadow: 'shadow-lg' },
-    logik: { gradient: 'from-orange-400 to-orange-500', shadow: 'shadow-lg' },
+  const subjectColors: Record<string, { gradient: string; shadow: string; hoverGradient: string }> = {
+    mathematik: { 
+      gradient: 'from-lime-400 to-lime-500', 
+      shadow: 'shadow-colored-lime',
+      hoverGradient: 'linear-gradient(135deg, #a3e635 0%, #84cc16 100%)'
+    },
+    deutsch: { 
+      gradient: 'from-sky-400 to-sky-500', 
+      shadow: 'shadow-colored-blue',
+      hoverGradient: 'linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%)'
+    },
+    naturwissenschaften: { 
+      gradient: 'from-purple-400 to-purple-500', 
+      shadow: 'shadow-colored-purple',
+      hoverGradient: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)'
+    },
+    kunst: { 
+      gradient: 'from-pink-400 to-pink-500', 
+      shadow: 'shadow-lg',
+      hoverGradient: 'linear-gradient(135deg, #f472b6 0%, #ec4899 100%)'
+    },
+    logik: { 
+      gradient: 'from-orange-400 to-orange-500', 
+      shadow: 'shadow-lg',
+      hoverGradient: 'linear-gradient(135deg, #fb923c 0%, #f97316 100%)'
+    },
   };
 
   return (
     <div className="min-h-screen bg-gradient-background">
       <Header user={user || undefined} />
+      
+      {/* Maskottchen als fixed Begleiter */}
+      <Mascot mood="friendly" text="Hallo! Wähle ein Fach aus und lass uns gemeinsam lernen! 🎓" position="bottom-right" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
@@ -92,6 +111,13 @@ export function HomePage() {
           <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent animate-fade-in">
             Wähle ein Fach
           </h2>
+
+          {/* Tägliche Challenge */}
+          {progress?.dailyChallenge && (
+            <div className="mb-8 animate-fade-in">
+              <DailyChallengeCard challenge={progress.dailyChallenge} />
+            </div>
+          )}
 
           {/* Optional: Kurze Übersicht (nur wenn Platz) */}
           {progress && (
@@ -119,45 +145,68 @@ export function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {subjects.map((subject, index) => {
               const IconComponent = subject.icon;
-              const isSelected = selectedSubject === subject.id;
-              const colors = subjectColors[subject.id] || { gradient: 'from-gray-400 to-gray-500', shadow: 'shadow-lg' };
+              const colors = subjectColors[subject.id] || { 
+                gradient: 'from-gray-400 to-gray-500', 
+                shadow: 'shadow-lg',
+                hoverGradient: 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)'
+              };
+              const subjectProgress = progress?.subjects[subject.id as keyof typeof progress.subjects];
+              const level = subjectProgress?.level || 1;
+              const xp = subjectProgress?.xp || 0;
+              const xpToNextLevel = subjectProgress?.xpToNextLevel || 100;
+              const progressPercentage = level >= 10 ? 100 : Math.round((xp / xpToNextLevel) * 100);
               
               return (
                 <button
                   key={subject.id}
                   type="button"
-                  onClick={() => handleSubjectSelect(subject.id)}
-                  className={`p-6 rounded-xl text-left transition-all duration-300 transform hover:scale-105 border-2 animate-fade-in ${
-                    isSelected
-                      ? `bg-gradient-to-br ${colors.gradient} text-white border-white shadow-large scale-105`
-                      : `bg-gradient-card text-gray-800 border-gray-200 hover:border-gray-300 hover:shadow-large ${colors.shadow}`
-                  }`}
+                  onClick={() => handleSubjectClick(subject.id)}
+                  className="p-6 rounded-xl text-left transition-all duration-300 transform hover:scale-105 border-2 animate-fade-in cursor-pointer group bg-gradient-card text-gray-800 border-gray-200 hover:border-white hover:shadow-large"
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = colors.hoverGradient;
+                    e.currentTarget.style.color = 'white';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '';
+                    e.currentTarget.style.color = '';
+                  }}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`transform transition-transform duration-300 ${isSelected ? 'scale-110' : ''}`}>
-                      <IconComponent className="w-10 h-10" />
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="transform transition-transform duration-300 group-hover:scale-110">
+                      <IconComponent className="w-10 h-10 transition-colors duration-300" />
                     </div>
-                    <span className="font-bold text-lg">{subject.name}</span>
+                    <div className="flex-1">
+                      <span className="font-bold text-lg transition-colors duration-300">{subject.name}</span>
+                      {progress && (
+                        <div className="mt-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-primary-600 group-hover:text-white transition-colors duration-300">
+                              Level {level}
+                            </span>
+                            {level < 10 && (
+                              <span className="text-xs text-gray-500 group-hover:text-white/80 transition-colors duration-300">
+                                ({xp}/{xpToNextLevel} XP)
+                              </span>
+                            )}
+                          </div>
+                          {level < 10 && (
+                            <div className="mt-1 h-1.5 rounded-full overflow-hidden bg-gray-200 group-hover:bg-white/30 transition-colors duration-300">
+                              <div
+                                className="h-full transition-all duration-300 bg-primary-500 group-hover:bg-white"
+                                style={{ width: `${progressPercentage}%` }}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </button>
               );
             })}
           </div>
 
-          {/* Start-Button */}
-          {user && selectedSubject && (
-            <div className="text-center animate-fade-in">
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={handleStartQuiz}
-                className="text-xl px-12 py-4 shadow-colored-lime"
-              >
-                Quiz starten 🚀
-              </Button>
-            </div>
-          )}
         </div>
       </div>
     </div>

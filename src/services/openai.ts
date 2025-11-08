@@ -235,8 +235,17 @@ export async function textToSpeech(
     throw new Error('OpenAI API Key nicht verfügbar');
   }
 
+  // Validiere Text
+  if (!text || text.trim().length === 0) {
+    throw new Error('Text für Sprachausgabe ist leer');
+  }
+
+  // Begrenze Text-Länge (OpenAI TTS hat ein Limit)
+  const maxLength = 4096; // OpenAI TTS Limit
+  const textToUse = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+
   try {
-    console.log('🎤 OpenAI TTS: Generiere Audio...', { textLength: text.length, voice });
+    console.log('🎤 OpenAI TTS: Generiere Audio...', { textLength: textToUse.length, voice });
 
     const response = await fetch('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
@@ -246,7 +255,7 @@ export async function textToSpeech(
       },
       body: JSON.stringify({
         model: 'tts-1-hd', // HD-Modell für deutlich realistischere Stimme
-        input: text,
+        input: textToUse,
         voice: voice,
         speed: 0.92, // Etwas langsamer für besseres Verständnis, aber mit mehr Betonung (0.92 statt 0.95 für mehr Emotion)
       }),
@@ -255,16 +264,38 @@ export async function textToSpeech(
     if (!response.ok) {
       const errorText = await response.text();
       console.error('❌ OpenAI TTS Fehler:', response.status, errorText);
+      
+      // Spezifische Fehlermeldungen
+      if (response.status === 401) {
+        throw new Error('OpenAI API Key ist ungültig oder abgelaufen');
+      } else if (response.status === 429) {
+        throw new Error('Zu viele Anfragen. Bitte warte einen Moment.');
+      } else if (response.status === 500) {
+        throw new Error('OpenAI Server-Fehler. Bitte versuche es später erneut.');
+      }
+      
       throw new Error(`OpenAI TTS Fehler: ${response.status}`);
     }
 
     const audioBlob = await response.blob();
+    
+    // Validiere dass es wirklich ein Audio-Blob ist
+    if (!audioBlob || audioBlob.size === 0) {
+      throw new Error('OpenAI hat leeres Audio zurückgegeben');
+    }
+    
     const audioUrl = URL.createObjectURL(audioBlob);
     
-    console.log('✅ OpenAI TTS: Audio generiert');
+    console.log('✅ OpenAI TTS: Audio generiert', { blobSize: audioBlob.size });
     return audioUrl;
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Fehler beim OpenAI TTS:', error);
+    
+    // Wenn es ein Netzwerk-Fehler ist, gebe eine benutzerfreundliche Meldung zurück
+    if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+      throw new Error('Netzwerk-Fehler. Bitte überprüfe deine Internetverbindung.');
+    }
+    
     throw error;
   }
 }

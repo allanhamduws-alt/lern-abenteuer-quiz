@@ -12,11 +12,13 @@ import { Header } from '../components/ui/Header';
 import { Confetti } from '../components/ui/Confetti';
 import { Stars } from '../components/ui/Stars';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
-import { StoryCard } from '../components/story/StoryCard';
 import { InputQuestion } from '../components/quiz/InputQuestion';
 import { DragDropQuestion } from '../components/quiz/DragDropQuestion';
 import { HelpButton } from '../components/quiz/HelpButton';
-import type { Question, QuizResult } from '../types';
+import { Mascot } from '../components/Mascot';
+import { getCurrentUser } from '../services/auth';
+import { loadProgress, calculateSkillLevel } from '../services/progress';
+import type { Question, QuizResult, Progress } from '../types';
 
 export function QuizPage() {
   const navigate = useNavigate();
@@ -35,16 +37,57 @@ export function QuizPage() {
   const [showStars, setShowStars] = useState(false);
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const pointsAnimationRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [progress, setProgress] = useState<Progress | null>(null);
+  const [isLoadingProgress, setIsLoadingProgress] = useState(true);
+
+  // Lade Progress beim Start für adaptive Fragen-Auswahl
+  useEffect(() => {
+    const loadUserProgress = async () => {
+      try {
+        setIsLoadingProgress(true);
+        const user = await getCurrentUser();
+        if (user) {
+          const userProgress = await loadProgress(user.uid);
+          setProgress(userProgress);
+        }
+      } catch (error) {
+        console.error('Fehler beim Laden des Progress:', error);
+      } finally {
+        setIsLoadingProgress(false);
+      }
+    };
+    
+    loadUserProgress();
+  }, []);
 
   useEffect(() => {
-    // Fragen laden - adaptive Auswahl für bessere Anpassung
+    // Warte bis Progress geladen ist
+    if (isLoadingProgress) {
+      return;
+    }
+
+    // Berechne Skill-Level für das Fach
+    let skillLevel: number | undefined = undefined;
+    if (progress) {
+      const subjectProgress = progress.subjects[subject as keyof typeof progress.subjects];
+      if (subjectProgress) {
+        // Berechne Skill-Level (oder verwende gespeichertes)
+        skillLevel = subjectProgress.skillLevel !== undefined 
+          ? subjectProgress.skillLevel 
+          : calculateSkillLevel(subjectProgress);
+      }
+    }
+
+    // Fragen laden - NEUER ADAPTIVER ALGORITHMUS basierend auf Skill-Level
     const recentResults = results.map(r => ({ isCorrect: r.isCorrect }));
     const quizQuestions = getAdaptiveQuestions(
       classLevel,
       subject as Question['subject'],
       8,
-      recentResults
+      skillLevel, // NEU: Skill-Level wird übergeben
+      recentResults // Fallback falls kein Skill-Level verfügbar
     );
     setQuestions(quizQuestions);
     setCurrentQuestionIndex(0); // Reset auf erste Frage
@@ -54,10 +97,11 @@ export function QuizPage() {
     setShowConfetti(false);
     setShowStars(false);
     setAnimatedPoints(0);
+    setLastAnswerCorrect(null);
     const now = Date.now();
     setQuizStartTime(now);
     setQuestionStartTime(now); // Startzeit für erste Frage setzen
-  }, [classLevel, subject]);
+  }, [classLevel, subject, progress, isLoadingProgress]);
 
   const currentQuestion = questions[currentQuestionIndex];
   const resultsRef = useRef(results);
@@ -81,6 +125,7 @@ export function QuizPage() {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setSelectedAnswer(null);
         setShowResult(false);
+        setLastAnswerCorrect(null);
         setQuestionStartTime(Date.now());
         setIsTransitioning(false);
       }, 300);
@@ -163,6 +208,7 @@ export function QuizPage() {
         updatedResults = [...results, newResult];
       }
       setResults(updatedResults);
+      setLastAnswerCorrect(isCorrect);
 
       // Punktzähler animieren
       const currentPoints = results.reduce((sum, r) => sum + r.points, 0);
@@ -234,7 +280,19 @@ export function QuizPage() {
     }
   }, [results, animatedPoints, showResult]);
 
-  // Prüfe ob Fragen gefunden wurden
+  // WICHTIG: Zeige Loading während Progress geladen wird
+  // Dies verhindert die kurze "Keine Fragen gefunden"-Meldung
+  if (isLoadingProgress) {
+    return (
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
+        <Card>
+          <LoadingSpinner text="Lade Quiz..." />
+        </Card>
+      </div>
+    );
+  }
+
+  // Prüfe ob Fragen gefunden wurden (nur nach dem Laden)
   if (questions.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-background">
@@ -283,6 +341,17 @@ export function QuizPage() {
       <Confetti show={showConfetti} />
       <Stars show={showStars} />
 
+      {/* Maskottchen als fixed Begleiter */}
+      {showResult && lastAnswerCorrect !== null && (
+        <Mascot 
+          mood={lastAnswerCorrect ? "happy" : "encouraging"}
+          text={lastAnswerCorrect 
+            ? "Super gemacht! 🎉 Du hast die richtige Antwort gefunden!" 
+            : "Nicht aufgeben! 💪 Beim nächsten Mal schaffst du es bestimmt!"}
+          position="bottom-right"
+        />
+      )}
+
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           {/* Fortschrittsbalken */}
@@ -307,13 +376,6 @@ export function QuizPage() {
 
           {/* Frage-Karte */}
           <Card className={`mb-6 ${isTransitioning ? 'opacity-0' : 'opacity-100 animate-slide-in'} transition-opacity duration-300`}>
-            {/* Story-Card anzeigen, falls vorhanden */}
-            <StoryCard
-              character={currentQuestion.character}
-              storyText={currentQuestion.storyText}
-              world={currentQuestion.world}
-            />
-            
             {/* Bonus-Aufgabe Badge */}
             {currentQuestion.isBonus && (
               <div className="mb-4 flex items-center gap-2 bg-gradient-to-r from-yellow-300 to-yellow-400 border-2 border-yellow-500 rounded-xl p-4 animate-fade-in shadow-colored-lime">
@@ -366,14 +428,14 @@ export function QuizPage() {
                     
                     if (showResult) {
                       if (isCorrectAnswer) {
-                        // Richtige Antwort: GRÜNER GRADIENT
-                        buttonClasses += 'bg-gradient-success text-white shadow-colored-lime scale-105 animate-bounce';
+                        // Richtige Antwort: DEUTLICH GRÜN mit weißem Text
+                        buttonClasses += 'bg-green-500 text-white shadow-lg border-2 border-green-700 scale-105 font-bold';
                       } else if (isWrong) {
-                        // Falsche ausgewählte Antwort: ROTER GRADIENT
-                        buttonClasses += 'bg-gradient-danger text-white shadow-lg';
+                        // Falsche ausgewählte Antwort: DEUTLICH ROT mit weißem Text
+                        buttonClasses += 'bg-red-500 text-white shadow-lg border-2 border-red-700 font-bold';
                       } else {
                         // Andere Optionen: Grau ausgegraut
-                        buttonClasses += 'bg-gray-200 text-gray-600 opacity-70';
+                        buttonClasses += 'bg-gray-200 text-gray-500 opacity-60';
                       }
                     } else {
                       // Nicht beantwortet: Bunte Karte mit Hover
@@ -427,7 +489,7 @@ export function QuizPage() {
                 className={`p-3 rounded-xl transition-all duration-300 transform ${
                   currentQuestionIndex === 0
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
-                    : 'bg-gradient-secondary text-white hover:scale-110 shadow-colored-blue'
+                    : 'bg-gray-200 text-gray-900 hover:bg-gray-300 hover:scale-110 shadow-sm hover:shadow-md'
                 }`}
                 title="Zurück zur vorherigen Frage"
               >
@@ -447,8 +509,8 @@ export function QuizPage() {
                   !showResult
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
                     : currentQuestionIndex === questions.length - 1
-                    ? 'bg-gradient-secondary text-white hover:scale-110 shadow-colored-blue'
-                    : 'bg-gradient-primary text-white hover:scale-110 shadow-colored-lime'
+                    ? 'bg-gray-200 text-gray-900 hover:bg-gray-300 hover:scale-110 shadow-sm hover:shadow-md'
+                    : 'bg-green-600 text-white hover:bg-green-700 hover:scale-110 shadow-md hover:shadow-lg'
                 }`}
                 title={currentQuestionIndex === questions.length - 1 ? "Zur Auswertung" : "Zur nächsten Frage"}
               >

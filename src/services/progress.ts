@@ -13,6 +13,11 @@ import type {
   Question,
 } from '../types';
 import { checkEarnedBadges } from '../data/badges';
+import { 
+  generateDailyChallenge, 
+  isChallengeCurrent, 
+  calculateChallengeProgress 
+} from './dailyChallenge';
 
 /**
  * Initialisiert leeren Fortschritt für neuen Benutzer
@@ -37,6 +42,7 @@ export function createEmptyProgress(): Progress {
       longest: 0,
       lastActivity: new Date().toISOString(),
     },
+    dailyChallenge: generateDailyChallenge(),
     lastActivity: new Date().toISOString(),
   };
 }
@@ -58,6 +64,7 @@ function createEmptySubjectProgress(
     level: 1,
     xp: 0,
     xpToNextLevel: 100,
+    skillLevel: 0.0, // Start mit 0.0 (Anfänger) für adaptive Fragen-Auswahl
   };
 }
 
@@ -80,7 +87,17 @@ export async function loadProgress(userId: string): Promise<Progress> {
           subjectProgress.xp = levelData.xp;
           subjectProgress.xpToNextLevel = levelData.xpToNextLevel;
         }
+        
+        // Skill-Level initialisieren, falls nicht vorhanden
+        if (subjectProgress.skillLevel === undefined) {
+          subjectProgress.skillLevel = calculateSkillLevel(subjectProgress);
+        }
       });
+      
+      // Daily Challenge prüfen und aktualisieren
+      if (!progress.dailyChallenge || !isChallengeCurrent(progress.dailyChallenge)) {
+        progress.dailyChallenge = generateDailyChallenge();
+      }
       
       return progress;
     }
@@ -207,6 +224,36 @@ export async function updateProgressAfterQuiz(
   subjectProgress.xp = levelData.xp;
   subjectProgress.xpToNextLevel = levelData.xpToNextLevel;
 
+  // NEUER ADAPTIVER ALGORITHMUS: Skill-Level aktualisieren
+  const oldSkillLevel = subjectProgress.skillLevel !== undefined 
+    ? subjectProgress.skillLevel 
+    : calculateSkillLevel(subjectProgress);
+  
+  // Berechne Quiz-Performance (0-1)
+  const quizPerformance = results.length > 0 
+    ? results.filter((r) => r.isCorrect).length / results.length 
+    : 0;
+  
+  // Berechne erwartete Performance basierend auf Fragen-Schwierigkeit
+  const expectedPerformance = calculateExpectedPerformance(questions);
+  
+  // Aktualisiere Skill-Level basierend auf Performance
+  const newSkillLevel = updateSkillLevelAfterQuiz(
+    oldSkillLevel,
+    quizPerformance,
+    expectedPerformance
+  );
+  
+  subjectProgress.skillLevel = newSkillLevel;
+  
+  console.log('📊 Skill-Level aktualisiert:', {
+    fach: subject,
+    alt: oldSkillLevel,
+    neu: newSkillLevel,
+    quizPerformance: Math.round(quizPerformance * 100) + '%',
+    expectedPerformance: Math.round(expectedPerformance * 100) + '%',
+  });
+
   console.log(`📚 ${subject} Statistiken aktualisiert:`, {
     alt: oldSubjectStats,
     neu: {
@@ -265,6 +312,36 @@ export async function updateProgressAfterQuiz(
 
   // Lernstreak aktualisieren
   updateLearningStreak(progress);
+
+  // Daily Challenge aktualisieren
+  if (progress.dailyChallenge && isChallengeCurrent(progress.dailyChallenge)) {
+    const correctAnswers = results.filter((r) => r.isCorrect).length;
+    const totalPoints = results.reduce((sum, r) => sum + r.points, 0);
+    const isPerfect = results.every((r) => r.isCorrect);
+    
+    // Challenge-Fortschritt aktualisieren
+    const updatedChallenge = calculateChallengeProgress(
+      progress.dailyChallenge,
+      progress,
+      {
+        correctAnswersToday: correctAnswers,
+        pointsToday: totalPoints,
+        perfectQuizzesToday: isPerfect ? 1 : 0,
+      }
+    );
+    
+    // Prüfe ob Challenge gerade erfüllt wurde (war vorher nicht erfüllt)
+    const wasCompletedBefore = progress.dailyChallenge.completed;
+    const isCompletedNow = updatedChallenge.completed;
+    
+    if (!wasCompletedBefore && isCompletedNow) {
+      // Bonus-Punkte vergeben
+      progress.totalPoints += updatedChallenge.bonusPoints;
+      console.log(`🎉 Tägliche Challenge erfüllt! +${updatedChallenge.bonusPoints} Bonus-Punkte!`);
+    }
+    
+    progress.dailyChallenge = updatedChallenge;
+  }
 
   // Badges prüfen und verleihen
   const isPerfect = results.every((r) => r.isCorrect);
@@ -402,7 +479,8 @@ export function getAllDifficultQuestions(
 
 /**
  * Berechnet Level basierend auf Fach-Fortschritt
- * Formel: Level basiert auf Quizzes, richtige Antworten und Durchschnitt
+ * Formel: Level 1-10 basierend auf XP
+ * Level 1: 0-99 XP, Level 2: 100-249 XP, Level 3: 250-449 XP, etc.
  */
 export function calculateLevel(subjectProgress: SubjectProgress): {
   level: number;
@@ -414,22 +492,72 @@ export function calculateLevel(subjectProgress: SubjectProgress): {
                  subjectProgress.correctAnswers * 2 + 
                  Math.floor(subjectProgress.averageScore / 10);
   
-  // Level berechnen: Level 1 = 0-99 XP, Level 2 = 100-399 XP, Level 3 = 400-899 XP, etc.
-  // Formel: Level = floor(sqrt(XP / 100)) + 1
-  const level = Math.max(1, Math.floor(Math.sqrt(baseXP / 100)) + 1);
+  // Level-Berechnung für Level 1-10
+  // Level 1: 0-99 XP
+  // Level 2: 100-249 XP
+  // Level 3: 250-449 XP
+  // Level 4: 450-699 XP
+  // Level 5: 700-999 XP
+  // Level 6: 1000-1349 XP
+  // Level 7: 1350-1749 XP
+  // Level 8: 1750-2199 XP
+  // Level 9: 2200-2699 XP
+  // Level 10: 2700+ XP
+  
+  let level = 1;
+  let xpThreshold = 0;
+  
+  if (baseXP >= 2700) {
+    level = 10;
+    xpThreshold = 2700;
+  } else if (baseXP >= 2200) {
+    level = 9;
+    xpThreshold = 2200;
+  } else if (baseXP >= 1750) {
+    level = 8;
+    xpThreshold = 1750;
+  } else if (baseXP >= 1350) {
+    level = 7;
+    xpThreshold = 1350;
+  } else if (baseXP >= 1000) {
+    level = 6;
+    xpThreshold = 1000;
+  } else if (baseXP >= 700) {
+    level = 5;
+    xpThreshold = 700;
+  } else if (baseXP >= 450) {
+    level = 4;
+    xpThreshold = 450;
+  } else if (baseXP >= 250) {
+    level = 3;
+    xpThreshold = 250;
+  } else if (baseXP >= 100) {
+    level = 2;
+    xpThreshold = 100;
+  }
   
   // XP für aktuelles Level berechnen
-  const xpForCurrentLevel = Math.pow(level - 1, 2) * 100;
-  const xp = baseXP - xpForCurrentLevel;
+  const xp = baseXP - xpThreshold;
   
   // XP für nächstes Level berechnen
-  const xpForNextLevel = Math.pow(level, 2) * 100;
-  const xpToNextLevel = xpForNextLevel - xpForCurrentLevel;
+  let nextLevelThreshold = 0;
+  if (level === 1) nextLevelThreshold = 100;
+  else if (level === 2) nextLevelThreshold = 250;
+  else if (level === 3) nextLevelThreshold = 450;
+  else if (level === 4) nextLevelThreshold = 700;
+  else if (level === 5) nextLevelThreshold = 1000;
+  else if (level === 6) nextLevelThreshold = 1350;
+  else if (level === 7) nextLevelThreshold = 1750;
+  else if (level === 8) nextLevelThreshold = 2200;
+  else if (level === 9) nextLevelThreshold = 2700;
+  else nextLevelThreshold = Infinity; // Level 10 ist Maximum
+  
+  const xpToNextLevel = nextLevelThreshold - xpThreshold;
   
   return {
-    level: Math.min(level, 100), // Max Level 100
+    level: Math.min(level, 10), // Max Level 10
     xp: Math.max(0, xp),
-    xpToNextLevel: Math.max(100, xpToNextLevel),
+    xpToNextLevel: xpToNextLevel === Infinity ? 0 : xpToNextLevel,
   };
 }
 
@@ -463,5 +591,166 @@ export async function markQuestionAsMastered(
     difficultQ.nextReview = undefined;
     await saveProgress(userId, progress);
   }
+}
+
+/**
+ * ADAPTIVER LERN-ALGORITHMUS
+ * Berechnet Skill-Level eines Schülers für ein Fach
+ * Gibt Wert zwischen 0.0 (Anfänger) und 1.0 (Experte) zurück
+ * 
+ * Berücksichtigt:
+ * - Durchschnittliche Erfolgsrate (50% Gewichtung)
+ * - Erfahrung/Level (30% Gewichtung)
+ * - Konsistenz (20% Gewichtung)
+ * 
+ * Basierend auf Zone of Proximal Development (ZPD) Prinzipien
+ */
+export function calculateSkillLevel(subjectProgress: SubjectProgress): number {
+  // 1. Basis-Performance (0-1)
+  const averageScore = subjectProgress.averageScore / 100; // 0.0 bis 1.0
+  
+  // 2. Erfahrungs-Level (0-1)
+  // Level 1-10 wird zu 0.0-1.0 skaliert
+  const level = Math.min(10, subjectProgress.level || 1);
+  const experienceLevel = (level - 1) / 9; // 0.0 (Level 1) bis 1.0 (Level 10)
+  
+  // 3. Konsistenz-Bonus
+  // Wenn Schüler viele Quizzes gemacht hat → konsistenter
+  const quizCount = subjectProgress.quizzesCompleted;
+  const consistency = Math.min(1, quizCount / 10); // Nach 10 Quizzes = konsistent
+  
+  // 4. Kombiniere Faktoren (gewichtete Summe)
+  const skillLevel = (
+    averageScore * 0.5 +        // 50%: Gesamt-Performance
+    experienceLevel * 0.3 +     // 30%: Erfahrung/Level
+    consistency * 0.2            // 20%: Konsistenz
+  );
+  
+  // 5. Sicherheitsgrenzen
+  // Neue Schüler (weniger als 3 Quizzes) → starte konservativ
+  if (quizCount < 3) {
+    return Math.min(0.3, skillLevel); // Max 30% Skill-Level für Anfänger
+  }
+  
+  return Math.max(0, Math.min(1, skillLevel)); // Zwischen 0 und 1
+}
+
+/**
+ * Bestimmt optimale Schwierigkeits-Verteilung basierend auf Skill-Level
+ * Ziel: ~80% Erfolgsrate (Zone of Proximal Development)
+ * 
+ * Prinzipien:
+ * - Anfänger: Viele leichte Fragen zum Aufbauen
+ * - Fortgeschritten: Ausgewogene Mischung
+ * - Experte: Hauptsächlich schwere Fragen
+ */
+export function getOptimalDifficultyDistribution(skillLevel: number): {
+  easy: number;
+  medium: number;
+  hard: number;
+} {
+  // Ziel: Schüler sollte ~80% der Fragen richtig beantworten können
+  // Skill-Level 0.0 → 80% leichte Fragen
+  // Skill-Level 1.0 → 20% leichte Fragen
+  
+  // Lineare Interpolation mit Sicherheitsgrenzen
+  let easyRatio: number;
+  let mediumRatio: number;
+  let hardRatio: number;
+  
+  if (skillLevel < 0.2) {
+    // Anfänger: Viele leichte Fragen zum Aufbauen
+    easyRatio = 0.7;
+    mediumRatio = 0.25;
+    hardRatio = 0.05;
+  } else if (skillLevel < 0.4) {
+    // Leicht fortgeschritten: Mehr leichte, aber auch mittlere
+    easyRatio = 0.5;
+    mediumRatio = 0.4;
+    hardRatio = 0.1;
+  } else if (skillLevel < 0.6) {
+    // Fortgeschritten: Ausgewogen
+    easyRatio = 0.3;
+    mediumRatio = 0.5;
+    hardRatio = 0.2;
+  } else if (skillLevel < 0.8) {
+    // Sehr fortgeschritten: Mehr mittlere und schwere
+    easyRatio = 0.15;
+    mediumRatio = 0.45;
+    hardRatio = 0.4;
+  } else {
+    // Experte: Hauptsächlich schwere Fragen
+    easyRatio = 0.1;
+    mediumRatio = 0.3;
+    hardRatio = 0.6;
+  }
+  
+  // Sicherheitsgrenzen: Mindestens 1 leichte Frage, nie nur schwere
+  return {
+    easy: Math.max(0.1, easyRatio),   // Mindestens 10% leichte Fragen
+    medium: mediumRatio,
+    hard: Math.min(0.7, hardRatio),   // Maximal 70% schwere Fragen
+  };
+}
+
+/**
+ * Berechnet erwartete Performance basierend auf Fragen-Schwierigkeit
+ * Gibt Wert zwischen 0.0 und 1.0 zurück
+ */
+export function calculateExpectedPerformance(questions: Question[]): number {
+  if (questions.length === 0) return 0.5;
+  
+  // Schätze erwartete Erfolgsrate basierend auf Schwierigkeit
+  let expectedCorrect = 0;
+  
+  questions.forEach((q) => {
+    if (q.difficulty === 'leicht' || !q.difficulty) {
+      expectedCorrect += 0.85; // 85% Erfolgsrate bei leichten Fragen
+    } else if (q.difficulty === 'mittel') {
+      expectedCorrect += 0.70; // 70% Erfolgsrate bei mittleren Fragen
+    } else if (q.difficulty === 'schwer') {
+      expectedCorrect += 0.55; // 55% Erfolgsrate bei schweren Fragen
+    } else {
+      expectedCorrect += 0.70; // Standard
+    }
+  });
+  
+  return expectedCorrect / questions.length;
+}
+
+/**
+ * Aktualisiert Skill-Level nach Quiz basierend auf Performance
+ * Langsame Anpassung (12% pro Quiz) um Frustration zu vermeiden
+ * 
+ * Sicherheitsmechanismen:
+ * - Maximal 20% Änderung pro Quiz
+ * - Langsame Anpassung für Stabilität
+ */
+export function updateSkillLevelAfterQuiz(
+  oldSkillLevel: number,
+  quizPerformance: number, // 0-1 (richtige Antworten / Gesamt)
+  expectedPerformance: number // 0-1 (erwartete Performance basierend auf Fragen-Schwierigkeit)
+): number {
+  // Berechne Performance-Gap
+  const performanceGap = quizPerformance - expectedPerformance;
+  
+  // Anpassungsrate: Langsam für Stabilität
+  // Wenn Performance besser als erwartet → Skill-Level erhöhen
+  // Wenn Performance schlechter als erwartet → Skill-Level leicht senken
+  const adjustmentRate = 0.12; // 12% Anpassung pro Quiz (langsam!)
+  const adjustment = performanceGap * adjustmentRate;
+  
+  // Neue Skill-Level berechnen
+  let newSkillLevel = oldSkillLevel + adjustment;
+  
+  // Sicherheitsgrenzen: Nicht zu aggressiv
+  // Maximal 20% Änderung pro Quiz
+  const maxChange = 0.2;
+  if (Math.abs(adjustment) > maxChange) {
+    newSkillLevel = oldSkillLevel + (adjustment > 0 ? maxChange : -maxChange);
+  }
+  
+  // Grenzen: Zwischen 0 und 1
+  return Math.max(0, Math.min(1, newSkillLevel));
 }
 

@@ -10,6 +10,7 @@ import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
 import { LevelUp } from '../components/ui/LevelUp';
+import { Mascot } from '../components/Mascot';
 import { syncPoints } from '../utils/points';
 import { getCurrentUser } from '../services/auth';
 import { updateProgressAfterQuiz, loadProgress } from '../services/progress';
@@ -153,6 +154,18 @@ export function ResultsPage() {
           onClose={() => setLevelUp(null)}
         />
       )}
+
+      {/* Maskottchen als fixed Begleiter */}
+      <Mascot 
+        mood={correctAnswers === totalQuestions ? "proud" : correctAnswers >= totalQuestions / 2 ? "happy" : "encouraging"}
+        text={
+          correctAnswers === totalQuestions 
+            ? "Großartig! 🏆 Du hast alle Fragen richtig beantwortet! Du bist ein echter Superstar!" 
+            : correctAnswers >= totalQuestions / 2 
+            ? "Super gemacht! 🎉 Du hast schon viele Fragen richtig beantwortet! Weiter so!" 
+            : "Gut gemacht! 💪 Jede Frage ist eine Chance zu lernen. Beim nächsten Mal schaffst du es bestimmt noch besser!"}
+        position="bottom-right"
+      />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">

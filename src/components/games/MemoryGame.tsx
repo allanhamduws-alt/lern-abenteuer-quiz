@@ -39,24 +39,19 @@ export function MemoryGame({
 
   const generateCards = () => {
     let cardValues: (string | number)[] = [];
-    let cardCount = 8; // 4 Paare für Klasse 1-2
 
     if (classLevel === 1) {
       // Klasse 1: Zahlen 1-4
       cardValues = [1, 2, 3, 4];
-      cardCount = 8;
     } else if (classLevel === 2) {
       // Klasse 2: Zahlen 1-6
       cardValues = [1, 2, 3, 4, 5, 6];
-      cardCount = 12;
     } else if (classLevel === 3) {
       // Klasse 3: Formen
       cardValues = ['🔴', '🔵', '🟢', '🟡', '🟣', '🟠', '⚫', '⚪'];
-      cardCount = 16;
     } else {
       // Klasse 4: Buchstaben
       cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-      cardCount = 16;
     }
 
     // Erstelle Karten-Paare

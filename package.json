@@ -8,7 +8,8 @@
     "dev:network": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-explanations": "node scripts/generateExplanations.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.16",

@@ -26,10 +26,7 @@ export function Header({ user }: HeaderProps) {
   };
 
   const handleLogoClick = () => {
-    if (location.pathname === '/login') {
-      return;
-    }
-    
+    // Navigiere immer zur entsprechenden Startseite basierend auf Benutzer-Rolle
     if (user) {
       if (user.role === 'parent') {
         navigate('/parent-dashboard');
@@ -37,12 +34,15 @@ export function Header({ user }: HeaderProps) {
         navigate('/home');
       }
     } else {
+      // Wenn nicht eingeloggt, gehe zur Login-Seite (von dort kann man sich einloggen)
+      // Aber wenn man bereits auf einer anderen Seite ist, versuche zur Home zu gehen
       const currentPath = location.pathname;
-      if (currentPath.startsWith('/parent-dashboard') || currentPath.startsWith('/admin')) {
-        navigate('/parent-dashboard');
-      } else {
-        navigate('/home');
+      if (currentPath === '/login') {
+        // Bleibe auf Login-Seite wenn bereits dort
+        return;
       }
+      // Sonst versuche zur Home-Seite zu gehen (wird dann zu Login umgeleitet wenn nicht eingeloggt)
+      navigate('/home');
     }
   };
 
@@ -70,8 +70,8 @@ export function Header({ user }: HeaderProps) {
                   onClick={() => navigate('/home')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                     isActive('/home') 
-                      ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                      : 'text-gray-700 hover:bg-white/50 hover:shadow-soft'
+                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
                   <MathIcon className="w-5 h-5" />
@@ -82,8 +82,8 @@ export function Header({ user }: HeaderProps) {
                   onClick={() => navigate('/progress')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                     isActive('/progress') 
-                      ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                      : 'text-gray-700 hover:bg-white/50 hover:shadow-soft'
+                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
                   <ProgressIcon className="w-5 h-5" />
@@ -94,8 +94,8 @@ export function Header({ user }: HeaderProps) {
                   onClick={() => navigate('/profile')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                     isActive('/profile') 
-                      ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                      : 'text-gray-700 hover:bg-white/50 hover:shadow-soft'
+                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
                   <ProfileIcon className="w-5 h-5" />
@@ -106,8 +106,8 @@ export function Header({ user }: HeaderProps) {
                   onClick={() => navigate('/practice')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                     isActive('/practice') 
-                      ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                      : 'text-gray-700 hover:bg-white/50 hover:shadow-soft'
+                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
                   <span className="font-semibold">Üben</span>
@@ -117,8 +117,8 @@ export function Header({ user }: HeaderProps) {
                   onClick={() => navigate('/games')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                     isActive('/games') 
-                      ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                      : 'text-gray-700 hover:bg-white/50 hover:shadow-soft'
+                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
                   <GameIcon className="w-5 h-5" />
@@ -167,8 +167,8 @@ export function Header({ user }: HeaderProps) {
                 onClick={() => navigate('/admin')}
                 className={`px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 font-semibold ${
                   isActive('/admin') 
-                    ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                    : 'text-gray-700 hover:bg-white/70 shadow-soft'
+                    ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                    : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                 }`}
               >
                 Verwaltung
@@ -177,8 +177,8 @@ export function Header({ user }: HeaderProps) {
                 onClick={() => navigate('/parent-dashboard')}
                 className={`px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 font-semibold ${
                   isActive('/parent-dashboard') 
-                    ? 'bg-gradient-primary text-white shadow-colored-lime' 
-                    : 'text-gray-700 hover:bg-white/70 shadow-soft'
+                    ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                    : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                 }`}
               >
                 Dashboard
@@ -200,7 +200,11 @@ export function Header({ user }: HeaderProps) {
   return (
     <header className="bg-gradient-background border-b border-purple-200/50 shadow-medium">
       <div className="container mx-auto px-4 py-4">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+        <h1 
+          onClick={handleLogoClick}
+          className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent cursor-pointer hover:from-purple-700 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
+          style={{ userSelect: 'none' }}
+        >
           Lern-Abenteuer-Quiz
         </h1>
       </div>

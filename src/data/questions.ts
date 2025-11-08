@@ -4,10 +4,10 @@
  */
 
 import type { Question } from '../types';
+import { getOptimalDifficultyDistribution } from '../services/progress';
 
 // Beispiel-Fragen für Klasse 1, Mathematik
 export const questions: Question[] = [
-  // Mathematik - Klasse 1 (ohne StoryText - Kinder können noch nicht lesen)
   {
     id: 'math-1-1',
     class: 1,
@@ -18,6 +18,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Bei 2 + 3 kannst du zählen: Starte bei 2 und zähle 3 weiter: 2... 3, 4, 5! Das Ergebnis ist 5.',
+    helpText: 'Bei 2 + 3 kannst du zählen: Starte bei 2 und zähle 3 weiter: 2... 3, 4, 5! Das Ergebnis ist 5.',
   },
   {
     id: 'math-1-2',
@@ -29,6 +30,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Bei 5 + 2 startest du bei 5 und zählst 2 weiter: 5... 6, 7! Das Ergebnis ist 7.',
+    helpText: 'Bei 5 + 2 startest du bei 5 und zählst 2 weiter: 5... 6, 7! Das Ergebnis ist 7.',
   },
   {
     id: 'math-1-3',
@@ -39,6 +41,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-1-4',
@@ -50,6 +53,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'mittel',
     explanation: 'Bei 6 - 2 nimmst du von 6 etwas weg. Zähle rückwärts: 6... 5, 4! Du hast 2 weggenommen, also bleibt 4 übrig.',
+    helpText: 'Bei 6 - 2 nimmst du von 6 etwas weg. Zähle rückwärts: 6... 5, 4! Du hast 2 weggenommen, also bleibt 4 übrig.',
   },
   {
     id: 'math-1-5',
@@ -60,6 +64,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-1-6',
@@ -70,6 +75,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-1-7',
@@ -80,6 +86,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-1-8',
@@ -90,6 +97,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-1-9',
@@ -100,6 +108,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-1-10',
@@ -110,8 +119,8 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
-  // Deutsch - Klasse 1 (ohne StoryText)
   {
     id: 'deutsch-1-1',
     class: 1,
@@ -122,6 +131,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Das Wort ist "Apfel"! Sprich es langsam: Ap-fel. Der fehlende Buchstabe ist "e".',
+    helpText: 'Das Wort ist ',
   },
   {
     id: 'deutsch-1-2',
@@ -132,6 +142,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-3',
@@ -142,6 +153,7 @@ export const questions: Question[] = [
     correctAnswer: 0,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-4',
@@ -152,6 +164,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-5',
@@ -162,6 +175,7 @@ export const questions: Question[] = [
     correctAnswer: 0,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-6',
@@ -172,6 +186,7 @@ export const questions: Question[] = [
     correctAnswer: 0,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-7',
@@ -182,6 +197,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-8',
@@ -192,6 +208,7 @@ export const questions: Question[] = [
     correctAnswer: 0,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-9',
@@ -202,6 +219,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-1-10',
@@ -212,8 +230,8 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
-  // Deutsch - Klasse 2 (ohne StoryText)
   {
     id: 'deutsch-2-1',
     class: 2,
@@ -224,6 +242,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nomen (Namenwörter) werden immer groß geschrieben. "Hund" ist ein Nomen, also wird es groß geschrieben!',
+    helpText: 'Nomen (Namenwörter) werden immer groß geschrieben. ',
   },
   {
     id: 'deutsch-2-2',
@@ -235,6 +254,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nach einem Aussagesatz kommt ein Punkt (.). Der Satz erzählt etwas, also braucht er einen Punkt!',
+    helpText: 'Nach einem Aussagesatz kommt ein Punkt (.). Der Satz erzählt etwas, also braucht er einen Punkt!',
   },
   {
     id: 'deutsch-2-3',
@@ -246,6 +266,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Reime klingen ähnlich am Ende. "Haus" und "Maus" reimen sich, weil beide auf "-aus" enden!',
+    helpText: 'Reime klingen ähnlich am Ende. ',
   },
   {
     id: 'deutsch-2-4',
@@ -257,6 +278,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Ein Nomen ist ein Namenwort, das du anfassen oder sehen kannst. "Ball" ist ein Nomen, weil du einen Ball anfassen kannst!',
+    helpText: 'Ein Nomen ist ein Namenwort, das du anfassen oder sehen kannst. ',
   },
   {
     id: 'deutsch-2-5',
@@ -268,6 +290,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Nach "Der" kommt ein Nomen. Nomen werden groß geschrieben. "Der Hund" ist richtig!',
+    helpText: 'Nach ',
   },
   {
     id: 'deutsch-2-6',
@@ -279,6 +302,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nomen werden immer groß geschrieben. "Katze" ist ein Nomen, deshalb beginnt es mit großem K!',
+    helpText: 'Nomen werden immer groß geschrieben. ',
   },
   {
     id: 'deutsch-2-7',
@@ -290,6 +314,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Reime klingen ähnlich am Ende. "Baum" und "Raum" reimen sich, weil beide auf "-aum" enden!',
+    helpText: 'Reime klingen ähnlich am Ende. ',
   },
   {
     id: 'deutsch-2-8',
@@ -301,6 +326,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Bei Fragen kommt ein Fragezeichen (?). Der Satz fragt etwas, also braucht er ein Fragezeichen!',
+    helpText: 'Bei Fragen kommt ein Fragezeichen (?). Der Satz fragt etwas, also braucht er ein Fragezeichen!',
   },
   {
     id: 'deutsch-2-9',
@@ -312,6 +338,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Ein Verb ist ein Tunwort, das beschreibt, was man tut. "laufen" ist ein Verb, weil man damit eine Tätigkeit beschreibt!',
+    helpText: 'Ein Verb ist ein Tunwort, das beschreibt, was man tut. ',
   },
   {
     id: 'deutsch-2-10',
@@ -323,6 +350,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Sprich "Schule" langsam: Schu-le. Das sind 2 Silben!',
+    helpText: 'Sprich ',
   },
   {
     id: 'deutsch-2-11',
@@ -334,6 +362,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nach "Die" kommt ein Nomen. Nomen werden groß geschrieben. "Die Blume" ist richtig!',
+    helpText: 'Nach ',
   },
   {
     id: 'deutsch-2-12',
@@ -344,6 +373,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 15,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'deutsch-2-13',
@@ -355,6 +385,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nomen werden immer groß geschrieben. "Vogel" ist ein Nomen, deshalb beginnt es mit großem V!',
+    helpText: 'Nomen werden immer groß geschrieben. ',
   },
   {
     id: 'deutsch-2-14',
@@ -366,6 +397,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nach einem Aussagesatz kommt ein Punkt (.). Der Satz erzählt etwas, also braucht er einen Punkt!',
+    helpText: 'Nach einem Aussagesatz kommt ein Punkt (.). Der Satz erzählt etwas, also braucht er einen Punkt!',
   },
   {
     id: 'deutsch-2-15',
@@ -377,6 +409,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Reime klingen ähnlich am Ende. "Fisch" und "Tisch" reimen sich, weil beide auf "-isch" enden!',
+    helpText: 'Reime klingen ähnlich am Ende. ',
   },
   {
     id: 'deutsch-2-16',
@@ -388,6 +421,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Sprich "Blume" langsam: Blu-me. Das sind 2 Silben!',
+    helpText: 'Sprich ',
   },
   {
     id: 'deutsch-2-17',
@@ -399,6 +433,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Nach "Das" kommt ein Nomen. Nomen werden groß geschrieben. "Das Auto" ist richtig!',
+    helpText: 'Nach ',
   },
   {
     id: 'deutsch-2-18',
@@ -410,6 +445,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Ein Adjektiv beschreibt, wie etwas ist. "schön" ist ein Adjektiv, weil es beschreibt, wie etwas aussieht!',
+    helpText: 'Ein Adjektiv beschreibt, wie etwas ist. ',
   },
   {
     id: 'deutsch-2-19',
@@ -421,6 +457,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Im Text steht: "Er spielt damit im Garten." Das bedeutet, Tim spielt im Garten!',
+    helpText: 'Im Text steht: ',
   },
   {
     id: 'deutsch-2-20',
@@ -432,6 +469,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Im Text stehen gelbe, rote und braune Blätter. Blau wird nicht erwähnt!',
+    helpText: 'Im Text stehen gelbe, rote und braune Blätter. Blau wird nicht erwähnt!',
   },
   {
     id: 'deutsch-2-21',
@@ -443,21 +481,19 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Bei Aufzählungen kommt ein Komma (,) zwischen die Wörter. "Äpfel, Birnen, Bananen" ist richtig!',
+    helpText: 'Bei Aufzählungen kommt ein Komma (,) zwischen die Wörter. ',
   },
-  // Deutsch - Klasse 3 (50% mit StoryText)
   {
     id: 'deutsch-3-1',
     class: 3,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max liest ein spannendes Buch über Drachen. Er findet das Wort "Drache" besonders interessant.',
     question: 'Wie schreibt man "Drache" richtig?',
     options: ['Trache', 'Drache', 'Drachee', 'Dracche'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "Drache" geschrieben, mit "ch" in der Mitte. Denk daran: D-r-a-c-h-e!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-2',
@@ -469,20 +505,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Bei "Haus" wird das "au" lang gesprochen. Lang gesprochene Vokale werden oft mit "h" oder Doppelvokal geschrieben!',
+    helpText: 'Bei ',
   },
   {
     id: 'deutsch-3-3',
     class: 3,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna schreibt einen Brief an ihre Oma. Sie möchte wissen, welches Wort richtig ist.',
     question: 'Wie schreibt man "Brief" richtig?',
     options: ['Brieff', 'Brief', 'Brif', 'Briev'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "Brief" geschrieben, mit "ie" für den langen i-Laut. Denk daran: B-r-i-e-f!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-4',
@@ -494,6 +529,7 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Verben beschreiben, was man tut. "spielen" ist ein Verb, weil man damit eine Tätigkeit beschreibt!',
+    helpText: 'Verben beschreiben, was man tut. ',
   },
   {
     id: 'deutsch-3-5',
@@ -505,20 +541,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Doppelkonsonanten sind doppelte Mitlaute. "Kanne" hat ein doppeltes "n" (nn)!',
+    helpText: 'Doppelkonsonanten sind doppelte Mitlaute. ',
   },
   {
     id: 'deutsch-3-6',
     class: 3,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max lernt neue Wörter. Er fragt sich, wie man "schwimmen" schreibt.',
     question: 'Wie schreibt man "schwimmen" richtig?',
     options: ['schwimen', 'schwimmen', 'schwimen', 'schwimman'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "schwimmen" geschrieben, mit doppeltem "m". Kurze Vokale werden oft mit Doppelkonsonanten geschrieben!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-7',
@@ -530,20 +565,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Pronomen ersetzen Nomen. "Wir" ist das richtige Pronomen für mehrere Personen!',
+    helpText: 'Pronomen ersetzen Nomen. ',
   },
   {
     id: 'deutsch-3-8',
     class: 3,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna liest eine Geschichte. Sie fragt sich, welche Zeitform (Tempus) verwendet wird.',
     question: 'Welche Zeitform ist das? "Ich spiele Fußball."',
     options: ['Vergangenheit', 'Gegenwart', 'Zukunft', 'Perfekt'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Gegenwart beschreibt, was jetzt passiert. "spiele" ist in der Gegenwart (Präsens)!',
+    helpText: 'Die Gegenwart beschreibt, was jetzt passiert. ',
   },
   {
     id: 'deutsch-3-9',
@@ -555,14 +589,12 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Bei "Ball" wird das "a" kurz gesprochen. Kurze Vokale werden oft mit Doppelkonsonanten geschrieben!',
+    helpText: 'Bei ',
   },
   {
     id: 'deutsch-3-10',
     class: 3,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max schreibt einen Aufsatz. Er möchte wissen, wie man "Geschichte" schreibt.',
     question: 'Wie schreibt man "Geschichte" richtig?',
     options: ['Geschichte', 'Geschichte', 'Geschichte', 'Geschichte'],
     correctAnswer: 1,
@@ -571,6 +603,7 @@ export const questions: Question[] = [
     explanation: 'Das Wort wird "Geschichte" geschrieben, mit "ch" und "t". Denk daran: G-e-s-c-h-i-c-h-t-e!',
     isBonus: true, // ⭐ Bonus: Schwierige Rechtschreibung
     bonusMultiplier: 1.5,
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-11',
@@ -582,20 +615,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Artikel begleiten Nomen. "der" ist ein Artikel, der vor Nomen steht!',
+    helpText: 'Artikel begleiten Nomen. ',
   },
   {
     id: 'deutsch-3-12',
     class: 3,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna übt Rechtschreibung. Sie fragt sich, wie man "Straße" schreibt.',
     question: 'Wie schreibt man "Straße" richtig?',
     options: ['Strasse', 'Straße', 'Strasse', 'Straße'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "Straße" geschrieben, mit "ß" für den scharfen s-Laut. Denk daran: S-t-r-a-ß-e!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-13',
@@ -607,20 +639,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Bei "Die Kinder" (Mehrzahl) muss das Verb auch in der Mehrzahl stehen. "spielen" ist richtig!',
+    helpText: 'Bei ',
   },
   {
     id: 'deutsch-3-14',
     class: 3,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max lernt neue Wörter. Er fragt sich, wie man "Fahrrad" schreibt.',
     question: 'Wie schreibt man "Fahrrad" richtig?',
     options: ['Fahrrad', 'Fahrrad', 'Fahrrat', 'Fahrradd'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "Fahrrad" geschrieben, zusammengesetzt aus "Fahr" und "Rad". Denk daran: F-a-h-r-r-a-d!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-15',
@@ -632,20 +663,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Vergangenheit beschreibt, was früher passiert ist. "ging" ist in der Vergangenheit (Präteritum)!',
+    helpText: 'Die Vergangenheit beschreibt, was früher passiert ist. ',
   },
   {
     id: 'deutsch-3-16',
     class: 3,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna liest ein Buch. Sie fragt sich, welche Satzart das ist.',
     question: 'Welche Satzart ist das? "Gehst du zur Schule?"',
     options: ['Aussagesatz', 'Fragesatz', 'Aufforderungssatz', 'Ausrufesatz'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Fragesätze stellen eine Frage und enden mit einem Fragezeichen. "Gehst du zur Schule?" ist ein Fragesatz!',
+    helpText: 'Fragesätze stellen eine Frage und enden mit einem Fragezeichen. ',
   },
   {
     id: 'deutsch-3-17',
@@ -657,14 +687,12 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Umlaute sind ä, ö, ü. "Häuser" hat ein "ä" als Umlaut!',
+    helpText: 'Umlaute sind ä, ö, ü. ',
   },
   {
     id: 'deutsch-3-18',
     class: 3,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max lernt Rechtschreibung. Er fragt sich, wie man "beschreiben" schreibt.',
     question: 'Wie schreibt man "beschreiben" richtig?',
     options: ['beschreiben', 'bescreiben', 'beschreieben', 'beschreiben'],
     correctAnswer: 1,
@@ -673,6 +701,7 @@ export const questions: Question[] = [
     explanation: 'Das Wort wird "beschreiben" geschrieben, zusammengesetzt aus "be-" und "schreiben". Denk daran: b-e-s-c-h-r-e-i-b-e-n!',
     isBonus: true, // ⭐ Bonus: Schwierige Rechtschreibung
     bonusMultiplier: 1.5,
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-3-19',
@@ -684,29 +713,24 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Zusammengesetzte Wörter bestehen aus mehreren Wörtern. "Hausdach" besteht aus "Haus" und "Dach"!',
+    helpText: 'Zusammengesetzte Wörter bestehen aus mehreren Wörtern. ',
   },
   {
     id: 'deutsch-3-20',
     class: 3,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna schreibt einen Aufsatz. Sie möchte wissen, welche Satzart das ist.',
     question: 'Welche Satzart ist das? "Hilf mir bitte!"',
     options: ['Aussagesatz', 'Fragesatz', 'Aufforderungssatz', 'Ausrufesatz'],
     correctAnswer: 2,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Aufforderungssätze fordern jemanden auf, etwas zu tun. "Hilf mir bitte!" ist ein Aufforderungssatz!',
+    helpText: 'Aufforderungssätze fordern jemanden auf, etwas zu tun. ',
   },
-  // Deutsch - Klasse 4 (50% mit StoryText)
   {
     id: 'deutsch-4-1',
     class: 4,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max schreibt einen Aufsatz. Er fragt sich, wie man "erscheinen" richtig schreibt.',
     question: 'Wie schreibt man "erscheinen" richtig?',
     options: ['erscheinen', 'ersheinen', 'erscheinen', 'erscheinen'],
     correctAnswer: 1,
@@ -715,6 +739,7 @@ export const questions: Question[] = [
     explanation: 'Das Wort wird "erscheinen" geschrieben, mit "sch" für den sch-Laut. Denk daran: e-r-s-c-h-e-i-n-e-n!',
     isBonus: true, // ⭐ Bonus: Schwierige Rechtschreibung
     bonusMultiplier: 1.5,
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-2',
@@ -728,14 +753,12 @@ export const questions: Question[] = [
     explanation: 'Der Dativ antwortet auf die Frage "wem?". "dem Hund" steht im Dativ. Frage: Wem gebe ich den Ball? Dem Hund!',
     isBonus: true, // ⭐ Bonus: Komplexe Grammatik (Fälle)
     bonusMultiplier: 1.5,
+    helpText: 'Der Dativ antwortet auf die Frage ',
   },
   {
     id: 'deutsch-4-3',
     class: 4,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna lernt Grammatik. Sie fragt sich, welches Wort im Genitiv steht.',
     question: 'Welches Wort steht im Genitiv (Wessen-Fall)?',
     options: ['der Hund', 'dem Hund', 'den Hund', 'des Hundes'],
     correctAnswer: 3,
@@ -744,6 +767,7 @@ export const questions: Question[] = [
     explanation: 'Der Genitiv antwortet auf die Frage "wessen?". "des Hundes" steht im Genitiv. Frage: Wessen Ball ist das? Des Hundes!',
     isBonus: true, // ⭐ Bonus: Komplexe Grammatik (Fälle)
     bonusMultiplier: 1.5,
+    helpText: 'Der Genitiv antwortet auf die Frage ',
   },
   {
     id: 'deutsch-4-4',
@@ -755,20 +779,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "wiederholen" geschrieben, zusammengesetzt aus "wieder" und "holen". Denk daran: w-i-e-d-e-r-h-o-l-e-n!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-5',
     class: 4,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max liest einen Text. Er fragt sich, welches Satzglied fehlt.',
     question: 'Welches Satzglied ist das? "Der Hund" in "Der Hund bellt."',
     options: ['Subjekt', 'Prädikat', 'Objekt', 'Adverbiale'],
     correctAnswer: 0,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Das Subjekt ist die Person oder Sache, die etwas tut. "Der Hund" ist das Subjekt, weil der Hund bellt!',
+    helpText: 'Das Subjekt ist die Person oder Sache, die etwas tut. ',
   },
   {
     id: 'deutsch-4-6',
@@ -780,20 +803,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Der Akkusativ antwortet auf die Frage "wen?" oder "was?". "den Ball" steht im Akkusativ. Frage: Wen sehe ich? Den Ball!',
+    helpText: 'Der Akkusativ antwortet auf die Frage ',
   },
   {
     id: 'deutsch-4-7',
     class: 4,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna schreibt einen Aufsatz. Sie fragt sich, wie man "Erfolg" richtig schreibt.',
     question: 'Wie schreibt man "Erfolg" richtig?',
     options: ['Erfolg', 'Erfolg', 'Erfolg', 'Erfolg'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "Erfolg" geschrieben, mit "g" am Ende. Denk daran: E-r-f-o-l-g!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-8',
@@ -806,14 +828,12 @@ export const questions: Question[] = [
     difficulty: 'mittel',
     explanation: 'Das Prädikat ist das Verb, das beschreibt, was passiert. "bellt" ist das Prädikat, weil es die Tätigkeit beschreibt!',
     topic: 'satzglied', // Für Hilfe-System
+    helpText: 'Das Prädikat ist das Verb, das beschreibt, was passiert. ',
   },
   {
     id: 'deutsch-4-9',
     class: 4,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max lernt Rechtschreibung. Er fragt sich, wie man "entscheiden" richtig schreibt.',
     question: 'Wie schreibt man "entscheiden" richtig?',
     options: ['entscheiden', 'entscheiden', 'entscheiden', 'entscheiden'],
     correctAnswer: 1,
@@ -822,6 +842,7 @@ export const questions: Question[] = [
     explanation: 'Das Wort wird "entscheiden" geschrieben, mit "sch" für den sch-Laut. Denk daran: e-n-t-s-c-h-e-i-d-e-n!',
     isBonus: true, // ⭐ Bonus: Schwierige Rechtschreibung
     bonusMultiplier: 1.5,
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-10',
@@ -835,20 +856,19 @@ export const questions: Question[] = [
     explanation: 'Relativpronomen leiten Relativsätze ein. "welcher" ist ein Relativpronomen, das einen Relativsatz einleitet!',
     isBonus: true, // ⭐ Bonus: Komplexe Grammatik (Relativpronomen)
     bonusMultiplier: 1.5,
+    helpText: 'Relativpronomen leiten Relativsätze ein. ',
   },
   {
     id: 'deutsch-4-11',
     class: 4,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna liest einen Text. Sie fragt sich, welche Zeitform verwendet wird.',
     question: 'Welche Zeitform ist das? "Ich habe gespielt."',
     options: ['Präsens', 'Präteritum', 'Perfekt', 'Plusquamperfekt'],
     correctAnswer: 2,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Das Perfekt beschreibt eine abgeschlossene Handlung in der Vergangenheit. "habe gespielt" ist Perfekt!',
+    helpText: 'Das Perfekt beschreibt eine abgeschlossene Handlung in der Vergangenheit. ',
   },
   {
     id: 'deutsch-4-12',
@@ -860,20 +880,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Das Wort wird "Rucksack" geschrieben, zusammengesetzt aus "Rücken" und "Sack". Denk daran: R-u-c-k-s-a-c-k!',
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-13',
     class: 4,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max schreibt einen Aufsatz. Er fragt sich, welches Satzglied das ist.',
     question: 'Welches Satzglied ist das? "im Park" in "Ich spiele im Park."',
     options: ['Subjekt', 'Prädikat', 'Objekt', 'Adverbiale'],
     correctAnswer: 3,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Die Adverbiale beschreibt Umstände (Ort, Zeit, Art). "im Park" ist eine Adverbiale des Ortes!',
+    helpText: 'Die Adverbiale beschreibt Umstände (Ort, Zeit, Art). ',
   },
   {
     id: 'deutsch-4-14',
@@ -885,14 +904,12 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Der Nominativ antwortet auf die Frage "wer?" oder "was?". "der Lehrer" steht im Nominativ. Frage: Wer unterrichtet? Der Lehrer!',
+    helpText: 'Der Nominativ antwortet auf die Frage ',
   },
   {
     id: 'deutsch-4-15',
     class: 4,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna lernt Rechtschreibung. Sie fragt sich, wie man "Erklärung" richtig schreibt.',
     question: 'Wie schreibt man "Erklärung" richtig?',
     options: ['Erklärung', 'Erklärung', 'Erklärung', 'Erklärung'],
     correctAnswer: 1,
@@ -901,6 +918,7 @@ export const questions: Question[] = [
     explanation: 'Das Wort wird "Erklärung" geschrieben, zusammengesetzt aus "er-" und "Klärung". Denk daran: E-r-k-l-ä-r-u-n-g!',
     isBonus: true, // ⭐ Bonus: Schwierige Rechtschreibung
     bonusMultiplier: 1.5,
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-16',
@@ -914,20 +932,19 @@ export const questions: Question[] = [
     explanation: 'Partizipien sind Verbformen, die wie Adjektive verwendet werden. "gelaufen" ist das Partizip Perfekt von "laufen"!',
     isBonus: true, // ⭐ Bonus: Komplexe Grammatik (Partizipien)
     bonusMultiplier: 1.5,
+    helpText: 'Partizipien sind Verbformen, die wie Adjektive verwendet werden. ',
   },
   {
     id: 'deutsch-4-17',
     class: 4,
     subject: 'deutsch',
-    character: 'max',
-    world: 'deutsch-stadt',
-    storyText: 'Max liest einen Text. Er fragt sich, welche Wortart das ist.',
     question: 'Welche Wortart ist "schnell" in "schnell laufen"?',
     options: ['Verb', 'Adjektiv', 'Nomen', 'Artikel'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Adjektive beschreiben, wie etwas ist. "schnell" ist ein Adjektiv, weil es beschreibt, wie gelaufen wird!',
+    helpText: 'Adjektive beschreiben, wie etwas ist. ',
   },
   {
     id: 'deutsch-4-18',
@@ -941,20 +958,19 @@ export const questions: Question[] = [
     explanation: 'Das Wort wird "verschieden" geschrieben, mit "sch" für den sch-Laut. Denk daran: v-e-r-s-c-h-i-e-d-e-n!',
     isBonus: true, // ⭐ Bonus: Schwierige Rechtschreibung
     bonusMultiplier: 1.5,
+    helpText: 'Das Wort wird ',
   },
   {
     id: 'deutsch-4-19',
     class: 4,
     subject: 'deutsch',
-    character: 'luna',
-    world: 'deutsch-stadt',
-    storyText: 'Luna schreibt einen Aufsatz. Sie fragt sich, welche Zeitform verwendet wird.',
     question: 'Welche Zeitform ist das? "Ich werde spielen."',
     options: ['Präsens', 'Präteritum', 'Perfekt', 'Futur'],
     correctAnswer: 3,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Das Futur beschreibt eine Handlung in der Zukunft. "werde spielen" ist Futur I!',
+    helpText: 'Das Futur beschreibt eine Handlung in der Zukunft. ',
   },
   {
     id: 'deutsch-4-20',
@@ -966,8 +982,8 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Konjunktionen verbinden Wörter oder Sätze. "und" ist eine Konjunktion, die Wörter oder Sätze verbindet!',
+    helpText: 'Konjunktionen verbinden Wörter oder Sätze. ',
   },
-  // Mathematik - Klasse 2 (ohne StoryText)
   {
     id: 'math-2-1',
     class: 2,
@@ -977,6 +993,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-2',
@@ -988,6 +1005,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: '2 × 5 bedeutet: 2 mal die Zahl 5. Das ist 5 + 5 = 10. Oder du denkst: 2 Fünfer sind 10!',
+    helpText: '2 × 5 bedeutet: 2 mal die Zahl 5. Das ist 5 + 5 = 10. Oder du denkst: 2 Fünfer sind 10!',
   },
   {
     id: 'math-2-3',
@@ -998,6 +1016,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-4',
@@ -1008,6 +1027,7 @@ export const questions: Question[] = [
     correctAnswer: 3,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-5',
@@ -1018,6 +1038,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-6',
@@ -1028,6 +1049,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-7',
@@ -1038,6 +1060,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-8',
@@ -1048,6 +1071,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-9',
@@ -1058,6 +1082,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'mittel',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
   {
     id: 'math-2-10',
@@ -1068,20 +1093,18 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'leicht',
+    helpText: 'Lies die Aufgabe genau. Zähle mit den Fingern oder stelle dir die Zahlen vor!',
   },
-  // Mathematik - Klasse 3
   {
     id: 'math-3-1',
     class: 3,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max backt Kekse mit seiner Mama. Sie haben 3 Bleche mit je 4 Keksen gebacken.',
     question: 'Wie viele Kekse haben sie insgesamt gebacken?',
     options: ['10', '12', '14', '16'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-2',
@@ -1092,14 +1115,12 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-3',
     class: 3,
     subject: 'mathematik',
-    character: 'luna',
-    world: 'mathe-land',
-    storyText: 'Luna hat 24 bunte Sticker. Sie möchte sie gerecht an ihre 4 Freunde verteilen.',
     question: 'Wie viele Sticker bekommt jeder Freund?',
     options: ['5', '6', '7', '8'],
     correctAnswer: 1,
@@ -1108,6 +1129,7 @@ export const questions: Question[] = [
     explanation: '24 ÷ 4 bedeutet: Wie oft passt 4 in 24? Du kannst rechnen: 4 + 4 + 4 + 4 + 4 + 4 = 24. Das sind 6 mal die 4, also ist das Ergebnis 6!',
     isBonus: true, // ⭐ Bonus: Division kann schwierig sein
     bonusMultiplier: 1.5,
+    helpText: '24 ÷ 4 bedeutet: Wie oft passt 4 in 24? Du kannst rechnen: 4 + 4 + 4 + 4 + 4 + 4 = 24. Das sind 6 mal die 4, also ist das Ergebnis 6!',
   },
   {
     id: 'math-3-4',
@@ -1118,6 +1140,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-5',
@@ -1128,6 +1151,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'schwer',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-6',
@@ -1138,6 +1162,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-7',
@@ -1148,6 +1173,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-8',
@@ -1158,6 +1184,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'leicht',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-9',
@@ -1168,6 +1195,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'leicht',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-3-10',
@@ -1180,20 +1208,18 @@ export const questions: Question[] = [
     difficulty: 'schwer',
     isBonus: true, // ⭐ Bonus: Große Zahlen am oberen Ende des Zahlenraums
     bonusMultiplier: 1.5,
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
-  // Mathematik - Klasse 4
   {
     id: 'math-4-1',
     class: 4,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max sammelt Sammelkarten. Er hat schon 12 Sets mit je 5 Karten gesammelt.',
     question: 'Wie viele Sammelkarten hat Max insgesamt?',
     options: ['55', '60', '65', '70'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-2',
@@ -1204,6 +1230,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 25,
     difficulty: 'schwer',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-3',
@@ -1214,6 +1241,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 25,
     difficulty: 'schwer',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-4',
@@ -1224,6 +1252,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-5',
@@ -1234,6 +1263,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-6',
@@ -1244,6 +1274,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-7',
@@ -1254,6 +1285,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 25,
     difficulty: 'schwer',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-8',
@@ -1264,6 +1296,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-9',
@@ -1274,6 +1307,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
   {
     id: 'math-4-10',
@@ -1284,9 +1318,8 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 25,
     difficulty: 'schwer',
+    helpText: 'Überlege dir Schritt für Schritt, was du rechnen musst.',
   },
-  // Mathematik - Ergänzungen: Geometrie, Textaufgaben, Zeit/Geld
-  // Geometrie - Klasse 1-2
   {
     id: 'math-1-geo-1',
     class: 1,
@@ -1297,6 +1330,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Ein Dreieck hat genau 3 Ecken! Das siehst du, wenn du "Drei-eck" langsam sagst.',
+    helpText: 'Ein Dreieck hat genau 3 Ecken! Das siehst du, wenn du ',
   },
   {
     id: 'math-1-geo-2',
@@ -1308,6 +1342,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Ein Quadrat hat genau 4 Ecken! Du kannst sie zählen: eine, zwei, drei, vier!',
+    helpText: 'Ein Quadrat hat genau 4 Ecken! Du kannst sie zählen: eine, zwei, drei, vier!',
   },
   {
     id: 'math-2-geo-1',
@@ -1319,6 +1354,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Ein Ball ist rund, also hat er die Form eines Kreises!',
+    helpText: 'Ein Ball ist rund, also hat er die Form eines Kreises!',
   },
   {
     id: 'math-2-geo-2',
@@ -1330,6 +1366,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Ein Dreieck hat genau 3 Seiten! Das siehst du im Namen: "Drei-eck"!',
+    helpText: 'Ein Dreieck hat genau 3 Seiten! Das siehst du im Namen: ',
   },
   {
     id: 'math-2-geo-3',
@@ -1341,20 +1378,19 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Die meisten Fenster haben die Form eines Rechtecks (4 Ecken, 4 Seiten)!',
+    helpText: 'Die meisten Fenster haben die Form eines Rechtecks (4 Ecken, 4 Seiten)!',
   },
   {
     id: 'math-3-geo-1',
     class: 3,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max zeichnet verschiedene Formen. Er fragt sich, wie viele Ecken ein Fünfeck hat.',
     question: 'Wie viele Ecken hat ein Fünfeck?',
     options: ['4', '5', '6', '7'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Ein Fünfeck hat genau 5 Ecken! Du kannst es im Namen hören: "Fünf-eck"!',
+    helpText: 'Ein Fünfeck hat genau 5 Ecken! Du kannst es im Namen hören: ',
   },
   {
     id: 'math-3-geo-2',
@@ -1366,14 +1402,12 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Ein Quadrat hat genau 4 Seiten, die alle gleich lang sind!',
+    helpText: 'Ein Quadrat hat genau 4 Seiten, die alle gleich lang sind!',
   },
   {
     id: 'math-4-geo-1',
     class: 4,
     subject: 'mathematik',
-    character: 'luna',
-    world: 'mathe-land',
-    storyText: 'Luna misst einen Spielplatz. Er ist 10 Meter lang und 5 Meter breit.',
     question: 'Wie groß ist der Umfang des Spielplatzes?',
     options: ['25 Meter', '30 Meter', '35 Meter', '40 Meter'],
     correctAnswer: 1,
@@ -1382,6 +1416,7 @@ export const questions: Question[] = [
     explanation: 'Umfang = 2 × Länge + 2 × Breite. Also: 2 × 10 + 2 × 5 = 20 + 10 = 30 Meter!',
     isBonus: true, // ⭐ Bonus: Komplexe Geometrie-Berechnung
     bonusMultiplier: 1.5,
+    helpText: 'Umfang = 2 × Länge + 2 × Breite. Also: 2 × 10 + 2 × 5 = 20 + 10 = 30 Meter!',
   },
   {
     id: 'math-4-geo-2',
@@ -1393,8 +1428,8 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Ein Sechseck hat genau 6 Ecken! Du hörst es im Namen: "Sechs-eck"!',
+    helpText: 'Ein Sechseck hat genau 6 Ecken! Du hörst es im Namen: ',
   },
-  // Zeit & Geld - Klasse 1-2
   {
     id: 'math-1-zeit-1',
     class: 1,
@@ -1407,6 +1442,7 @@ export const questions: Question[] = [
     explanation: 'Ein Tag hat 24 Stunden! Von Mitternacht bis Mitternacht sind es 24 Stunden.',
     isBonus: true, // ⭐ Bonus: Zahlenraum über 20
     bonusMultiplier: 1.5,
+    helpText: 'Ein Tag hat 24 Stunden! Von Mitternacht bis Mitternacht sind es 24 Stunden.',
   },
   {
     id: 'math-1-geld-1',
@@ -1418,6 +1454,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Ein Euro hat 100 Cent! Das ist wie 1 Meter = 100 Zentimeter!',
+    helpText: 'Ein Euro hat 100 Cent! Das ist wie 1 Meter = 100 Zentimeter!',
   },
   {
     id: 'math-2-geld-1',
@@ -1429,6 +1466,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: '2 Euro = 200 Cent. Plus 50 Cent = 250 Cent insgesamt!',
+    helpText: '2 Euro = 200 Cent. Plus 50 Cent = 250 Cent insgesamt!',
   },
   {
     id: 'math-2-geld-2',
@@ -1440,6 +1478,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: '1 Euro = 100 Cent. Plus 30 Cent = 130 Cent!',
+    helpText: '1 Euro = 100 Cent. Plus 30 Cent = 130 Cent!',
   },
   {
     id: 'math-2-zeit-1',
@@ -1451,6 +1490,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Eine Stunde hat genau 60 Minuten! Du kannst es auf der Uhr sehen!',
+    helpText: 'Eine Stunde hat genau 60 Minuten! Du kannst es auf der Uhr sehen!',
   },
   {
     id: 'math-2-zeit-2',
@@ -1462,34 +1502,31 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Eine Minute hat genau 60 Sekunden! Das ist immer so!',
+    helpText: 'Eine Minute hat genau 60 Sekunden! Das ist immer so!',
   },
   {
     id: 'math-3-zeit-1',
     class: 3,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max muss um 14:00 Uhr zum Fußball. Es ist jetzt 13:30 Uhr.',
     question: 'Wie viele Minuten hat Max noch Zeit?',
     options: ['15 Minuten', '20 Minuten', '30 Minuten', '45 Minuten'],
     correctAnswer: 2,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Von 13:30 bis 14:00 sind es 30 Minuten. Du kannst rechnen: 60 - 30 = 30 Minuten!',
+    helpText: 'Von 13:30 bis 14:00 sind es 30 Minuten. Du kannst rechnen: 60 - 30 = 30 Minuten!',
   },
   {
     id: 'math-3-geld-1',
     class: 3,
     subject: 'mathematik',
-    character: 'luna',
-    world: 'mathe-land',
-    storyText: 'Luna kauft ein Buch für 5 Euro und 80 Cent. Sie zahlt mit 10 Euro.',
     question: 'Wie viel Geld bekommt Luna zurück?',
     options: ['3 Euro 20 Cent', '4 Euro 20 Cent', '5 Euro 20 Cent', '6 Euro 20 Cent'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: '10 Euro - 5 Euro 80 Cent = 4 Euro 20 Cent zurück!',
+    helpText: '10 Euro - 5 Euro 80 Cent = 4 Euro 20 Cent zurück!',
   },
   {
     id: 'math-4-geld-1',
@@ -1501,22 +1538,20 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: '3 Euro = 300 Cent, plus 50 Cent = 350 Cent!',
+    helpText: '3 Euro = 300 Cent, plus 50 Cent = 350 Cent!',
   },
   {
     id: 'math-4-zeit-1',
     class: 4,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max trainiert 1 Stunde und 15 Minuten. Wie viele Minuten sind das?',
     question: 'Wie viele Minuten sind 1 Stunde und 15 Minuten?',
     options: ['60', '70', '75', '80'],
     correctAnswer: 2,
     points: 25,
     difficulty: 'mittel',
     explanation: '1 Stunde = 60 Minuten. Plus 15 Minuten = 75 Minuten insgesamt!',
+    helpText: '1 Stunde = 60 Minuten. Plus 15 Minuten = 75 Minuten insgesamt!',
   },
-  // Textaufgaben - Klasse 2-4
   {
     id: 'math-2-text-1',
     class: 2,
@@ -1527,6 +1562,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Luna hat 8 Äpfel und gibt 3 weg. Rechne: 8 - 3 = 5 Äpfel bleiben übrig!',
+    helpText: 'Luna hat 8 Äpfel und gibt 3 weg. Rechne: 8 - 3 = 5 Äpfel bleiben übrig!',
   },
   {
     id: 'math-2-text-2',
@@ -1538,64 +1574,56 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Max hat 12 Steine und findet 5 dazu. Rechne: 12 + 5 = 17 Steine!',
+    helpText: 'Max hat 12 Steine und findet 5 dazu. Rechne: 12 + 5 = 17 Steine!',
   },
   {
     id: 'math-3-text-1',
     class: 3,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max kauft 3 Packungen Kekse. Jede Packung hat 6 Kekse.',
     question: 'Wie viele Kekse hat Max insgesamt gekauft?',
     options: ['15', '18', '21', '24'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: '3 Packungen × 6 Kekse = 18 Kekse insgesamt!',
+    helpText: '3 Packungen × 6 Kekse = 18 Kekse insgesamt!',
   },
   {
     id: 'math-3-text-2',
     class: 3,
     subject: 'mathematik',
-    character: 'luna',
-    world: 'mathe-land',
-    storyText: 'Luna hat 24 Bonbons. Sie möchte sie gerecht an ihre 3 Freunde verteilen.',
     question: 'Wie viele Bonbons bekommt jeder Freund?',
     options: ['6', '7', '8', '9'],
     correctAnswer: 2,
     points: 20,
     difficulty: 'mittel',
     explanation: '24 Bonbons ÷ 3 Freunde = 8 Bonbons pro Freund!',
+    helpText: '24 Bonbons ÷ 3 Freunde = 8 Bonbons pro Freund!',
   },
   {
     id: 'math-4-text-1',
     class: 4,
     subject: 'mathematik',
-    character: 'max',
-    world: 'mathe-land',
-    storyText: 'Max spart Geld. Er hat schon 45 Euro gespart. Er möchte ein Spiel für 60 Euro kaufen.',
     question: 'Wie viele Euro fehlen Max noch?',
     options: ['10', '15', '20', '25'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: '60 Euro - 45 Euro = 15 Euro fehlen noch!',
+    helpText: '60 Euro - 45 Euro = 15 Euro fehlen noch!',
   },
   {
     id: 'math-4-text-2',
     class: 4,
     subject: 'mathematik',
-    character: 'luna',
-    world: 'mathe-land',
-    storyText: 'Luna fährt mit dem Fahrrad. Sie fährt 15 Kilometer pro Stunde. Sie fährt 3 Stunden lang.',
     question: 'Wie viele Kilometer fährt Luna insgesamt?',
     options: ['40', '45', '50', '55'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: '15 Kilometer pro Stunde × 3 Stunden = 45 Kilometer insgesamt!',
+    helpText: '15 Kilometer pro Stunde × 3 Stunden = 45 Kilometer insgesamt!',
   },
-  // Beispiel Input-Fragen (Klasse 3) - ohne StoryText für 50/50 Balance
   {
     id: 'math-3-input-1',
     class: 3,
@@ -1606,6 +1634,7 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: '15 + 23 = 38. Du kannst rechnen: 15 + 20 = 35, dann noch 3 dazu: 35 + 3 = 38!',
+    helpText: '15 + 23 = 38. Du kannst rechnen: 15 + 20 = 35, dann noch 3 dazu: 35 + 3 = 38!',
   },
   {
     id: 'math-3-input-2',
@@ -1617,8 +1646,8 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Ein Dreieck hat genau 3 Ecken! Das siehst du, wenn du "Drei-eck" langsam sagst.',
+    helpText: 'Ein Dreieck hat genau 3 Ecken! Das siehst du, wenn du ',
   },
-  // Beispiel Input-Fragen (Klasse 4) - ohne StoryText für 50/50 Balance
   {
     id: 'math-4-input-1',
     class: 4,
@@ -1629,8 +1658,8 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: '6 × 7 = 42. Du kannst rechnen: 6 × 6 = 36, dann noch 6 dazu: 36 + 6 = 42!',
+    helpText: '6 × 7 = 42. Du kannst rechnen: 6 × 6 = 36, dann noch 6 dazu: 36 + 6 = 42!',
   },
-  // Naturwissenschaften - Klasse 1 (ohne StoryText)
   {
     id: 'natur-1-1',
     class: 1,
@@ -1641,6 +1670,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Vögel können fliegen! Sie haben Flügel, mit denen sie durch die Luft fliegen können.',
+    helpText: 'Vögel können fliegen! Sie haben Flügel, mit denen sie durch die Luft fliegen können.',
   },
   {
     id: 'natur-1-2',
@@ -1652,6 +1682,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Fische leben im Wasser! Sie haben Kiemen zum Atmen unter Wasser.',
+    helpText: 'Fische leben im Wasser! Sie haben Kiemen zum Atmen unter Wasser.',
   },
   {
     id: 'natur-1-3',
@@ -1663,6 +1694,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Die Sonne ist gelb! Sie leuchtet gelb und gibt uns Licht und Wärme.',
+    helpText: 'Die Sonne ist gelb! Sie leuchtet gelb und gibt uns Licht und Wärme.',
   },
   {
     id: 'natur-1-4',
@@ -1674,6 +1706,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Eine Katze hat 4 Beine! Genau wie Hunde, Hasen und viele andere Tiere.',
+    helpText: 'Eine Katze hat 4 Beine! Genau wie Hunde, Hasen und viele andere Tiere.',
   },
   {
     id: 'natur-1-5',
@@ -1685,6 +1718,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Nach dem Winter kommt der Frühling! Dann wird es wieder warm und die Blumen blühen.',
+    helpText: 'Nach dem Winter kommt der Frühling! Dann wird es wieder warm und die Blumen blühen.',
   },
   {
     id: 'natur-1-6',
@@ -1696,6 +1730,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Mit den Ohren kannst du hören! Sie helfen dir, Geräusche wahrzunehmen.',
+    helpText: 'Mit den Ohren kannst du hören! Sie helfen dir, Geräusche wahrzunehmen.',
   },
   {
     id: 'natur-1-7',
@@ -1707,6 +1742,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Elefanten haben einen langen Rüssel! Damit können sie atmen, riechen und Dinge greifen.',
+    helpText: 'Elefanten haben einen langen Rüssel! Damit können sie atmen, riechen und Dinge greifen.',
   },
   {
     id: 'natur-1-8',
@@ -1718,8 +1754,8 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Gras ist grün! Das liegt am Chlorophyll in den Pflanzen.',
+    helpText: 'Gras ist grün! Das liegt am Chlorophyll in den Pflanzen.',
   },
-  // Naturwissenschaften - Klasse 2 (ohne StoryText)
   {
     id: 'natur-2-1',
     class: 2,
@@ -1730,6 +1766,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Hunde sind Säugetiere! Säugetiere trinken Milch bei ihrer Mama und haben Fell.',
+    helpText: 'Hunde sind Säugetiere! Säugetiere trinken Milch bei ihrer Mama und haben Fell.',
   },
   {
     id: 'natur-2-2',
@@ -1741,6 +1778,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Im Sommer scheint oft die Sonne! Es ist warm und die Tage sind lang.',
+    helpText: 'Im Sommer scheint oft die Sonne! Es ist warm und die Tage sind lang.',
   },
   {
     id: 'natur-2-3',
@@ -1752,6 +1790,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Das Herz pumpt das Blut durch den Körper! Es ist wie eine Pumpe.',
+    helpText: 'Das Herz pumpt das Blut durch den Körper! Es ist wie eine Pumpe.',
   },
   {
     id: 'natur-2-4',
@@ -1763,6 +1802,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Delfine können unter Wasser leben! Sie sind Säugetiere und müssen ab und zu an die Oberfläche zum Atmen.',
+    helpText: 'Delfine können unter Wasser leben! Sie sind Säugetiere und müssen ab und zu an die Oberfläche zum Atmen.',
   },
   {
     id: 'natur-2-5',
@@ -1774,6 +1814,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Blumen wachsen aus Samen! Du pflanzt einen Samen in die Erde und eine Blume wächst.',
+    helpText: 'Blumen wachsen aus Samen! Du pflanzt einen Samen in die Erde und eine Blume wächst.',
   },
   {
     id: 'natur-2-6',
@@ -1785,6 +1826,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Mit der Nase kannst du riechen! Sie hilft dir, Gerüche wahrzunehmen.',
+    helpText: 'Mit der Nase kannst du riechen! Sie hilft dir, Gerüche wahrzunehmen.',
   },
   {
     id: 'natur-2-7',
@@ -1796,6 +1838,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Kühe leben auf dem Bauernhof! Sie geben Milch und fressen Gras.',
+    helpText: 'Kühe leben auf dem Bauernhof! Sie geben Milch und fressen Gras.',
   },
   {
     id: 'natur-2-8',
@@ -1807,6 +1850,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Im Herbst fallen die meisten Blätter von den Bäumen! Die Bäume bereiten sich auf den Winter vor.',
+    helpText: 'Im Herbst fallen die meisten Blätter von den Bäumen! Die Bäume bereiten sich auf den Winter vor.',
   },
   {
     id: 'natur-2-9',
@@ -1818,6 +1862,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Kamele können in der Wüste leben! Sie speichern Wasser in ihren Höckern.',
+    helpText: 'Kamele können in der Wüste leben! Sie speichern Wasser in ihren Höckern.',
   },
   {
     id: 'natur-2-10',
@@ -1829,6 +1874,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Der Himmel ist tagsüber meist blau! Das liegt am Sonnenlicht.',
+    helpText: 'Der Himmel ist tagsüber meist blau! Das liegt am Sonnenlicht.',
   },
   {
     id: 'natur-2-11',
@@ -1840,6 +1886,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Mit den Augen kannst du sehen! Sie helfen dir, die Welt um dich herum zu erkennen.',
+    helpText: 'Mit den Augen kannst du sehen! Sie helfen dir, die Welt um dich herum zu erkennen.',
   },
   {
     id: 'natur-2-12',
@@ -1851,21 +1898,19 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Löwen sind Raubtiere! Sie jagen andere Tiere zum Fressen.',
+    helpText: 'Löwen sind Raubtiere! Sie jagen andere Tiere zum Fressen.',
   },
-  // Naturwissenschaften - Klasse 3 (50% mit StoryText)
   {
     id: 'natur-3-1',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max beobachtet Tiere im Zoo. Er sieht einen Bären, der einen großen Höcker hat.',
     question: 'Welches Tier hat einen Höcker?',
     options: ['Bär', 'Kamel', 'Elefant', 'Löwe'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Kamele haben Höcker! Sie speichern dort Fett und Wasser für lange Wüstenreisen.',
+    helpText: 'Kamele haben Höcker! Sie speichern dort Fett und Wasser für lange Wüstenreisen.',
   },
   {
     id: 'natur-3-2',
@@ -1877,20 +1922,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Bienen sind Insekten! Insekten haben 6 Beine und einen Körper mit drei Teilen.',
+    helpText: 'Bienen sind Insekten! Insekten haben 6 Beine und einen Körper mit drei Teilen.',
   },
   {
     id: 'natur-3-3',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna pflanzt Blumen im Garten. Sie fragt sich, was Pflanzen zum Wachsen brauchen.',
     question: 'Was brauchen Pflanzen zum Wachsen?',
     options: ['Nur Wasser', 'Wasser, Erde und Sonne', 'Nur Sonne', 'Nur Erde'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Pflanzen brauchen Wasser, Erde und Sonnenlicht zum Wachsen! Alle drei sind wichtig.',
+    helpText: 'Pflanzen brauchen Wasser, Erde und Sonnenlicht zum Wachsen! Alle drei sind wichtig.',
   },
   {
     id: 'natur-3-4',
@@ -1902,20 +1946,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: '20°C ist wärmer als 10°C, 0°C und 5°C! Je höher die Zahl, desto wärmer.',
+    helpText: '20°C ist wärmer als 10°C, 0°C und 5°C! Je höher die Zahl, desto wärmer.',
   },
   {
     id: 'natur-3-5',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max lernt über den Körper. Er fragt sich, welches Organ das Blut durch den Körper pumpt.',
     question: 'Welches Organ pumpt das Blut durch den Körper?',
     options: ['Lunge', 'Herz', 'Magen', 'Leber'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Das Herz pumpt das Blut durch den Körper! Es ist wie eine Pumpe und schlägt immer.',
+    helpText: 'Das Herz pumpt das Blut durch den Körper! Es ist wie eine Pumpe und schlägt immer.',
   },
   {
     id: 'natur-3-6',
@@ -1927,20 +1970,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Haie sind Fische! Sie haben Kiemen zum Atmen unter Wasser.',
+    helpText: 'Haie sind Fische! Sie haben Kiemen zum Atmen unter Wasser.',
   },
   {
     id: 'natur-3-7',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna beobachtet das Wetter. Sie sieht Wolken am Himmel.',
     question: 'Was passiert, wenn viele Wolken zusammenkommen?',
     options: ['Es wird sonnig', 'Es kann regnen', 'Es wird heiß', 'Nichts'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Wenn viele Wolken zusammenkommen, kann es regnen! Wolken bestehen aus Wasser.',
+    helpText: 'Wenn viele Wolken zusammenkommen, kann es regnen! Wolken bestehen aus Wasser.',
   },
   {
     id: 'natur-3-8',
@@ -1952,14 +1994,12 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Rehe leben im Wald! Sie sind scheue Tiere und essen Gras und Blätter.',
+    helpText: 'Rehe leben im Wald! Sie sind scheue Tiere und essen Gras und Blätter.',
   },
   {
     id: 'natur-3-9',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max lernt über Pflanzen. Er fragt sich, wie Pflanzen ihre Nahrung machen.',
     question: 'Wie machen Pflanzen ihre Nahrung?',
     options: ['Durch Atmen', 'Durch Fotosynthese', 'Durch Trinken', 'Durch Schlafen'],
     correctAnswer: 1,
@@ -1968,6 +2008,7 @@ export const questions: Question[] = [
     explanation: 'Pflanzen machen ihre Nahrung durch Fotosynthese! Sie nutzen Sonnenlicht, Wasser und Kohlendioxid.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Fotosynthese)
     bonusMultiplier: 1.5,
+    helpText: 'Pflanzen machen ihre Nahrung durch Fotosynthese! Sie nutzen Sonnenlicht, Wasser und Kohlendioxid.',
   },
   {
     id: 'natur-3-10',
@@ -1979,20 +2020,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Eulen sind nachtaktiv! Sie sind nachts wach und jagen im Dunkeln.',
+    helpText: 'Eulen sind nachtaktiv! Sie sind nachts wach und jagen im Dunkeln.',
   },
   {
     id: 'natur-3-11',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna lernt über den Körper. Sie fragt sich, welches Organ das Blut mit Sauerstoff versorgt.',
     question: 'Welches Organ versorgt das Blut mit Sauerstoff?',
     options: ['Herz', 'Lunge', 'Magen', 'Leber'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Lunge versorgt das Blut mit Sauerstoff! Du atmest Luft ein und die Lunge gibt Sauerstoff ins Blut.',
+    helpText: 'Die Lunge versorgt das Blut mit Sauerstoff! Du atmest Luft ein und die Lunge gibt Sauerstoff ins Blut.',
   },
   {
     id: 'natur-3-12',
@@ -2004,20 +2044,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Im Sommer sind die Tage am längsten! Die Sonne scheint länger.',
+    helpText: 'Im Sommer sind die Tage am längsten! Die Sonne scheint länger.',
   },
   {
     id: 'natur-3-13',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max beobachtet Tiere. Er sieht einen Vogel, der nicht fliegen kann.',
     question: 'Welcher Vogel kann nicht fliegen?',
     options: ['Adler', 'Pinguin', 'Spatz', 'Amsel'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Pinguine können nicht fliegen! Sie sind Vögel, aber ihre Flügel sind zu kurz zum Fliegen.',
+    helpText: 'Pinguine können nicht fliegen! Sie sind Vögel, aber ihre Flügel sind zu kurz zum Fliegen.',
   },
   {
     id: 'natur-3-14',
@@ -2029,29 +2068,24 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Schlangen sind Reptilien! Reptilien haben Schuppen und legen Eier.',
+    helpText: 'Schlangen sind Reptilien! Reptilien haben Schuppen und legen Eier.',
   },
   {
     id: 'natur-3-15',
     class: 3,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna lernt über Wetter. Sie fragt sich, was passiert, wenn es sehr kalt wird.',
     question: 'Was passiert mit Wasser, wenn es sehr kalt wird?',
     options: ['Es wird heiß', 'Es wird zu Eis', 'Es verschwindet', 'Nichts'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Wenn Wasser sehr kalt wird (unter 0°C), wird es zu Eis! Das ist gefrorenes Wasser.',
+    helpText: 'Wenn Wasser sehr kalt wird (unter 0°C), wird es zu Eis! Das ist gefrorenes Wasser.',
   },
-  // Naturwissenschaften - Klasse 4 (50% mit StoryText)
   {
     id: 'natur-4-1',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max lernt über Ökosysteme. Er fragt sich, welche Tiere in einem Ökosystem zusammenleben.',
     question: 'Was ist ein Ökosystem?',
     options: ['Nur Tiere', 'Tiere und Pflanzen zusammen', 'Nur Pflanzen', 'Nur Wasser'],
     correctAnswer: 1,
@@ -2060,6 +2094,7 @@ export const questions: Question[] = [
     explanation: 'Ein Ökosystem besteht aus Tieren, Pflanzen und ihrer Umgebung zusammen! Alle arbeiten zusammen.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Ökosystem)
     bonusMultiplier: 1.5,
+    helpText: 'Ein Ökosystem besteht aus Tieren, Pflanzen und ihrer Umgebung zusammen! Alle arbeiten zusammen.',
   },
   {
     id: 'natur-4-2',
@@ -2071,14 +2106,12 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Wale sind Säugetiere, die im Wasser leben! Sie atmen Luft und haben kein Fell.',
+    helpText: 'Wale sind Säugetiere, die im Wasser leben! Sie atmen Luft und haben kein Fell.',
   },
   {
     id: 'natur-4-3',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna lernt über den Wasserkreislauf. Sie fragt sich, was mit dem Wasser passiert.',
     question: 'Was passiert mit Wasser, wenn die Sonne darauf scheint?',
     options: ['Es wird zu Eis', 'Es verdunstet', 'Es wird zu Stein', 'Nichts'],
     correctAnswer: 1,
@@ -2087,6 +2120,7 @@ export const questions: Question[] = [
     explanation: 'Wenn die Sonne auf Wasser scheint, verdunstet es! Es wird zu Wasserdampf und steigt in die Luft.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Wasserkreislauf)
     bonusMultiplier: 1.5,
+    helpText: 'Wenn die Sonne auf Wasser scheint, verdunstet es! Es wird zu Wasserdampf und steigt in die Luft.',
   },
   {
     id: 'natur-4-4',
@@ -2098,14 +2132,12 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Der Magen verdaut die Nahrung! Er zerkleinert das Essen, damit der Körper es nutzen kann.',
+    helpText: 'Der Magen verdaut die Nahrung! Er zerkleinert das Essen, damit der Körper es nutzen kann.',
   },
   {
     id: 'natur-4-5',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max lernt über Tiere. Er fragt sich, welche Tiere gefährdet sind.',
     question: 'Was bedeutet es, wenn ein Tier "gefährdet" ist?',
     options: ['Es ist sehr stark', 'Es gibt nicht mehr viele davon', 'Es ist sehr groß', 'Es ist sehr klein'],
     correctAnswer: 1,
@@ -2114,6 +2146,7 @@ export const questions: Question[] = [
     explanation: 'Gefährdete Tiere gibt es nicht mehr viele! Sie könnten aussterben, wenn wir sie nicht schützen.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Artenschutz)
     bonusMultiplier: 1.5,
+    helpText: 'Gefährdete Tiere gibt es nicht mehr viele! Sie könnten aussterben, wenn wir sie nicht schützen.',
   },
   {
     id: 'natur-4-6',
@@ -2125,14 +2158,12 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Frösche sind Amphibien! Sie können sowohl im Wasser als auch an Land leben.',
+    helpText: 'Frösche sind Amphibien! Sie können sowohl im Wasser als auch an Land leben.',
   },
   {
     id: 'natur-4-7',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna lernt über den menschlichen Körper. Sie fragt sich, welches Organ das Blut filtert.',
     question: 'Welches Organ filtert das Blut?',
     options: ['Herz', 'Lunge', 'Leber', 'Magen'],
     correctAnswer: 2,
@@ -2141,6 +2172,7 @@ export const questions: Question[] = [
     explanation: 'Die Leber filtert das Blut! Sie entfernt schädliche Stoffe aus dem Blut.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Organe)
     bonusMultiplier: 1.5,
+    helpText: 'Die Leber filtert das Blut! Sie entfernt schädliche Stoffe aus dem Blut.',
   },
   {
     id: 'natur-4-8',
@@ -2152,14 +2184,12 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Fische sind Wirbeltiere! Sie haben eine Wirbelsäule wie Menschen auch.',
+    helpText: 'Fische sind Wirbeltiere! Sie haben eine Wirbelsäule wie Menschen auch.',
   },
   {
     id: 'natur-4-9',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max lernt über Pflanzen. Er fragt sich, wie Bäume Wasser transportieren.',
     question: 'Wie transportieren Bäume Wasser?',
     options: ['Durch die Blätter', 'Durch die Wurzeln', 'Durch die Äste', 'Durch die Rinde'],
     correctAnswer: 1,
@@ -2168,6 +2198,7 @@ export const questions: Question[] = [
     explanation: 'Bäume transportieren Wasser durch die Wurzeln! Die Wurzeln nehmen Wasser aus dem Boden auf.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Pflanzen)
     bonusMultiplier: 1.5,
+    helpText: 'Bäume transportieren Wasser durch die Wurzeln! Die Wurzeln nehmen Wasser aus dem Boden auf.',
   },
   {
     id: 'natur-4-10',
@@ -2181,20 +2212,19 @@ export const questions: Question[] = [
     explanation: 'Wind entsteht durch kalte und warme Luft! Warme Luft steigt nach oben, kalte Luft strömt nach.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Wetterphänomene)
     bonusMultiplier: 1.5,
+    helpText: 'Wind entsteht durch kalte und warme Luft! Warme Luft steigt nach oben, kalte Luft strömt nach.',
   },
   {
     id: 'natur-4-11',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna lernt über den menschlichen Körper. Sie fragt sich, welches Organ das Gehirn schützt.',
     question: 'Was schützt das Gehirn?',
     options: ['Die Haut', 'Der Schädel', 'Das Herz', 'Die Lunge'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Der Schädel schützt das Gehirn! Er ist wie ein harter Helm um das Gehirn.',
+    helpText: 'Der Schädel schützt das Gehirn! Er ist wie ein harter Helm um das Gehirn.',
   },
   {
     id: 'natur-4-12',
@@ -2206,14 +2236,12 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Strauße sind Vögel, die nicht fliegen können! Sie sind zu schwer zum Fliegen, aber sie können schnell laufen.',
+    helpText: 'Strauße sind Vögel, die nicht fliegen können! Sie sind zu schwer zum Fliegen, aber sie können schnell laufen.',
   },
   {
     id: 'natur-4-13',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'max',
-    world: 'natur-paradies',
-    storyText: 'Max lernt über den Wasserkreislauf. Er fragt sich, was passiert, wenn Wasserdampf kalt wird.',
     question: 'Was passiert mit Wasserdampf, wenn er kalt wird?',
     options: ['Er wird zu Eis', 'Er wird zu Wasser (Regen)', 'Er verschwindet', 'Nichts'],
     correctAnswer: 1,
@@ -2222,6 +2250,7 @@ export const questions: Question[] = [
     explanation: 'Wenn Wasserdampf kalt wird, wird er zu Wasser! Das fällt als Regen vom Himmel.',
     isBonus: true, // ⭐ Bonus: Komplexes Thema (Wasserkreislauf)
     bonusMultiplier: 1.5,
+    helpText: 'Wenn Wasserdampf kalt wird, wird er zu Wasser! Das fällt als Regen vom Himmel.',
   },
   {
     id: 'natur-4-14',
@@ -2233,22 +2262,20 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Ameisen sind Insekten! Sie haben 6 Beine und einen Körper mit drei Teilen.',
+    helpText: 'Ameisen sind Insekten! Sie haben 6 Beine und einen Körper mit drei Teilen.',
   },
   {
     id: 'natur-4-15',
     class: 4,
     subject: 'naturwissenschaften',
-    character: 'luna',
-    world: 'natur-paradies',
-    storyText: 'Luna lernt über Tiere. Sie fragt sich, welche Tiere in Gruppen leben.',
     question: 'Welches Tier lebt in einer Herde?',
     options: ['Tiger', 'Einsiedlerkrebs', 'Elefant', 'Bär'],
     correctAnswer: 2,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Elefanten leben in Herden! Sie sind zusammen in Gruppen und helfen sich gegenseitig.',
+    helpText: 'Elefanten leben in Herden! Sie sind zusammen in Gruppen und helfen sich gegenseitig.',
   },
-  // Kunst & Kreativität - Klasse 1 (ohne StoryText)
   {
     id: 'kunst-1-1',
     class: 1,
@@ -2259,6 +2286,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Wenn du Rot und Gelb mischst, entsteht Orange! Das ist wie die Farbe einer Orange.',
+    helpText: 'Wenn du Rot und Gelb mischst, entsteht Orange! Das ist wie die Farbe einer Orange.',
   },
   {
     id: 'kunst-1-2',
@@ -2270,6 +2298,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Ein Kreis ist rund! Er hat keine Ecken, sondern ist ganz rund wie ein Ball.',
+    helpText: 'Ein Kreis ist rund! Er hat keine Ecken, sondern ist ganz rund wie ein Ball.',
   },
   {
     id: 'kunst-1-3',
@@ -2280,6 +2309,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'kunst-1-4',
@@ -2291,6 +2321,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Ein Dreieck hat genau 3 Ecken! Das siehst du, wenn du "Drei-eck" langsam sagst.',
+    helpText: 'Ein Dreieck hat genau 3 Ecken! Das siehst du, wenn du ',
   },
   {
     id: 'kunst-1-5',
@@ -2302,6 +2333,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Wenn du Blau und Gelb mischst, entsteht Grün! Das ist wie die Farbe von Gras.',
+    helpText: 'Wenn du Blau und Gelb mischst, entsteht Grün! Das ist wie die Farbe von Gras.',
   },
   {
     id: 'kunst-1-6',
@@ -2312,6 +2344,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'kunst-1-7',
@@ -2322,6 +2355,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'kunst-1-8',
@@ -2333,6 +2367,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Ein Quadrat hat genau 4 Ecken! Es hat auch 4 gleich lange Seiten.',
+    helpText: 'Ein Quadrat hat genau 4 Ecken! Es hat auch 4 gleich lange Seiten.',
   },
   {
     id: 'kunst-1-9',
@@ -2343,6 +2378,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'kunst-1-10',
@@ -2353,8 +2389,8 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
-  // Kunst & Kreativität - Klasse 2 (ohne StoryText)
   {
     id: 'kunst-2-1',
     class: 2,
@@ -2365,6 +2401,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Wenn du Rot und Blau mischst, entsteht Lila! Das ist eine schöne Mischfarbe.',
+    helpText: 'Wenn du Rot und Blau mischst, entsteht Lila! Das ist eine schöne Mischfarbe.',
   },
   {
     id: 'kunst-2-2',
@@ -2376,6 +2413,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Ein Sechseck hat genau 6 Ecken! Es sieht aus wie eine Bienenwabe.',
+    helpText: 'Ein Sechseck hat genau 6 Ecken! Es sieht aus wie eine Bienenwabe.',
   },
   {
     id: 'kunst-2-3',
@@ -2387,6 +2425,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Grundfarben sind Rot, Gelb und Blau! Aus diesen kannst du alle anderen Farben mischen.',
+    helpText: 'Die Grundfarben sind Rot, Gelb und Blau! Aus diesen kannst du alle anderen Farben mischen.',
   },
   {
     id: 'kunst-2-4',
@@ -2398,6 +2437,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Wenn du Weiß zu einer Farbe hinzufügst, wird sie heller! Das nennt man auch "aufhellen".',
+    helpText: 'Wenn du Weiß zu einer Farbe hinzufügst, wird sie heller! Das nennt man auch ',
   },
   {
     id: 'kunst-2-5',
@@ -2408,6 +2448,7 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 15,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'kunst-2-6',
@@ -2419,6 +2460,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Rot ist eine warme Farbe! Warme Farben sind Rot, Orange und Gelb - sie erinnern an Sonne und Feuer.',
+    helpText: 'Rot ist eine warme Farbe! Warme Farben sind Rot, Orange und Gelb - sie erinnern an Sonne und Feuer.',
   },
   {
     id: 'kunst-2-7',
@@ -2430,6 +2472,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Blau ist eine kalte Farbe! Kalte Farben sind Blau, Grün und Lila - sie erinnern an Wasser und Eis.',
+    helpText: 'Blau ist eine kalte Farbe! Kalte Farben sind Blau, Grün und Lila - sie erinnern an Wasser und Eis.',
   },
   {
     id: 'kunst-2-8',
@@ -2440,6 +2483,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 15,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'kunst-2-9',
@@ -2451,6 +2495,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Wenn du Schwarz zu einer Farbe hinzufügst, wird sie dunkler! Das nennt man auch "abdunkeln".',
+    helpText: 'Wenn du Schwarz zu einer Farbe hinzufügst, wird sie dunkler! Das nennt man auch ',
   },
   {
     id: 'kunst-2-10',
@@ -2462,21 +2507,19 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Ein Oval ist rund wie ein Ei! Es ist wie ein Kreis, aber etwas länglich.',
+    helpText: 'Ein Oval ist rund wie ein Ei! Es ist wie ein Kreis, aber etwas länglich.',
   },
-  // Kunst & Kreativität - Klasse 3 (50% mit StoryText)
   {
     id: 'kunst-3-1',
     class: 3,
     subject: 'kunst',
-    character: 'max',
-    world: 'kunst-welt',
-    storyText: 'Max besucht eine Kunstausstellung. Er sieht viele bunte Bilder und fragt sich, welche Farben zusammenpassen.',
     question: 'Welche Farben sind Komplementärfarben (passen gut zusammen)?',
     options: ['Rot und Grün', 'Rot und Rot', 'Blau und Blau', 'Gelb und Gelb'],
     correctAnswer: 0,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Rot und Grün sind Komplementärfarben! Sie stehen sich im Farbkreis gegenüber und passen gut zusammen.',
+    helpText: 'Rot und Grün sind Komplementärfarben! Sie stehen sich im Farbkreis gegenüber und passen gut zusammen.',
   },
   {
     id: 'kunst-3-2',
@@ -2488,20 +2531,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Ein Primärfarben-Mix ist, wenn du alle drei Grundfarben (Rot, Gelb, Blau) mischst! Das ergibt meistens Braun.',
+    helpText: 'Ein Primärfarben-Mix ist, wenn du alle drei Grundfarben (Rot, Gelb, Blau) mischst! Das ergibt meistens Braun.',
   },
   {
     id: 'kunst-3-3',
     class: 3,
     subject: 'kunst',
-    character: 'luna',
-    world: 'kunst-welt',
-    storyText: 'Luna malt ein Bild. Sie möchte wissen, wie sie verschiedene Farbtöne erzeugen kann.',
     question: 'Was ist ein Farbton?',
     options: ['Eine neue Farbe', 'Eine hellere oder dunklere Version einer Farbe', 'Nur Schwarz', 'Nur Weiß'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Ein Farbton ist eine hellere oder dunklere Version einer Farbe! Du machst ihn heller mit Weiß oder dunkler mit Schwarz.',
+    helpText: 'Ein Farbton ist eine hellere oder dunklere Version einer Farbe! Du machst ihn heller mit Weiß oder dunkler mit Schwarz.',
   },
   {
     id: 'kunst-3-4',
@@ -2513,20 +2555,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Ein Achteck hat genau 8 Ecken! "Acht-eck" bedeutet 8 Ecken.',
+    helpText: 'Ein Achteck hat genau 8 Ecken! ',
   },
   {
     id: 'kunst-3-5',
     class: 3,
     subject: 'kunst',
-    character: 'max',
-    world: 'kunst-welt',
-    storyText: 'Max lernt über berühmte Künstler. Er fragt sich, welche Art von Kunst es gibt.',
     question: 'Was ist ein Gemälde?',
     options: ['Eine Skulptur', 'Ein Bild mit Farben auf Leinwand', 'Ein Foto', 'Eine Zeichnung'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Ein Gemälde ist ein Bild mit Farben auf Leinwand! Künstler malen es mit Pinseln und Farben.',
+    helpText: 'Ein Gemälde ist ein Bild mit Farben auf Leinwand! Künstler malen es mit Pinseln und Farben.',
   },
   {
     id: 'kunst-3-6',
@@ -2537,20 +2578,19 @@ export const questions: Question[] = [
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
+    helpText: 'Achte auf die wichtigen Wörter in der Frage!',
   },
   {
     id: 'kunst-3-7',
     class: 3,
     subject: 'kunst',
-    character: 'luna',
-    world: 'kunst-welt',
-    storyText: 'Luna zeichnet mit verschiedenen Stiften. Sie möchte wissen, welche Materialien man zum Zeichnen verwenden kann.',
     question: 'Mit welchem Material kann man zeichnen?',
     options: ['Nur mit Bleistift', 'Bleistift, Buntstift, Filzstift', 'Nur mit Pinsel', 'Nur mit Farbe'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'leicht',
     explanation: 'Du kannst mit vielen Materialien zeichnen: Bleistift, Buntstift, Filzstift, Kohle und mehr!',
+    helpText: 'Du kannst mit vielen Materialien zeichnen: Bleistift, Buntstift, Filzstift, Kohle und mehr!',
   },
   {
     id: 'kunst-3-8',
@@ -2562,20 +2602,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Ein Muster ist eine sich wiederholende Form oder Farbe! Zum Beispiel: Streifen, Punkte oder Karos.',
+    helpText: 'Ein Muster ist eine sich wiederholende Form oder Farbe! Zum Beispiel: Streifen, Punkte oder Karos.',
   },
   {
     id: 'kunst-3-9',
     class: 3,
     subject: 'kunst',
-    character: 'max',
-    world: 'kunst-welt',
-    storyText: 'Max lernt über Perspektive. Er fragt sich, wie man Dinge größer oder kleiner wirken lassen kann.',
     question: 'Was bedeutet Perspektive in der Kunst?',
     options: ['Nur Farben', 'Wie man Dinge größer oder kleiner wirken lässt', 'Nur Formen', 'Nur Linien'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'schwer',
     explanation: 'Perspektive bedeutet, wie man Dinge größer oder kleiner wirken lässt! Dinge, die weiter weg sind, sehen kleiner aus.',
+    helpText: 'Perspektive bedeutet, wie man Dinge größer oder kleiner wirken lässt! Dinge, die weiter weg sind, sehen kleiner aus.',
   },
   {
     id: 'kunst-3-10',
@@ -2587,21 +2626,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'leicht',
     explanation: 'Ein Pentagon hat genau 5 Ecken! "Penta" bedeutet fünf.',
+    helpText: 'Ein Pentagon hat genau 5 Ecken! ',
   },
-  // Kunst & Kreativität - Klasse 4 (50% mit StoryText)
   {
     id: 'kunst-4-1',
     class: 4,
     subject: 'kunst',
-    character: 'luna',
-    world: 'kunst-welt',
-    storyText: 'Luna lernt über berühmte Künstler wie Vincent van Gogh. Sie fragt sich, welche Kunstrichtungen es gibt.',
     question: 'Was ist Impressionismus?',
     options: ['Eine Kunstrichtung mit klaren Linien', 'Eine Kunstrichtung mit weichen, verschwommenen Farben', 'Nur Schwarz-Weiß', 'Nur geometrische Formen'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Impressionismus ist eine Kunstrichtung mit weichen, verschwommenen Farben! Künstler malen damit das Gefühl eines Moments.',
+    helpText: 'Impressionismus ist eine Kunstrichtung mit weichen, verschwommenen Farben! Künstler malen damit das Gefühl eines Moments.',
   },
   {
     id: 'kunst-4-2',
@@ -2613,20 +2650,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Eine Collage ist ein Kunstwerk aus verschiedenen Materialien zusammengeklebt! Zum Beispiel Papier, Stoff oder Fotos.',
+    helpText: 'Eine Collage ist ein Kunstwerk aus verschiedenen Materialien zusammengeklebt! Zum Beispiel Papier, Stoff oder Fotos.',
   },
   {
     id: 'kunst-4-3',
     class: 4,
     subject: 'kunst',
-    character: 'max',
-    world: 'kunst-welt',
-    storyText: 'Max lernt über Farbtheorie. Er möchte verstehen, wie Farben zusammenwirken.',
     question: 'Was ist ein Farbkreis?',
     options: ['Ein Kreis aus einer Farbe', 'Ein Kreis, der zeigt, wie Farben zusammenhängen', 'Nur Primärfarben', 'Nur Sekundärfarben'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Ein Farbkreis zeigt, wie Farben zusammenhängen! Er zeigt die Grundfarben und wie man sie mischt.',
+    helpText: 'Ein Farbkreis zeigt, wie Farben zusammenhängen! Er zeigt die Grundfarben und wie man sie mischt.',
   },
   {
     id: 'kunst-4-4',
@@ -2638,20 +2674,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Eine Sekundärfarbe wird aus zwei Grundfarben gemischt! Zum Beispiel: Grün (aus Blau und Gelb), Orange (aus Rot und Gelb), Lila (aus Rot und Blau).',
+    helpText: 'Eine Sekundärfarbe wird aus zwei Grundfarben gemischt! Zum Beispiel: Grün (aus Blau und Gelb), Orange (aus Rot und Gelb), Lila (aus Rot und Blau).',
   },
   {
     id: 'kunst-4-5',
     class: 4,
     subject: 'kunst',
-    character: 'luna',
-    world: 'kunst-welt',
-    storyText: 'Luna besucht ein Museum. Sie sieht verschiedene Kunstwerke und fragt sich, welche Techniken Künstler verwenden.',
     question: 'Was ist eine Radierung?',
     options: ['Ein Bild mit Pinsel gemalt', 'Ein Druckverfahren, bei dem in eine Platte geritzt wird', 'Nur eine Zeichnung', 'Nur eine Skulptur'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Eine Radierung ist ein Druckverfahren! Der Künstler ritzt ein Bild in eine Platte und druckt es dann.',
+    helpText: 'Eine Radierung ist ein Druckverfahren! Der Künstler ritzt ein Bild in eine Platte und druckt es dann.',
   },
   {
     id: 'kunst-4-6',
@@ -2663,20 +2698,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Ein Stillleben ist ein Bild von unbewegten Gegenständen! Zum Beispiel Obst, Blumen oder andere Dinge, die still stehen.',
+    helpText: 'Ein Stillleben ist ein Bild von unbewegten Gegenständen! Zum Beispiel Obst, Blumen oder andere Dinge, die still stehen.',
   },
   {
     id: 'kunst-4-7',
     class: 4,
     subject: 'kunst',
-    character: 'max',
-    world: 'kunst-welt',
-    storyText: 'Max lernt über verschiedene Kunststile. Er fragt sich, was abstrakte Kunst bedeutet.',
     question: 'Was ist abstrakte Kunst?',
     options: ['Kunst, die genau wie die Wirklichkeit aussieht', 'Kunst, die nicht genau wie die Wirklichkeit aussieht, sondern Formen und Farben verwendet', 'Nur Schwarz-Weiß', 'Nur geometrische Formen'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Abstrakte Kunst verwendet Formen und Farben, die nicht genau wie die Wirklichkeit aussehen! Sie zeigt Gefühle und Ideen.',
+    helpText: 'Abstrakte Kunst verwendet Formen und Farben, die nicht genau wie die Wirklichkeit aussehen! Sie zeigt Gefühle und Ideen.',
   },
   {
     id: 'kunst-4-8',
@@ -2688,20 +2722,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'leicht',
     explanation: 'Ein Porträt ist ein Bild von einer Person! Es zeigt das Gesicht oder den ganzen Körper einer Person.',
+    helpText: 'Ein Porträt ist ein Bild von einer Person! Es zeigt das Gesicht oder den ganzen Körper einer Person.',
   },
   {
     id: 'kunst-4-9',
     class: 4,
     subject: 'kunst',
-    character: 'luna',
-    world: 'kunst-welt',
-    storyText: 'Luna lernt über verschiedene Maltechniken. Sie möchte wissen, wie man verschiedene Effekte erzielt.',
     question: 'Was ist eine Aquarellmalerei?',
     options: ['Malerei mit dicken Farben', 'Malerei mit wasserlöslichen Farben auf Papier', 'Nur mit Bleistift', 'Nur mit Filzstift'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'mittel',
     explanation: 'Aquarellmalerei verwendet wasserlösliche Farben auf Papier! Die Farben sind transparent und sehen sehr zart aus.',
+    helpText: 'Aquarellmalerei verwendet wasserlösliche Farben auf Papier! Die Farben sind transparent und sehen sehr zart aus.',
   },
   {
     id: 'kunst-4-10',
@@ -2713,8 +2746,8 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'leicht',
     explanation: 'Eine Landschaftsmalerei zeigt Natur! Zum Beispiel Berge, Wälder, Meere oder Felder.',
+    helpText: 'Eine Landschaftsmalerei zeigt Natur! Zum Beispiel Berge, Wälder, Meere oder Felder.',
   },
-  // Logik & Minispiele - Klasse 1 (ohne StoryText)
   {
     id: 'logik-1-1',
     class: 1,
@@ -2725,6 +2758,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Das Muster wiederholt sich: Rot, Blau, Rot, Blau... Als Nächstes kommt wieder Rot!',
+    helpText: 'Das Muster wiederholt sich: Rot, Blau, Rot, Blau... Als Nächstes kommt wieder Rot!',
   },
   {
     id: 'logik-1-2',
@@ -2736,6 +2770,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Der Elefant ist das größte Tier! Er ist viel größer als Maus, Katze und Hund.',
+    helpText: 'Der Elefant ist das größte Tier! Er ist viel größer als Maus, Katze und Hund.',
   },
   {
     id: 'logik-1-3',
@@ -2747,6 +2782,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Die Zahlen zählen hoch: 1, 2, 3... Als Nächstes kommt 4!',
+    helpText: 'Die Zahlen zählen hoch: 1, 2, 3... Als Nächstes kommt 4!',
   },
   {
     id: 'logik-1-4',
@@ -2758,6 +2794,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Auto passt nicht dazu! Apfel, Banane und Orange sind alle Früchte, aber Auto ist ein Fahrzeug.',
+    helpText: 'Auto passt nicht dazu! Apfel, Banane und Orange sind alle Früchte, aber Auto ist ein Fahrzeug.',
   },
   {
     id: 'logik-1-5',
@@ -2769,6 +2806,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Die Sterne werden immer mehr: 1, 2, 3... Als Nächstes kommen 4 Sterne!',
+    helpText: 'Die Sterne werden immer mehr: 1, 2, 3... Als Nächstes kommen 4 Sterne!',
   },
   {
     id: 'logik-1-6',
@@ -2779,6 +2817,7 @@ export const questions: Question[] = [
     correctAnswer: 2,
     points: 10,
     difficulty: 'leicht',
+    helpText: 'Lies die Frage genau durch und überlege dir, was sie meint!',
   },
   {
     id: 'logik-1-7',
@@ -2790,6 +2829,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Das Alphabet geht weiter: A, B, C... Als Nächstes kommt D!',
+    helpText: 'Das Alphabet geht weiter: A, B, C... Als Nächstes kommt D!',
   },
   {
     id: 'logik-1-8',
@@ -2801,6 +2841,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Tisch passt nicht dazu! Hund, Katze und Vogel sind alle Tiere, aber Tisch ist ein Möbelstück.',
+    helpText: 'Tisch passt nicht dazu! Hund, Katze und Vogel sind alle Tiere, aber Tisch ist ein Möbelstück.',
   },
   {
     id: 'logik-1-9',
@@ -2812,6 +2853,7 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6... Als Nächstes kommt 8!',
+    helpText: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6... Als Nächstes kommt 8!',
   },
   {
     id: 'logik-1-10',
@@ -2823,8 +2865,8 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Grün gehört nicht zu den Grundfarben! Die Grundfarben sind Rot, Gelb und Blau. Grün entsteht, wenn man Blau und Gelb mischt.',
+    helpText: 'Grün gehört nicht zu den Grundfarben! Die Grundfarben sind Rot, Gelb und Blau. Grün entsteht, wenn man Blau und Gelb mischt.',
   },
-  // Logik & Minispiele - Klasse 2 (ohne StoryText)
   {
     id: 'logik-2-1',
     class: 2,
@@ -2835,6 +2877,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Fünferschnitten: 5, 10, 15... Als Nächstes kommt 20!',
+    helpText: 'Die Zahlen zählen in Fünferschnitten: 5, 10, 15... Als Nächstes kommt 20!',
   },
   {
     id: 'logik-2-2',
@@ -2846,6 +2889,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Orange passt dazu! Apfel, Birne, Banane und Orange sind alle Früchte.',
+    helpText: 'Orange passt dazu! Apfel, Birne, Banane und Orange sind alle Früchte.',
   },
   {
     id: 'logik-2-3',
@@ -2857,6 +2901,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Das Muster wiederholt sich: Blau, Rot, Blau, Rot, Blau... Als Nächstes kommt wieder Rot!',
+    helpText: 'Das Muster wiederholt sich: Blau, Rot, Blau, Rot, Blau... Als Nächstes kommt wieder Rot!',
   },
   {
     id: 'logik-2-4',
@@ -2868,6 +2913,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: '31 ist die größte Zahl! 31 ist größer als 23, 15 und 8.',
+    helpText: '31 ist die größte Zahl! 31 ist größer als 23, 15 und 8.',
   },
   {
     id: 'logik-2-5',
@@ -2879,6 +2925,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 3: 1, 4 (1+3), 7 (4+3), 10 (7+3)... Als Nächstes kommt 13 (10+3)!',
+    helpText: 'Die Zahlen steigen um 3: 1, 4 (1+3), 7 (4+3), 10 (7+3)... Als Nächstes kommt 13 (10+3)!',
   },
   {
     id: 'logik-2-6',
@@ -2890,6 +2937,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Apfel passt nicht dazu! Montag, Dienstag und Mittwoch sind alle Wochentage, aber Apfel ist eine Frucht.',
+    helpText: 'Apfel passt nicht dazu! Montag, Dienstag und Mittwoch sind alle Wochentage, aber Apfel ist eine Frucht.',
   },
   {
     id: 'logik-2-7',
@@ -2901,6 +2949,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Die Sterne werden immer mehr: 2, 3, 4... Als Nächstes kommen 5 Sterne!',
+    helpText: 'Die Sterne werden immer mehr: 2, 3, 4... Als Nächstes kommen 5 Sterne!',
   },
   {
     id: 'logik-2-8',
@@ -2912,6 +2961,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6, 8, 10. Die fehlende Zahl ist 4!',
+    helpText: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6, 8, 10. Die fehlende Zahl ist 4!',
   },
   {
     id: 'logik-2-9',
@@ -2923,6 +2973,7 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Buchstaben springen immer einen über: A, C (B übersprungen), E (D übersprungen), G (F übersprungen)... Als Nächstes kommt I (H übersprungen)!',
+    helpText: 'Die Buchstaben springen immer einen über: A, C (B übersprungen), E (D übersprungen), G (F übersprungen)... Als Nächstes kommt I (H übersprungen)!',
   },
   {
     id: 'logik-2-10',
@@ -2934,21 +2985,19 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'leicht',
     explanation: 'Fisch passt dazu! Hund, Katze, Vogel und Fisch sind alle Tiere.',
+    helpText: 'Fisch passt dazu! Hund, Katze, Vogel und Fisch sind alle Tiere.',
   },
-  // Logik & Minispiele - Klasse 3 (50% mit StoryText)
   {
     id: 'logik-3-1',
     class: 3,
     subject: 'logik',
-    character: 'max',
-    world: 'logik-reich',
-    storyText: 'Max löst Rätsel. Er sieht eine Zahlenreihe und fragt sich, welche Zahl als Nächstes kommt.',
     question: 'Was kommt als Nächstes? 3, 6, 9, 12, ___',
     options: ['14', '15', '16', '18'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 3: 3, 6 (3+3), 9 (6+3), 12 (9+3)... Als Nächstes kommt 15 (12+3)!',
+    helpText: 'Die Zahlen steigen um 3: 3, 6 (3+3), 9 (6+3), 12 (9+3)... Als Nächstes kommt 15 (12+3)!',
   },
   {
     id: 'logik-3-2',
@@ -2960,20 +3009,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen sind ungerade: 1, 3, 5, 7, 9. Die fehlende Zahl ist 5!',
+    helpText: 'Die Zahlen sind ungerade: 1, 3, 5, 7, 9. Die fehlende Zahl ist 5!',
   },
   {
     id: 'logik-3-3',
     class: 3,
     subject: 'logik',
-    character: 'luna',
-    world: 'logik-reich',
-    storyText: 'Luna sortiert Dinge. Sie möchte wissen, welches Wort nicht in die Gruppe passt.',
     question: 'Welches passt nicht dazu? Buch, Heft, Stift, Auto',
     options: ['Buch', 'Heft', 'Stift', 'Auto'],
     correctAnswer: 3,
     points: 20,
     difficulty: 'leicht',
     explanation: 'Auto passt nicht dazu! Buch, Heft und Stift sind alle Schulsachen, aber Auto ist ein Fahrzeug.',
+    helpText: 'Auto passt nicht dazu! Buch, Heft und Stift sind alle Schulsachen, aber Auto ist ein Fahrzeug.',
   },
   {
     id: 'logik-3-4',
@@ -2985,20 +3033,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 3: 2, 5 (2+3), 8 (5+3), 11 (8+3)... Als Nächstes kommt 14 (11+3)!',
+    helpText: 'Die Zahlen steigen um 3: 2, 5 (2+3), 8 (5+3), 11 (8+3)... Als Nächstes kommt 14 (11+3)!',
   },
   {
     id: 'logik-3-5',
     class: 3,
     subject: 'logik',
-    character: 'max',
-    world: 'logik-reich',
-    storyText: 'Max löst ein Muster-Rätsel. Er sieht verschiedene Formen und fragt sich, welche Form als Nächstes kommt.',
     question: 'Was kommt als Nächstes? 🔴 🔵 🔴 🔵 🔴 🔵 ___',
     options: ['🔴', '🔵', '🟢', '🟡'],
     correctAnswer: 0,
     points: 20,
     difficulty: 'leicht',
     explanation: 'Das Muster wiederholt sich: Rot, Blau, Rot, Blau, Rot, Blau... Als Nächstes kommt wieder Rot!',
+    helpText: 'Das Muster wiederholt sich: Rot, Blau, Rot, Blau, Rot, Blau... Als Nächstes kommt wieder Rot!',
   },
   {
     id: 'logik-3-6',
@@ -3010,20 +3057,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: '23 ist die kleinste Zahl! 23 ist kleiner als 32, 45 und 67.',
+    helpText: '23 ist die kleinste Zahl! 23 ist kleiner als 32, 45 und 67.',
   },
   {
     id: 'logik-3-7',
     class: 3,
     subject: 'logik',
-    character: 'luna',
-    world: 'logik-reich',
-    storyText: 'Luna denkt über Zahlen nach. Sie möchte wissen, welche Zahl in die Reihe passt.',
     question: 'Welche Zahl fehlt? 10, 20, ___, 40, 50',
     options: ['25', '30', '35', '45'],
     correctAnswer: 1,
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Zehnerschritten: 10, 20, 30, 40, 50. Die fehlende Zahl ist 30!',
+    helpText: 'Die Zahlen zählen in Zehnerschritten: 10, 20, 30, 40, 50. Die fehlende Zahl ist 30!',
   },
   {
     id: 'logik-3-8',
@@ -3035,20 +3081,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'schwer',
     explanation: 'Das sind Quadratzahlen: 1²=1, 2²=4, 3²=9, 4²=16... Als Nächstes kommt 5²=25!',
+    helpText: 'Das sind Quadratzahlen: 1²=1, 2²=4, 3²=9, 4²=16... Als Nächstes kommt 5²=25!',
   },
   {
     id: 'logik-3-9',
     class: 3,
     subject: 'logik',
-    character: 'max',
-    world: 'logik-reich',
-    storyText: 'Max löst ein Logik-Rätsel. Er sieht verschiedene Kategorien und fragt sich, welches Wort nicht dazu gehört.',
     question: 'Welches passt nicht dazu? Frühling, Sommer, Herbst, Montag',
     options: ['Frühling', 'Sommer', 'Herbst', 'Montag'],
     correctAnswer: 3,
     points: 20,
     difficulty: 'leicht',
     explanation: 'Montag passt nicht dazu! Frühling, Sommer und Herbst sind alle Jahreszeiten, aber Montag ist ein Wochentag.',
+    helpText: 'Montag passt nicht dazu! Frühling, Sommer und Herbst sind alle Jahreszeiten, aber Montag ist ein Wochentag.',
   },
   {
     id: 'logik-3-10',
@@ -3060,21 +3105,19 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Buchstaben springen immer zwei über: A, D (B+C übersprungen), G (E+F übersprungen), J (H+I übersprungen)... Als Nächstes kommt M (K+L übersprungen)!',
+    helpText: 'Die Buchstaben springen immer zwei über: A, D (B+C übersprungen), G (E+F übersprungen), J (H+I übersprungen)... Als Nächstes kommt M (K+L übersprungen)!',
   },
-  // Logik & Minispiele - Klasse 4 (50% mit StoryText)
   {
     id: 'logik-4-1',
     class: 4,
     subject: 'logik',
-    character: 'luna',
-    world: 'logik-reich',
-    storyText: 'Luna löst komplexe Rätsel. Sie sieht eine Zahlenreihe und fragt sich, welche Zahl als Nächstes kommt.',
     question: 'Was kommt als Nächstes? 1, 3, 6, 10, 15, ___',
     options: ['18', '20', '21', '25'],
     correctAnswer: 2,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Differenz steigt: +2, +3, +4, +5... Als Nächstes kommt +6, also 15+6=21!',
+    helpText: 'Die Differenz steigt: +2, +3, +4, +5... Als Nächstes kommt +6, also 15+6=21!',
   },
   {
     id: 'logik-4-2',
@@ -3086,20 +3129,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 4: 2, 6 (2+4), 10 (6+4), 14 (10+4), 18 (14+4), 22 (18+4). Die fehlende Zahl ist 10!',
+    helpText: 'Die Zahlen steigen um 4: 2, 6 (2+4), 10 (6+4), 14 (10+4), 18 (14+4), 22 (18+4). Die fehlende Zahl ist 10!',
   },
   {
     id: 'logik-4-3',
     class: 4,
     subject: 'logik',
-    character: 'max',
-    world: 'logik-reich',
-    storyText: 'Max denkt über Muster nach. Er sieht eine komplexe Reihe und fragt sich, was als Nächstes kommt.',
     question: 'Was kommt als Nächstes? 5, 10, 20, 40, ___',
     options: ['60', '70', '80', '100'],
     correctAnswer: 2,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Jede Zahl wird verdoppelt: 5×2=10, 10×2=20, 20×2=40... Als Nächstes kommt 40×2=80!',
+    helpText: 'Jede Zahl wird verdoppelt: 5×2=10, 10×2=20, 20×2=40... Als Nächstes kommt 40×2=80!',
   },
   {
     id: 'logik-4-4',
@@ -3111,20 +3153,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'leicht',
     explanation: 'Auto passt nicht dazu! Quadrat, Kreis und Dreieck sind alle geometrische Formen, aber Auto ist ein Fahrzeug.',
+    helpText: 'Auto passt nicht dazu! Quadrat, Kreis und Dreieck sind alle geometrische Formen, aber Auto ist ein Fahrzeug.',
   },
   {
     id: 'logik-4-5',
     class: 4,
     subject: 'logik',
-    character: 'luna',
-    world: 'logik-reich',
-    storyText: 'Luna löst ein Kombinatorik-Rätsel. Sie fragt sich, wie viele Möglichkeiten es gibt.',
     question: 'Wenn du 3 verschiedene Farben hast (Rot, Blau, Grün) und 2 Formen (Kreis, Quadrat), wie viele verschiedene Kombinationen gibt es?',
     options: ['4', '5', '6', '8'],
     correctAnswer: 2,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Du kannst jede Farbe mit jeder Form kombinieren: Rot-Kreis, Rot-Quadrat, Blau-Kreis, Blau-Quadrat, Grün-Kreis, Grün-Quadrat. Das sind 6 Kombinationen!',
+    helpText: 'Du kannst jede Farbe mit jeder Form kombinieren: Rot-Kreis, Rot-Quadrat, Blau-Kreis, Blau-Quadrat, Grün-Kreis, Grün-Quadrat. Das sind 6 Kombinationen!',
   },
   {
     id: 'logik-4-6',
@@ -3136,20 +3177,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Jede Zahl wird verdoppelt: 1×2=2, 2×2=4, 4×2=8, 8×2=16... Als Nächstes kommt 16×2=32!',
+    helpText: 'Jede Zahl wird verdoppelt: 1×2=2, 2×2=4, 4×2=8, 8×2=16... Als Nächstes kommt 16×2=32!',
   },
   {
     id: 'logik-4-7',
     class: 4,
     subject: 'logik',
-    character: 'max',
-    world: 'logik-reich',
-    storyText: 'Max löst ein Zahlen-Rätsel. Er sieht eine komplizierte Reihe und fragt sich, welche Zahl fehlt.',
     question: 'Welche Zahl fehlt? 3, 7, 15, ___, 63',
     options: ['25', '31', '35', '40'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Regel ist: ×2+1. 3×2+1=7, 7×2+1=15, 15×2+1=31, 31×2+1=63. Die fehlende Zahl ist 31!',
+    helpText: 'Die Regel ist: ×2+1. 3×2+1=7, 7×2+1=15, 15×2+1=31, 31×2+1=63. Die fehlende Zahl ist 31!',
   },
   {
     id: 'logik-4-8',
@@ -3161,20 +3201,19 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Differenz wird kleiner: -10, -9, -8... Als Nächstes kommt -7, also 73-7=66!',
+    helpText: 'Die Differenz wird kleiner: -10, -9, -8... Als Nächstes kommt -7, also 73-7=66!',
   },
   {
     id: 'logik-4-9',
     class: 4,
     subject: 'logik',
-    character: 'luna',
-    world: 'logik-reich',
-    storyText: 'Luna denkt über logische Reihen nach. Sie sieht ein Muster und fragt sich, was als Nächstes kommt.',
     question: 'Was kommt als Nächstes? 2, 6, 12, 20, 30, ___',
     options: ['40', '42', '45', '50'],
     correctAnswer: 1,
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Differenz steigt: +4, +6, +8, +10... Als Nächstes kommt +12, also 30+12=42!',
+    helpText: 'Die Differenz steigt: +4, +6, +8, +10... Als Nächstes kommt +12, also 30+12=42!',
   },
   {
     id: 'logik-4-10',
@@ -3186,20 +3225,1096 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Wenn alle Katzen Tiere sind und alle Tiere Lebewesen sind, dann sind alle Katzen auch Lebewesen! Das ist logisches Denken.',
+    helpText: 'Wenn alle Katzen Tiere sind und alle Tiere Lebewesen sind, dann sind alle Katzen auch Lebewesen! Das ist logisches Denken.',
+  },
+  {
+    id: 'natur-1-16',
+    class: 1,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier hat Federn?',
+    options: ['Hund', 'Katze', 'Vogel', 'Fisch'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Vögel haben Federn! Federn helfen ihnen beim Fliegen und halten sie warm.',
+    helpText: 'Vögel haben Federn! Federn helfen ihnen beim Fliegen und halten sie warm.',
+  },
+  {
+    id: 'natur-1-17',
+    class: 1,
+    subject: 'naturwissenschaften',
+    question: 'Welche Farbe haben die meisten Äpfel?',
+    options: ['Blau', 'Grün oder Rot', 'Gelb', 'Lila'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Die meisten Äpfel sind grün oder rot! Es gibt viele verschiedene Apfelsorten.',
+    helpText: 'Die meisten Äpfel sind grün oder rot! Es gibt viele verschiedene Apfelsorten.',
+  },
+  {
+    id: 'natur-1-18',
+    class: 1,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier kann schwimmen?',
+    options: ['Hund', 'Ente', 'Katze', 'Hase'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Enten können schwimmen! Sie haben Schwimmfüße und können im Wasser paddeln.',
+    helpText: 'Enten können schwimmen! Sie haben Schwimmfüße und können im Wasser paddeln.',
+  },
+  {
+    id: 'natur-1-19',
+    class: 1,
+    subject: 'naturwissenschaften',
+    question: 'Welche Jahreszeit ist am wärmsten?',
+    options: ['Winter', 'Frühling', 'Sommer', 'Herbst'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Der Sommer ist am wärmsten! Die Sonne scheint lange und es ist heiß.',
+    helpText: 'Der Sommer ist am wärmsten! Die Sonne scheint lange und es ist heiß.',
+  },
+  {
+    id: 'natur-1-20',
+    class: 1,
+    subject: 'naturwissenschaften',
+    question: 'Welches Körperteil benutzt du zum Sprechen?',
+    options: ['Ohren', 'Nase', 'Mund', 'Augen'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Mit dem Mund kannst du sprechen! Die Zunge und die Lippen helfen dir dabei.',
+    helpText: 'Mit dem Mund kannst du sprechen! Die Zunge und die Lippen helfen dir dabei.',
+  },
+  {
+    id: 'natur-2-13',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier ist nachtaktiv?',
+    options: ['Huhn', 'Eule', 'Spatz', 'Ente'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Eulen sind nachtaktiv! Sie schlafen tagsüber und sind nachts wach.',
+    helpText: 'Eulen sind nachtaktiv! Sie schlafen tagsüber und sind nachts wach.',
+  },
+  {
+    id: 'natur-2-14',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welche Pflanze wächst am schnellsten?',
+    options: ['Baum', 'Gras', 'Blume', 'Moos'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Gras wächst sehr schnell! Du kannst es fast wachsen sehen.',
+    helpText: 'Gras wächst sehr schnell! Du kannst es fast wachsen sehen.',
+  },
+  {
+    id: 'natur-2-15',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier hat Streifen?',
+    options: ['Löwe', 'Tiger', 'Bär', 'Wolf'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Tiger haben Streifen! Die Streifen helfen ihnen, sich zu tarnen.',
+    helpText: 'Tiger haben Streifen! Die Streifen helfen ihnen, sich zu tarnen.',
+  },
+  {
+    id: 'natur-2-16',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welches Wetter gibt es im Winter?',
+    options: ['Sonne', 'Schnee', 'Regen', 'Wind'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Im Winter gibt es oft Schnee! Es ist kalt und die Bäume haben keine Blätter.',
+    helpText: 'Im Winter gibt es oft Schnee! Es ist kalt und die Bäume haben keine Blätter.',
+  },
+  {
+    id: 'natur-2-17',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier kann sehr hoch springen?',
+    options: ['Schwein', 'Känguru', 'Schaf', 'Kuh'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Kängurus können sehr hoch springen! Sie haben starke Hinterbeine.',
+    helpText: 'Kängurus können sehr hoch springen! Sie haben starke Hinterbeine.',
+  },
+  {
+    id: 'natur-2-18',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welches Organ hilft dir beim Atmen?',
+    options: ['Herz', 'Lunge', 'Magen', 'Leber'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Die Lunge hilft dir beim Atmen! Sie nimmt Sauerstoff aus der Luft auf.',
+    helpText: 'Die Lunge hilft dir beim Atmen! Sie nimmt Sauerstoff aus der Luft auf.',
+  },
+  {
+    id: 'natur-2-19',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier hat einen langen Hals?',
+    options: ['Elefant', 'Giraffe', 'Löwe', 'Bär'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Giraffen haben einen sehr langen Hals! So können sie die Blätter von hohen Bäumen essen.',
+    helpText: 'Giraffen haben einen sehr langen Hals! So können sie die Blätter von hohen Bäumen essen.',
+  },
+  {
+    id: 'natur-2-20',
+    class: 2,
+    subject: 'naturwissenschaften',
+    question: 'Welche Farbe hat der Mond?',
+    options: ['Gelb', 'Weiß', 'Blau', 'Grün'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Der Mond sieht weiß oder gelblich aus! Er leuchtet, weil die Sonne auf ihn scheint.',
+    helpText: 'Der Mond sieht weiß oder gelblich aus! Er leuchtet, weil die Sonne auf ihn scheint.',
+  },
+  {
+    id: 'natur-3-16',
+    class: 3,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier lebt in einer Herde?',
+    options: ['Einsamer Wolf', 'Löwe', 'Elefant', 'Einsamer Bär'],
+    correctAnswer: 2,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Elefanten leben in Herden! Sie bleiben zusammen und helfen sich gegenseitig.',
+    helpText: 'Elefanten leben in Herden! Sie bleiben zusammen und helfen sich gegenseitig.',
+  },
+  {
+    id: 'natur-3-17',
+    class: 3,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier kann seine Farbe ändern?',
+    options: ['Hase', 'Chamäleon', 'Vogel', 'Fisch'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Chamäleons können ihre Farbe ändern! Das hilft ihnen, sich zu tarnen.',
+    helpText: 'Chamäleons können ihre Farbe ändern! Das hilft ihnen, sich zu tarnen.',
+  },
+  {
+    id: 'natur-3-18',
+    class: 3,
+    subject: 'naturwissenschaften',
+    question: 'Welche Pflanze wird am größten?',
+    options: ['Blume', 'Gras', 'Baum', 'Moos'],
+    correctAnswer: 2,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Bäume werden am größten! Sie können viele Meter hoch werden.',
+    helpText: 'Bäume werden am größten! Sie können viele Meter hoch werden.',
+  },
+  {
+    id: 'natur-3-19',
+    class: 3,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier ist ein Raubvogel?',
+    options: ['Taube', 'Adler', 'Spatz', 'Ente'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Adler sind Raubvögel! Sie jagen andere Tiere zum Fressen.',
+    helpText: 'Adler sind Raubvögel! Sie jagen andere Tiere zum Fressen.',
+  },
+  {
+    id: 'natur-3-20',
+    class: 3,
+    subject: 'naturwissenschaften',
+    question: 'Woher kommt der Regen?',
+    options: ['Aus dem Boden', 'Aus den Wolken', 'Aus dem Meer', 'Aus der Sonne'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'schwer',
+    explanation: 'Regen kommt aus den Wolken! Wenn Wolken zu schwer werden, fällt das Wasser als Regen.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Regen kommt aus den Wolken! Wenn Wolken zu schwer werden, fällt das Wasser als Regen.',
+  },
+  {
+    id: 'natur-4-12',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Warum sind Bienen wichtig für Pflanzen?',
+    options: ['Sie essen Pflanzen', 'Sie bestäuben Blumen', 'Sie zerstören Pflanzen', 'Sie pflanzen Bäume'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Bienen bestäuben Blumen! Sie tragen Pollen von Blüte zu Blüte, damit neue Pflanzen wachsen können.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Bienen bestäuben Blumen! Sie tragen Pollen von Blüte zu Blüte, damit neue Pflanzen wachsen können.',
+  },
+  {
+    id: 'natur-4-13',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier ist ein Beuteltier?',
+    options: ['Känguru', 'Elefant', 'Löwe', 'Bär'],
+    correctAnswer: 0,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Kängurus sind Beuteltiere! Sie tragen ihre Babys in einem Beutel.',
+    helpText: 'Kängurus sind Beuteltiere! Sie tragen ihre Babys in einem Beutel.',
+  },
+  {
+    id: 'natur-4-14',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Wie viele Kammern hat das menschliche Herz?',
+    options: ['2', '3', '4', '5'],
+    correctAnswer: 2,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Das menschliche Herz hat 4 Kammern! Zwei Vorhöfe und zwei Herzkammern.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Das menschliche Herz hat 4 Kammern! Zwei Vorhöfe und zwei Herzkammern.',
+  },
+  {
+    id: 'natur-4-15',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier kann am längsten ohne Wasser leben?',
+    options: ['Mensch', 'Kamel', 'Hund', 'Katze'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Kamele können sehr lange ohne Wasser leben! Sie speichern Wasser in ihren Höckern.',
+    helpText: 'Kamele können sehr lange ohne Wasser leben! Sie speichern Wasser in ihren Höckern.',
+  },
+  {
+    id: 'natur-4-16',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Wie heißt der Prozess, bei dem Pflanzen Sonnenlicht nutzen?',
+    options: ['Atmung', 'Fotosynthese', 'Verdauung', 'Wachstum'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Fotosynthese! Pflanzen nutzen Sonnenlicht, um aus Wasser und Kohlendioxid Nahrung zu machen.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Fotosynthese! Pflanzen nutzen Sonnenlicht, um aus Wasser und Kohlendioxid Nahrung zu machen.',
+  },
+  {
+    id: 'natur-4-17',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier ist ein Säugetier, das Eier legt?',
+    options: ['Platypus', 'Hund', 'Katze', 'Vogel'],
+    correctAnswer: 0,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Der Platypus ist ein Säugetier, das Eier legt! Das ist sehr ungewöhnlich.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Der Platypus ist ein Säugetier, das Eier legt! Das ist sehr ungewöhnlich.',
+  },
+  {
+    id: 'natur-4-18',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Bei welcher Temperatur gefriert Wasser?',
+    options: ['0°C', '10°C', '-10°C', '100°C'],
+    correctAnswer: 0,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Wasser gefriert bei 0°C! Das ist der Gefrierpunkt von Wasser.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Wasser gefriert bei 0°C! Das ist der Gefrierpunkt von Wasser.',
+  },
+  {
+    id: 'natur-4-19',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Welches Tier hat die meisten Zähne?',
+    options: ['Hai', 'Mensch', 'Hund', 'Katze'],
+    correctAnswer: 0,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Haie haben sehr viele Zähne! Sie können Tausende von Zähnen haben.',
+    helpText: 'Haie haben sehr viele Zähne! Sie können Tausende von Zähnen haben.',
+  },
+  {
+    id: 'natur-4-20',
+    class: 4,
+    subject: 'naturwissenschaften',
+    question: 'Welches ist das größte Organ des menschlichen Körpers?',
+    options: ['Herz', 'Lunge', 'Haut', 'Leber'],
+    correctAnswer: 2,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Die Haut ist das größte Organ! Sie bedeckt den ganzen Körper.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Die Haut ist das größte Organ! Sie bedeckt den ganzen Körper.',
+  },
+  {
+    id: 'kunst-1-1',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Rot und Blau mischst?',
+    options: ['Grün', 'Lila', 'Gelb', 'Orange'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Wenn du Rot und Blau mischst, entsteht Lila! Das ist eine neue Farbe.',
+    helpText: 'Wenn du Rot und Blau mischst, entsteht Lila! Das ist eine neue Farbe.',
+  },
+  {
+    id: 'kunst-1-2',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welches Werkzeug benutzt du zum Malen?',
+    options: ['Hammer', 'Pinsel', 'Säge', 'Schraubenzieher'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Mit einem Pinsel kannst du malen! Du tauchst ihn in Farbe und malst damit.',
+    helpText: 'Mit einem Pinsel kannst du malen! Du tauchst ihn in Farbe und malst damit.',
+  },
+  {
+    id: 'kunst-1-3',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe hat die Sonne?',
+    options: ['Blau', 'Gelb', 'Grün', 'Lila'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Die Sonne ist gelb! Sie leuchtet gelb am Himmel.',
+    helpText: 'Die Sonne ist gelb! Sie leuchtet gelb am Himmel.',
+  },
+  {
+    id: 'kunst-1-4',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Kreis?',
+    options: ['Eckig', 'Rund', 'Dreieckig', 'Viereckig'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Ein Kreis ist rund! Er hat keine Ecken.',
+    helpText: 'Ein Kreis ist rund! Er hat keine Ecken.',
+  },
+  {
+    id: 'kunst-1-5',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Gelb und Blau mischst?',
+    options: ['Rot', 'Grün', 'Orange', 'Lila'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Wenn du Gelb und Blau mischst, entsteht Grün! Das ist die Farbe von Gras.',
+    helpText: 'Wenn du Gelb und Blau mischst, entsteht Grün! Das ist die Farbe von Gras.',
+  },
+  {
+    id: 'kunst-1-6',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Quadrat?',
+    options: ['Rund', 'Dreieckig', 'Viereckig mit 4 gleichen Seiten', 'Oval'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Ein Quadrat ist viereckig mit 4 gleichen Seiten! Alle Seiten sind gleich lang.',
+    helpText: 'Ein Quadrat ist viereckig mit 4 gleichen Seiten! Alle Seiten sind gleich lang.',
+  },
+  {
+    id: 'kunst-1-7',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe hat das Gras?',
+    options: ['Blau', 'Grün', 'Rot', 'Gelb'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Gras ist grün! Das ist die natürliche Farbe von Gras.',
+    helpText: 'Gras ist grün! Das ist die natürliche Farbe von Gras.',
+  },
+  {
+    id: 'kunst-1-8',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Rot und Gelb mischst?',
+    options: ['Blau', 'Grün', 'Orange', 'Lila'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Wenn du Rot und Gelb mischst, entsteht Orange! Das ist die Farbe von Orangen.',
+    helpText: 'Wenn du Rot und Gelb mischst, entsteht Orange! Das ist die Farbe von Orangen.',
+  },
+  {
+    id: 'kunst-1-9',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Dreieck?',
+    options: ['Rund', 'Viereckig', 'Dreieckig mit 3 Ecken', 'Oval'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Ein Dreieck hat 3 Ecken! Es hat 3 Seiten.',
+    helpText: 'Ein Dreieck hat 3 Ecken! Es hat 3 Seiten.',
+  },
+  {
+    id: 'kunst-1-10',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe hat der Himmel tagsüber?',
+    options: ['Gelb', 'Grün', 'Blau', 'Rot'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Der Himmel ist tagsüber meist blau! Das liegt am Sonnenlicht.',
+    helpText: 'Der Himmel ist tagsüber meist blau! Das liegt am Sonnenlicht.',
+  },
+  {
+    id: 'kunst-1-11',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe hat eine Zitrone?',
+    options: ['Rot', 'Gelb', 'Blau', 'Grün'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Zitronen sind gelb! Das ist ihre natürliche Farbe.',
+    helpText: 'Zitronen sind gelb! Das ist ihre natürliche Farbe.',
+  },
+  {
+    id: 'kunst-1-12',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Rechteck?',
+    options: ['Rund', 'Viereckig mit 4 Ecken', 'Dreieckig', 'Oval'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Ein Rechteck ist viereckig mit 4 Ecken! Es hat 2 lange und 2 kurze Seiten.',
+    helpText: 'Ein Rechteck ist viereckig mit 4 Ecken! Es hat 2 lange und 2 kurze Seiten.',
+  },
+  {
+    id: 'kunst-1-13',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe hat eine Erdbeere?',
+    options: ['Blau', 'Grün', 'Rot', 'Gelb'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Erdbeeren sind rot! Das ist ihre natürliche Farbe.',
+    helpText: 'Erdbeeren sind rot! Das ist ihre natürliche Farbe.',
+  },
+  {
+    id: 'kunst-1-14',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Farbe hat eine Banane?',
+    options: ['Rot', 'Gelb', 'Blau', 'Grün'],
+    correctAnswer: 1,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Bananen sind gelb! Wenn sie reif sind, sind sie gelb.',
+    helpText: 'Bananen sind gelb! Wenn sie reif sind, sind sie gelb.',
+  },
+  {
+    id: 'kunst-1-15',
+    class: 1,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Stern?',
+    options: ['Rund', 'Viereckig', 'Sternförmig mit Spitzen', 'Dreieckig'],
+    correctAnswer: 2,
+    points: 10,
+    difficulty: 'leicht',
+    explanation: 'Ein Stern hat Spitzen! Er sieht aus wie ein Stern am Himmel.',
+    helpText: 'Ein Stern hat Spitzen! Er sieht aus wie ein Stern am Himmel.',
+  },
+  {
+    id: 'kunst-2-1',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farben sind Primärfarben?',
+    options: ['Rot, Gelb, Blau', 'Grün, Orange, Lila', 'Schwarz, Weiß, Grau', 'Rosa, Türkis, Beige'],
+    correctAnswer: 0,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Die Primärfarben sind Rot, Gelb und Blau! Aus diesen kannst du alle anderen Farben mischen.',
+    helpText: 'Die Primärfarben sind Rot, Gelb und Blau! Aus diesen kannst du alle anderen Farben mischen.',
+  },
+  {
+    id: 'kunst-2-2',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du alle Farben mischst?',
+    options: ['Weiß', 'Schwarz', 'Braun', 'Grau'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Wenn du alle Farben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunkle Farbe.',
+    helpText: 'Wenn du alle Farben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunkle Farbe.',
+  },
+  {
+    id: 'kunst-2-3',
+    class: 2,
+    subject: 'kunst',
+    question: 'Was ist eine Komplementärfarbe zu Rot?',
+    options: ['Blau', 'Grün', 'Gelb', 'Orange'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Grün ist die Komplementärfarbe zu Rot! Sie stehen sich im Farbkreis gegenüber.',
+    helpText: 'Grün ist die Komplementärfarbe zu Rot! Sie stehen sich im Farbkreis gegenüber.',
+  },
+  {
+    id: 'kunst-2-4',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Oval?',
+    options: ['Rund wie ein Kreis', 'Länglich und rund', 'Viereckig', 'Dreieckig'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Ein Oval ist länglich und rund! Es sieht aus wie ein länglicher Kreis.',
+    helpText: 'Ein Oval ist länglich und rund! Es sieht aus wie ein länglicher Kreis.',
+  },
+  {
+    id: 'kunst-2-5',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe hat der Regenbogen?',
+    options: ['Nur eine Farbe', 'Viele Farben', 'Nur Schwarz und Weiß', 'Nur Blau'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Ein Regenbogen hat viele Farben! Rot, Orange, Gelb, Grün, Blau, Indigo, Violett.',
+    helpText: 'Ein Regenbogen hat viele Farben! Rot, Orange, Gelb, Grün, Blau, Indigo, Violett.',
+  },
+  {
+    id: 'kunst-2-6',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Technik benutzt du, um mit Farben zu malen?',
+    options: ['Schnitzen', 'Malen', 'Bauen', 'Singen'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Malen ist eine Technik! Du benutzt Farben und einen Pinsel.',
+    helpText: 'Malen ist eine Technik! Du benutzt Farben und einen Pinsel.',
+  },
+  {
+    id: 'kunst-2-7',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Weiß zu einer Farbe hinzufügst?',
+    options: ['Dunkler', 'Heller', 'Gleiche Farbe', 'Schwarz'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Wenn du Weiß zu einer Farbe hinzufügst, wird sie heller! Das nennt man Tönung.',
+    helpText: 'Wenn du Weiß zu einer Farbe hinzufügst, wird sie heller! Das nennt man Tönung.',
+  },
+  {
+    id: 'kunst-2-8',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Herz?',
+    options: ['Rund', 'Viereckig', 'Herzförmig', 'Dreieckig'],
+    correctAnswer: 2,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Ein Herz ist herzförmig! Es hat eine besondere Form mit zwei Rundungen oben.',
+    helpText: 'Ein Herz ist herzförmig! Es hat eine besondere Form mit zwei Rundungen oben.',
+  },
+  {
+    id: 'kunst-2-9',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Schwarz zu einer Farbe hinzufügst?',
+    options: ['Heller', 'Dunkler', 'Gleiche Farbe', 'Weiß'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Wenn du Schwarz zu einer Farbe hinzufügst, wird sie dunkler! Das nennt man Schattierung.',
+    helpText: 'Wenn du Schwarz zu einer Farbe hinzufügst, wird sie dunkler! Das nennt man Schattierung.',
+  },
+  {
+    id: 'kunst-2-10',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Sechseck?',
+    options: ['4 Ecken', '5 Ecken', '6 Ecken', '7 Ecken'],
+    correctAnswer: 2,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Ein Sechseck hat 6 Ecken! Es hat 6 Seiten.',
+    helpText: 'Ein Sechseck hat 6 Ecken! Es hat 6 Seiten.',
+  },
+  {
+    id: 'kunst-2-11',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe hat eine Orange?',
+    options: ['Rot', 'Orange', 'Gelb', 'Grün'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Orangen sind orange! Das ist ihre natürliche Farbe.',
+    helpText: 'Orangen sind orange! Das ist ihre natürliche Farbe.',
+  },
+  {
+    id: 'kunst-2-12',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Fünfeck?',
+    options: ['4 Ecken', '5 Ecken', '6 Ecken', '7 Ecken'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Ein Fünfeck hat 5 Ecken! Es hat 5 Seiten.',
+    helpText: 'Ein Fünfeck hat 5 Ecken! Es hat 5 Seiten.',
+  },
+  {
+    id: 'kunst-2-13',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Blau und Gelb mischst?',
+    options: ['Rot', 'Grün', 'Orange', 'Lila'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Wenn du Blau und Gelb mischst, entsteht Grün! Das ist eine Sekundärfarbe.',
+    helpText: 'Wenn du Blau und Gelb mischst, entsteht Grün! Das ist eine Sekundärfarbe.',
+  },
+  {
+    id: 'kunst-2-14',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Achteck?',
+    options: ['6 Ecken', '7 Ecken', '8 Ecken', '9 Ecken'],
+    correctAnswer: 2,
+    points: 15,
+    difficulty: 'mittel',
+    explanation: 'Ein Achteck hat 8 Ecken! Es hat 8 Seiten.',
+    helpText: 'Ein Achteck hat 8 Ecken! Es hat 8 Seiten.',
+  },
+  {
+    id: 'kunst-2-15',
+    class: 2,
+    subject: 'kunst',
+    question: 'Welche Farbe hat eine Traube?',
+    options: ['Gelb', 'Grün oder Lila', 'Rot', 'Blau'],
+    correctAnswer: 1,
+    points: 15,
+    difficulty: 'leicht',
+    explanation: 'Trauben können grün oder lila sein! Es gibt verschiedene Sorten.',
+    helpText: 'Trauben können grün oder lila sein! Es gibt verschiedene Sorten.',
+  },
+  {
+    id: 'kunst-3-1',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was ist eine Skulptur?',
+    options: ['Ein gemaltes Bild', 'Eine dreidimensionale Figur', 'Ein Foto', 'Ein Lied'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Eine Skulptur ist eine dreidimensionale Figur! Sie ist aus Stein, Holz oder anderen Materialien gemacht.',
+    helpText: 'Eine Skulptur ist eine dreidimensionale Figur! Sie ist aus Stein, Holz oder anderen Materialien gemacht.',
+  },
+  {
+    id: 'kunst-3-2',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Farben sind warme Farben?',
+    options: ['Blau, Grün, Lila', 'Rot, Orange, Gelb', 'Schwarz, Weiß, Grau', 'Rosa, Türkis, Beige'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Warme Farben sind Rot, Orange und Gelb! Sie erinnern an Sonne und Feuer.',
+    helpText: 'Warme Farben sind Rot, Orange und Gelb! Sie erinnern an Sonne und Feuer.',
+  },
+  {
+    id: 'kunst-3-3',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Farben sind kalte Farben?',
+    options: ['Rot, Orange, Gelb', 'Blau, Grün, Lila', 'Schwarz, Weiß, Grau', 'Rosa, Türkis, Beige'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Kalte Farben sind Blau, Grün und Lila! Sie erinnern an Wasser und Eis.',
+    helpText: 'Kalte Farben sind Blau, Grün und Lila! Sie erinnern an Wasser und Eis.',
+  },
+  {
+    id: 'kunst-3-4',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was ist ein Muster?',
+    options: ['Eine einzelne Form', 'Eine sich wiederholende Form', 'Eine Farbe', 'Ein Geräusch'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Ein Muster ist eine sich wiederholende Form! Es wiederholt sich immer wieder.',
+    helpText: 'Ein Muster ist eine sich wiederholende Form! Es wiederholt sich immer wieder.',
+  },
+  {
+    id: 'kunst-3-5',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was ist Perspektive in der Kunst?',
+    options: ['Eine Farbe', 'Eine Technik, um Tiefe zu zeigen', 'Ein Werkzeug', 'Ein Material'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'schwer',
+    explanation: 'Perspektive ist eine Technik, um Tiefe zu zeigen! Dinge, die weiter weg sind, sehen kleiner aus.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Perspektive ist eine Technik, um Tiefe zu zeigen! Dinge, die weiter weg sind, sehen kleiner aus.',
+  },
+  {
+    id: 'kunst-3-6',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Rhombus?',
+    options: ['Rund', 'Viereckig mit 4 gleichen Seiten', 'Dreieckig', 'Oval'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Ein Rhombus ist viereckig mit 4 gleichen Seiten! Es ist wie ein verschobenes Quadrat.',
+    helpText: 'Ein Rhombus ist viereckig mit 4 gleichen Seiten! Es ist wie ein verschobenes Quadrat.',
+  },
+  {
+    id: 'kunst-3-7',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was ist eine Textur?',
+    options: ['Eine Farbe', 'Die Oberfläche eines Materials', 'Eine Form', 'Ein Geräusch'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Eine Textur ist die Oberfläche eines Materials! Sie kann glatt, rau, weich oder hart sein.',
+    helpText: 'Eine Textur ist die Oberfläche eines Materials! Sie kann glatt, rau, weich oder hart sein.',
+  },
+  {
+    id: 'kunst-3-8',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Rot und Weiß mischst?',
+    options: ['Dunkelrot', 'Rosa', 'Schwarz', 'Braun'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'leicht',
+    explanation: 'Wenn du Rot und Weiß mischst, entsteht Rosa! Es ist ein helles Rot.',
+    helpText: 'Wenn du Rot und Weiß mischst, entsteht Rosa! Es ist ein helles Rot.',
+  },
+  {
+    id: 'kunst-3-9',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was bedeutet symmetrisch?',
+    options: ['Gleich auf beiden Seiten', 'Verschieden', 'Rund', 'Eckig'],
+    correctAnswer: 0,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Symmetrisch bedeutet gleich auf beiden Seiten! Wenn du es in der Mitte faltest, passt es zusammen.',
+    helpText: 'Symmetrisch bedeutet gleich auf beiden Seiten! Wenn du es in der Mitte faltest, passt es zusammen.',
+  },
+  {
+    id: 'kunst-3-10',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Trapez?',
+    options: ['Rund', 'Viereckig mit 2 parallelen Seiten', 'Dreieckig', 'Oval'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Ein Trapez ist viereckig mit 2 parallelen Seiten! Die anderen beiden Seiten sind nicht parallel.',
+    helpText: 'Ein Trapez ist viereckig mit 2 parallelen Seiten! Die anderen beiden Seiten sind nicht parallel.',
+  },
+  {
+    id: 'kunst-3-11',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was ist ein Schatten?',
+    options: ['Eine helle Stelle', 'Ein dunkler Bereich ohne Licht', 'Eine Farbe', 'Eine Form'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Ein Schatten ist ein dunkler Bereich ohne Licht! Er entsteht, wenn etwas das Licht blockiert.',
+    helpText: 'Ein Schatten ist ein dunkler Bereich ohne Licht! Er entsteht, wenn etwas das Licht blockiert.',
+  },
+  {
+    id: 'kunst-3-12',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Blau und Rot mischst?',
+    options: ['Grün', 'Orange', 'Lila', 'Gelb'],
+    correctAnswer: 2,
+    points: 20,
+    difficulty: 'leicht',
+    explanation: 'Wenn du Blau und Rot mischst, entsteht Lila! Das ist eine Sekundärfarbe.',
+    helpText: 'Wenn du Blau und Rot mischst, entsteht Lila! Das ist eine Sekundärfarbe.',
+  },
+  {
+    id: 'kunst-3-13',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was ist ein Kontrast?',
+    options: ['Gleiche Farben', 'Sehr unterschiedliche Farben oder Formen', 'Eine Form', 'Ein Geräusch'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Ein Kontrast sind sehr unterschiedliche Farben oder Formen! Zum Beispiel Schwarz und Weiß.',
+    helpText: 'Ein Kontrast sind sehr unterschiedliche Farben oder Formen! Zum Beispiel Schwarz und Weiß.',
+  },
+  {
+    id: 'kunst-3-14',
+    class: 3,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Parallelogramm?',
+    options: ['Rund', 'Viereckig mit gegenüberliegenden parallelen Seiten', 'Dreieckig', 'Oval'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'mittel',
+    explanation: 'Ein Parallelogramm ist viereckig mit gegenüberliegenden parallelen Seiten! Es ist wie ein verschobenes Rechteck.',
+    helpText: 'Ein Parallelogramm ist viereckig mit gegenüberliegenden parallelen Seiten! Es ist wie ein verschobenes Rechteck.',
+  },
+  {
+    id: 'kunst-3-15',
+    class: 3,
+    subject: 'kunst',
+    question: 'Was sind Proportionen?',
+    options: ['Farben', 'Die Größenverhältnisse zwischen Teilen', 'Formen', 'Materialien'],
+    correctAnswer: 1,
+    points: 20,
+    difficulty: 'schwer',
+    explanation: 'Proportionen sind die Größenverhältnisse zwischen Teilen! Zum Beispiel wie groß der Kopf im Vergleich zum Körper ist.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Proportionen sind die Größenverhältnisse zwischen Teilen! Zum Beispiel wie groß der Kopf im Vergleich zum Körper ist.',
+  },
+  {
+    id: 'kunst-4-1',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was ist ein Stillleben?',
+    options: ['Ein Bild von bewegten Dingen', 'Ein Bild von stillen, unbewegten Objekten', 'Ein Porträt', 'Eine Landschaft'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Ein Stillleben ist ein Bild von stillen, unbewegten Objekten! Zum Beispiel Früchte oder Blumen.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Ein Stillleben ist ein Bild von stillen, unbewegten Objekten! Zum Beispiel Früchte oder Blumen.',
+  },
+  {
+    id: 'kunst-4-2',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Farben sind Tertiärfarben?',
+    options: ['Rot, Gelb, Blau', 'Grün, Orange, Lila', 'Rot-Orange, Gelb-Grün, Blau-Lila', 'Schwarz, Weiß, Grau'],
+    correctAnswer: 2,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Tertiärfarben entstehen, wenn du eine Primär- und eine Sekundärfarbe mischst! Zum Beispiel Rot-Orange.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Tertiärfarben entstehen, wenn du eine Primär- und eine Sekundärfarbe mischst! Zum Beispiel Rot-Orange.',
+  },
+  {
+    id: 'kunst-4-3',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was ist Komposition in der Kunst?',
+    options: ['Eine Farbe', 'Die Anordnung von Elementen im Bild', 'Ein Werkzeug', 'Ein Material'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Komposition ist die Anordnung von Elementen im Bild! Wie die Dinge platziert sind.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Komposition ist die Anordnung von Elementen im Bild! Wie die Dinge platziert sind.',
+  },
+  {
+    id: 'kunst-4-4',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Dodekaeder?',
+    options: ['10 Seiten', '12 Seiten', '14 Seiten', '16 Seiten'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Ein Dodekaeder hat 12 Seiten! Es ist ein geometrischer Körper.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Ein Dodekaeder hat 12 Seiten! Es ist ein geometrischer Körper.',
+  },
+  {
+    id: 'kunst-4-5',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was zeigt ein Farbkreis?',
+    options: ['Nur Primärfarben', 'Die Beziehungen zwischen Farben', 'Nur Sekundärfarben', 'Nur Tertiärfarben'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Ein Farbkreis zeigt die Beziehungen zwischen Farben! Welche Farben zusammenpassen.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Ein Farbkreis zeigt die Beziehungen zwischen Farben! Welche Farben zusammenpassen.',
+  },
+  {
+    id: 'kunst-4-6',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du alle Primärfarben mischst?',
+    options: ['Weiß', 'Schwarz oder Braun', 'Grau', 'Transparent'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Wenn du alle Primärfarben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunkle Farbe.',
+    helpText: 'Wenn du alle Primärfarben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunkle Farbe.',
+  },
+  {
+    id: 'kunst-4-7',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was ist ein Highlight?',
+    options: ['Ein dunkler Bereich', 'Ein heller Bereich, der Licht reflektiert', 'Eine Farbe', 'Eine Form'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Ein Highlight ist ein heller Bereich, der Licht reflektiert! Es ist der hellste Punkt.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Ein Highlight ist ein heller Bereich, der Licht reflektiert! Es ist der hellste Punkt.',
+  },
+  {
+    id: 'kunst-4-8',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Ikosaeder?',
+    options: ['18 Seiten', '20 Seiten', '22 Seiten', '24 Seiten'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Ein Ikosaeder hat 20 Seiten! Es ist ein geometrischer Körper mit dreieckigen Seiten.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Ein Ikosaeder hat 20 Seiten! Es ist ein geometrischer Körper mit dreieckigen Seiten.',
+  },
+  {
+    id: 'kunst-4-9',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was ist eine Collage?',
+    options: ['Ein gemaltes Bild', 'Ein Kunstwerk aus verschiedenen Materialien', 'Eine Skulptur', 'Ein Foto'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Eine Collage ist ein Kunstwerk aus verschiedenen Materialien! Zum Beispiel Papier, Stoff oder Fotos.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Eine Collage ist ein Kunstwerk aus verschiedenen Materialien! Zum Beispiel Papier, Stoff oder Fotos.',
+  },
+  {
+    id: 'kunst-4-10',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Farbe entsteht, wenn du Grau zu einer Farbe hinzufügst?',
+    options: ['Heller', 'Dunkler', 'Gedämpfter', 'Intensiver'],
+    correctAnswer: 2,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Wenn du Grau zu einer Farbe hinzufügst, wird sie gedämpfter! Sie wird weniger intensiv.',
+    helpText: 'Wenn du Grau zu einer Farbe hinzufügst, wird sie gedämpfter! Sie wird weniger intensiv.',
+  },
+  {
+    id: 'kunst-4-11',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was ist abstrakte Kunst?',
+    options: ['Realistische Darstellung', 'Kunst, die nicht realistisch aussieht', 'Nur Schwarz-Weiß', 'Nur geometrische Formen'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Abstrakte Kunst sieht nicht realistisch aus! Sie verwendet Formen, Farben und Linien auf eine besondere Weise.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Abstrakte Kunst sieht nicht realistisch aus! Sie verwendet Formen, Farben und Linien auf eine besondere Weise.',
+  },
+  {
+    id: 'kunst-4-12',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Tetraeder?',
+    options: ['3 Seiten', '4 Seiten', '5 Seiten', '6 Seiten'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Ein Tetraeder hat 4 Seiten! Es ist eine Pyramide mit dreieckigen Seiten.',
+    helpText: 'Ein Tetraeder hat 4 Seiten! Es ist eine Pyramide mit dreieckigen Seiten.',
+  },
+  {
+    id: 'kunst-4-13',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was sind harmonische Farben?',
+    options: ['Farben, die sich gegenüberstehen', 'Farben, die nebeneinander im Farbkreis liegen', 'Nur Primärfarben', 'Nur Sekundärfarben'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Harmonische Farben liegen nebeneinander im Farbkreis! Sie passen gut zusammen.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Harmonische Farben liegen nebeneinander im Farbkreis! Sie passen gut zusammen.',
+  },
+  {
+    id: 'kunst-4-14',
+    class: 4,
+    subject: 'kunst',
+    question: 'Welche Form hat ein Oktaeder?',
+    options: ['6 Seiten', '8 Seiten', '10 Seiten', '12 Seiten'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'mittel',
+    explanation: 'Ein Oktaeder hat 8 Seiten! Es ist ein geometrischer Körper.',
+    helpText: 'Ein Oktaeder hat 8 Seiten! Es ist ein geometrischer Körper.',
+  },
+  {
+    id: 'kunst-4-15',
+    class: 4,
+    subject: 'kunst',
+    question: 'Was ist Impressionismus?',
+    options: ['Ein sehr detaillierter Stil', 'Ein Stil, der den Eindruck von Licht und Bewegung zeigt', 'Nur Schwarz-Weiß', 'Nur geometrische Formen'],
+    correctAnswer: 1,
+    points: 25,
+    difficulty: 'schwer',
+    explanation: 'Impressionismus zeigt den Eindruck von Licht und Bewegung! Die Bilder sehen oft verschwommen aus.',
+    isBonus: true,
+    bonusMultiplier: 1.5,
+    helpText: 'Impressionismus zeigt den Eindruck von Licht und Bewegung! Die Bilder sehen oft verschwommen aus.',
   },
 ];
 
 /**
- * Fragen nach Klasse filtern
- */
-export function getQuestionsByClass(
-  classLevel: 1 | 2 | 3 | 4
-): Question[] {
-  return questions.filter((q) => q.class === classLevel);
-}
-
-/**
- * Fragen nach Klasse und Fach filtern
+ * Filtert Fragen nach Klasse und Fach
  */
 export function getQuestionsByClassAndSubject(
   classLevel: 1 | 2 | 3 | 4,
@@ -3211,120 +4326,136 @@ export function getQuestionsByClassAndSubject(
 }
 
 /**
- * Zufällige Fragen auswählen
- */
-export function getRandomQuestions(
-  classLevel: 1 | 2 | 3 | 4,
-  subject: Question['subject'],
-  count: number = 5
-): Question[] {
-  const availableQuestions = getQuestionsByClassAndSubject(classLevel, subject);
-  const shuffled = [...availableQuestions].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, availableQuestions.length));
-}
-
-/**
- * Adaptive Fragen-Auswahl basierend auf Performance
- * Passt die Schwierigkeit dynamisch an
+ * Adaptive Fragen-Auswahl basierend auf Skill-Level des Schülers
+ * Verwendet den neuen adaptiven Lern-Algorithmus für optimale Schwierigkeit
+ * 
+ * @param classLevel - Klasse des Schülers (1-4)
+ * @param subject - Fach
+ * @param count - Anzahl der Fragen
+ * @param skillLevel - Skill-Level des Schülers (0.0-1.0), optional
+ * @param recentResults - Ergebnisse aus aktuellem Quiz (für Fallback), optional
  */
 export function getAdaptiveQuestions(
   classLevel: 1 | 2 | 3 | 4,
   subject: Question['subject'],
   count: number = 8,
-  recentResults: Array<{ isCorrect: boolean }> = []
+  skillLevel?: number,
+  recentResults?: Array<{ isCorrect: boolean }>
 ): Question[] {
-  const availableQuestions = getQuestionsByClassAndSubject(classLevel, subject);
-  
-  // Trenne Standard- und Bonus-Fragen
-  const standardQuestions = availableQuestions.filter(q => !q.isBonus);
-  const bonusQuestions = availableQuestions.filter(q => q.isBonus === true);
-  
-  // Bestimme aktuelle Ziel-Schwierigkeit basierend auf Performance
-  let targetDifficulty: 'leicht' | 'mittel' | 'schwer' = 'mittel';
-  let shouldIncludeBonus = false;
-  
-  if (recentResults.length >= 3) {
-    const lastThree = recentResults.slice(-3);
-    const correctCount = lastThree.filter(r => r.isCorrect).length;
-    
-    if (correctCount === 3) {
-      // 3 richtige in Folge → schwierigere Fragen + Bonus möglich
-      targetDifficulty = 'schwer';
-      shouldIncludeBonus = true;
-    } else if (correctCount === 0) {
-      // 3 falsche in Folge → leichtere Fragen, kein Bonus
-      targetDifficulty = 'leicht';
-      shouldIncludeBonus = false;
-    } else {
-      // 1-2 richtige → mittlere Schwierigkeit, Bonus möglich wenn gut performt
-      shouldIncludeBonus = correctCount >= 2;
-    }
-  } else {
-    // Am Anfang: Bonus möglich wenn gut performt
-    const avgCorrect = recentResults.length > 0 
-      ? recentResults.filter(r => r.isCorrect).length / recentResults.length 
-      : 0;
-    shouldIncludeBonus = avgCorrect >= 0.6; // 60% oder mehr richtig
-  }
-  
-  // Berechne Anzahl Bonus-Fragen (10% der Gesamtanzahl)
-  const bonusCount = shouldIncludeBonus && bonusQuestions.length > 0 
-    ? Math.max(1, Math.floor(count * 0.1)) 
-    : 0;
-  const standardCount = count - bonusCount;
-  
-  // Sortiere Standard-Fragen nach Schwierigkeit
-  const easyStandard = standardQuestions.filter(q => q.difficulty === 'leicht');
-  const mediumStandard = standardQuestions.filter(q => q.difficulty === 'mittel' || !q.difficulty);
-  const hardStandard = standardQuestions.filter(q => q.difficulty === 'schwer');
-  
-  // Verteile Standard-Fragen basierend auf Ziel-Schwierigkeit
-  let selectedQuestions: Question[] = [];
-  
-  if (targetDifficulty === 'schwer') {
-    // 50% schwer, 30% mittel, 20% leicht
-    selectedQuestions.push(...shuffleArray(hardStandard).slice(0, Math.floor(standardCount * 0.5)));
-    selectedQuestions.push(...shuffleArray(mediumStandard).slice(0, Math.floor(standardCount * 0.3)));
-    selectedQuestions.push(...shuffleArray(easyStandard).slice(0, Math.floor(standardCount * 0.2)));
-  } else if (targetDifficulty === 'leicht') {
-    // 50% leicht, 30% mittel, 20% schwer
-    selectedQuestions.push(...shuffleArray(easyStandard).slice(0, Math.floor(standardCount * 0.5)));
-    selectedQuestions.push(...shuffleArray(mediumStandard).slice(0, Math.floor(standardCount * 0.3)));
-    selectedQuestions.push(...shuffleArray(hardStandard).slice(0, Math.floor(standardCount * 0.2)));
-  } else {
-    // 40% mittel, 30% leicht, 30% schwer (Standard)
-    selectedQuestions.push(...shuffleArray(mediumStandard).slice(0, Math.floor(standardCount * 0.4)));
-    selectedQuestions.push(...shuffleArray(easyStandard).slice(0, Math.floor(standardCount * 0.3)));
-    selectedQuestions.push(...shuffleArray(hardStandard).slice(0, Math.floor(standardCount * 0.3)));
-  }
-  
-  // Füge Bonus-Fragen hinzu (wenn Kind gut performt)
-  if (bonusCount > 0 && bonusQuestions.length > 0) {
-    selectedQuestions.push(...shuffleArray(bonusQuestions).slice(0, bonusCount));
-  }
-  
-  // Fülle auf, falls nicht genug Fragen vorhanden
-  const remaining = count - selectedQuestions.length;
-  if (remaining > 0) {
-    const allRemaining = [...standardQuestions].filter(q => 
-      !selectedQuestions.some(sq => sq.id === q.id)
-    );
-    selectedQuestions.push(...shuffleArray(allRemaining).slice(0, remaining));
-  }
-  
-  // Mische die finale Auswahl
-  return shuffleArray(selectedQuestions).slice(0, count);
-}
+  // Filtere Fragen nach Klasse und Fach
+  let availableQuestions = getQuestionsByClassAndSubject(classLevel, subject);
 
-/**
- * Hilfsfunktion zum Mischen eines Arrays
- */
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  // Wenn keine Fragen gefunden wurden, gebe leeres Array zurück
+  if (availableQuestions.length === 0) {
+    return [];
   }
-  return shuffled;
+
+  // NEUER ALGORITHMUS: Verwende Skill-Level wenn verfügbar
+  let easyRatio: number;
+  let mediumRatio: number;
+  let hardRatio: number;
+
+  if (skillLevel !== undefined && skillLevel !== null) {
+    // Verwende neuen adaptiven Algorithmus basierend auf Skill-Level
+    const distribution = getOptimalDifficultyDistribution(skillLevel);
+    easyRatio = distribution.easy;
+    mediumRatio = distribution.medium;
+    hardRatio = distribution.hard;
+  } else {
+    // Fallback: Alte Logik basierend auf recentResults
+    let successRate = 0.5; // Standard: 50%
+    if (recentResults && recentResults.length > 0) {
+      const correctCount = recentResults.filter((r) => r.isCorrect).length;
+      successRate = correctCount / recentResults.length;
+    }
+
+    // Bestimme Schwierigkeits-Verteilung basierend auf Erfolgsrate
+    easyRatio = 0.3;
+    mediumRatio = 0.5;
+
+    if (successRate < 0.4) {
+      // Bei niedriger Erfolgsrate: mehr leichte Fragen
+      easyRatio = 0.5;
+      mediumRatio = 0.4;
+    } else if (successRate > 0.7) {
+      // Bei hoher Erfolgsrate: mehr schwere Fragen
+      easyRatio = 0.2;
+      mediumRatio = 0.4;
+    }
+    
+    hardRatio = 1 - easyRatio - mediumRatio;
+  }
+
+  // Teile Fragen nach Schwierigkeit auf
+  const easyQuestions = availableQuestions.filter((q) => q.difficulty === 'leicht' || !q.difficulty);
+  const mediumQuestions = availableQuestions.filter((q) => q.difficulty === 'mittel');
+  const hardQuestions = availableQuestions.filter((q) => q.difficulty === 'schwer');
+
+  // Berechne Anzahl pro Schwierigkeit
+  const easyCount = Math.max(1, Math.round(count * easyRatio));
+  const mediumCount = Math.max(1, Math.round(count * mediumRatio));
+  const hardCount = Math.max(0, Math.round(count * hardRatio));
+
+  // Wähle zufällige Fragen aus jeder Kategorie
+  const shuffle = <T>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const selectedQuestions: Question[] = [];
+
+  // Füge leichte Fragen hinzu
+  if (easyQuestions.length > 0) {
+    selectedQuestions.push(...shuffle(easyQuestions).slice(0, easyCount));
+  }
+
+  // Füge mittlere Fragen hinzu
+  if (mediumQuestions.length > 0) {
+    selectedQuestions.push(...shuffle(mediumQuestions).slice(0, mediumCount));
+  }
+
+  // Füge schwere Fragen hinzu
+  if (hardQuestions.length > 0) {
+    selectedQuestions.push(...shuffle(hardQuestions).slice(0, hardCount));
+  }
+
+  // Falls nicht genug Fragen vorhanden, fülle mit verfügbaren auf
+  if (selectedQuestions.length < count && availableQuestions.length > selectedQuestions.length) {
+    const remaining = availableQuestions.filter((q) => !selectedQuestions.includes(q));
+    selectedQuestions.push(...shuffle(remaining).slice(0, count - selectedQuestions.length));
+  }
+
+  // Mische die ausgewählten Fragen nochmal
+  const finalQuestions = shuffle(selectedQuestions).slice(0, count);
+
+  // WICHTIG: Mische die Antwort-Optionen für jede Frage zufällig
+  // und passe den correctAnswer Index entsprechend an
+  return finalQuestions.map((question) => {
+    // Nur für Multiple-Choice Fragen mit Optionen
+    if (question.options && question.options.length > 0 && typeof question.correctAnswer === 'number') {
+      // Speichere die richtige Antwort (Wert, nicht Index)
+      const correctAnswerValue = question.options[question.correctAnswer];
+      
+      // Erstelle eine Kopie der Optionen und mische sie
+      const shuffledOptions = shuffle([...question.options]);
+      
+      // Finde den neuen Index der richtigen Antwort
+      const newCorrectAnswerIndex = shuffledOptions.findIndex(option => option === correctAnswerValue);
+      
+      // Erstelle eine neue Frage mit gemischten Optionen
+      return {
+        ...question,
+        options: shuffledOptions,
+        correctAnswer: newCorrectAnswerIndex,
+      };
+    }
+    
+    // Für andere Fragetypen (input, drag-drop) unverändert zurückgeben
+    return question;
+  });
 }
 

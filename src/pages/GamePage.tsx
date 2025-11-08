@@ -7,6 +7,10 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { NumberSortGame } from '../components/games/NumberSortGame';
 import { WordMatchGame } from '../components/games/WordMatchGame';
 import { MemoryGame } from '../components/games/MemoryGame';
+import { MathPuzzleGame } from '../components/games/MathPuzzleGame';
+import { SentenceBuilderGame } from '../components/games/SentenceBuilderGame';
+import { PatternContinueGame } from '../components/games/PatternContinueGame';
+import { AnimalHabitatGame } from '../components/games/AnimalHabitatGame';
 import { syncPoints } from '../utils/points';
 import { getCurrentUser } from '../services/auth';
 import type { GameId, GameResult } from '../types';
@@ -15,6 +19,10 @@ const gameComponents: Record<GameId, React.ComponentType<any>> = {
   'number-sort': NumberSortGame,
   'word-match': WordMatchGame,
   'memory': MemoryGame,
+  'math-puzzle': MathPuzzleGame,
+  'sentence-builder': SentenceBuilderGame,
+  'pattern-continue': PatternContinueGame,
+  'animal-habitat': AnimalHabitatGame,
 };
 
 export function GamePage() {
@@ -33,7 +41,7 @@ export function GamePage() {
           </h1>
           <button
             onClick={() => navigate('/home')}
-            className="px-6 py-3 bg-gradient-primary text-white rounded-xl hover:shadow-colored-lime transform hover:scale-105 transition-all shadow-medium"
+            className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transform hover:scale-105 transition-all shadow-md hover:shadow-lg"
           >
             Zurück zur Startseite
           </button>

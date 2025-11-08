@@ -3,12 +3,6 @@
  * Alle wichtigen Datenstrukturen werden hier definiert
  */
 
-// Storytelling-Charaktere
-export type StoryCharacter = 'max' | 'luna';
-
-// Storytelling-Welten pro Fach
-export type StoryWorld = 'mathe-land' | 'deutsch-stadt' | 'natur-paradies' | 'kunst-atelier' | 'logik-turm';
-
 // Fragetypen
 export type QuestionType = 'multiple-choice' | 'input' | 'drag-drop';
 
@@ -25,10 +19,6 @@ export interface Question {
   difficulty?: 'leicht' | 'mittel' | 'schwer'; // Schwierigkeitsgrad
   topic?: string; // Thema (z.B. "addition", "buchstaben")
   explanation?: string; // Kindgerechte Erklärung bei falscher Antwort
-  // Storytelling-Felder
-  character?: StoryCharacter; // Welcher Charakter ist in dieser Geschichte?
-  storyText?: string; // Die Geschichte/Kontext vor der Frage
-  world?: StoryWorld; // In welcher Welt spielt diese Geschichte?
   // Für drag-drop Fragen
   dragItems?: string[]; // Items die gezogen werden können
   dropTargets?: string[]; // Ziele für Drag & Drop
@@ -84,6 +74,7 @@ export interface SubjectProgress {
   level?: number; // Level im Fach (1-100)
   xp?: number; // Aktuelle XP im aktuellen Level
   xpToNextLevel?: number; // XP benötigt für nächstes Level
+  skillLevel?: number; // Adaptives Skill-Level (0.0-1.0) für adaptive Fragen-Auswahl
 }
 
 // Gesamt-Fortschritt
@@ -100,6 +91,7 @@ export interface Progress {
   difficultQuestions: DifficultQuestion[];
   badges: string[]; // Badge-IDs
   learningStreak: LearningStreak;
+  dailyChallenge?: DailyChallenge; // Aktuelle tägliche Challenge
   lastActivity: string; // ISO Date String
 }
 
@@ -118,6 +110,18 @@ export interface LearningStreak {
   current: number; // Aktuelle Tage in Folge
   longest: number; // Längster Streak
   lastActivity: string; // ISO Date String
+}
+
+// Tägliche Challenge
+export interface DailyChallenge {
+  id: string; // Eindeutige ID (z.B. "2024-01-15")
+  date: string; // ISO Date String
+  type: 'questions' | 'points' | 'perfect' | 'streak'; // Challenge-Typ
+  target: number; // Zielwert (z.B. 5 Fragen richtig)
+  description: string; // Beschreibung der Challenge
+  bonusPoints: number; // Bonus-Punkte bei Erfüllung
+  completed: boolean; // Wurde die Challenge erfüllt?
+  progress: number; // Aktueller Fortschritt (z.B. 3/5 Fragen)
 }
 
 // Badge-Typ
@@ -139,7 +143,7 @@ export interface FirebaseConfig {
 }
 
 // Mini-Spiel Typen
-export type GameId = 'number-sort' | 'word-match' | 'memory';
+export type GameId = 'number-sort' | 'word-match' | 'memory' | 'math-puzzle' | 'sentence-builder' | 'pattern-continue' | 'animal-habitat';
 
 export interface GameResult {
   gameId: GameId;
