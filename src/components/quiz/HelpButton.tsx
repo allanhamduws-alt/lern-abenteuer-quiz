@@ -184,6 +184,108 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
       // Entferne "Tipp:" Präfix falls vorhanden (für alte Einträge)
       textToSpeak = textToSpeak.replace(/^💡\s*Tipp:\s*/i, '').replace(/^Tipp:\s*/i, '').trim();
       
+      // KRITISCH: Entferne die richtige Antwort aus dem Text BEVOR mathematische Symbole ersetzt werden
+      // Dies verhindert, dass die Lösung vorgesagt wird
+      const options = question.options || [];
+      const correctAnswerIndex = typeof question.correctAnswer === 'number' 
+        ? question.correctAnswer 
+        : options.indexOf(question.correctAnswer.toString());
+      
+      if (correctAnswerIndex >= 0 && correctAnswerIndex < options.length) {
+        const correctAnswer = options[correctAnswerIndex];
+        
+        // Entferne die richtige Antwort in verschiedenen Formaten
+        // 1. Direkte Nennung der Zahl - ersetze durch natürlichen Platzhalter
+        const answerRegex = new RegExp(`\\b${correctAnswer}\\b`, 'gi');
+        textToSpeak = textToSpeak.replace(answerRegex, 'die richtige Lösung');
+        
+        // 2. In Sätzen wie "Die fehlende Zahl ist X", "Als Nächstes kommt X", etc.
+        // Ersetze die ganze Phrase durch hilfreiche, aber neutrale Formulierungen
+        const sentencePatterns = [
+          {
+            pattern: new RegExp(`Die fehlende Zahl ist\\s*${correctAnswer}[!.]?`, 'gi'),
+            replacement: 'Die fehlende Zahl findest du heraus, wenn du das Muster erkennst!'
+          },
+          {
+            pattern: new RegExp(`Als Nächstes kommt\\s*${correctAnswer}[!.]?`, 'gi'),
+            replacement: 'Als Nächstes kommt die Zahl, die dem Muster folgt!'
+          },
+          {
+            pattern: new RegExp(`Das Ergebnis ist\\s*${correctAnswer}[!.]?`, 'gi'),
+            replacement: 'Das Ergebnis findest du, wenn du die Rechnung durchführst!'
+          },
+          {
+            pattern: new RegExp(`Die Antwort ist\\s*${correctAnswer}[!.]?`, 'gi'),
+            replacement: 'Die Antwort findest du, wenn du genau überlegst!'
+          },
+          {
+            pattern: new RegExp(`Die Lösung ist\\s*${correctAnswer}[!.]?`, 'gi'),
+            replacement: 'Die Lösung findest du, wenn du das Muster erkennst!'
+          },
+          {
+            pattern: new RegExp(`${correctAnswer}\\s*(ist|kommt|fehlt|ist die Antwort|ist die Lösung)`, 'gi'),
+            replacement: 'die richtige Lösung'
+          },
+        ];
+        
+        for (const { pattern, replacement } of sentencePatterns) {
+          textToSpeak = textToSpeak.replace(pattern, replacement);
+        }
+        
+        // 3. In mathematischen Gleichungen die die Lösung zeigen
+        // Entferne die ganze Gleichung oder ersetze nur das Ergebnis
+        // Beispiel: "15×2+1=31" → entferne die ganze Gleichung oder → "15×2+1 ergibt die richtige Lösung"
+        const equationRegex = new RegExp(`(\\d+\\s*(?:mal|×|plus|\\+|minus|-|geteilt durch|÷)\\s*\\d+\\s*(?:plus|\\+|minus|-)?\\s*\\d*)\\s*=\\s*${correctAnswer}`, 'gi');
+        textToSpeak = textToSpeak.replace(equationRegex, '$1 ergibt die richtige Lösung');
+        
+        // 4. Ersetze auch "also X+Y=Z" Muster - entferne diese Phrasen komplett
+        const alsoRegex = new RegExp(`also\\s+\\d+\\s*(?:mal|×|plus|\\+|minus|-|geteilt durch|÷)\\s*\\d+\\s*(?:plus|\\+|minus|-)?\\s*\\d*\\s*=\\s*${correctAnswer}[!.]?`, 'gi');
+        textToSpeak = textToSpeak.replace(alsoRegex, '');
+      }
+      
+      // Ersetze mathematische Symbole für bessere TTS-Aussprache
+      // Die KI sollte sie beim Generieren schon als Wörter verwenden, aber sicherheitshalber nochmal ersetzen
+      textToSpeak = textToSpeak
+        .replace(/×/g, ' mal ')  // × → "mal"
+        .replace(/÷/g, ' geteilt durch ')  // ÷ → "geteilt durch"
+        .replace(/=/g, ' ist gleich ')  // = → "ist gleich"
+        .replace(/\+/g, ' plus ')  // + → "plus"
+        .replace(/-/g, ' minus ')  // - → "minus"
+        .replace(/\s+/g, ' ')  // Mehrfache Leerzeichen entfernen
+        .trim();
+      
+      // Zusätzliches Sicherheitsnetz: Entferne alle Optionen die noch im Text vorkommen könnten
+      for (const option of options) {
+        // Nur wenn es nicht die richtige Antwort ist (die wurde schon ersetzt)
+        if (option !== options[correctAnswerIndex]) {
+          // Entferne Sätze die Optionen direkt nennen
+          const regex = new RegExp(`(Als Nächstes kommt|Das Ergebnis ist|Die Antwort ist|Die Lösung ist|Die fehlende Zahl ist)\\s*${option}[!.]?`, 'gi');
+          textToSpeak = textToSpeak.replace(regex, '');
+        }
+      }
+      
+      // Entferne mathematische Gleichungen die noch Lösungen zeigen könnten
+      textToSpeak = textToSpeak.replace(/\d+\s*mal\s*\d+\s*ist gleich\s*\d+/gi, '');
+      textToSpeak = textToSpeak.replace(/also\s+\d+\s*(plus|minus|mal|geteilt durch)\s*\d+\s*ist gleich\s*\d+[!.]?/gi, '');
+      
+      // Prüfe ob der Text nach allen Ersetzungen noch die richtige Antwort enthält
+      // Falls ja, stoppe die Sprachausgabe und zeige eine Warnung
+      if (correctAnswerIndex >= 0 && correctAnswerIndex < options.length) {
+        const correctAnswer = options[correctAnswerIndex];
+        const stillContainsAnswer = new RegExp(`\\b${correctAnswer}\\b`, 'i').test(textToSpeak);
+        
+        if (stillContainsAnswer) {
+          console.warn('⚠️ WARNUNG: Text enthält noch die richtige Antwort nach allen Filtern!', {
+            questionId: question.id,
+            correctAnswer,
+            textPreview: textToSpeak.substring(0, 100)
+          });
+          // Ersetze alle verbleibenden Vorkommen durch natürlichen Platzhalter
+          const finalRegex = new RegExp(`\\b${correctAnswer}\\b`, 'gi');
+          textToSpeak = textToSpeak.replace(finalRegex, 'die richtige Lösung');
+        }
+      }
+      
       // Wenn es eine technische Erklärung ist (identisch mit explanation), mache sie kindgerechter
       if (textToSpeak === question.explanation && question.explanation) {
         // Füge eine freundliche Einleitung hinzu

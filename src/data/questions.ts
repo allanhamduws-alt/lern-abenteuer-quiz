@@ -18,7 +18,11 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Bei 2 + 3 kannst du zählen: Starte bei 2 und zähle 3 weiter: 2... 3, 4, 5! Das Ergebnis ist 5.',
-    helpText: 'Bei 2 + 3 kannst du zählen: Starte bei 2 und zähle 3 weiter: 2... 3, 4, 5! Das Ergebnis ist 5.',
+    helpText: 'Hey, mein kleiner Lernfreund! Lass uns mal gemeinsam an dieser Aufgabe arbeiten. Wenn wir 2 und 3 zusammenbringen wollen, dann können wir das wie ein kleines Zählspiel machen. 
+
+Stell dir vor, du hast schon 2 Äpfel in deinem Korb. Jetzt kommen 3 weitere Äpfel dazu! 
+
+Fang einfach bei 2 an und zähle dann alle Äpfel bis du am Ende bist. Wie viele Äpfel sind das insgesamt? Probier es mal aus! Du schaffst das ganz sicher, und ich bin hier, um dir zu helfen! Schau gut hin und zähle laut, denn das macht das Lernen viel einfacher! Das ist echt spannend, nicht wahr?',
   },
   {
     id: 'math-1-2',
@@ -30,7 +34,11 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Bei 5 + 2 startest du bei 5 und zählst 2 weiter: 5... 6, 7! Das Ergebnis ist 7.',
-    helpText: 'Bei 5 + 2 startest du bei 5 und zählst 2 weiter: 5... 6, 7! Das Ergebnis ist 7.',
+    helpText: 'Hey du, das ist ja eine spannende Frage! Wenn wir uns anschauen, was 5 plus 2 ist, können wir das wie ein kleines Abenteuer betrachten. Stell dir vor, du hast 5 Äpfel. Wenn du dann 2 weitere Äpfel bekommst, was passiert dann? 
+
+Du könntest einfach zählen, indem du von 5 weitergehst. Also sag mal: "5, 6, ... und dann noch weiter ... 7!" 
+
+Das ist wie ein tolles Zählen bis zu dem neuen, größeren Ergebnis! Wie viele Äpfel hast du jetzt insgesamt? Überleg mal, ich bin sicher, du schaffst das! 🎉',
   },
   {
     id: 'math-1-3',
@@ -1416,7 +1424,13 @@ export const questions: Question[] = [
     explanation: 'Umfang = 2 × Länge + 2 × Breite. Also: 2 × 10 + 2 × 5 = 20 + 10 = 30 Meter!',
     isBonus: true, // ⭐ Bonus: Komplexe Geometrie-Berechnung
     bonusMultiplier: 1.5,
-    helpText: 'Umfang = 2 × Länge + 2 × Breite. Also: 2 × 10 + 2 × 5 = 20 + 10 = 30 Meter!',
+    helpText: 'Hey [Name], das ist eine spannende Frage! Wir wollen herausfinden, wie groß der Umfang eines Spielplatzes ist, richtig? Stell dir vor, der Umfang ist wie ein großer Zaun, der den Spielplatz umschließt. 
+
+Um diesen Zaun zu berechnen, müssen wir zuerst wissen, wie lang und wie breit der Spielplatz ist. Das bedeutet, wir können die Länge und die Breite nutzen, um den gesamten Abstand rund um den Spielplatz zu finden. 
+
+Schau mal, wenn wir die Länge zweimal nehmen und die Breite auch zweimal, dann bilden wir eine Art Formel. Das ist ein bisschen wie ein Rezept beim Kochen – wir brauchen die richtigen Zutaten, um das Ergebnis zu bekommen. 
+
+Hast du schon darüber nachgedacht, was das bedeutet? Vielleicht kannst du dir einen Spielplatz vorstellen und mal schauen, wie viele Seiten er hat! Wenn du darüber nachdenkst, wird es dir sicher helfen, das Ergebnis zu finden. Das schaffst du',
   },
   {
     id: 'math-4-geo-2',
@@ -1658,7 +1672,13 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: '6 × 7 = 42. Du kannst rechnen: 6 × 6 = 36, dann noch 6 dazu: 36 + 6 = 42!',
-    helpText: '6 × 7 = 42. Du kannst rechnen: 6 × 6 = 36, dann noch 6 dazu: 36 + 6 = 42!',
+    helpText: 'Hey du, das ist eine spannende Frage! Lass uns mal gemeinsam überlegen, wie wir diese Rechnung angehen können. 
+
+Also, wenn wir sagen „6 mal 7“, bedeutet das, dass wir 6 Gruppen von 7 Sachen haben. Denk mal nach: Wenn du 6 Äpfel hast und in jedem Apfelkorb sind 7 Äpfel, wie viele Äpfel sind das insgesamt? 
+
+Um dir dabei zu helfen, könntest du dir auch vorstellen, dass du eine bestimmte Anzahl von Dingen hast, und du wiederholst diese Anzahl mehrmals. Was denkst du, wie viele wäre das insgesamt? 
+
+Du schaffst das, und ich glaube an dich! Überleg einfach mal, und dann kommen wir zusammen zur Antwort! 😊',
   },
   {
     id: 'natur-1-1',
@@ -2782,7 +2802,11 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Die Zahlen zählen hoch: 1, 2, 3... Als Nächstes kommt 4!',
-    helpText: 'Die Zahlen zählen hoch: 1, 2, 3... Als Nächstes kommt 4!',
+    helpText: 'Hey, [Name]! Lass uns mal gemeinsam schauen, was hier passiert. Du siehst eine Reihe von Zahlen: 1, 2, 3. Was denkst du, wenn du diese Zahlen anschaust? 
+
+Das ist wie ein Spiel, bei dem wir die Zahlen einfach weiter zählen! Weißt du, manchmal gibt es bei Zahlen ein schönes Muster. Wenn du die Zahlen betrachtest, fallen dir vielleicht die Unterschiede oder wie sie sich verändern auf. 
+
+Was könnte denn nach der drei kommen? Denk mal darüber nach! Vielleicht kannst du dir vorstellen, wie du einen weiteren Schritt in dieser Reihe machst. Das ist ganz spannend, oder? Versuch einfach mal zu überlegen! Ich bin mir sicher, du schaffst das! 🌟',
   },
   {
     id: 'logik-1-4',
@@ -2829,7 +2853,11 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'leicht',
     explanation: 'Das Alphabet geht weiter: A, B, C... Als Nächstes kommt D!',
-    helpText: 'Das Alphabet geht weiter: A, B, C... Als Nächstes kommt D!',
+    helpText: 'Hey du! Lass uns mal gemeinsam über diese spannende Frage nachdenken! Schau mal, wir haben hier eine Reihe von Buchstaben: A, B, C... Weißt du, was ich daran so cool finde? Die Buchstaben folgen einem ganz bestimmten System, fast wie eine schöne Melodie! 
+
+Wenn du dir die Buchstaben genau anschaust, siehst du, dass sie in einer bestimmten Reihenfolge stehen, oder? Das ist wie ein Geheimnis, das darauf wartet, gelüftet zu werden! 
+
+Also, was kommt nach C? Denk mal einen Moment darüber nach, welcher Buchstabe als Nächstes auf unserer kleinen Reise durch das Alphabet kommt. Du kannst das schaffen! Das ist so aufregend, und ich bin sicher, du wirst die Antwort finden. Glaub an dich! 😊',
   },
   {
     id: 'logik-1-8',
@@ -2853,7 +2881,13 @@ export const questions: Question[] = [
     points: 10,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6... Als Nächstes kommt 8!',
-    helpText: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6... Als Nächstes kommt 8!',
+    helpText: 'Hey, mein lieber Freund! Lass uns zusammen diese spannende Zahlenreihe anschauen, okay? Wir haben da die Zahlen 2, 4 und 6. Das ist doch schon mal ein guter Anfang! 
+
+Wenn du dir die Zahlen genau anschaust, merkst du bestimmt, dass sie etwas gemeinsam haben. Weißt du, wie man von einer Zahl zur nächsten kommt? Es ist, als würde man mit einer kleinen Bewegungen springen! 
+
+Überleg mal: Wenn du von 2 zu 4 gehst, wie viele Schritte machst du da? Und dann von 4 zu 6? Schau genau hin, vielleicht gibt es einen besonderen Rhythmus, dem die Zahlen folgen! 
+
+Ich finde es super, dass du so neugierig bist! Du bist auf dem richtigen Weg, das herauszufinden. Lass uns weiterforschen! Was denkst du, könnte die nächste Zahl sein? Mach einfach einen weiteren Sprung!',
   },
   {
     id: 'logik-1-10',
@@ -2877,7 +2911,11 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Fünferschnitten: 5, 10, 15... Als Nächstes kommt 20!',
-    helpText: 'Die Zahlen zählen in Fünferschnitten: 5, 10, 15... Als Nächstes kommt 20!',
+    helpText: 'Hey, du! Lass uns mal zusammen auf diese Reihenfolge von Zahlen schauen: 5, 10, 15. Was fällt dir dabei auf? Sie sehen ja aus, als ob sie irgendwie miteinander verbunden sind, oder? 
+
+Denk mal an die erste Zahl, die ist 5. Wenn wir dann zur nächsten Zahl gehen, wird sie immer ein bisschen größer. Ist dir aufgefallen, um wie viel sie größer wird? Man könnte sagen, es ist wie wenn du leckere Kekse backst: Du fügst immer wieder eine bestimmte Anzahl hinzu! 
+
+Kannst du dir vorstellen, wie es weitergeht? Kleinere Schritte sind wie kleine Küchlein – man kann mehr und mehr davon machen! Versuch mal zu überlegen, was die nächste Zahl nach 15 sein könnte. Du schaffst das!',
   },
   {
     id: 'logik-2-2',
@@ -2925,7 +2963,11 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 3: 1, 4 (1+3), 7 (4+3), 10 (7+3)... Als Nächstes kommt 13 (10+3)!',
-    helpText: 'Die Zahlen steigen um 3: 1, 4 (1+3), 7 (4+3), 10 (7+3)... Als Nächstes kommt 13 (10+3)!',
+    helpText: 'Hey du! Lass uns mal gemeinsam über diese Reihe von Zahlen nachdenken: 1, 4, 7, 10... Ist das nicht spannend? Schau mal, die Zahlen scheinen irgendwie miteinander verwoben zu sein, als würden sie ein Geheimnis erzählen!
+
+Wenn wir uns die ersten beiden Zahlen anschauen: 1 und 4. Was fällt dir auf, wenn du von 1 zu 4 gehst? Genau, du wirst immer um etwas mehr größer, richtig? Und dann geht es von 4 zu 7 und von 7 zu 10. Also, was könnten die Zahlen miteinander machen? 
+
+Du könntest dir jetzt überlegen, wie viel sich die Zahlen jeweils verändert haben, wenn du von einer zur nächsten gehst. Und was denkst du, könnte dann nach der 10 kommen? Versuch, das Rätsel mit mir zu lösen! Du kannst das!',
   },
   {
     id: 'logik-2-6',
@@ -2961,7 +3003,11 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6, 8, 10. Die fehlende Zahl ist 4!',
-    helpText: 'Die Zahlen zählen in Zweierschritten: 2, 4, 6, 8, 10. Die fehlende Zahl ist 4!',
+    helpText: 'Hey, du! Lass uns mal zusammen auf diese spannende Zahlenreihe schauen: 2, ___, 6, 8, 10. Hast du gemerkt, dass da eine Zahl fehlt? 
+
+Das ist wie ein kleines Rätsel! Schau mal, wenn du von 2 aus weiterzählst, was kommt dann nach 2? Du kannst das wie eine Treppe sehen, bei der du von einer Stufe zur nächsten springst. 
+
+Versuche mal, dir vorzustellen, um wie viel du von einer Zahl zur nächsten springst. Wenn du einen großen Schritt machst, was könnte dann die nächste Zahl sein, bevor wir zu 6 kommen? Komm, wir denken zusammen darüber nach! Das schaffst du! 🌟',
   },
   {
     id: 'logik-2-9',
@@ -2973,7 +3019,11 @@ export const questions: Question[] = [
     points: 15,
     difficulty: 'mittel',
     explanation: 'Die Buchstaben springen immer einen über: A, C (B übersprungen), E (D übersprungen), G (F übersprungen)... Als Nächstes kommt I (H übersprungen)!',
-    helpText: 'Die Buchstaben springen immer einen über: A, C (B übersprungen), E (D übersprungen), G (F übersprungen)... Als Nächstes kommt I (H übersprungen)!',
+    helpText: 'Hey, du! Lass uns mal zusammen über die Buchstaben reden! Schau mal, wir haben die Buchstaben A, C, E und G. Das sind alles ganz besondere Buchstaben, oder? Jetzt lass uns herausfinden, was nach G kommt. 
+
+Könntest du bemerken, dass wir bei jedem Schritt einen Buchstaben überspringen? Ja, das ist spannend! A, dann C – aber was ist mit B passiert? Genau, B haben wir nicht gesagt! Und dann E, was kommt dazwischen? Richtig, D wurde übersprungen. 
+
+Jetzt, wenn wir bei G ankommen, was passiert dann? Kannst du dir vorstellen, welcher Buchstabe nach G kommen könnte, wenn wir wieder einen überspringen? Denk einfach darüber nach – du bist auf dem richtigen Weg! Ich bin schon ganz gespannt, was du herausfindest! Du schaffst das! 🌟',
   },
   {
     id: 'logik-2-10',
@@ -2997,7 +3047,11 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 3: 3, 6 (3+3), 9 (6+3), 12 (9+3)... Als Nächstes kommt 15 (12+3)!',
-    helpText: 'Die Zahlen steigen um 3: 3, 6 (3+3), 9 (6+3), 12 (9+3)... Als Nächstes kommt 15 (12+3)!',
+    helpText: 'Hey, schau mal, [Name]! Wir haben hier eine ganz spannende Zahlenreihe: 3, 6, 9 und 12. Kannst du sehen, dass diese Zahlen ein bisschen miteinander verbunden sind? Wenn wir uns die Zahlen genauer anschauen, können wir etwas über ihren Zusammenhang herausfinden. 
+
+Wenn wir von einer Zahl zur nächsten gehen, passiert immer etwas ganz Interessantes. Was denkst du, wie viel wir bei jeder Zahl dazu gewinnen? Könnte es sein, dass wir etwas dazuzählen? 
+
+Lass uns einfach mal überlegen: Wenn wir bei 3 anfangen und dann zu 6 kommen, wie viel ist das? Und dann von 6 zu 9? Und von 9 zu 12? Du bist schon auf einem tollen Weg! Überlege, was als Nächstes kommen könnte, wenn wir weiter so machen. Du schaffst das!',
   },
   {
     id: 'logik-3-2',
@@ -3009,7 +3063,13 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen sind ungerade: 1, 3, 5, 7, 9. Die fehlende Zahl ist 5!',
-    helpText: 'Die Zahlen sind ungerade: 1, 3, 5, 7, 9. Die fehlende Zahl ist 5!',
+    helpText: 'Hey, mein lieber Freund! Lass uns gemeinsam über eine interessante Zahlenreihe nachdenken! Schau mal, wir haben die Zahlen 1, 3, dann eine Zahl, und danach kommen 7 und 9. 
+
+Jetzt ist die spannende Frage: Was könnte die fehlende Zahl in der Mitte sein? 
+
+Eine coole Idee wäre, darüber nachzudenken, wie sich diese Zahlen miteinander verhalten. Sie scheinen ja alle irgendwie miteinander verbunden zu sein. Weißt du, das sind besonders die ungeraden Zahlen. Was denkst du, welche Zahl zwischen 3 und 7 passen könnte? 
+
+Denk doch mal an die Zahlen, die du kennst. Zähl sie vielleicht einfach mal durch. Du bist auf dem richtigen Weg! Denke daran, dass jede Zahl ihre eigene Rolle hat, und vielleicht gibt es eine, die genau hierhin gehört! Du schaffst das! 🍀😁',
   },
   {
     id: 'logik-3-3',
@@ -3033,7 +3093,11 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 3: 2, 5 (2+3), 8 (5+3), 11 (8+3)... Als Nächstes kommt 14 (11+3)!',
-    helpText: 'Die Zahlen steigen um 3: 2, 5 (2+3), 8 (5+3), 11 (8+3)... Als Nächstes kommt 14 (11+3)!',
+    helpText: 'Hey du, schön, dass du hier bist! Lass uns gemeinsam diese Zahlenreihe anschauen: 2, 5, 8, 11. Hmm, was fällt dir dabei auf? Sieht so aus, als würden die Zahlen sich verändern, oder? 
+
+Überleg mal, wie viele Schritte die Zahlen machen, wenn sie sich ändern. Schau dir die ersten beiden Zahlen an: von 2 zu 5. Wie viele Zähler haben wir da? Richtig, zähl mal mit! Und jetzt schau dir die nächsten Schritte an – was passiert da? 
+
+Du bist auf dem richtigen Weg! Denk daran, dass wir die gleiche Veränderung auch für die nächste Zahl verwenden können. Wie viel würde dann die nächste Zahl sein? Tolle Arbeit, lass uns weiterdenken! Was kommt als Nächstes? Du schaffst das!',
   },
   {
     id: 'logik-3-5',
@@ -3069,7 +3133,13 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Zahlen zählen in Zehnerschritten: 10, 20, 30, 40, 50. Die fehlende Zahl ist 30!',
-    helpText: 'Die Zahlen zählen in Zehnerschritten: 10, 20, 30, 40, 50. Die fehlende Zahl ist 30!',
+    helpText: 'Hey du! Lass uns mal zusammen schauen, was hier in dieser Reihe von Zahlen passiert. Wir haben die Zahlen: 10, 20, und dann fehlt etwas, und dann kommen 40 und 50. 
+
+Wenn wir uns die ersten beiden Zahlen ansehen, 10 und 20, da merken wir doch etwas, oder? Die Zahlen haben etwas gemeinsam! Wenn wir von der ersten zur zweiten Zahl gehen, passiert da etwas Spannendes. Du kannst jeder Zahl immer einen Schritt hinzufügen.
+
+Jetzt frag dich mal: Wenn wir diese Reihe weitermachen, was für eine Zahl könnte zwischen 20 und 40 stehen? Denk an die Zahl, die du bekommst, wenn du weiter in uns bekannten Schritten zählst. 
+
+Ich glaube an dich, du bekommst das hin! Versuch es einfach mal! Was könnte es sein? Super, dass du mitdenkst!',
   },
   {
     id: 'logik-3-8',
@@ -3105,7 +3175,11 @@ export const questions: Question[] = [
     points: 20,
     difficulty: 'mittel',
     explanation: 'Die Buchstaben springen immer zwei über: A, D (B+C übersprungen), G (E+F übersprungen), J (H+I übersprungen)... Als Nächstes kommt M (K+L übersprungen)!',
-    helpText: 'Die Buchstaben springen immer zwei über: A, D (B+C übersprungen), G (E+F übersprungen), J (H+I übersprungen)... Als Nächstes kommt M (K+L übersprungen)!',
+    helpText: 'Hey du! Lass uns gemeinsam die geheimnisvolle Reihe der Buchstaben anschauen! Die Buchstaben A, D, G und J scheinen eine besondere Regel zu haben. Wenn du genau hinschaust, wirst du sehen, dass nach jedem Buchstaben zwei andere übersprungen werden. 
+
+Kannst du herausfinden, wie viele Buchstaben zwischen A und D sowie zwischen D und G liegen? Super! Und was ist mit den anderen Sprüngen? Schau einfach mit deinen Augen auf diese Buchstaben und versuche herauszufinden, wie es weitergeht. Es gibt da einen tollen Rhythmus, wie eine Melodie, die sich wiederholt! 
+
+Ich bin mir sicher, dass du das schaffen kannst, du bist echt klug! Denke daran, was du bis jetzt entdeckt hast, und überlege, welcher Buchstabe nach J kommen könnte. Lass uns zusammen herausfinden, was hier als Nächstes passiert! 😊✨',
   },
   {
     id: 'logik-4-1',
@@ -3117,7 +3191,11 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Differenz steigt: +2, +3, +4, +5... Als Nächstes kommt +6, also 15+6=21!',
-    helpText: 'Die Differenz steigt: +2, +3, +4, +5... Als Nächstes kommt +6, also 15+6=21!',
+    helpText: 'Hey du! Lass uns mal gemeinsam diese spannende Reihe anschauen: 1, 3, 6, 10, 15 und dann...? Das ist ja wie ein kleines Rätsel, oder? 
+
+Schau mal, wenn wir von einer Zahl zur nächsten gehen, passiert etwas ganz Interessantes. Ich sehe, dass wir von 1 nach 3 zwei Schritte machen, dann von 3 nach 6 drei Schritte, dann von 6 nach 10 vier Schritte und schließlich von 10 nach 15 fünf Schritte. Was denkst du, passiert da mit den Schritten? Kannst du vielleicht sehen, wie sie sich verändern? 
+
+Wenn du dir die Schritte genauer anschaust, könntest du herausfinden, wie viele Schritte als Nächstes kommen könnten. Das ist eine tolle Möglichkeit, dein eigenes Denken zu trainieren! Versuch mal, was die nächste Zahl sein könnte! Du bist auf dem richtigen Weg! Super, dass du so neugierig bist!',
   },
   {
     id: 'logik-4-2',
@@ -3129,7 +3207,13 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'mittel',
     explanation: 'Die Zahlen steigen um 4: 2, 6 (2+4), 10 (6+4), 14 (10+4), 18 (14+4), 22 (18+4). Die fehlende Zahl ist 10!',
-    helpText: 'Die Zahlen steigen um 4: 2, 6 (2+4), 10 (6+4), 14 (10+4), 18 (14+4), 22 (18+4). Die fehlende Zahl ist 10!',
+    helpText: 'Hey, mein lieber Freund! Lass uns mal zusammen auf diese spannende Zahlenreihe schauen, okay? Wir haben die Zahlen 2, 6, eine Zahl, 18 und 22. Jetzt fragst du dich vielleicht, was mit der fehlenden Zahl ist?
+
+Schau mal, zwischen diesen Zahlen passiert etwas Besonderes. Es sieht so aus, als ob die Zahlen immer ein bisschen größer werden, oder? Wir müssen herausfinden, wie viel größer die nächste Zahl im Vergleich zur vorherigen ist. 
+
+Wenn wir uns die ersten beiden Zahlen anschauen, können wir sehen, dass 6 irgendwie mit 2 verbunden ist. Hmm, frage dich doch mal, was kommen könnte, um die Verbindung zwischen den Zahlen zu erkennen! 
+
+Wie viel könntest du von 6 zu der nächsten Zahl hinzufügen, um zur nächsten Zahl in dieser Reihe zu kommen? Das ist wie ein kleines Rätsel, das darauf wartet, gelöst zu werden! Du hast das bestimmt schnell durchblickt! Trau dich,',
   },
   {
     id: 'logik-4-3',
@@ -3141,7 +3225,11 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Jede Zahl wird verdoppelt: 5×2=10, 10×2=20, 20×2=40... Als Nächstes kommt 40×2=80!',
-    helpText: 'Jede Zahl wird verdoppelt: 5×2=10, 10×2=20, 20×2=40... Als Nächstes kommt 40×2=80!',
+    helpText: 'Hey, du! Lass uns mal zusammen überlegen, was da kommt! Schau dir die Zahlen an: 5, 10, 20 und 40. Sie scheinen sich irgendwie zu verändern, oder? 
+
+Hast du schon bemerkt, dass jede Zahl größer wird? Es ist fast so, als könnte man sie ein Stück weit miteinander verbinden. Denk mal an was lustiges: Wenn du eine Zahl hast und sie irgendwie „verstärkst“, also mehr daraus machst, was passiert dann? 
+
+Versuch mal, dir vorzustellen, dass jede Zahl die vorhergehende „verdoppelt“. Was könnte dann nach 40 kommen, wenn du das Prinzip weiter anwendest? Du bist auf dem richtigen Weg! Lass uns weiterdenken! 🌟',
   },
   {
     id: 'logik-4-4',
@@ -3177,7 +3265,13 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Jede Zahl wird verdoppelt: 1×2=2, 2×2=4, 4×2=8, 8×2=16... Als Nächstes kommt 16×2=32!',
-    helpText: 'Jede Zahl wird verdoppelt: 1×2=2, 2×2=4, 4×2=8, 8×2=16... Als Nächstes kommt 16×2=32!',
+    helpText: 'Hey, schau mal her! Wir haben hier eine spannende Reihe von Zahlen: 1, 2, 4, 8, 16. Lass uns zusammen herausfinden, wie sie miteinander verbunden sind!  
+
+Wenn du dir die Zahlen anschaust, kannst du vielleicht entdecken, dass mit jeder neuen Zahl etwas Besonderes passiert. Jede Zahl ist viel größer als die vorherige. Hast du eine Idee, warum das so ist? Vielleicht, weil sie auf eine bestimmte Weise miteinander zusammenhängen?  
+
+Überlege mal: Wenn du eine Zahl nimmst und sie mit einer anderen Zahl multiplizierst, verändert sich doch das Ergebnis, oder? Was denkst du, mit welcher Zahl könnten diese Zahlen vielleicht immer wieder zusammenarbeiten?  
+
+Schau noch einmal genau hin, was passiert, wenn du die ersten beiden Zahlen nimmst. Wie fühlt es sich an, die nächste Zahl zu finden? Du bist auf dem richtigen Weg, und ich glaube, dass du das ganz toll schaffst',
   },
   {
     id: 'logik-4-7',
@@ -3189,7 +3283,11 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Regel ist: ×2+1. 3×2+1=7, 7×2+1=15, 15×2+1=31, 31×2+1=63. Die fehlende Zahl ist 31!',
-    helpText: 'Die Regel ist: ×2+1. 3×2+1=7, 7×2+1=15, 15×2+1=31, 31×2+1=63. Die fehlende Zahl ist 31!',
+    helpText: 'Hey, super, dass du hier bist und diese spannende Frage angeschaut hast! Schau mal, wir haben eine Reihe von Zahlen, und da fehlt tatsächlich eine wichtige Zahl. Lass uns gemeinsam herausfinden, welche das sein könnte!
+
+Wenn du dir die Zahlen anschaust, kannst du sicher etwas Interessantes bemerken. Jede Zahl sieht ein bisschen anders aus, aber vielleicht gibt es ja einen besonderen Zusammenhang zwischen ihnen? Überlege mal, was mit den Zahlen passiert, wenn du etwas mit ihnen machst. Versuche, herauszufinden, wie eine Zahl in die nächste übergeht. 
+
+Du könntest auch versuchen, die Schritte zu erkennen. Vielleicht macht jede Zahl etwas Ähnliches, um zur nächsten zu kommen? Versuche, das herauszufinden, und wenn du’s schaffst, dann wirst du die fehlende Zahl ganz sicher finden. Ich glaube an dich, du schaffst das!',
   },
   {
     id: 'logik-4-8',
@@ -3201,7 +3299,9 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Differenz wird kleiner: -10, -9, -8... Als Nächstes kommt -7, also 73-7=66!',
-    helpText: 'Die Differenz wird kleiner: -10, -9, -8... Als Nächstes kommt -7, also 73-7=66!',
+    helpText: 'Hey, du Liebling! Lass uns mal über diese Zahlenreihe nachdenken, okay? Schau dir die Zahlen an: 100, 90, 81, 73. Hast du gesehen, dass der Abstand zwischen den Zahlen kleiner wird? Bei der ersten Zahl, die wir hatten, sind wir von 100 auf 90 gegangen und haben 10 abgezogen. Und dann? Geht\'s weiter mit -9, dann -8... Das ist wie eine kleine Reise, bei der wir nicht immer gleich weit gehen, sondern immer ein Stückchen weniger! 
+
+Was denkst du, was als Nächstes kommen könnte? Versuch zu überlegen, wie viel wir von 73 abziehen sollten. Und das Schöne ist, darüber nachzudenken macht echt Spaß! Ich weiß, du kannst das! Glaub an dich! 🌟',
   },
   {
     id: 'logik-4-9',
@@ -3213,7 +3313,13 @@ export const questions: Question[] = [
     points: 25,
     difficulty: 'schwer',
     explanation: 'Die Differenz steigt: +4, +6, +8, +10... Als Nächstes kommt +12, also 30+12=42!',
-    helpText: 'Die Differenz steigt: +4, +6, +8, +10... Als Nächstes kommt +12, also 30+12=42!',
+    helpText: 'Hey, mein lieber Freund! Lass uns mal zusammen auf diese spannende Zahlenreihe schauen: 2, 6, 12, 20, 30, und dann kommt da etwas, das wir herausfinden wollen! 
+
+Schau mal, wenn du die Zahlen anschaust, scheinen sie ja nicht einfach nur wild durcheinander zu sein. Beobachte mal, wie viel wir von einer Zahl zur nächsten hinzufügen. Guck mal: 6 ist mehr als 2, und 12 ist mehr als 6. Was passiert da? 
+
+Sieht so aus, als ob die abstand zwischen den Zahlen immer größer wird. Also, wenn wir von einer zur nächsten Zahl hüpfen, wird der Sprung ein bisschen größer, oder? Hmm, wenn du das entdeckst, könntest du herausfinden, wie viel das nächste „Hüpf“-Länge sein könnte! 
+
+Denke daran, wenn du das herausfindest, dann bist du auf dem besten Weg',
   },
   {
     id: 'logik-4-10',
