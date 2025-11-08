@@ -370,3 +370,157 @@ p {
 .bg-gradient-card {
   background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
 }
+
+/* ============================================
+   CHARACTER MASKOTTCHEN ANIMATIONEN
+   ============================================ */
+
+/* Idle-Animation: Leichtes Atmen und sanfte Bewegung */
+@keyframes character-idle {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+.character-animate-idle {
+  animation: character-idle 3s ease-in-out infinite;
+}
+
+/* Speaking-Animation: Mundbewegungen mit leichter Körperbewegung */
+@keyframes character-speaking {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  25% {
+    transform: translateY(-1px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.03);
+  }
+  75% {
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+
+.character-animate-speaking {
+  animation: character-speaking 0.6s ease-in-out infinite;
+}
+
+/* Happy-Animation: Fröhliches Springen */
+@keyframes character-happy {
+  0%, 100% {
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) scale(1.05) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.08) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) scale(1.05) rotate(2deg);
+  }
+}
+
+.character-animate-happy {
+  animation: character-happy 0.8s ease-in-out infinite;
+}
+
+/* Sad-Animation: Trauriges Wippen nach unten */
+@keyframes character-sad {
+  0%, 100% {
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(3px) scale(0.98) rotate(-1deg);
+  }
+}
+
+.character-animate-sad {
+  animation: character-sad 2s ease-in-out infinite;
+}
+
+/* Thinking-Animation: Nachdenkliche Kopfbewegung */
+@keyframes character-thinking {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(3deg);
+  }
+}
+
+.character-animate-thinking {
+  animation: character-thinking 2.5s ease-in-out infinite;
+}
+
+/* Excited-Animation: Aufgeregtes Springen */
+@keyframes character-excited {
+  0%, 100% {
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-10px) scale(1.06) rotate(-3deg);
+  }
+  40% {
+    transform: translateY(-15px) scale(1.1) rotate(0deg);
+  }
+  60% {
+    transform: translateY(-10px) scale(1.06) rotate(3deg);
+  }
+  80% {
+    transform: translateY(-5px) scale(1.03) rotate(0deg);
+  }
+}
+
+.character-animate-excited {
+  animation: character-excited 0.6s ease-in-out infinite;
+}
+
+/* Proud-Animation: Stolze Pose mit leichter Bewegung */
+@keyframes character-proud {
+  0%, 100% {
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.03) rotate(1deg);
+  }
+}
+
+.character-animate-proud {
+  animation: character-proud 1.5s ease-in-out infinite;
+}
+
+/* Smooth Transition zwischen States */
+.character-transition {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease-in-out;
+}
+
+/* Performance-Optimierung */
+.character-animate-idle,
+.character-animate-speaking,
+.character-animate-happy,
+.character-animate-sad,
+.character-animate-thinking,
+.character-animate-excited,
+.character-animate-proud {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Character Container für bessere Performance */
+.character-container {
+  position: relative;
+  display: inline-block;
+}

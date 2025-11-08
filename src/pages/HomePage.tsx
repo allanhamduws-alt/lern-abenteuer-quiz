@@ -9,7 +9,7 @@ import { getCurrentUser } from '../services/auth';
 import { loadProgress } from '../services/progress';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
-import { Mascot } from '../components/Mascot';
+import { CharacterMascot } from '../components/CharacterMascot';
 import { DailyChallengeCard } from '../components/ui/DailyChallengeCard';
 import { MathIcon, GermanIcon, ScienceIcon, ArtIcon, LogicIcon } from '../components/icons';
 import type { User, Progress } from '../types';
@@ -103,7 +103,7 @@ export function HomePage() {
       <Header user={user || undefined} />
       
       {/* Maskottchen als fixed Begleiter */}
-      <Mascot mood="friendly" text="Hallo! Wähle ein Fach aus und lass uns gemeinsam lernen! 🎓" position="bottom-right" />
+      <CharacterMascot position="bottom-right" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">

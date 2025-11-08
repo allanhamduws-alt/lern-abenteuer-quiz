@@ -9,7 +9,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-explanations": "node scripts/generateExplanations.mjs"
+    "generate-explanations": "node scripts/generateExplanations.mjs",
+    "validate-questions": "node scripts/validateQuestions.mjs",
+    "validate-answers": "node scripts/validateQuestionAnswers.mjs",
+    "validate-all": "npm run validate-questions && npm run validate-answers"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.16",
@@ -20,6 +23,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.5",
+    "rive-react": "^4.23.4",
     "tailwindcss": "^4.1.16"
   },
   "devDependencies": {
@@ -32,6 +36,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "tsx": "^4.20.6",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "^7.1.7"

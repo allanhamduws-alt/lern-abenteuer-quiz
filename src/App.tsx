@@ -5,9 +5,14 @@
 
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
+import { MascotProvider } from './contexts/MascotContext';
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <MascotProvider>
+      <RouterProvider router={router} />
+    </MascotProvider>
+  );
 }
 
 export default App;

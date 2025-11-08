@@ -8,6 +8,8 @@ import { useState, useEffect, useRef } from 'react';
 import type { Question } from '../../types';
 import { textToSpeech } from '../../services/openai';
 import { getCurrentUser } from '../../services/auth';
+import { useMascot } from '../../contexts/MascotContext';
+import { useAudioSync } from '../../hooks/useAudioSync';
 
 interface HelpButtonProps {
   question: Question;
@@ -21,6 +23,10 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
   const [audioError, setAudioError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null); // Für OpenAI Audio
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const { onAudioStart, onAudioEnd } = useMascot();
+  
+  // Synchronisiere Audio mit Maskottchen
+  useAudioSync(audioRef.current, isSpeaking);
 
   // Lade User-Namen beim ersten Render (mit Fehlerbehandlung)
   useEffect(() => {
@@ -139,6 +145,8 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
       }
       setIsSpeaking(false);
       setAudioError(null);
+      // Trigger Maskottchen Audio-End Event beim Stoppen
+      onAudioEnd();
       return;
     }
 
@@ -339,6 +347,8 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
         try {
           await audio.play();
           console.log('✅ Audio wird abgespielt');
+          // Trigger Maskottchen Audio-Start Event
+          onAudioStart();
         } catch (playError: any) {
           console.error('❌ audio.play() fehlgeschlagen:', playError);
           setAudioError('Audio konnte nicht abgespielt werden. Bitte versuche es erneut.');
@@ -355,6 +365,8 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
             URL.revokeObjectURL(audioUrl); // Cleanup
             audioRef.current = null;
             setIsSpeaking(false);
+            // Trigger Maskottchen Audio-End Event
+            onAudioEnd();
             resolve();
           };
           
@@ -363,6 +375,8 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
             audioRef.current = null;
             setIsSpeaking(false);
             setAudioError('Fehler beim Abspielen der Audio-Datei.');
+            // Trigger Maskottchen Audio-End Event auch bei Fehler
+            onAudioEnd();
             reject(error);
           };
         });
@@ -423,16 +437,22 @@ export function HelpButton({ question, className = '' }: HelpButtonProps) {
       utterance.onstart = () => {
         setIsSpeaking(true);
         setAudioError(null);
+        // Trigger Maskottchen Audio-Start Event
+        onAudioStart();
       };
       
       utterance.onend = () => {
         setIsSpeaking(false);
+        // Trigger Maskottchen Audio-End Event
+        onAudioEnd();
       };
       
       utterance.onerror = (error) => {
         console.error('❌ SpeechSynthesis Fehler:', error);
         setAudioError('Fehler bei der Sprachausgabe. Bitte versuche es erneut.');
         setIsSpeaking(false);
+        // Trigger Maskottchen Audio-End Event auch bei Fehler
+        onAudioEnd();
       };
       
       window.speechSynthesis.speak(utterance);

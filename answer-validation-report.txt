@@ -1,0 +1,19 @@
+Antwort-Konsistenz-Report
+Erstellt am: 8.11.2025, 13:41:57
+
+Gesamt: 353 Fragen
+OK: 352 Fragen
+KRITISCHE FEHLER: 1 Fragen
+
+================================================================================
+KRITISCHE FEHLER:
+================================================================================
+
+❌ Frage 'natur-3-4':
+   Frage: "Welche Temperatur ist wärmer?"
+   Optionen: A. 10°C, B. 20°C, C. 0°C, D. 5°C
+   Aktuell markiert: Option B - "20°C"
+
+   EXPLANATION_MISMATCH: Erklärung bezeichnet "0°C" als richtig, aber correctAnswer ist "20°C"
+   ❌ Falsch: "0°C"
+   ✅ Richtig: "20°C"

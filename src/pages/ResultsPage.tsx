@@ -10,12 +10,13 @@ import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Badge } from '../components/ui/Badge';
 import { LevelUp } from '../components/ui/LevelUp';
-import { Mascot } from '../components/Mascot';
+import { CharacterMascot } from '../components/CharacterMascot';
 import { syncPoints } from '../utils/points';
 import { getCurrentUser } from '../services/auth';
 import { updateProgressAfterQuiz, loadProgress } from '../services/progress';
 import { checkEarnedBadges } from '../data/badges';
 import { getBadgeById } from '../data/badges';
+import { useMascot } from '../contexts/MascotContext';
 import type { QuizResult, User, Question } from '../types';
 
 export function ResultsPage() {
@@ -28,6 +29,7 @@ export function ResultsPage() {
   const quizDurationSeconds = location.state?.quizDurationSeconds as number | undefined;
   const correctAnswers = results.filter((r) => r.isCorrect).length;
   const totalQuestions = results.length;
+  const { onProud, onHappy, onError } = useMascot();
   const [user, setUser] = useState<User | null>(null);
   const [pointsSynced, setPointsSynced] = useState(false);
   const [progressSynced, setProgressSynced] = useState(false);
@@ -142,6 +144,19 @@ export function ResultsPage() {
     syncData();
   }, []); // Nur einmal beim Mounten ausführen
 
+  // Trigger Maskottchen Events basierend auf Ergebnis
+  useEffect(() => {
+    if (totalQuestions > 0) {
+      if (correctAnswers === totalQuestions) {
+        onProud();
+      } else if (correctAnswers >= totalQuestions / 2) {
+        onHappy();
+      } else {
+        onError();
+      }
+    }
+  }, [correctAnswers, totalQuestions, onProud, onHappy, onError]);
+
   return (
     <div className="min-h-screen bg-gradient-background">
       <Header user={user || undefined} />
@@ -156,16 +171,7 @@ export function ResultsPage() {
       )}
 
       {/* Maskottchen als fixed Begleiter */}
-      <Mascot 
-        mood={correctAnswers === totalQuestions ? "proud" : correctAnswers >= totalQuestions / 2 ? "happy" : "encouraging"}
-        text={
-          correctAnswers === totalQuestions 
-            ? "Großartig! 🏆 Du hast alle Fragen richtig beantwortet! Du bist ein echter Superstar!" 
-            : correctAnswers >= totalQuestions / 2 
-            ? "Super gemacht! 🎉 Du hast schon viele Fragen richtig beantwortet! Weiter so!" 
-            : "Gut gemacht! 💪 Jede Frage ist eine Chance zu lernen. Beim nächsten Mal schaffst du es bestimmt noch besser!"}
-        position="bottom-right"
-      />
+      <CharacterMascot position="bottom-right" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">

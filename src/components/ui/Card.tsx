@@ -18,14 +18,22 @@ export function Card({ children, className, padding = 'md' }: CardProps) {
     lg: 'p-8',
   };
 
+  // Prüfe ob className bereits einen Hintergrund enthält
+  const hasCustomBackground = className?.includes('bg-gradient-to') || 
+                              (className?.includes('bg-') && !className?.includes('bg-gradient-card'));
+
   return (
     <div
       className={clsx(
-        'bg-gradient-card rounded-xl shadow-medium border border-gray-100',
+        // Basis-Styles immer setzen
+        'rounded-xl shadow-medium border border-gray-100',
         'transition-all duration-300 ease-out',
         'hover:shadow-large hover:scale-[1.01]',
         paddingStyles[padding],
-        className
+        // Custom className zuerst (damit es bg-gradient-card überschreibt)
+        className,
+        // Nur bg-gradient-card setzen wenn kein custom background vorhanden ist
+        !hasCustomBackground && 'bg-gradient-card'
       )}
     >
       {children}

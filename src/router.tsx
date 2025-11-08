@@ -15,6 +15,7 @@ import { GamesPage } from './pages/GamesPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { ParentDashboardPage } from './pages/ParentDashboardPage';
 import { AdminPage } from './pages/AdminPage';
+import { ParentSettingsPage } from './pages/ParentSettingsPage';
 import { LinkParentPage } from './pages/LinkParentPage';
 import { onAuthChange } from './services/auth';
 import { useState, useEffect } from 'react';
@@ -126,6 +127,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <AdminPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings',
+    element: (
+      <ProtectedRoute>
+        <ParentSettingsPage />
       </ProtectedRoute>
     ),
   },

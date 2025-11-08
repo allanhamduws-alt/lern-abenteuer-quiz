@@ -15,9 +15,10 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { InputQuestion } from '../components/quiz/InputQuestion';
 import { DragDropQuestion } from '../components/quiz/DragDropQuestion';
 import { HelpButton } from '../components/quiz/HelpButton';
-import { Mascot } from '../components/Mascot';
+import { CharacterMascot } from '../components/CharacterMascot';
 import { getCurrentUser } from '../services/auth';
 import { loadProgress, calculateSkillLevel } from '../services/progress';
+import { useMascot } from '../contexts/MascotContext';
 import type { Question, QuizResult, Progress } from '../types';
 
 export function QuizPage() {
@@ -25,6 +26,7 @@ export function QuizPage() {
   const [searchParams] = useSearchParams();
   const classLevel = parseInt(searchParams.get('class') || '1') as 1 | 2 | 3 | 4;
   const subject = searchParams.get('subject') || 'mathematik';
+  const { onSuccess, onError } = useMascot();
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -210,6 +212,13 @@ export function QuizPage() {
       setResults(updatedResults);
       setLastAnswerCorrect(isCorrect);
 
+      // Trigger Maskottchen Events basierend auf Antwort
+      if (isCorrect) {
+        onSuccess();
+      } else {
+        onError();
+      }
+
       // Punktzähler animieren
       const currentPoints = results.reduce((sum, r) => sum + r.points, 0);
       const newTotalPoints = updatedResults.reduce((sum, r) => sum + r.points, 0);
@@ -342,15 +351,7 @@ export function QuizPage() {
       <Stars show={showStars} />
 
       {/* Maskottchen als fixed Begleiter */}
-      {showResult && lastAnswerCorrect !== null && (
-        <Mascot 
-          mood={lastAnswerCorrect ? "happy" : "encouraging"}
-          text={lastAnswerCorrect 
-            ? "Super gemacht! 🎉 Du hast die richtige Antwort gefunden!" 
-            : "Nicht aufgeben! 💪 Beim nächsten Mal schaffst du es bestimmt!"}
-          position="bottom-right"
-        />
-      )}
+      <CharacterMascot position="bottom-right" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
