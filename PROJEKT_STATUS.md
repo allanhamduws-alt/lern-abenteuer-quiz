@@ -96,6 +96,20 @@
     - Zone of Proximal Development (~80% Erfolgsrate Ziel)
     - Sicherheitsgrenzen für Anfänger und Fortgeschrittene
   - Siehe [`ADAPTIVER_ALGORITHMUS.md`](./ADAPTIVER_ALGORITHMUS.md) für Details
+- ✅ Sprint 2.4: Hilfe-Funktion ohne Lösungsvorgabe ⭐ NEU
+  - **Robuste Filterung der richtigen Antwort** in `HelpButton.tsx`
+  - Automatische Entfernung von Lösungen vor Sprachausgabe
+  - Mathematische Symbole werden korrekt ausgesprochen (× → "mal")
+  - **23 problematische helpText-Einträge neu generiert**
+  - Verbesserte KI-Prompts mit klaren Regeln:
+    * Keine Lösungsvorgabe (absolut verboten)
+    * Liebevolle, pädagogische Sprache
+    * Gelegentliche Namensnennung für Personalisierung
+    * Frage wird in eigenen Worten nochmal erklärt
+    * Sehr lerneffektiv mit WARUM-Erklärungen
+  - Neues Script `fixHelpTexts.ts` zum Neugenerieren problematischer Einträge
+  - Mehrschichtige Sicherheit: Filterung + Script-Prüfung + KI-Prompt
+  - Siehe [`HELPTEXT_REGELN.md`](./HELPTEXT_REGELN.md) für Regeln und Best Practices
 - ✅ Sprint 2.3: Verschiedene Fragetypen
   - Input-Fragen Komponente (direkte Eingabe)
   - Drag & Drop Komponente
@@ -180,12 +194,14 @@ Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 - ✅ Visuelle Klarheit
 - ✅ Spielerisches Lernen
 - ✅ Adaptive Schwierigkeit
+- ✅ **Hilfe ohne Lösungsvorgabe** ⭐ NEU
 
 **Vermeiden:**
 - ❌ Komplexe Navigation
 - ❌ Negative Emotionen
 - ❌ Zu viele Optionen
 - ❌ Lange Texte
+- ❌ **Lösungen in helpText verraten** ⭐ KRITISCH - Siehe [`HELPTEXT_REGELN.md`](./HELPTEXT_REGELN.md)
 
 Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 
@@ -193,8 +209,11 @@ Siehe [`ENTWICKLUNGSLEITFADEN.md`](./ENTWICKLUNGSLEITFADEN.md) für Details.
 
 - `ENTWICKLUNGSLEITFADEN.md` - **Hauptleitfaden für alle Entwicklungen**
 - `ADAPTIVER_ALGORITHMUS.md` - **Dokumentation des adaptiven Lern-Algorithmus** ⭐ NEU
+- `HELPTEXT_REGELN.md` - **Regeln für helpText-Erstellung** ⭐ NEU - **MUSS BEACHTET WERDEN!**
 - `src/data/questions.ts` - Quiz-Fragen hinzufügen
 - `src/services/progress.ts` - Adaptiver Algorithmus & Progress-Tracking
+- `src/components/quiz/HelpButton.tsx` - Hilfe-Funktion mit Filterung
+- `scripts/fixHelpTexts.ts` - Script zum Neugenerieren problematischer helpTexts
 - `.env.local` - Firebase-Konfiguration (müssen Sie erstellen)
 - `src/components/ui/` - UI-Komponenten zum Anpassen
 - `src/pages/` - Seiten-Komponenten
