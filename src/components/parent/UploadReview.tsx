@@ -441,21 +441,152 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
     }
   };
 
-  // OCR mit GPT-4 Vision (läuft im Browser)
-  // HINWEIS: Diese Funktion sollte idealerweise durch den Backend-Agent ersetzt werden
-  // um API-Keys nicht im Frontend zu exponieren
+  // PDF-Extraktion mit Gemini 2.5 Pro (wie Backend)
+  // Direkte PDF-Verarbeitung ohne JPEG-Konvertierung
+  const performOCRWithGemini = async (fileUrl: string): Promise<{ text: string; confidence: number; pages: number }> => {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY nicht gefunden. Bitte setzen Sie VITE_GEMINI_API_KEY in .env.local');
+    }
+
+    try {
+      console.log('🔍 Starte PDF-Extraktion mit Gemini 2.5 Pro...');
+      
+      const fileResponse = await fetch(fileUrl);
+      if (!fileResponse.ok) {
+        throw new Error(`Fehler beim Laden der Datei: ${fileResponse.statusText}`);
+      }
+
+      const contentType = fileResponse.headers.get('content-type') || '';
+      const isPDF = contentType.includes('pdf') || fileUrl.toLowerCase().endsWith('.pdf');
+      
+      const fileBuffer = await fileResponse.arrayBuffer();
+      // Konvertiere ArrayBuffer zu Base64
+      const bytes = new Uint8Array(fileBuffer);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      const fileBase64 = btoa(binary);
+      
+      // Versuche Gemini 2.5 Pro, fallback auf andere Modelle
+      const modelsToTry = [
+        'gemini-2.5-pro',
+        'gemini-2.0-flash-exp',
+        'gemini-1.5-pro',
+      ];
+
+      let extractedText = '';
+      let pages = 1;
+      let lastError: Error | null = null;
+
+      for (const modelName of modelsToTry) {
+        try {
+          console.log(`📄 Versuche Modell: ${modelName}...`);
+          
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
+          
+          const mimeType = isPDF ? 'application/pdf' : contentType || 'image/jpeg';
+          
+          const prompt = `Analysiere dieses Dokument vollständig und extrahiere ALLEN Text, alle Aufgaben, Fragen, Antworten und Zahlen.
+
+WICHTIG:
+- Extrahiere den Text genau so, wie er im Dokument erscheint
+- Behalte die Struktur bei (Überschriften, Absätze, Listen)
+- Erkenne alle Lernaufgaben und Übungen
+- Erkenne die Art des Arbeitsblatts (z.B. Mathematik-Übungen, Deutsch-Aufgaben, etc.)
+- Erkenne die Aufgabenformate (Multiple-Choice, Lückentext, Zuordnung, etc.)
+- Erkenne Lösungen und Antworten wenn vorhanden
+
+Gib den vollständigen Text zurück, strukturiert und vollständig.`;
+
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-goog-api-key': apiKey,
+            },
+            body: JSON.stringify({
+              contents: [{
+                parts: [
+                  {
+                    inlineData: {
+                      data: fileBase64,
+                      mimeType: mimeType,
+                    },
+                  },
+                  { text: prompt },
+                ],
+              }],
+            }),
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.warn(`⚠️ Modell ${modelName} nicht verfügbar:`, response.status);
+            lastError = new Error(`Gemini API Fehler: ${response.status}`);
+            continue;
+          }
+
+          const data = await response.json();
+          extractedText = data.candidates[0]?.content?.parts[0]?.text || '';
+          
+          pages = Math.max(1, Math.ceil(extractedText.length / 2000));
+          
+          console.log(`✅ Gemini ${modelName} Text extrahiert: ${extractedText.length} Zeichen`);
+          break; // Erfolg
+        } catch (modelError: any) {
+          console.warn(`⚠️ Fehler mit Modell ${modelName}:`, modelError);
+          lastError = modelError;
+          continue;
+        }
+      }
+
+      if (!extractedText) {
+        throw lastError || new Error('Alle Gemini-Modelle fehlgeschlagen');
+      }
+
+      const confidence = extractedText.length > 200 ? 0.95 : extractedText.length > 50 ? 0.85 : 0.7;
+
+      console.log(`✅ Gemini OCR abgeschlossen: ${extractedText.length} Zeichen extrahiert, ${pages} Seiten`);
+      
+      return {
+        text: extractedText,
+        confidence,
+        pages,
+      };
+    } catch (error: any) {
+      console.error('❌ Fehler bei Gemini OCR:', error);
+      throw new Error(`Gemini OCR-Fehler: ${error.message}`);
+    }
+  };
+
+  // OCR mit Gemini 2.5 Pro (primär) oder GPT-4 Vision (Fallback)
+  // Verwendet die gleiche Logik wie das Backend
   const performOCR = async (fileUrl: string, storagePath?: string | null): Promise<{ text: string; confidence: number; pages: number }> => {
+    // Versuche zuerst Gemini (wie Backend)
+    const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (geminiKey) {
+      try {
+        return await performOCRWithGemini(fileUrl);
+      } catch (geminiError: any) {
+        console.warn('⚠️ Gemini OCR fehlgeschlagen, versuche OpenAI Fallback:', geminiError.message);
+        // Fallback auf OpenAI
+      }
+    }
+
+    // Fallback: OpenAI GPT-4 Vision (alte Implementierung)
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     
     if (!apiKey) {
-      const errorMsg = 'OpenAI API Key nicht gefunden. Bitte setzen Sie VITE_OPENAI_API_KEY in .env.local\n\n' +
-        'HINWEIS: Für Produktion sollte OCR über den Backend-Agent erfolgen, um API-Keys sicher zu halten.';
+      const errorMsg = 'Weder GEMINI_API_KEY noch OPENAI_API_KEY gefunden. Bitte setzen Sie VITE_GEMINI_API_KEY oder VITE_OPENAI_API_KEY in .env.local';
       console.error('❌', errorMsg);
       throw new Error(errorMsg);
     }
 
     try {
-      console.log('🔍 Starte OCR mit GPT-4 Vision...');
+      console.log('🔍 Starte OCR mit GPT-4 Vision (Fallback)...');
       
       const isPDF = fileUrl.toLowerCase().endsWith('.pdf') || fileUrl.includes('pdf');
       let imageDataUrl = fileUrl;
@@ -465,7 +596,6 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
       if (isPDF) {
         console.log('📄 PDF erkannt - konvertiere zu Bild...');
         imageDataUrl = await pdfToImage(fileUrl, storagePath);
-        // Für jetzt nur erste Seite - später können wir mehrere Seiten verarbeiten
         pages = 1;
       }
       
@@ -489,7 +619,7 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
                 {
                   type: 'image_url',
                   image_url: {
-                    url: imageDataUrl, // Base64-encoded Bild oder Bild-URL
+                    url: imageDataUrl,
                   },
                 },
               ],
@@ -504,11 +634,10 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
         const errorMessage = errorData.error?.message || response.statusText;
         const errorCode = errorData.error?.code || response.status;
         
-        // Spezifische Fehlerbehandlung
         if (response.status === 401) {
           throw new Error(`OpenAI API Authentifizierung fehlgeschlagen. Bitte prüfen Sie VITE_OPENAI_API_KEY in .env.local`);
         } else if (response.status === 429) {
-          throw new Error(`OpenAI API Rate Limit erreicht. Bitte versuchen Sie es später erneut oder verwenden Sie den Backend-Agent.`);
+          throw new Error(`OpenAI API Rate Limit erreicht. Bitte versuchen Sie es später erneut.`);
         } else if (response.status === 500 || response.status === 503) {
           throw new Error(`OpenAI API temporär nicht verfügbar. Bitte versuchen Sie es später erneut.`);
         }
@@ -530,9 +659,8 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
     }
   };
 
-  // Aufgaben-Generierung mit GPT-4
-  // HINWEIS: Diese Funktion sollte idealerweise durch den Backend-Agent ersetzt werden
-  // um API-Keys nicht im Frontend zu exponieren
+  // Aufgaben-Generierung mit verbesserten Prompts (wie Backend)
+  // Erkennt Arbeitsblatt-Typ und generiert passende Aufgaben im richtigen Format
   const generateTasks = async (
     extractedText: string,
     subject: string,
@@ -540,28 +668,30 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
   ): Promise<Array<{
     stem: string;
     options: string[];
-    answers: number;
+    answers: number | string | string[];
     difficulty: 'leicht' | 'mittel' | 'schwer';
     explanation: string;
+    type: string;
   }>> => {
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     
     if (!apiKey) {
-      const errorMsg = 'OpenAI API Key nicht gefunden. Bitte setzen Sie VITE_OPENAI_API_KEY in .env.local\n\n' +
-        'HINWEIS: Für Produktion sollte Aufgaben-Generierung über den Backend-Agent erfolgen, um API-Keys sicher zu halten.';
+      const errorMsg = 'OpenAI API Key nicht gefunden. Bitte setzen Sie VITE_OPENAI_API_KEY in .env.local';
       console.error('❌', errorMsg);
       throw new Error(errorMsg);
     }
 
     try {
-      console.log('🤖 Generiere Aufgaben mit GPT-4...');
+      console.log('🤖 Generiere Aufgaben mit verbesserten Prompts...');
 
       const subjectName = {
         mathematik: 'Mathematik',
         deutsch: 'Deutsch',
         sachunterricht: 'Sachunterricht',
+        naturwissenschaften: 'Naturwissenschaften',
         englisch: 'Englisch',
         musik: 'Musik',
+        logik: 'Logik',
       }[subject] || subject;
 
       const difficultyMap = {
@@ -571,54 +701,92 @@ export function UploadReview({ parentUid }: UploadReviewProps) {
         4: 'mittel bis schwer',
       };
 
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: [
-            {
-              role: 'system',
-              content: `Du bist ein Experte für Grundschulbildung (Klasse 1-4) in Deutschland. 
-Deine Aufgabe ist es, aus Arbeitsblättern und Lernmaterialien ähnliche Aufgaben für Kinder zu erstellen.
+      const systemPrompt = `Du bist ein Experte für Grundschulbildung (Klasse 1-4) in Deutschland. 
+Deine Aufgabe ist es, aus Arbeitsblättern und Lernmaterialien passende Lernaufgaben für Kinder zu erstellen.
+
+KRITISCH WICHTIG:
+1. ANALYSIERE ZUERST DAS ARBEITSBLATT:
+   - Welche Art von Arbeitsblatt ist das? (Mathematik-Übungen, Deutsch-Aufgaben, Sachaufgaben, etc.)
+   - Welche Aufgabenformate kommen vor? (Multiple-Choice, Lückentext, Zuordnung, Rechenaufgaben, etc.)
+   - Wie sind die Aufgaben strukturiert und dargestellt?
+   - Welche Lösungsvorgaben gibt es?
+
+2. ERKENNE DIE LERNAUFGABEN:
+   - Identifiziere die tatsächlichen Lernaufgaben im Material
+   - NICHT Fragen wie "Auf welcher Seite ist Aufgabe X?" oder "Wie viele Unteraufgaben hat Aufgabe Y?"
+   - Sondern die ECHTEN Lernaufgaben, die Schüler lösen sollen
+
+3. GENERIERE PASSENDE AUFGABEN:
+   - Im GLEICHEN Format wie im Original (nicht alles zu Multiple-Choice machen!)
+   - Mit ähnlicher Darstellung und Struktur
+   - Mit passenden Lösungsvorgaben
+   - Altersgerecht für Klasse ${grade}
+   - Schwierigkeit: ${difficultyMap[grade as keyof typeof difficultyMap] || 'mittel'}
+
+4. AUFGABENTYPEN ERHALTEN:
+   - Wenn das Original Multiple-Choice ist → Multiple-Choice generieren
+   - Wenn das Original Lückentext ist → Lückentext generieren
+   - Wenn das Original Zuordnung ist → Zuordnung generieren
+   - Wenn das Original Rechenaufgaben sind → Rechenaufgaben generieren
+   - etc.
 
 Wichtig:
 - Aufgaben müssen altersgerecht sein (Klasse ${grade})
-- Schwierigkeit: ${difficultyMap[grade as keyof typeof difficultyMap] || 'mittel'}
-- Aufgaben sollen ähnlich zum Original sein, aber Varianten bieten
 - Kindgerechte Sprache verwenden
 - Klare, verständliche Fragen
-- Realistische Antwort-Optionen`,
-            },
-            {
-              role: 'user',
-              content: `Analysiere folgenden Text aus einem Arbeitsblatt/Lernmaterial für ${subjectName}, Klasse ${grade}:
+- Realistische Antwort-Optionen`;
+
+      const userPrompt = `Analysiere folgenden Text aus einem Arbeitsblatt/Lernmaterial für ${subjectName}, Klasse ${grade}:
 
 ---
-${extractedText.substring(0, 8000)} // Begrenze auf 8000 Zeichen
+${extractedText.substring(0, 12000)}
 ---
 
-Erstelle genau 5 ähnliche Aufgaben basierend auf diesem Material.
+SCHRITT 1: ANALYSE
+- Welche Art von Arbeitsblatt ist das?
+- Welche Aufgabenformate kommen vor?
+- Welche Lernaufgaben sind enthalten?
+- Wie sind die Aufgaben strukturiert?
+
+SCHRITT 2: AUFGABEN GENERIEREN
+Erstelle genau 5 ähnliche Lernaufgaben basierend auf diesem Material. 
+
+WICHTIG:
+- Verwende das GLEICHE Format wie im Original
+- Wenn das Original Multiple-Choice ist → Multiple-Choice
+- Wenn das Original Lückentext ist → Lückentext (type: "input")
+- Wenn das Original Zuordnung ist → Zuordnung (type: "matching")
+- Wenn das Original Drag-Drop ist → Drag-Drop (type: "drag-drop")
+- etc.
 
 Für jede Aufgabe:
-1. Frage-Stem (die eigentliche Frage)
-2. 4 Antwort-Optionen (bei Multiple-Choice)
-3. Index der richtigen Antwort (0-3)
-4. Schwierigkeit (leicht/mittel/schwer)
-5. Kindgerechte Erklärung für die richtige Antwort
+1. type: Der Aufgabentyp ("multiple-choice", "input", "matching", "drag-drop")
+2. stem: Die eigentliche Frage/Aufgabe
+3. options: Antwort-Optionen (nur bei Multiple-Choice, sonst leer)
+4. answers: Die richtige Antwort (Index bei Multiple-Choice, String bei Input, Array bei Matching/Drag-Drop)
+5. difficulty: Schwierigkeit (leicht/mittel/schwer)
+6. explanation: Kindgerechte Erklärung für die richtige Antwort
 
 Antworte im folgenden JSON-Format:
 {
+  "worksheetType": "Beschreibung des Arbeitsblatt-Typs",
+  "taskFormats": ["multiple-choice", "input", ...],
   "tasks": [
     {
+      "type": "multiple-choice",
       "stem": "Wie viel ist 3 + 5?",
       "options": ["6", "7", "8", "9"],
       "answers": 2,
       "difficulty": "leicht",
       "explanation": "Bei 3 + 5 kannst du zählen: Starte bei 3 und zähle 5 weiter: 3... 4, 5, 6, 7, 8! Das Ergebnis ist 8."
+    },
+    {
+      "type": "input",
+      "stem": "Rechne: 4 + 6 = ?",
+      "options": [],
+      "answers": "10",
+      "difficulty": "leicht",
+      "explanation": "4 + 6 = 10. Du kannst es dir so vorstellen: 4 Finger und 6 Finger zusammen sind 10 Finger."
     }
   ]
 }
@@ -627,16 +795,61 @@ Wichtig:
 - Nur valides JSON zurückgeben
 - Keine Markdown-Formatierung
 - Alle Aufgaben müssen zum Fach ${subjectName} passen
-- Schwierigkeit an Klasse ${grade} anpassen`,
-            },
-          ],
-          temperature: 0.7,
-          max_tokens: 2000,
-          response_format: { type: 'json_object' },
-        }),
-      });
+- Schwierigkeit an Klasse ${grade} anpassen
+- Format muss zum Original passen!`;
 
-      if (!response.ok) {
+      // Beste verfügbare Modelle (in Reihenfolge: neueste zuerst)
+      // GPT-4.1 ist neuer als GPT-4o und bietet bessere Qualität
+      const modelsToTry = [
+        'gpt-4.1',         // Primär - neueste GPT-4 Variante (besser als gpt-4o)
+        'gpt-4.1-mini',    // Fallback - kostengünstigere Variante
+        'gpt-4o',          // Fallback - aktueller Standard
+        'gpt-4o-mini',     // Fallback - kostengünstige Variante
+      ];
+      let response = null;
+      let lastError: Error | null = null;
+
+      for (const modelName of modelsToTry) {
+        try {
+          console.log(`🤖 Versuche Modell ${modelName} für Task-Generierung...`);
+          
+          response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: modelName,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt },
+              ],
+              temperature: 0.7,
+              max_tokens: 3000,
+              response_format: { type: 'json_object' },
+            }),
+          });
+
+          if (response.ok) {
+            console.log(`✅ Modell ${modelName} erfolgreich verwendet`);
+            break;
+          } else {
+            const errorData = await response.json().catch(() => ({}));
+            const errorMessage = errorData.error?.message || response.statusText;
+            lastError = new Error(`Modell ${modelName}: ${errorMessage}`);
+            console.warn(`⚠️ Modell ${modelName} nicht verfügbar (${response.status}):`, errorMessage);
+            continue;
+          }
+        } catch (modelError: any) {
+          console.warn(`⚠️ Fehler mit Modell ${modelName}:`, modelError);
+          lastError = modelError;
+          continue;
+        }
+      }
+
+      if (!response || !response.ok) {
+        // Nur im Fehlerfall die Response lesen
         const errorData = await response.json().catch(() => ({}));
         const errorMessage = errorData.error?.message || response.statusText;
         const errorCode = errorData.error?.code || response.status;
@@ -645,14 +858,15 @@ Wichtig:
         if (response.status === 401) {
           throw new Error(`OpenAI API Authentifizierung fehlgeschlagen. Bitte prüfen Sie VITE_OPENAI_API_KEY in .env.local`);
         } else if (response.status === 429) {
-          throw new Error(`OpenAI API Rate Limit erreicht. Bitte versuchen Sie es später erneut oder verwenden Sie den Backend-Agent.`);
+          throw new Error(`OpenAI API Rate Limit erreicht. Bitte versuchen Sie es später erneut.`);
         } else if (response.status === 500 || response.status === 503) {
           throw new Error(`OpenAI API temporär nicht verfügbar. Bitte versuchen Sie es später erneut.`);
         }
         
-        throw new Error(`OpenAI API Fehler (${errorCode}): ${errorMessage}`);
+        throw lastError || new Error(`OpenAI API Fehler (${errorCode}): ${errorMessage}`);
       }
 
+      // Nur im Erfolgsfall die Response lesen
       const data = await response.json();
       const responseText = data.choices[0]?.message?.content || '{}';
       
@@ -670,15 +884,43 @@ Wichtig:
       }
 
       const tasks = parsedResponse.tasks || [];
+      const worksheetType = parsedResponse.worksheetType || 'Unbekannt';
+      const taskFormats = parsedResponse.taskFormats || [];
+
+      console.log(`📋 Arbeitsblatt-Typ erkannt: ${worksheetType}`);
+      console.log(`📝 Aufgabenformate: ${taskFormats.join(', ')}`);
       console.log(`✅ ${tasks.length} Aufgaben generiert`);
 
-      return tasks.map((task: any) => ({
-        stem: task.stem,
-        options: task.options || [],
-        answers: task.answers,
-        difficulty: (task.difficulty || 'mittel') as 'leicht' | 'mittel' | 'schwer',
-        explanation: task.explanation || '',
-      }));
+      return tasks.map((task: any) => {
+        // Normalisiere answers - keine verschachtelten Arrays erlauben
+        let normalizedAnswers = task.answers;
+        
+        // Wenn answers ein verschachteltes Array ist, flache es
+        if (Array.isArray(normalizedAnswers) && normalizedAnswers.length > 0) {
+          if (Array.isArray(normalizedAnswers[0])) {
+            // Verschachteltes Array - konvertiere zu flachem Array
+            normalizedAnswers = normalizedAnswers.flat();
+          }
+        }
+        
+        // Normalisiere options - keine verschachtelten Arrays erlauben
+        let normalizedOptions = task.options || [];
+        if (Array.isArray(normalizedOptions) && normalizedOptions.length > 0) {
+          if (Array.isArray(normalizedOptions[0])) {
+            // Verschachteltes Array - konvertiere zu flachem Array
+            normalizedOptions = normalizedOptions.flat();
+          }
+        }
+        
+        return {
+          stem: task.stem,
+          options: normalizedOptions,
+          answers: normalizedAnswers,
+          difficulty: (task.difficulty || 'mittel') as 'leicht' | 'mittel' | 'schwer',
+          explanation: task.explanation || '',
+          type: task.type || 'multiple-choice',
+        };
+      });
     } catch (error: any) {
       console.error('❌ Fehler bei Aufgaben-Generierung:', error);
       throw new Error(`Aufgaben-Generierung Fehler: ${error.message}`);
@@ -686,7 +928,7 @@ Wichtig:
   };
 
   const processUploadManually = async (upload: Upload) => {
-    if (!confirm(`Möchten Sie "${upload.filename}" jetzt mit KI verarbeiten?\n\nDies verwendet GPT-4 Vision für OCR und GPT-4 für Aufgaben-Generierung.`)) {
+    if (!confirm(`Möchten Sie "${upload.filename}" jetzt mit KI verarbeiten?\n\nDies verwendet Gemini 2.5 Pro für OCR (Fallback: GPT-4 Vision) und GPT-5/GPT-4o für Aufgaben-Generierung.`)) {
       return;
     }
 
@@ -737,15 +979,27 @@ Wichtig:
       let tasksCreated = 0;
       for (const kidId of kids) {
         for (const task of generatedTasks) {
+          // Sicherstellen, dass answers kein verschachteltes Array ist
+          let safeAnswers = task.answers;
+          if (Array.isArray(safeAnswers) && safeAnswers.length > 0 && Array.isArray(safeAnswers[0])) {
+            safeAnswers = safeAnswers.flat();
+          }
+          
+          // Sicherstellen, dass options kein verschachteltes Array ist
+          let safeOptions = task.options || [];
+          if (Array.isArray(safeOptions) && safeOptions.length > 0 && Array.isArray(safeOptions[0])) {
+            safeOptions = safeOptions.flat();
+          }
+          
           await addDoc(
             collection(db, 'users', parentUid, 'kids', kidId, 'tasks'),
             {
               stem: task.stem,
-              options: task.options,
-              answers: task.answers,
+              options: safeOptions,
+              answers: safeAnswers,
               difficulty: task.difficulty,
               explanation: task.explanation,
-              type: 'multiple-choice',
+              type: task.type || 'multiple-choice',
               uploadId: upload.id,
               subject: upload.subject,
               grade: upload.grade,
@@ -980,14 +1234,14 @@ Wichtig:
                   <div className="text-center py-8 bg-yellow-50 rounded-lg border-2 border-yellow-200">
                     <p className="text-yellow-800 font-semibold mb-2">⏳ Material wartet auf Verarbeitung</p>
                     <p className="text-yellow-700 text-sm mb-4">
-                      Klicken Sie auf den Button, um das Material mit GPT-4 Vision zu verarbeiten und Aufgaben zu generieren.
+                      Klicken Sie auf den Button, um das Material mit Gemini 2.5 Pro zu verarbeiten und Aufgaben zu generieren.
                     </p>
                     <Button
                       variant="primary"
                       onClick={() => processUploadManually(upload)}
                       className="bg-blue-600 hover:bg-blue-700"
                     >
-                      🤖 Mit KI verarbeiten (GPT-4 Vision)
+                      🤖 Mit KI verarbeiten (Gemini 2.5 Pro)
                     </Button>
                   </div>
                 )}

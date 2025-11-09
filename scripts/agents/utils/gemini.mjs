@@ -10,18 +10,133 @@ import fetch from 'node-fetch';
 const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY || '');
 
 /**
- * OCR mit GPT-4 Vision API (besser für PDFs)
- * Analysiert Bild/PDF und extrahiert Text
+ * PDF-Extraktion mit Gemini 2.5 Pro
+ * Direkte PDF-Verarbeitung ohne JPEG-Konvertierung
+ */
+async function performOCRWithGemini(fileUrl) {
+  if (!ENV.GEMINI_API_KEY) {
+    throw new Error('GEMINI_API_KEY nicht gesetzt');
+  }
+
+  try {
+    console.log(`🔍 Starte PDF-Extraktion mit Gemini 2.5 Pro für ${fileUrl}...`);
+
+    const fileResponse = await fetch(fileUrl);
+    if (!fileResponse.ok) {
+      throw new Error(`Fehler beim Laden der Datei: ${fileResponse.statusText}`);
+    }
+
+    const contentType = fileResponse.headers.get('content-type') || '';
+    const isPDF = contentType.includes('pdf') || fileUrl.toLowerCase().endsWith('.pdf');
+    
+    const fileBuffer = await fileResponse.arrayBuffer();
+    const fileBase64 = Buffer.from(fileBuffer).toString('base64');
+    
+    // Versuche Gemini 2.5 Pro, fallback auf 1.5 Pro Vision
+    const modelsToTry = [
+      'gemini-2.5-pro',
+      'gemini-2.0-flash-exp',
+      'gemini-1.5-pro',
+    ];
+
+    let extractedText = '';
+    let pages = 1;
+    let lastError = null;
+
+    for (const modelName of modelsToTry) {
+      try {
+        console.log(`📄 Versuche Modell: ${modelName}...`);
+        
+        const model = genAI.getGenerativeModel({ 
+          model: modelName,
+        });
+
+        const mimeType = isPDF ? 'application/pdf' : contentType || 'image/jpeg';
+        
+        const prompt = `Analysiere dieses Dokument vollständig und extrahiere ALLEN Text, alle Aufgaben, Fragen, Antworten und Zahlen.
+
+WICHTIG:
+- Extrahiere den Text genau so, wie er im Dokument erscheint
+- Behalte die Struktur bei (Überschriften, Absätze, Listen)
+- Erkenne alle Lernaufgaben und Übungen
+- Erkenne die Art des Arbeitsblatts (z.B. Mathematik-Übungen, Deutsch-Aufgaben, etc.)
+- Erkenne die Aufgabenformate (Multiple-Choice, Lückentext, Zuordnung, etc.)
+- Erkenne Lösungen und Antworten wenn vorhanden
+
+Gib den vollständigen Text zurück, strukturiert und vollständig.`;
+
+        const result = await model.generateContent([
+          {
+            inlineData: {
+              data: fileBase64,
+              mimeType: mimeType,
+            },
+          },
+          { text: prompt },
+        ]);
+
+        const response = await result.response;
+        extractedText = response.text();
+        
+        // Schätze Seitenzahl basierend auf Textlänge
+        pages = Math.max(1, Math.ceil(extractedText.length / 2000));
+        
+        console.log(`✅ Gemini ${modelName} Text extrahiert: ${extractedText.length} Zeichen, geschätzt ${pages} Seiten`);
+        break; // Erfolg, breche ab
+      } catch (modelError) {
+        console.warn(`⚠️ Modell ${modelName} nicht verfügbar:`, modelError.message);
+        lastError = modelError;
+        continue;
+      }
+    }
+
+    if (!extractedText) {
+      throw lastError || new Error('Alle Gemini-Modelle fehlgeschlagen');
+    }
+
+    // Confidence basierend auf Textlänge und Qualität
+    const confidence = extractedText.length > 200 ? 0.95 : extractedText.length > 50 ? 0.85 : 0.7;
+
+    console.log(`✅ Gemini OCR abgeschlossen: ${extractedText.length} Zeichen extrahiert, ${pages} Seiten`);
+
+    return {
+      text: extractedText,
+      confidence,
+      pages,
+      mimeType: isPDF ? 'application/pdf' : contentType,
+      method: 'gemini',
+    };
+  } catch (error) {
+    console.error('❌ Fehler bei Gemini OCR:', error);
+    throw new Error(`Gemini OCR-Fehler: ${error.message}`);
+  }
+}
+
+/**
+ * OCR mit Gemini 2.5 Pro oder GPT-5 für bessere PDF-Verarbeitung
+ * Analysiert PDF direkt ohne JPEG-Konvertierung
+ * Verwendet Gemini 2.5 Pro als primäres Modell (kostenlos/kostengünstig mit Google)
+ * Fallback auf GPT-5 oder GPT-4o falls Gemini nicht verfügbar
  */
 export async function performOCR(fileUrl) {
-  // Verwende OpenAI GPT-4 Vision für bessere PDF-Unterstützung
+  // Versuche zuerst Gemini 2.5 Pro (kostenlos/kostengünstig, gute PDF-Unterstützung)
+  if (ENV.GEMINI_API_KEY) {
+    try {
+      return await performOCRWithGemini(fileUrl);
+    } catch (geminiError) {
+      console.warn('⚠️ Gemini OCR fehlgeschlagen, versuche Fallback:', geminiError.message);
+      // Fallback auf OpenAI
+    }
+  }
+
+  // Fallback: OpenAI GPT-5 oder GPT-4o
   const OpenAI = (await import('openai')).default;
   const openai = new OpenAI({
     apiKey: ENV.OPENAI_API_KEY || '',
   });
 
   if (!ENV.OPENAI_API_KEY) {
-    throw new Error('OPENAI_API_KEY nicht gesetzt');
+    throw new Error('Weder GEMINI_API_KEY noch OPENAI_API_KEY gesetzt');
   }
 
   try {

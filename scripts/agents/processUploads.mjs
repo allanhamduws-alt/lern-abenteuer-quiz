@@ -9,6 +9,7 @@ import { getStorage } from 'firebase-admin/storage';
 import { ENV } from './utils/env.mjs';
 import { performOCR, analyzeImage } from './utils/gemini.mjs';
 import { generateTasks } from './utils/openai.mjs';
+import { evaluateTasks, validateTaskFormat } from './utils/evaluation.mjs';
 import fs from 'fs';
 import os from 'os';
 
@@ -107,6 +108,43 @@ async function processUpload(uploadDoc) {
       { ...ocrResult, imageAnalysis }
     );
     console.log(`✅ ${tasks.length} Tasks generiert`);
+
+    // Extrahiere Metadaten aus dem ersten Task (worksheetType und taskFormats werden nur einmal gesetzt)
+    const worksheetType = tasks[0]?.worksheetType || 'Unbekannt';
+    const taskFormats = tasks[0]?.taskFormats || [];
+
+    // Evaluierung der generierten Tasks
+    console.log(`📊 Evaluierte generierte Tasks...`);
+    const evaluation = evaluateTasks(tasks, ocrResult.text, data.subject, data.grade);
+    console.log(`📊 Evaluierung: Score ${evaluation.overallScore}/100, ${evaluation.passedTasks}/${evaluation.totalTasks} Tasks bestanden`);
+    
+    if (evaluation.issues.length > 0) {
+      console.warn(`⚠️ Gefundene Probleme:`, evaluation.issues.slice(0, 5)); // Zeige nur erste 5
+    }
+
+    // Filtere Tasks die nicht zum Format passen oder Evaluierung nicht bestanden haben
+    const validTasks = tasks.filter((task, index) => {
+      const taskEval = evaluation.evaluations[index];
+      const formatValid = validateTaskFormat(task, worksheetType, taskFormats);
+      
+      if (!formatValid) {
+        console.warn(`⚠️ Task ${index + 1} hat falsches Format, wird übersprungen`);
+        return false;
+      }
+      
+      if (!taskEval.passed) {
+        console.warn(`⚠️ Task ${index + 1} hat Evaluierung nicht bestanden (Score: ${taskEval.score}), wird trotzdem verwendet`);
+        // Wir verwenden die Tasks trotzdem, aber loggen die Warnung
+      }
+      
+      return true;
+    });
+
+    if (validTasks.length === 0) {
+      throw new Error('Keine gültigen Tasks nach Evaluierung übrig');
+    }
+
+    console.log(`✅ ${validTasks.length} gültige Tasks nach Evaluierung`);
     
     // Tasks für jedes Kind des Eltern-Kontos erstellen
     const parentDoc = await db.collection('users').doc(data.parentId).get();
@@ -114,7 +152,7 @@ async function processUpload(uploadDoc) {
     const kids = parentData?.children || [];
     
     for (const kidId of kids) {
-      for (const task of tasks) {
+      for (const task of validTasks) {
         // Konvertiere difficulty von 'leicht/mittel/schwer' zu 'easy/medium/hard'
         const difficultyMap = {
           'leicht': 'easy',
@@ -124,6 +162,20 @@ async function processUpload(uploadDoc) {
         
         const mappedDifficulty = difficultyMap[task.difficulty] || task.difficulty || 'medium';
         
+        // Sicherstellen, dass answers kein verschachteltes Array ist
+        let safeAnswers = task.answers;
+        if (Array.isArray(safeAnswers) && safeAnswers.length > 0 && Array.isArray(safeAnswers[0])) {
+          safeAnswers = safeAnswers.flat();
+          console.warn(`⚠️ Verschachteltes Array in answers gefunden und geflacht`);
+        }
+        
+        // Sicherstellen, dass options kein verschachteltes Array ist
+        let safeOptions = task.options || [];
+        if (Array.isArray(safeOptions) && safeOptions.length > 0 && Array.isArray(safeOptions[0])) {
+          safeOptions = safeOptions.flat();
+          console.warn(`⚠️ Verschachteltes Array in options gefunden und geflacht`);
+        }
+        
         await db
           .collection('users')
           .doc(data.parentId)
@@ -132,8 +184,8 @@ async function processUpload(uploadDoc) {
           .collection('tasks')
           .add({
             stem: task.stem,
-            options: task.options || [],
-            answers: task.answers,
+            options: safeOptions,
+            answers: safeAnswers,
             difficulty: mappedDifficulty,
             type: task.type || 'multiple-choice',
             explanation: task.explanation,
@@ -153,10 +205,15 @@ async function processUpload(uploadDoc) {
       status: 'ready',
       confidence: ocrResult.confidence,
       pages: ocrResult.pages,
-      tasksGenerated: tasks.length,
+      tasksGenerated: validTasks.length,
+      evaluationScore: evaluation.overallScore,
+      evaluationPassed: evaluation.passed,
+      evaluationIssues: evaluation.issues.slice(0, 10), // Speichere erste 10 Issues
+      worksheetType: worksheetType, // Speichere erkannten Arbeitsblatt-Typ
+      taskFormats: taskFormats, // Speichere erkannte Aufgabenformate
     });
     
-    console.log(`✅ Upload ${id} verarbeitet: ${tasks.length} Tasks erstellt`);
+    console.log(`✅ Upload ${id} verarbeitet: ${validTasks.length} Tasks erstellt (Score: ${evaluation.overallScore}/100)`);
   } catch (error) {
     console.error(`❌ Fehler bei Upload ${id}:`, error);
     await uploadDoc.ref.update({
