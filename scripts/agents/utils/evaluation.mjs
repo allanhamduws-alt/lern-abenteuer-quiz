@@ -56,6 +56,155 @@ export function evaluateTask(task, originalText, subject, grade) {
       issues.push(`${task.type} Aufgabe hat keine Array-Antwort`);
       score -= 20;
     }
+  } else if (task.type === 'fill-blank') {
+    // fill-blank Validierung
+    if (!Array.isArray(task.blanks) || task.blanks.length === 0) {
+      issues.push('fill-blank Aufgabe hat keine blanks (Lösungen)');
+      score -= 25;
+    }
+    if (!Array.isArray(task.blankOptions) || task.blankOptions.length === 0) {
+      issues.push('fill-blank Aufgabe hat keine blankOptions');
+      score -= 25;
+    }
+    if (task.blanks && task.blankOptions && task.blanks.length !== task.blankOptions.length) {
+      issues.push('Anzahl blanks stimmt nicht mit blankOptions überein');
+      score -= 15;
+    }
+    // Prüfe ob jede richtige Antwort in den Optionen ist
+    if (task.blanks && task.blankOptions) {
+      for (let i = 0; i < task.blanks.length; i++) {
+        if (!task.blankOptions[i] || !task.blankOptions[i].includes(task.blanks[i])) {
+          issues.push(`Lücke ${i + 1}: Richtige Antwort "${task.blanks[i]}" nicht in Optionen`);
+          score -= 10;
+        }
+      }
+    }
+    if (!task.stem || !task.stem.includes('__')) {
+      issues.push('fill-blank stem sollte "__" als Platzhalter enthalten');
+      score -= 10;
+    }
+  } else if (task.type === 'word-classification') {
+    // word-classification Validierung
+    if (!Array.isArray(task.words) || task.words.length === 0) {
+      issues.push('word-classification Aufgabe hat keine Wörter');
+      score -= 25;
+    }
+    if (!Array.isArray(task.categories) || task.categories.length === 0) {
+      issues.push('word-classification Aufgabe hat keine Kategorien');
+      score -= 25;
+    }
+    if (!task.correctMapping || typeof task.correctMapping !== 'object') {
+      issues.push('word-classification Aufgabe hat kein correctMapping');
+      score -= 25;
+    } else {
+      // Prüfe ob alle Wörter eine Zuordnung haben
+      if (task.words) {
+        for (const word of task.words) {
+          if (!task.correctMapping[word]) {
+            issues.push(`Wort "${word}" hat keine Zuordnung`);
+            score -= 10;
+          } else if (!task.categories.includes(task.correctMapping[word])) {
+            issues.push(`Wort "${word}" ist ungültiger Kategorie zugeordnet`);
+            score -= 10;
+          }
+        }
+      }
+    }
+    if (task.words && task.words.length < 3) {
+      issues.push('word-classification sollte mindestens 3 Wörter haben');
+      score -= 10;
+    }
+  } else if (task.type === 'number-input') {
+    // number-input Validierung
+    if (!Array.isArray(task.problems) || task.problems.length === 0) {
+      issues.push('number-input Aufgabe hat keine problems');
+      score -= 25;
+    } else {
+      for (let i = 0; i < task.problems.length; i++) {
+        const problem = task.problems[i];
+        if (!problem.question || !problem.answer) {
+          issues.push(`Problem ${i + 1} ist unvollständig`);
+          score -= 10;
+        }
+        if (problem.answer && isNaN(Number(problem.answer))) {
+          issues.push(`Problem ${i + 1}: Antwort sollte eine Zahl sein`);
+          score -= 10;
+        }
+      }
+    }
+    if (task.numberRange && (!Array.isArray(task.numberRange) || task.numberRange.length !== 2)) {
+      issues.push('numberRange sollte ein Array mit 2 Zahlen sein [min, max]');
+      score -= 5;
+    }
+    // Prüfe Zahlenraum je Klassenstufe
+    if (task.numberRange && grade) {
+      const [min, max] = task.numberRange;
+      if (grade === 1 && max > 20) {
+        issues.push('Klasse 1: Zahlenraum sollte max 20 sein');
+        score -= 5;
+      } else if (grade === 2 && max > 100) {
+        issues.push('Klasse 2: Zahlenraum sollte max 100 sein');
+        score -= 5;
+      } else if (grade === 3 && max > 1000) {
+        issues.push('Klasse 3: Zahlenraum sollte max 1000 sein');
+        score -= 5;
+      }
+    }
+  } else if (task.type === 'number-pyramid') {
+    // number-pyramid Validierung
+    if (!task.levels || task.levels < 2) {
+      issues.push('number-pyramid sollte mindestens 2 Ebenen haben');
+      score -= 15;
+    }
+    if (!Array.isArray(task.structure) || task.structure.length === 0) {
+      issues.push('number-pyramid Aufgabe hat keine structure');
+      score -= 25;
+    } else {
+      // Prüfe Pyramiden-Struktur
+      if (task.structure.length !== task.levels) {
+        issues.push(`Anzahl Ebenen (${task.levels}) stimmt nicht mit structure Länge (${task.structure.length}) überein`);
+        score -= 15;
+      }
+      // Prüfe ob mindestens ein Feld leer ist
+      let hasBlanks = false;
+      for (const row of task.structure) {
+        if (Array.isArray(row)) {
+          for (const cell of row) {
+            if (cell && cell.isBlank) {
+              hasBlanks = true;
+              break;
+            }
+          }
+        }
+        if (hasBlanks) break;
+      }
+      if (!hasBlanks) {
+        issues.push('number-pyramid sollte mindestens ein leeres Feld haben');
+        score -= 10;
+      }
+    }
+  } else if (task.type === 'word-problem') {
+    // word-problem Validierung
+    if (!task.correctAnswer || task.correctAnswer.trim().length === 0) {
+      issues.push('word-problem Aufgabe hat keine correctAnswer');
+      score -= 25;
+    }
+    if (task.correctAnswer && isNaN(Number(task.correctAnswer))) {
+      issues.push('word-problem Antwort sollte eine Zahl sein');
+      score -= 15;
+    }
+    if (!task.calculation || task.calculation.trim().length === 0) {
+      issues.push('word-problem Aufgabe hat keine calculation');
+      score -= 10;
+    }
+    if (!task.context) {
+      issues.push('word-problem Aufgabe hat keinen context');
+      score -= 5;
+    }
+    if (!task.unit) {
+      issues.push('word-problem Aufgabe hat keine unit');
+      score -= 5;
+    }
   }
 
   // 4. Prüfe Erklärung

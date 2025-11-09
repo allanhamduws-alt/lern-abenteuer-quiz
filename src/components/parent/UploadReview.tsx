@@ -10,6 +10,7 @@ import { db, storage } from '../../services/firebase';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
+import { TaskPreview } from './TaskPreview';
 
 interface Upload {
   id: string;
@@ -659,9 +660,303 @@ Gib den vollständigen Text zurück, strukturiert und vollständig.`;
     }
   };
 
-  // Aufgaben-Generierung mit verbesserten Prompts (wie Backend)
-  // Erkennt Arbeitsblatt-Typ und generiert passende Aufgaben im richtigen Format
-  const generateTasks = async (
+  // Validierung und Normalisierung der generierten Task-Daten
+  const validateAndNormalizeTask = (task: any): any => {
+    const normalized = { ...task };
+    
+    // TYP-VALIDIERUNG UND AUTO-KORREKTUR
+    const validTypes = ['word-classification', 'fill-blank', 'number-input', 
+                        'multiple-choice', 'word-problem', 'number-pyramid',
+                        'text-input', 'sentence-builder', 'table-fill'];
+    
+    // Auto-Korrektur für falsche Typen
+    if (normalized.type === 'matching' || normalized.type === 'drag-drop') {
+      console.warn(`⚠️ Typ "${normalized.type}" → konvertiere zu "word-classification"`);
+      normalized.type = 'word-classification';
+    } else if (normalized.type === 'input') {
+      // Prüfe ob es ein fill-blank oder number-input sein sollte
+      if (normalized.blanks || normalized.blankOptions) {
+        console.warn(`⚠️ Typ "input" mit blanks → konvertiere zu "fill-blank"`);
+        normalized.type = 'fill-blank';
+      } else if (normalized.problems) {
+        console.warn(`⚠️ Typ "input" mit problems → konvertiere zu "number-input"`);
+        normalized.type = 'number-input';
+      } else {
+        // Fallback zu multiple-choice wenn unklar
+        console.warn(`⚠️ Typ "input" unklar → konvertiere zu "multiple-choice"`);
+        normalized.type = 'multiple-choice';
+      }
+    } else if (!normalized.type || !validTypes.includes(normalized.type)) {
+      console.warn(`⚠️ Unbekannter Typ "${normalized.type}" → konvertiere zu "multiple-choice"`);
+      normalized.type = 'multiple-choice';
+    }
+    
+    // blankOptions muss ein Array von Arrays sein
+    if (normalized.blankOptions) {
+      normalized.blankOptions = normalized.blankOptions.map((opt: any) => 
+        Array.isArray(opt) ? opt : [String(opt)]
+      );
+    }
+    
+    // words muss ein Array von Strings sein
+    if (normalized.words && !Array.isArray(normalized.words)) {
+      normalized.words = [];
+    }
+    
+    // categories muss ein Array von Strings sein
+    if (normalized.categories && !Array.isArray(normalized.categories)) {
+      normalized.categories = [];
+    }
+    
+    // correctMapping muss ein Objekt sein
+    if (normalized.correctMapping && typeof normalized.correctMapping !== 'object') {
+      normalized.correctMapping = {};
+    }
+    
+    // problems muss ein Array sein
+    if (normalized.problems && !Array.isArray(normalized.problems)) {
+      normalized.problems = [];
+    }
+    
+    // blanks muss ein Array sein
+    if (normalized.blanks && !Array.isArray(normalized.blanks)) {
+      normalized.blanks = [];
+    }
+    
+    // Neue Typen validieren
+    if (normalized.type === 'text-input') {
+      normalized.expectedAnswer = normalized.expectedAnswer || normalized.answers || '';
+      normalized.placeholder = normalized.placeholder || 'Deine Antwort...';
+      normalized.maxLength = normalized.maxLength || 50;
+    }
+    
+    if (normalized.type === 'sentence-builder') {
+      if (!Array.isArray(normalized.sentenceParts)) {
+        normalized.sentenceParts = [];
+      }
+      if (!Array.isArray(normalized.correctOrder)) {
+        normalized.correctOrder = [];
+      }
+      // Falls correctOrder fehlt, versuche es aus correctAnswer zu extrahieren
+      if (normalized.correctOrder.length === 0 && normalized.correctAnswer) {
+        if (Array.isArray(normalized.correctAnswer)) {
+          normalized.correctOrder = normalized.correctAnswer;
+        }
+      }
+    }
+    
+    if (normalized.type === 'table-fill') {
+      if (!Array.isArray(normalized.tableHeaders)) {
+        normalized.tableHeaders = [];
+      }
+      if (!Array.isArray(normalized.tableRows)) {
+        normalized.tableRows = [];
+      }
+      if (!normalized.correctValues || typeof normalized.correctValues !== 'object') {
+        normalized.correctValues = {};
+      }
+    }
+    
+    return normalized;
+  };
+
+  // Aufgaben-Generierung mit Gemini (kostenlos)
+  const generateTasksWithGemini = async (
+    extractedText: string,
+    subject: string,
+    grade: number
+  ): Promise<Array<{
+    stem: string;
+    options: string[];
+    answers: number | string | string[];
+    difficulty: 'leicht' | 'mittel' | 'schwer';
+    explanation: string;
+    type: string;
+    [key: string]: any; // Für neue Felder
+  }>> => {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY nicht gefunden. Bitte setzen Sie VITE_GEMINI_API_KEY in .env.local');
+    }
+
+    try {
+      console.log('🤖 Generiere Aufgaben mit Gemini...');
+
+      const subjectName = {
+        mathematik: 'Mathematik',
+        deutsch: 'Deutsch',
+        sachunterricht: 'Sachunterricht',
+        naturwissenschaften: 'Naturwissenschaften',
+        englisch: 'Englisch',
+        musik: 'Musik',
+        logik: 'Logik',
+      }[subject] || subject;
+
+      const textToProcess = extractedText.substring(0, 50000);
+
+      const prompt = `Du bist Experte für deutsche Grundschul-Arbeitsblätter.
+
+**WICHTIG:** Du musst Aufgaben in einem unserer vordefinierten Aufgabentypen erstellen. Kopiere NICHT das Original-Format!
+
+**SCHRITT 1: ANALYSE**
+Analysiere dieses Arbeitsblatt für ${subjectName}, Klasse ${grade}:
+- Welches Thema wird behandelt?
+- Was sind die Lernziele?
+- Welche Schwierigkeit hat es?
+
+---
+${textToProcess}
+---
+
+**SCHRITT 2: TYP-ANALYSE**
+Analysiere die verschiedenen Aufgabentypen in der PDF.
+Erstelle eine MISCHUNG von Aufgaben in verschiedenen Typen!
+
+Verfügbare Typen (wähle 2-4 verschiedene für die Aufgaben):
+
+1. **word-classification**: Wörter müssen Kategorien zugeordnet werden
+   - Beispiel: Wörter → Nomen, Verben, Adjektive, Pronomen
+   - Benötigt: words[], categories[], correctMapping{}
+
+2. **fill-blank**: Lückentexte mit vorgegebenen Optionen pro Lücke
+   - Beispiel: "Der H__nd" mit Optionen ["u", "ü"]
+   - Benötigt: blanks[], blankOptions[[]]
+
+3. **text-input**: Freie Eingabe von Wörtern oder kurzen Sätzen
+   - Beispiel: "Schreibe das Wort richtig: Bli__" → Antwort: "Blitz"
+   - Benötigt: expectedAnswer, placeholder
+
+4. **sentence-builder**: Sätze aus Wortbausteinen bilden
+   - Beispiel: ["der", "Hund", "läuft", "schnell"] → "Der Hund läuft schnell."
+   - Benötigt: sentenceParts[], correctOrder[]
+
+5. **table-fill**: Tabellen ausfüllen (z.B. Verb-Konjugation)
+   - Beispiel: Tabelle mit "ich", "du", "er" und Zeitformen
+   - Benötigt: tableHeaders[], tableRows[], correctValues{}
+
+6. **multiple-choice**: Standard-Fragen mit 4 Antwort-Optionen
+   - Beispiel: "Was ist 2+2?" → Optionen: ["3", "4", "5", "6"]
+   - Benötigt: options[], answers (Index)
+
+7. **number-input**: Mehrere Rechenaufgaben mit numerischer Eingabe
+   - Beispiel: "5 + 3 = ?", "7 - 2 = ?"
+   - Benötigt: problems[{question, answer}]
+
+8. **word-problem**: Textaufgabe mit Berechnung (ein Ergebnis)
+   - Beispiel: "Max hat 5 Äpfel, gibt 2 weg. Wie viele bleiben?"
+   - Benötigt: context, calculation, correctAnswer
+
+9. **number-pyramid**: Zahlenmauern (für Mathe)
+   - Benötigt: levels, structure[[]]
+
+**SCHRITT 3: AUFGABEN ERSTELLEN**
+Erstelle 5-8 Aufgaben mit VERSCHIEDENEN Typen:
+- 2-3x Typ A (z.B. fill-blank)
+- 2x Typ B (z.B. word-classification)
+- 1-2x Typ C (z.B. text-input oder sentence-builder)
+- Optional: 1x weitere Typen
+
+Alle Aufgaben müssen:
+- Für Klasse ${grade} verständlich sein
+- Klare, einfache Anweisungen haben
+- Logisch und spielbar sein
+- Kindgerechte Sprache verwenden
+
+**SCHRITT 4: VALIDIERUNG**
+Prüfe jede Aufgabe:
+- Ist die Anweisung klar verständlich?
+- Weiß ein Kind genau, was zu tun ist?
+- Sind alle benötigten Felder vorhanden?
+
+Antworte NUR als JSON:
+{
+  "worksheetType": "Beschreibung des Themas",
+  "selectedType": "word-classification",  // Der gewählte Typ
+  "tasks": [
+    {
+      "type": "word-classification",  // MUSS einer der 6 Typen sein!
+      "stem": "Ordne die Wörter den Wortarten zu.",
+      "words": ["Haus", "laufen", "schön"],
+      "categories": ["Nomen", "Verben", "Adjektive"],
+      "correctMapping": {"Haus": "Nomen", "laufen": "Verben", "schön": "Adjektive"},
+      "difficulty": "mittel",
+      "explanation": "Kindgerechte Erklärung..."
+    }
+  ]
+}`;
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text: prompt }] }],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 4000,
+              responseMimeType: 'application/json',
+            },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Gemini API Fehler: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const responseText = data.candidates[0]?.content?.parts[0]?.text || '{}';
+      
+      let parsedResponse;
+      try {
+        parsedResponse = JSON.parse(responseText);
+      } catch (parseError) {
+        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          parsedResponse = JSON.parse(jsonMatch[0]);
+        } else {
+          throw new Error('Kein gültiges JSON in der Antwort');
+        }
+      }
+
+      const tasks = parsedResponse.tasks || [];
+      console.log(`✅ ${tasks.length} Aufgaben generiert (Gemini)`);
+
+      return tasks.map((task: any) => validateAndNormalizeTask({
+        stem: task.stem,
+        options: task.options || [],
+        answers: task.answers,
+        difficulty: (task.difficulty || 'mittel') as 'leicht' | 'mittel' | 'schwer',
+        explanation: task.explanation || '',
+        type: task.type || 'multiple-choice',
+        // Neue Felder
+        blanks: task.blanks,
+        blankOptions: task.blankOptions,
+        caseSensitive: task.caseSensitive,
+        words: task.words,
+        categories: task.categories,
+        correctMapping: task.correctMapping,
+        problems: task.problems,
+        operation: task.operation,
+        numberRange: task.numberRange,
+        levels: task.levels,
+        structure: task.structure,
+        context: task.context,
+        calculation: task.calculation,
+        unit: task.unit,
+      }));
+    } catch (error: any) {
+      console.error('❌ Fehler bei Gemini Aufgaben-Generierung:', error);
+      throw new Error(`Gemini Aufgaben-Generierung Fehler: ${error.message}`);
+    }
+  };
+
+  // Aufgaben-Generierung mit OpenAI (kostet ~$0.02)
+  const generateTasksWithOpenAI = async (
     extractedText: string,
     subject: string,
     grade: number
@@ -702,76 +997,121 @@ Gib den vollständigen Text zurück, strukturiert und vollständig.`;
       };
 
       const systemPrompt = `Du bist ein Experte für Grundschulbildung (Klasse 1-4) in Deutschland. 
-Deine Aufgabe ist es, aus Arbeitsblättern und Lernmaterialien passende Lernaufgaben für Kinder zu erstellen.
+Deine Aufgabe ist es, aus Arbeitsblättern passende Lernaufgaben für Kinder zu erstellen.
 
-KRITISCH WICHTIG:
-1. ANALYSIERE ZUERST DAS ARBEITSBLATT:
-   - Welche Art von Arbeitsblatt ist das? (Mathematik-Übungen, Deutsch-Aufgaben, Sachaufgaben, etc.)
-   - Welche Aufgabenformate kommen vor? (Multiple-Choice, Lückentext, Zuordnung, Rechenaufgaben, etc.)
-   - Wie sind die Aufgaben strukturiert und dargestellt?
-   - Welche Lösungsvorgaben gibt es?
+**KRITISCH WICHTIG:** Du musst Aufgaben in einem unserer vordefinierten Aufgabentypen erstellen. 
+Kopiere NICHT das Original-Format! Analysiere den INHALT und wähle dann den passenden Typ.
 
-2. ERKENNE DIE LERNAUFGABEN:
-   - Identifiziere die tatsächlichen Lernaufgaben im Material
-   - NICHT Fragen wie "Auf welcher Seite ist Aufgabe X?" oder "Wie viele Unteraufgaben hat Aufgabe Y?"
-   - Sondern die ECHTEN Lernaufgaben, die Schüler lösen sollen
+**ERLAUBTE AUFGABENTYPEN (NUR diese 6 Typen sind erlaubt):**
 
-3. GENERIERE PASSENDE AUFGABEN:
-   - Im GLEICHEN Format wie im Original (nicht alles zu Multiple-Choice machen!)
-   - Mit ähnlicher Darstellung und Struktur
-   - Mit passenden Lösungsvorgaben
-   - Altersgerecht für Klasse ${grade}
-   - Schwierigkeit: ${difficultyMap[grade as keyof typeof difficultyMap] || 'mittel'}
+1. **word-classification**: Wörter müssen Kategorien zugeordnet werden
+   - Beispiel: Wörter → Nomen, Verben, Adjektive, Pronomen
+   - Benötigt: words[], categories[], correctMapping{}
+   - NICHT "matching" verwenden! Immer "word-classification"!
 
-4. AUFGABENTYPEN ERHALTEN:
-   - Wenn das Original Multiple-Choice ist → Multiple-Choice generieren
-   - Wenn das Original Lückentext ist → Lückentext generieren
-   - Wenn das Original Zuordnung ist → Zuordnung generieren
-   - Wenn das Original Rechenaufgaben sind → Rechenaufgaben generieren
-   - etc.
+2. **fill-blank**: Lückentexte mit vorgegebenen Optionen pro Lücke
+   - Beispiel: "Der H__nd" mit Optionen ["u", "ü"] für die Lücke
+   - Benötigt: blanks[], blankOptions[[]]
+   - NICHT "input" verwenden! Immer "fill-blank"!
 
-Wichtig:
-- Aufgaben müssen altersgerecht sein (Klasse ${grade})
-- Kindgerechte Sprache verwenden
-- Klare, verständliche Fragen
-- Realistische Antwort-Optionen`;
+3. **number-input**: Mehrere Rechenaufgaben mit numerischer Eingabe
+   - Beispiel: "5 + 3 = ?", "7 - 2 = ?"
+   - Benötigt: problems[{question, answer}]
 
-      const userPrompt = `Analysiere folgenden Text aus einem Arbeitsblatt/Lernmaterial für ${subjectName}, Klasse ${grade}:
+4. **multiple-choice**: Standard-Fragen mit 4 Antwort-Optionen
+   - Beispiel: "Was ist 2+2?" → Optionen: ["3", "4", "5", "6"]
+   - Benötigt: options[], answers (Index)
+
+5. **word-problem**: Textaufgabe mit Berechnung (ein Ergebnis)
+   - Beispiel: "Max hat 5 Äpfel, gibt 2 weg. Wie viele bleiben?"
+   - Benötigt: context, calculation, correctAnswer
+
+6. **number-pyramid**: Zahlenmauern (für Mathe)
+   - Benötigt: levels, structure[[]]
+
+**VERBOTEN:**
+- ❌ "matching" → verwende "word-classification"
+- ❌ "input" → verwende "fill-blank" oder "number-input"
+- ❌ "drag-drop" → verwende "word-classification"
+- ❌ Eigene Typen erfinden!
+
+**QUALITÄTSKRITERIEN:**
+- Aufgaben müssen für Klasse ${grade} verständlich sein
+- Kindgerechte, einfache Sprache
+- Klare Anweisungen - Kinder müssen genau wissen, was zu tun ist
+- Logisch und spielbar
+- Schwierigkeit: ${difficultyMap[grade as keyof typeof difficultyMap] || 'mittel'}`;
+
+      const userPrompt = `Analysiere folgenden Text aus einem Arbeitsblatt für ${subjectName}, Klasse ${grade}:
 
 ---
 ${extractedText.substring(0, 12000)}
 ---
 
-SCHRITT 1: ANALYSE
-- Welche Art von Arbeitsblatt ist das?
-- Welche Aufgabenformate kommen vor?
-- Welche Lernaufgaben sind enthalten?
-- Wie sind die Aufgaben strukturiert?
+**SCHRITT 1: INHALTS-ANALYSE**
+Analysiere den INHALT des Arbeitsblatts:
+- Welches Thema wird behandelt? (z.B. Wortarten, Addition, Rechtschreibung)
+- Was sind die Lernziele? (Was sollen die Kinder lernen?)
+- Welche Schwierigkeit hat es?
 
-SCHRITT 2: AUFGABEN GENERIEREN
-Erstelle genau 5 ähnliche Lernaufgaben basierend auf diesem Material. 
+**SCHRITT 2: TYP-ANALYSE**
+Analysiere die verschiedenen Aufgabentypen in der PDF.
+Erstelle eine MISCHUNG von Aufgaben in verschiedenen Typen!
 
-WICHTIG:
-- Verwende das GLEICHE Format wie im Original
-- Wenn das Original Multiple-Choice ist → Multiple-Choice
-- Wenn das Original Lückentext ist → Lückentext (type: "input")
-- Wenn das Original Zuordnung ist → Zuordnung (type: "matching")
-- Wenn das Original Drag-Drop ist → Drag-Drop (type: "drag-drop")
-- etc.
+Verfügbare Typen (wähle 2-4 verschiedene für die Aufgaben):
 
-Für jede Aufgabe:
-1. type: Der Aufgabentyp ("multiple-choice", "input", "matching", "drag-drop")
-2. stem: Die eigentliche Frage/Aufgabe
-3. options: Antwort-Optionen (nur bei Multiple-Choice, sonst leer)
-4. answers: Die richtige Antwort (Index bei Multiple-Choice, String bei Input, Array bei Matching/Drag-Drop)
-5. difficulty: Schwierigkeit (leicht/mittel/schwer)
-6. explanation: Kindgerechte Erklärung für die richtige Antwort
+1. **word-classification**: Wörter Kategorien zuordnen (z.B. Wortarten)
+2. **fill-blank**: Lückentexte mit Optionen pro Lücke (z.B. tz/z, ä/e)
+3. **text-input**: Freie Eingabe von Wörtern/Sätzen (z.B. Rechtschreibung)
+4. **sentence-builder**: Sätze aus Wortbausteinen bilden
+5. **table-fill**: Tabellen ausfüllen (z.B. Verb-Konjugation)
+6. **multiple-choice**: Standard 4-Optionen-Fragen
+7. **number-input**: Rechenaufgaben (für Mathe)
+8. **word-problem**: Textaufgaben (für Mathe)
+9. **number-pyramid**: Zahlenmauern (für Mathe)
+
+**SCHRITT 3: AUFGABEN ERSTELLEN**
+Erstelle 5-8 Aufgaben mit VERSCHIEDENEN Typen:
+- 2-3x Typ A (z.B. fill-blank)
+- 2x Typ B (z.B. word-classification)
+- 1-2x Typ C (z.B. text-input oder sentence-builder)
+- Optional: 1x weitere Typen
+
+Alle Aufgaben müssen:
+- Für Klasse ${grade} verständlich sein
+- Klare, einfache Anweisungen haben (Kinder müssen genau wissen, was zu tun ist)
+- Logisch und spielbar sein
+- Kindgerechte Sprache verwenden
+
+**SCHRITT 4: VALIDIERUNG**
+Prüfe jede Aufgabe:
+- Ist die Anweisung klar verständlich?
+- Weiß ein Kind genau, was zu tun ist?
+- Sind alle benötigten Felder vorhanden?
+- Ist der Typ korrekt (kein "matching" oder "input")?
 
 Antworte im folgenden JSON-Format:
 {
-  "worksheetType": "Beschreibung des Arbeitsblatt-Typs",
-  "taskFormats": ["multiple-choice", "input", ...],
+  "worksheetType": "Beschreibung des Themas",
+  "selectedType": "word-classification",  // Der gewählte Typ (MUSS einer der 6 sein!)
   "tasks": [
+    {
+      "type": "word-classification",  // MUSS einer der 6 erlaubten Typen sein!
+      "stem": "Ordne die Wörter den Wortarten zu.",
+      "words": ["Haus", "laufen", "schön", "ich"],
+      "categories": ["Nomen", "Verben", "Adjektive", "Pronomen"],
+      "correctMapping": {"Haus": "Nomen", "laufen": "Verben", "schön": "Adjektive", "ich": "Pronomen"},
+      "difficulty": "mittel",
+      "explanation": "Nomen sind Hauptwörter wie 'Haus'. Verben sind Tätigkeitswörter wie 'laufen'. Adjektive beschreiben Eigenschaften wie 'schön'. Pronomen ersetzen Nomen wie 'ich'."
+    },
+    {
+      "type": "fill-blank",
+      "stem": "Setze richtig ein: ä oder e?",
+      "blanks": ["ä", "e", "ä"],
+      "blankOptions": [["ä", "e"], ["ä", "e"], ["ä", "e"]],
+      "difficulty": "mittel",
+      "explanation": "Überlege, ob das Wort mit ä oder e geschrieben wird."
+    },
     {
       "type": "multiple-choice",
       "stem": "Wie viel ist 3 + 5?",
@@ -779,24 +1119,17 @@ Antworte im folgenden JSON-Format:
       "answers": 2,
       "difficulty": "leicht",
       "explanation": "Bei 3 + 5 kannst du zählen: Starte bei 3 und zähle 5 weiter: 3... 4, 5, 6, 7, 8! Das Ergebnis ist 8."
-    },
-    {
-      "type": "input",
-      "stem": "Rechne: 4 + 6 = ?",
-      "options": [],
-      "answers": "10",
-      "difficulty": "leicht",
-      "explanation": "4 + 6 = 10. Du kannst es dir so vorstellen: 4 Finger und 6 Finger zusammen sind 10 Finger."
     }
   ]
 }
 
-Wichtig:
+**WICHTIG:**
 - Nur valides JSON zurückgeben
 - Keine Markdown-Formatierung
 - Alle Aufgaben müssen zum Fach ${subjectName} passen
 - Schwierigkeit an Klasse ${grade} anpassen
-- Format muss zum Original passen!`;
+- NUR die 6 erlaubten Typen verwenden!
+- NICHT "matching", "input" oder andere Typen erfinden!`;
 
       // Beste verfügbare Modelle (in Reihenfolge: neueste zuerst)
       // GPT-4.1 ist neuer als GPT-4o und bietet bessere Qualität
@@ -912,146 +1245,310 @@ Wichtig:
           }
         }
         
-        return {
+        return validateAndNormalizeTask({
           stem: task.stem,
           options: normalizedOptions,
           answers: normalizedAnswers,
           difficulty: (task.difficulty || 'mittel') as 'leicht' | 'mittel' | 'schwer',
           explanation: task.explanation || '',
           type: task.type || 'multiple-choice',
-        };
+          // Neue Felder für Phase 1A Typen
+          blanks: task.blanks,
+          blankOptions: task.blankOptions,
+          caseSensitive: task.caseSensitive,
+          words: task.words,
+          categories: task.categories,
+          correctMapping: task.correctMapping,
+          problems: task.problems,
+          operation: task.operation,
+          numberRange: task.numberRange,
+          levels: task.levels,
+          structure: task.structure,
+          context: task.context,
+          calculation: task.calculation,
+          unit: task.unit,
+        });
       });
     } catch (error: any) {
-      console.error('❌ Fehler bei Aufgaben-Generierung:', error);
-      throw new Error(`Aufgaben-Generierung Fehler: ${error.message}`);
+      console.error('❌ Fehler bei OpenAI Aufgaben-Generierung:', error);
+      throw new Error(`OpenAI Aufgaben-Generierung Fehler: ${error.message}`);
     }
   };
 
-  const processUploadManually = async (upload: Upload) => {
-    if (!confirm(`Möchten Sie "${upload.filename}" jetzt mit KI verarbeiten?\n\nDies verwendet Gemini 2.5 Pro für OCR (Fallback: GPT-4 Vision) und GPT-5/GPT-4o für Aufgaben-Generierung.`)) {
-      return;
+  // Gemeinsame Funktion zum Speichern von Tasks
+  const saveTasksToFirestore = async (
+    upload: Upload,
+    generatedTasks: any[],
+    provider: 'gemini' | 'openai'
+  ): Promise<number> => {
+    const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+    
+    // Lade Eltern-Daten um Kinder zu finden
+    const parentDocRef = doc(db, 'users', parentUid);
+    const parentDocSnap = await getDoc(parentDocRef);
+    
+    if (!parentDocSnap.exists()) {
+      throw new Error('Eltern-Dokument nicht gefunden');
     }
 
+    const parentData = parentDocSnap.data();
+    const kids = parentData?.children || [];
+
+    if (kids.length === 0) {
+      await updateDoc(uploadRef, {
+        status: 'error',
+        errors: ['Keine Kinder mit diesem Eltern-Konto verknüpft'],
+      });
+      throw new Error('Keine Kinder gefunden. Bitte verknüpfen Sie zuerst ein Kind mit Ihrem Konto.');
+    }
+
+    // Aufgaben für jedes Kind erstellen
+    let tasksCreated = 0;
+    for (const kidId of kids) {
+      for (const task of generatedTasks) {
+        // Sicherstellen, dass answers kein verschachteltes Array ist
+        let safeAnswers = task.answers;
+        if (Array.isArray(safeAnswers) && safeAnswers.length > 0 && Array.isArray(safeAnswers[0])) {
+          safeAnswers = safeAnswers.flat();
+        }
+        
+        // Sicherstellen, dass options kein verschachteltes Array ist
+        let safeOptions = task.options || [];
+        if (Array.isArray(safeOptions) && safeOptions.length > 0 && Array.isArray(safeOptions[0])) {
+          safeOptions = safeOptions.flat();
+        }
+        
+        // Für neue Typen: answers kann undefined sein - Fallback erstellen
+        let safeAnswersForFirestore = safeAnswers;
+        if (safeAnswersForFirestore === undefined || safeAnswersForFirestore === null) {
+          // Fallback basierend auf Typ
+          if (task.type === 'fill-blank' && task.blanks) {
+            safeAnswersForFirestore = task.blanks.join(',');
+          } else if (task.type === 'word-classification' && task.correctMapping) {
+            safeAnswersForFirestore = JSON.stringify(task.correctMapping);
+          } else if (task.type === 'number-input' && task.problems) {
+            safeAnswersForFirestore = task.problems.map((p: any) => p.answer || '').join(',');
+          } else if (task.type === 'number-pyramid' && task.structure) {
+            safeAnswersForFirestore = JSON.stringify(task.structure);
+          } else if (task.type === 'word-problem' && task.correctAnswer) {
+            safeAnswersForFirestore = String(task.correctAnswer);
+          } else {
+            safeAnswersForFirestore = ''; // Leerer String statt undefined
+          }
+        }
+        
+        // Erstelle Task-Dokument ohne undefined Werte
+        const taskDoc: any = {
+          stem: task.stem || '',
+          options: safeOptions,
+          answers: safeAnswersForFirestore,
+          difficulty: task.difficulty || 'mittel',
+          explanation: task.explanation || '',
+          type: task.type || 'multiple-choice',
+          uploadId: upload.id,
+          subject: upload.subject,
+          grade: upload.grade,
+          status: 'pending',
+          createdAt: new Date().toISOString(),
+          provider: provider,
+        };
+        
+        // Füge neue Felder nur hinzu wenn sie definiert sind
+        if (task.blanks) taskDoc.blanks = task.blanks;
+        if (task.blankOptions) taskDoc.blankOptions = task.blankOptions;
+        if (task.caseSensitive !== undefined) taskDoc.caseSensitive = task.caseSensitive;
+        if (task.words) taskDoc.words = task.words;
+        if (task.categories) taskDoc.categories = task.categories;
+        if (task.correctMapping) taskDoc.correctMapping = task.correctMapping;
+        if (task.problems) taskDoc.problems = task.problems;
+        if (task.operation) taskDoc.operation = task.operation;
+        if (task.numberRange) taskDoc.numberRange = task.numberRange;
+        if (task.levels) taskDoc.levels = task.levels;
+        if (task.structure) taskDoc.structure = task.structure;
+        if (task.context) taskDoc.context = task.context;
+        if (task.calculation) taskDoc.calculation = task.calculation;
+        if (task.unit) taskDoc.unit = task.unit;
+        
+        await addDoc(
+          collection(db, 'users', parentUid, 'kids', kidId, 'tasks'),
+          taskDoc
+        );
+        tasksCreated++;
+      }
+    }
+
+    return tasksCreated;
+  };
+
+  // Verarbeitung mit Gemini
+  const processWithGemini = async (upload: Upload) => {
     try {
-      // Status auf 'processing' setzen
       const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
       await updateDoc(uploadRef, { status: 'processing' });
 
-      // Lade Eltern-Daten um Kinder zu finden
-      const parentDocRef = doc(db, 'users', parentUid);
-      const parentDocSnap = await getDoc(parentDocRef);
-      
-      if (!parentDocSnap.exists()) {
-        throw new Error('Eltern-Dokument nicht gefunden');
-      }
-
-      const parentData = parentDocSnap.data();
-      const kids = parentData?.children || [];
-
-      if (kids.length === 0) {
-        await updateDoc(uploadRef, {
-          status: 'error',
-          errors: ['Keine Kinder mit diesem Eltern-Konto verknüpft'],
-        });
-        alert('Keine Kinder gefunden. Bitte verknüpfen Sie zuerst ein Kind mit Ihrem Konto.');
-        return;
-      }
-
-      // Schritt 1: OCR durchführen
-      console.log('📄 Starte OCR...');
+      // OCR
       const ocrResult = await performOCR(upload.downloadURL, upload.storagePath || null);
-      console.log(`✅ OCR abgeschlossen: ${ocrResult.text.length} Zeichen extrahiert`);
-
       if (ocrResult.text.length < 50) {
-        throw new Error('Zu wenig Text extrahiert. Bitte stellen Sie sicher, dass das Dokument Text enthält.');
+        throw new Error('Zu wenig Text extrahiert.');
       }
 
-      // Schritt 2: Aufgaben generieren
-      console.log('🤖 Generiere Aufgaben...');
-      const generatedTasks = await generateTasks(ocrResult.text, upload.subject, upload.grade);
-      console.log(`✅ ${generatedTasks.length} Aufgaben generiert`);
-
+      // Tasks mit Gemini generieren
+      const generatedTasks = await generateTasksWithGemini(ocrResult.text, upload.subject, upload.grade);
       if (generatedTasks.length === 0) {
-        throw new Error('Keine Aufgaben konnten generiert werden. Bitte versuchen Sie es erneut.');
+        throw new Error('Keine Aufgaben konnten generiert werden.');
       }
 
-      // Schritt 3: Aufgaben für jedes Kind erstellen
-      let tasksCreated = 0;
-      for (const kidId of kids) {
-        for (const task of generatedTasks) {
-          // Sicherstellen, dass answers kein verschachteltes Array ist
-          let safeAnswers = task.answers;
-          if (Array.isArray(safeAnswers) && safeAnswers.length > 0 && Array.isArray(safeAnswers[0])) {
-            safeAnswers = safeAnswers.flat();
-          }
-          
-          // Sicherstellen, dass options kein verschachteltes Array ist
-          let safeOptions = task.options || [];
-          if (Array.isArray(safeOptions) && safeOptions.length > 0 && Array.isArray(safeOptions[0])) {
-            safeOptions = safeOptions.flat();
-          }
-          
-          await addDoc(
-            collection(db, 'users', parentUid, 'kids', kidId, 'tasks'),
-            {
-              stem: task.stem,
-              options: safeOptions,
-              answers: safeAnswers,
-              difficulty: task.difficulty,
-              explanation: task.explanation,
-              type: task.type || 'multiple-choice',
-              uploadId: upload.id,
-              subject: upload.subject,
-              grade: upload.grade,
-              status: 'pending',
-              createdAt: new Date().toISOString(),
-            }
-          );
-          tasksCreated++;
-        }
-      }
+      // Speichern
+      const tasksCreated = await saveTasksToFirestore(upload, generatedTasks, 'gemini');
 
-      // Status auf 'ready' setzen
       await updateDoc(uploadRef, {
         status: 'ready',
         tasksGenerated: tasksCreated,
         confidence: ocrResult.confidence,
         pages: ocrResult.pages,
+        provider: 'gemini',
       });
 
-      // Tasks neu laden
       await loadTasksForUpload(upload.id);
-
-      alert(`✅ Verarbeitung abgeschlossen!\n\n📄 ${ocrResult.text.length} Zeichen extrahiert\n📝 ${tasksCreated} Aufgaben erstellt für ${kids.length} Kind(er)`);
+      alert(`✅ Verarbeitung abgeschlossen (Gemini)!\n\n📄 ${ocrResult.text.length} Zeichen\n📝 ${tasksCreated} Aufgaben erstellt`);
     } catch (error: any) {
-      console.error('❌ Fehler bei manueller Verarbeitung:', error);
-      
-      // Status auf 'error' setzen
-      try {
-        const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
-        const errorMessage = error.message || 'Unbekannter Fehler';
-        await updateDoc(uploadRef, {
-          status: 'error',
-          errors: [errorMessage],
-        });
-      } catch (updateError) {
-        console.error('❌ Fehler beim Aktualisieren des Status:', updateError);
+      console.error('❌ Fehler bei Gemini-Verarbeitung:', error);
+      const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+      await updateDoc(uploadRef, {
+        status: 'error',
+        errors: [error.message || 'Unbekannter Fehler'],
+      });
+      alert(`Fehler: ${error.message}`);
+    }
+  };
+
+  // Verarbeitung mit OpenAI
+  const processWithOpenAI = async (upload: Upload) => {
+    try {
+      const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+      await updateDoc(uploadRef, { status: 'processing' });
+
+      // OCR
+      const ocrResult = await performOCR(upload.downloadURL, upload.storagePath || null);
+      if (ocrResult.text.length < 50) {
+        throw new Error('Zu wenig Text extrahiert.');
       }
-      
-      // Benutzerfreundliche Fehlermeldung
-      let userMessage = 'Fehler bei der Verarbeitung:\n\n' + (error.message || 'Unbekannter Fehler');
-      
-      // Spezifische Hinweise basierend auf Fehlertyp
-      if (error.message?.includes('API Key')) {
-        userMessage += '\n\n💡 Tipp: Stellen Sie sicher, dass VITE_OPENAI_API_KEY in .env.local gesetzt ist.';
-        userMessage += '\n\nAlternativ können Sie den Backend-Agent verwenden (siehe AGENT_SETUP.md), der API-Keys sicherer verwaltet.';
-      } else if (error.message?.includes('Rate Limit')) {
-        userMessage += '\n\n💡 Tipp: Versuchen Sie es in ein paar Minuten erneut oder verwenden Sie den Backend-Agent.';
-      } else if (error.message?.includes('CORS') || error.message?.includes('Failed to fetch')) {
-        userMessage += '\n\n💡 Tipp: Dies könnte ein CORS-Problem sein. Prüfen Sie die CORS-Konfiguration (siehe CORS_SETUP.md) oder verwenden Sie den Backend-Agent.';
+
+      // Tasks mit OpenAI generieren
+      const generatedTasks = await generateTasksWithOpenAI(ocrResult.text, upload.subject, upload.grade);
+      if (generatedTasks.length === 0) {
+        throw new Error('Keine Aufgaben konnten generiert werden.');
       }
+
+      // Speichern
+      const tasksCreated = await saveTasksToFirestore(upload, generatedTasks, 'openai');
+
+      await updateDoc(uploadRef, {
+        status: 'ready',
+        tasksGenerated: tasksCreated,
+        confidence: ocrResult.confidence,
+        pages: ocrResult.pages,
+        provider: 'openai',
+      });
+
+      await loadTasksForUpload(upload.id);
+      alert(`✅ Verarbeitung abgeschlossen (OpenAI)!\n\n📄 ${ocrResult.text.length} Zeichen\n📝 ${tasksCreated} Aufgaben erstellt\n💰 Kosten: ~$0.02`);
+    } catch (error: any) {
+      console.error('❌ Fehler bei OpenAI-Verarbeitung:', error);
+      const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+      await updateDoc(uploadRef, {
+        status: 'error',
+        errors: [error.message || 'Unbekannter Fehler'],
+      });
+      alert(`Fehler: ${error.message}`);
+    }
+  };
+
+  // Verarbeitung mit BEIDEN (Vergleich)
+  const [comparisonResults, setComparisonResults] = useState<{
+    gemini: any[];
+    openai: any[];
+    uploadId: string | null;
+  }>({ gemini: [], openai: [], uploadId: null });
+  const [expandedComparisonTasks, setExpandedComparisonTasks] = useState<Set<string>>(new Set());
+  
+  const toggleComparisonTask = (provider: 'gemini' | 'openai', index: number) => {
+    const key = `${provider}-${index}`;
+    setExpandedComparisonTasks((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
+  const processWithBoth = async (upload: Upload) => {
+    try {
+      const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+      await updateDoc(uploadRef, { status: 'processing' });
+
+      // OCR (einmal für beide)
+      const ocrResult = await performOCR(upload.downloadURL, upload.storagePath || null);
+      if (ocrResult.text.length < 50) {
+        throw new Error('Zu wenig Text extrahiert.');
+      }
+
+      // Beide parallel generieren
+      const [geminiTasks, openaiTasks] = await Promise.all([
+        generateTasksWithGemini(ocrResult.text, upload.subject, upload.grade).catch(e => {
+          console.error('Gemini Fehler:', e);
+          return [];
+        }),
+        generateTasksWithOpenAI(ocrResult.text, upload.subject, upload.grade).catch(e => {
+          console.error('OpenAI Fehler:', e);
+          return [];
+        }),
+      ]);
+
+      // Vergleichs-Ergebnisse speichern
+      setComparisonResults({
+        gemini: geminiTasks,
+        openai: openaiTasks,
+        uploadId: upload.id,
+      });
+
+      await updateDoc(uploadRef, {
+        status: 'ready',
+        confidence: ocrResult.confidence,
+        pages: ocrResult.pages,
+      });
+
+      // Zeige Vergleichs-UI (wird unten gerendert)
+    } catch (error: any) {
+      console.error('❌ Fehler bei Vergleichs-Verarbeitung:', error);
+      const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+      await updateDoc(uploadRef, {
+        status: 'error',
+        errors: [error.message || 'Unbekannter Fehler'],
+      });
+      alert(`Fehler: ${error.message}`);
+    }
+  };
+
+  const selectProviderTasks = async (upload: Upload, provider: 'gemini' | 'openai', tasks: any[]) => {
+    try {
+      const tasksCreated = await saveTasksToFirestore(upload, tasks, provider);
       
-      alert(userMessage);
+      const uploadRef = doc(db, 'users', parentUid, 'uploads', upload.id);
+      await updateDoc(uploadRef, {
+        tasksGenerated: tasksCreated,
+        provider: provider,
+      });
+
+      await loadTasksForUpload(upload.id);
+      setComparisonResults({ gemini: [], openai: [], uploadId: null });
+      
+      alert(`✅ ${tasksCreated} Aufgaben von ${provider === 'gemini' ? 'Gemini' : 'OpenAI'} übernommen!`);
+    } catch (error: any) {
+      alert(`Fehler beim Speichern: ${error.message}`);
     }
   };
 
@@ -1234,15 +1731,466 @@ Wichtig:
                   <div className="text-center py-8 bg-yellow-50 rounded-lg border-2 border-yellow-200">
                     <p className="text-yellow-800 font-semibold mb-2">⏳ Material wartet auf Verarbeitung</p>
                     <p className="text-yellow-700 text-sm mb-4">
-                      Klicken Sie auf den Button, um das Material mit Gemini 2.5 Pro zu verarbeiten und Aufgaben zu generieren.
+                      Wählen Sie eine KI für die Aufgaben-Generierung:
                     </p>
-                    <Button
-                      variant="primary"
-                      onClick={() => processUploadManually(upload)}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      🤖 Mit KI verarbeiten (Gemini 2.5 Pro)
-                    </Button>
+                    <div className="flex flex-col gap-3 max-w-md mx-auto">
+                      <Button
+                        variant="primary"
+                        onClick={() => processWithGemini(upload)}
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                      >
+                        🤖 Mit Gemini generieren (kostenlos)
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={() => processWithOpenAI(upload)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        🤖 Mit OpenAI generieren (~$0.02)
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => processWithBoth(upload)}
+                        className="bg-purple-600 hover:bg-purple-700 text-white"
+                      >
+                        🔬 Mit BEIDEN vergleichen (Test)
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Vergleichs-Ergebnisse anzeigen - Detaillierte Ansicht */}
+                {comparisonResults.uploadId === upload.id && 
+                 (comparisonResults.gemini.length > 0 || comparisonResults.openai.length > 0) && (
+                  <div className="mb-6 p-6 bg-purple-50 rounded-lg border-2 border-purple-300">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-lg font-bold text-purple-800">
+                        🔬 Vergleich: Gemini vs. OpenAI
+                      </h4>
+                      <Button
+                        variant="secondary"
+                        onClick={() => setComparisonResults({ gemini: [], openai: [], uploadId: null })}
+                        className="bg-gray-400 hover:bg-gray-500 text-white"
+                      >
+                        ✕ Vergleich schließen
+                      </Button>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Beide Modelle haben Aufgaben generiert. Klicke auf eine Aufgabe, um Details zu sehen. 
+                      Unten kannst du dich für eine Version entscheiden.
+                    </p>
+                    
+                    {/* Gemini Aufgaben */}
+                    {comparisonResults.gemini.length > 0 && (
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <h5 className="text-lg font-bold text-green-800 flex items-center gap-2">
+                            🤖 Gemini ({comparisonResults.gemini.length} Aufgaben)
+                            <Badge className="bg-green-100 text-green-800">Kostenlos</Badge>
+                          </h5>
+                          <Button
+                            variant="primary"
+                            onClick={() => selectProviderTasks(upload, 'gemini', comparisonResults.gemini)}
+                            className="bg-green-600 hover:bg-green-700 text-white"
+                          >
+                            ✅ Diese Version nehmen
+                          </Button>
+                        </div>
+                        <div className="space-y-3">
+                          {comparisonResults.gemini.map((task, idx) => {
+                            const taskKey = `gemini-${idx}`;
+                            const isExpanded = expandedComparisonTasks.has(taskKey);
+                            
+                            return (
+                              <Card
+                                key={idx}
+                                className="border-2 border-green-300 bg-white"
+                              >
+                                <div className="flex items-center justify-between p-3">
+                                  <div className="flex items-center gap-3">
+                                    <Badge className="bg-green-200 text-green-800">
+                                      {task.type || 'unbekannt'}
+                                    </Badge>
+                                    <span className="text-sm font-semibold text-gray-700">
+                                      Aufgabe #{idx + 1}
+                                    </span>
+                                    {task.difficulty && (
+                                      <span className="text-xs text-gray-500">
+                                        Schwierigkeit: {task.difficulty}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={() => toggleComparisonTask('gemini', idx)}
+                                    className="text-sm"
+                                  >
+                                    {isExpanded ? '▼ Ausblenden' : '▶ Details anzeigen'}
+                                  </Button>
+                                </div>
+                                
+                                {isExpanded && (
+                                  <div className="p-4 bg-green-50 border-t border-green-200">
+                                    <div className="space-y-4">
+                                      {/* Vorschau: So sieht das Kind die Aufgabe */}
+                                      <div className="mb-4">
+                                        <TaskPreview 
+                                          task={task} 
+                                          grade={upload.grade} 
+                                          subject={upload.subject} 
+                                        />
+                                      </div>
+                                      
+                                      {/* Rohdaten für Debugging */}
+                                      <div className="border-t border-green-300 pt-4">
+                                        <div className="text-xs font-semibold text-gray-500 mb-2">
+                                          📋 Rohdaten (für Debugging):
+                                        </div>
+                                        <div className="space-y-3">
+                                          <div>
+                                            <div className="text-sm font-semibold text-gray-700 mb-1">
+                                              Aufgabe:
+                                            </div>
+                                            <div className="text-sm text-gray-800 whitespace-pre-wrap bg-white p-3 rounded border">
+                                              {task.stem || task.question || 'Keine Aufgabe'}
+                                            </div>
+                                          </div>
+                                          
+                                          {/* Typ-spezifische Details */}
+                                      {task.type === 'fill-blank' && (
+                                        <>
+                                          {task.blanks && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Richtige Antworten:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.blanks.join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                          {task.blankOptions && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Optionen pro Lücke:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.blankOptions.map((opts: any, i: number) => {
+                                                  // Sichere Validierung: Prüfe ob opts ein Array ist
+                                                  const optionsArray = Array.isArray(opts) ? opts : [String(opts || '')];
+                                                  return `Lücke ${i + 1}: ${optionsArray.join(' / ')}`;
+                                                }).join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
+                                      
+                                      {task.type === 'word-classification' && (
+                                        <>
+                                          {task.words && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Wörter:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.words.join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                          {task.categories && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Kategorien:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.categories.join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
+                                      
+                                      {task.type === 'number-input' && task.problems && (
+                                        <div>
+                                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                                            Rechenaufgaben:
+                                          </div>
+                                          <div className="space-y-1">
+                                            {task.problems.map((p: any, pIdx: number) => (
+                                              <div key={pIdx} className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {p.question} = {p.answer}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                      
+                                      {task.type === 'word-problem' && (
+                                        <>
+                                          {task.correctAnswer && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Richtige Antwort:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.correctAnswer}
+                                              </div>
+                                            </div>
+                                          )}
+                                          {task.calculation && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Rechnung:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.calculation}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
+                                      
+                                      {task.options && task.options.length > 0 && (
+                                        <div>
+                                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                                            Optionen:
+                                          </div>
+                                          <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                            {task.options.map((opt: string, optIdx: number) => 
+                                              `${optIdx + 1}. ${opt}`
+                                            ).join('\n')}
+                                          </div>
+                                        </div>
+                                      )}
+                                      
+                                      {task.explanation && (
+                                        <div>
+                                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                                            💡 Erklärung:
+                                          </div>
+                                          <div className="text-sm text-gray-700 bg-white p-3 rounded border-l-4 border-green-400">
+                                            {task.explanation}
+                                          </div>
+                                        </div>
+                                      )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </Card>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* OpenAI Aufgaben */}
+                    {comparisonResults.openai.length > 0 && (
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <h5 className="text-lg font-bold text-blue-800 flex items-center gap-2">
+                            🤖 OpenAI ({comparisonResults.openai.length} Aufgaben)
+                            <Badge className="bg-blue-100 text-blue-800">~$0.02</Badge>
+                          </h5>
+                          <Button
+                            variant="primary"
+                            onClick={() => selectProviderTasks(upload, 'openai', comparisonResults.openai)}
+                            className="bg-blue-600 hover:bg-blue-700 text-white"
+                          >
+                            ✅ Diese Version nehmen
+                          </Button>
+                        </div>
+                        <div className="space-y-3">
+                          {comparisonResults.openai.map((task, idx) => {
+                            const taskKey = `openai-${idx}`;
+                            const isExpanded = expandedComparisonTasks.has(taskKey);
+                            
+                            return (
+                              <Card
+                                key={idx}
+                                className="border-2 border-blue-300 bg-white"
+                              >
+                                <div className="flex items-center justify-between p-3">
+                                  <div className="flex items-center gap-3">
+                                    <Badge className="bg-blue-200 text-blue-800">
+                                      {task.type || 'unbekannt'}
+                                    </Badge>
+                                    <span className="text-sm font-semibold text-gray-700">
+                                      Aufgabe #{idx + 1}
+                                    </span>
+                                    {task.difficulty && (
+                                      <span className="text-xs text-gray-500">
+                                        Schwierigkeit: {task.difficulty}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={() => toggleComparisonTask('openai', idx)}
+                                    className="text-sm"
+                                  >
+                                    {isExpanded ? '▼ Ausblenden' : '▶ Details anzeigen'}
+                                  </Button>
+                                </div>
+                                
+                                {isExpanded && (
+                                  <div className="p-4 bg-blue-50 border-t border-blue-200">
+                                    <div className="space-y-4">
+                                      {/* Vorschau: So sieht das Kind die Aufgabe */}
+                                      <div className="mb-4">
+                                        <TaskPreview 
+                                          task={task} 
+                                          grade={upload.grade} 
+                                          subject={upload.subject} 
+                                        />
+                                      </div>
+                                      
+                                      {/* Rohdaten für Debugging */}
+                                      <div className="border-t border-blue-300 pt-4">
+                                        <div className="text-xs font-semibold text-gray-500 mb-2">
+                                          📋 Rohdaten (für Debugging):
+                                        </div>
+                                        <div className="space-y-3">
+                                          <div>
+                                            <div className="text-sm font-semibold text-gray-700 mb-1">
+                                              Aufgabe:
+                                            </div>
+                                            <div className="text-sm text-gray-800 whitespace-pre-wrap bg-white p-3 rounded border">
+                                              {task.stem || task.question || 'Keine Aufgabe'}
+                                            </div>
+                                          </div>
+                                          
+                                          {/* Typ-spezifische Details */}
+                                      {task.type === 'fill-blank' && (
+                                        <>
+                                          {task.blanks && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Richtige Antworten:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.blanks.join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                          {task.blankOptions && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Optionen pro Lücke:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.blankOptions.map((opts: any, i: number) => {
+                                                  // Sichere Validierung: Prüfe ob opts ein Array ist
+                                                  const optionsArray = Array.isArray(opts) ? opts : [String(opts || '')];
+                                                  return `Lücke ${i + 1}: ${optionsArray.join(' / ')}`;
+                                                }).join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
+                                      
+                                      {task.type === 'word-classification' && (
+                                        <>
+                                          {task.words && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Wörter:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.words.join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                          {task.categories && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Kategorien:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.categories.join(', ')}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
+                                      
+                                      {task.type === 'number-input' && task.problems && (
+                                        <div>
+                                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                                            Rechenaufgaben:
+                                          </div>
+                                          <div className="space-y-1">
+                                            {task.problems.map((p: any, pIdx: number) => (
+                                              <div key={pIdx} className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {p.question} = {p.answer}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                      
+                                      {task.type === 'word-problem' && (
+                                        <>
+                                          {task.correctAnswer && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Richtige Antwort:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.correctAnswer}
+                                              </div>
+                                            </div>
+                                          )}
+                                          {task.calculation && (
+                                            <div>
+                                              <div className="text-sm font-semibold text-gray-700 mb-1">
+                                                Rechnung:
+                                              </div>
+                                              <div className="text-sm text-gray-800 bg-white p-2 rounded">
+                                                {task.calculation}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </>
+                                      )}
+                                      
+                                      {task.options && task.options.length > 0 && (
+                                        <div>
+                                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                                            Optionen:
+                                          </div>
+                                          <div className="text-sm text-gray-800 bg-white p-2 rounded whitespace-pre-wrap">
+                                            {task.options.map((opt: string, optIdx: number) => 
+                                              `${optIdx + 1}. ${opt}`
+                                            ).join('\n')}
+                                          </div>
+                                        </div>
+                                      )}
+                                      
+                                      {task.explanation && (
+                                        <div>
+                                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                                            💡 Erklärung:
+                                          </div>
+                                          <div className="text-sm text-gray-700 bg-white p-3 rounded border-l-4 border-blue-400">
+                                            {task.explanation}
+                                          </div>
+                                        </div>
+                                      )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </Card>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
                 

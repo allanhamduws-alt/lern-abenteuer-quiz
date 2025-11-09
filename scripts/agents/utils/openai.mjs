@@ -74,10 +74,13 @@ Wichtig:
 - Klare, verständliche Fragen
 - Realistische Antwort-Optionen`;
 
+    // Erhöhe Text-Limit auf 50k Zeichen (wie besprochen)
+    const textToProcess = extractedText.substring(0, 50000);
+
     const userPrompt = `Analysiere folgenden Text aus einem Arbeitsblatt/Lernmaterial für ${subjectName}, Klasse ${grade}:
 
 ---
-${extractedText}
+${textToProcess}
 ---
 
 SCHRITT 1: ANALYSE
@@ -89,45 +92,53 @@ SCHRITT 1: ANALYSE
 SCHRITT 2: AUFGABEN GENERIEREN
 Erstelle genau 5 ähnliche Lernaufgaben basierend auf diesem Material. 
 
-WICHTIG:
-- Verwende das GLEICHE Format wie im Original
-- Wenn das Original Multiple-Choice ist → Multiple-Choice
-- Wenn das Original Lückentext ist → Lückentext (type: "input")
-- Wenn das Original Zuordnung ist → Zuordnung (type: "matching")
-- Wenn das Original Drag-Drop ist → Drag-Drop (type: "drag-drop")
-- etc.
+WICHTIG - AUFGABENTYPEN (erkenne diese genau):
+
+DEUTSCH:
+1. fill-blank: Lückentexte mit Rechtschreibregeln
+   - Format: {"type": "fill-blank", "stem": "Setze ä oder e ein:\\n\\nDie Bl__me ist sch__n.", "blanks": ["ü", "ö"], "blankOptions": [["ä","e"], ["ö","o"]], "caseSensitive": true}
+   
+2. word-classification: Wortarten zuordnen
+   - Format: {"type": "word-classification", "words": ["Hund", "laufen", "schnell"], "categories": ["Nomen", "Verb", "Adjektiv"], "correctMapping": {"Hund": "Nomen", "laufen": "Verb", "schnell": "Adjektiv"}}
+   
+MATHE:
+3. number-input: Rechenaufgaben
+   - Zahlenraum beachten! Klasse 1: 1-20, Klasse 2: 1-100, Klasse 3: 1-1000, Klasse 4: >1000
+   - Format: {"type": "number-input", "problems": [{"question": "5 + 3 = ", "answer": "8"}], "operation": "addition", "numberRange": [1, 20]}
+   
+4. number-pyramid: Zahlenmauern
+   - Format: {"type": "number-pyramid", "levels": 3, "structure": [[{value: null, isBlank: true}, {value: null, isBlank: true}, {value: 10, isBlank: false}], [{value: 3, isBlank: false}, {value: null, isBlank: true}, {value: 5, isBlank: false}], [{value: 1, isBlank: false}, {value: 2, isBlank: false}, {value: 3, isBlank: false}]]}
+   
+5. word-problem: Textaufgaben
+   - Format: {"type": "word-problem", "stem": "Max hat 5 Äpfel. Er bekommt 3 dazu. Wie viele Äpfel hat er jetzt?", "context": "fruits", "calculation": "5 + 3", "correctAnswer": "8", "unit": "Äpfel"}
+
+BESTEHEND:
+- multiple-choice: Standard Multiple-Choice
+- input: Freie Texteingabe
+- drag-drop: Drag & Drop Aufgaben
 
 Für jede Aufgabe:
-1. type: Der Aufgabentyp ("multiple-choice", "input", "matching", "drag-drop")
+1. type: Einer der oben genannten Typen
 2. stem: Die eigentliche Frage/Aufgabe
 3. options: Antwort-Optionen (nur bei Multiple-Choice, sonst leer)
-4. answers: Die richtige Antwort (Index bei Multiple-Choice, String bei Input, Array bei Matching/Drag-Drop)
+4. answers: Die richtige Antwort (je nach Typ)
 5. difficulty: Schwierigkeit (leicht/mittel/schwer)
-6. explanation: Kindgerechte Erklärung für die richtige Antwort
-7. imagePrompt: Optional, falls ein Bild hilfreich wäre
+6. explanation: Kindgerechte Erklärung
+7. Typ-spezifische Felder (siehe Formate oben)
 
 Antworte im folgenden JSON-Format:
 {
-  "worksheetType": "Beschreibung des Arbeitsblatt-Typs",
-  "taskFormats": ["multiple-choice", "input", ...],
+  "worksheetType": "Beschreibung",
+  "taskFormats": ["fill-blank", ...],
   "tasks": [
     {
-      "type": "multiple-choice",
-      "stem": "Wie viel ist 3 + 5?",
-      "options": ["6", "7", "8", "9"],
-      "answers": 2,
-      "difficulty": "leicht",
-      "explanation": "Bei 3 + 5 kannst du zählen: Starte bei 3 und zähle 5 weiter: 3... 4, 5, 6, 7, 8! Das Ergebnis ist 8.",
-      "imagePrompt": null
-    },
-    {
-      "type": "input",
-      "stem": "Rechne: 4 + 6 = ?",
-      "options": [],
-      "answers": "10",
-      "difficulty": "leicht",
-      "explanation": "4 + 6 = 10. Du kannst es dir so vorstellen: 4 Finger und 6 Finger zusammen sind 10 Finger.",
-      "imagePrompt": null
+      "type": "fill-blank",
+      "stem": "Setze ä oder e ein:\\n\\nDie Bl__me ist sch__n.",
+      "blanks": ["ü", "ö"],
+      "blankOptions": [["ä","e"], ["ö","o"]],
+      "caseSensitive": true,
+      "difficulty": "mittel",
+      "explanation": "..."
     }
   ]
 }
@@ -275,6 +286,21 @@ Wichtig:
         imageUrl: task.imageUrl,
         imagePrompt: task.imagePrompt,
         needsImageGeneration: task.needsImageGeneration || false,
+        // Neue Felder für Phase 1A Typen
+        blanks: task.blanks,
+        blankOptions: task.blankOptions,
+        caseSensitive: task.caseSensitive,
+        words: task.words,
+        categories: task.categories,
+        correctMapping: task.correctMapping,
+        problems: task.problems,
+        operation: task.operation,
+        numberRange: task.numberRange,
+        levels: task.levels,
+        structure: task.structure,
+        context: task.context,
+        calculation: task.calculation,
+        unit: task.unit,
         worksheetType: worksheetType, // Metadaten für Evaluierung
         taskFormats: taskFormats, // Metadaten für Evaluierung
       };

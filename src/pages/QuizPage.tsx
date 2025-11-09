@@ -14,6 +14,14 @@ import { Stars } from '../components/ui/Stars';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { InputQuestion } from '../components/quiz/InputQuestion';
 import { DragDropQuestion } from '../components/quiz/DragDropQuestion';
+import { FillBlankQuestion } from '../components/quiz/FillBlankQuestion';
+import { WordClassificationQuestion } from '../components/quiz/WordClassificationQuestion';
+import { NumberInputQuestion } from '../components/quiz/NumberInputQuestion';
+import { NumberPyramidQuestion } from '../components/quiz/NumberPyramidQuestion';
+import { WordProblemQuestion } from '../components/quiz/WordProblemQuestion';
+import { TextInputQuestion } from '../components/quiz/TextInputQuestion';
+import { SentenceBuilderQuestion } from '../components/quiz/SentenceBuilderQuestion';
+import { TableFillQuestion } from '../components/quiz/TableFillQuestion';
 import { HelpButton } from '../components/quiz/HelpButton';
 import { CharacterMascot } from '../components/CharacterMascot';
 import { getCurrentUser } from '../services/auth';
@@ -44,6 +52,48 @@ export function QuizPage() {
   const [progress, setProgress] = useState<Progress | null>(null);
   const [isLoadingProgress, setIsLoadingProgress] = useState(true);
 
+  // Helper: Deserialisiere Antwort basierend auf Fragetyp
+  const deserializeAnswer = (question: Question, serialized: number | string | null): any => {
+    if (serialized === null) return null;
+    
+    if (question.type === 'fill-blank' || question.type === 'number-input') {
+      // Array: Komma-separiert
+      if (typeof serialized === 'string' && serialized.includes(',')) {
+        return serialized.split(',');
+      }
+      return [serialized];
+    } else if (question.type === 'word-classification' || question.type === 'number-pyramid' || question.type === 'table-fill') {
+      // Record: JSON string
+      if (typeof serialized === 'string' && serialized.startsWith('{')) {
+        try {
+          return JSON.parse(serialized);
+        } catch {
+          return null;
+        }
+      }
+      return null;
+    } else if (question.type === 'word-problem' || question.type === 'input' || question.type === 'text-input') {
+      // String
+      return String(serialized);
+    } else if (question.type === 'sentence-builder' || question.type === 'drag-drop') {
+      // Array: Komma-separiert oder JSON
+      if (typeof serialized === 'string') {
+        if (serialized.startsWith('[')) {
+          try {
+            return JSON.parse(serialized);
+          } catch {
+            return serialized.split(',');
+          }
+        }
+        return serialized.split(',');
+      }
+      return [];
+    }
+    
+    // Default: Multiple-Choice (number)
+    return serialized;
+  };
+
   // Lade Progress beim Start für adaptive Fragen-Auswahl
   useEffect(() => {
     const loadUserProgress = async () => {
@@ -63,6 +113,23 @@ export function QuizPage() {
     
     loadUserProgress();
   }, []);
+
+  // Lade gespeicherte Antwort beim Wechsel der Frage
+  useEffect(() => {
+    if (questions.length > 0 && currentQuestionIndex < questions.length) {
+      const currentQuestion = questions[currentQuestionIndex];
+      const savedResult = results.find((r) => r.questionId === currentQuestion.id);
+      if (savedResult) {
+        const deserialized = deserializeAnswer(currentQuestion, savedResult.selectedAnswer);
+        setSelectedAnswer(deserialized);
+        setShowResult(true);
+      } else {
+        setSelectedAnswer(null);
+        setShowResult(false);
+      }
+      setQuestionStartTime(Date.now());
+    }
+  }, [currentQuestionIndex, questions, results]);
 
   useEffect(() => {
     // Warte bis Progress geladen ist
@@ -154,10 +221,12 @@ export function QuizPage() {
     if (currentQuestionIndex > 0) {
       setIsTransitioning(true);
       setTimeout(() => {
+        const prevQuestion = questions[currentQuestionIndex - 1];
         setCurrentQuestionIndex(currentQuestionIndex - 1);
         // Lade gespeicherte Antwort für diese Frage
-        const prevResult = results.find((r) => r.questionId === questions[currentQuestionIndex - 1].id);
-        setSelectedAnswer(prevResult?.selectedAnswer || null);
+        const prevResult = results.find((r) => r.questionId === prevQuestion.id);
+        const deserialized = prevResult ? deserializeAnswer(prevQuestion, prevResult.selectedAnswer) : null;
+        setSelectedAnswer(deserialized);
         setShowResult(prevResult !== undefined);
         setIsTransitioning(false);
       }, 300);
@@ -165,16 +234,69 @@ export function QuizPage() {
   };
 
   // Universelle Antwort-Handler-Funktion
-  const handleAnswer = (answer: number | string | string[]) => {
+  const handleAnswer = (answer: number | string | string[] | Record<string, string>) => {
     if (!showResult && currentQuestion) {
       // Antwort direkt setzen
-      setSelectedAnswer(answer);
+      setSelectedAnswer(answer as any);
       // Ergebnis sofort anzeigen
       setShowResult(true);
 
       // Ergebnis prüfen basierend auf Fragetyp
       let isCorrect = false;
-      if (currentQuestion.type === 'input' || typeof currentQuestion.correctAnswer === 'string') {
+      
+      if (currentQuestion.type === 'fill-blank') {
+        // fill-blank: Array von Antworten
+        const blanks = currentQuestion.blanks || [];
+        const answers = Array.isArray(answer) ? answer : [];
+        isCorrect = answers.length === blanks.length && 
+          answers.every((a, i) => {
+            const correct = blanks[i];
+            return currentQuestion.caseSensitive 
+              ? a === correct
+              : a.toLowerCase() === correct.toLowerCase();
+          });
+      } else if (currentQuestion.type === 'word-classification') {
+        // word-classification: Record<string, string>
+        const mapping = answer && typeof answer === 'object' && !Array.isArray(answer) ? answer : {};
+        const correctMapping = currentQuestion.correctMapping || {};
+        isCorrect = Object.keys(correctMapping).every(word => mapping[word] === correctMapping[word]);
+      } else if (currentQuestion.type === 'number-input') {
+        // number-input: Array von Antworten
+        const problems = currentQuestion.problems || [];
+        const answers = Array.isArray(answer) ? answer : [];
+        isCorrect = problems.length === answers.length &&
+          problems.every((p, i) => answers[i]?.trim() === p.answer);
+      } else if (currentQuestion.type === 'number-pyramid') {
+        // number-pyramid: Record<string, string> mit Koordinaten
+        const values = answer && typeof answer === 'object' && !Array.isArray(answer) ? answer : {};
+        const structure = currentQuestion.structure || [];
+        // Prüfe ob alle Felder korrekt sind (vereinfacht - könnte komplexer sein)
+        isCorrect = structure.every((row, r) =>
+          row.every((cell, c) => {
+            if (!cell.isBlank) return true;
+            const key = `${r}-${c}`;
+            const answerVal = values[key];
+            if (!answerVal) return false;
+            // Berechne erwarteten Wert
+            if (r < structure.length - 1) {
+              const leftBelow = structure[r + 1]?.[c];
+              const rightBelow = structure[r + 1]?.[c + 1];
+              if (leftBelow && rightBelow) {
+                const leftVal = leftBelow.isBlank ? Number(values[`${r + 1}-${c}`]) : leftBelow.value;
+                const rightVal = rightBelow.isBlank ? Number(values[`${r + 1}-${c + 1}`]) : rightBelow.value;
+                if (leftVal !== null && rightVal !== null) {
+                  return Number(answerVal) === leftVal + rightVal;
+                }
+              }
+            }
+            return true;
+          })
+        );
+      } else if (currentQuestion.type === 'word-problem') {
+        // word-problem: String
+        const correctAnswer = currentQuestion.correctAnswer || '';
+        isCorrect = String(answer).trim() === String(correctAnswer).trim();
+      } else if (currentQuestion.type === 'input' || typeof currentQuestion.correctAnswer === 'string') {
         // String-Vergleich für Input-Fragen
         isCorrect = String(answer).toLowerCase().trim() === String(currentQuestion.correctAnswer).toLowerCase().trim();
       } else if (currentQuestion.type === 'drag-drop' || Array.isArray(answer)) {
@@ -192,9 +314,19 @@ export function QuizPage() {
         : 0;
       const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
 
+      // Serialisiere Antwort für Storage
+      let serializedAnswer: number | string;
+      if (Array.isArray(answer)) {
+        serializedAnswer = answer.join(',');
+      } else if (answer && typeof answer === 'object') {
+        serializedAnswer = JSON.stringify(answer);
+      } else {
+        serializedAnswer = answer as number | string;
+      }
+
       const newResult: QuizResult = {
         questionId: currentQuestion.id,
-        selectedAnswer: Array.isArray(answer) ? answer.join(',') : answer,
+        selectedAnswer: serializedAnswer,
         isCorrect,
         points,
         timeSpent,
@@ -401,7 +533,42 @@ export function QuizPage() {
             </div>
 
             {/* Rendere verschiedene Fragetypen */}
-            {currentQuestion.type === 'input' ? (
+            {currentQuestion.type === 'fill-blank' ? (
+              <FillBlankQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'word-classification' ? (
+              <WordClassificationQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={selectedAnswer && typeof selectedAnswer === 'object' && !Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'number-input' ? (
+              <NumberInputQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'number-pyramid' ? (
+              <NumberPyramidQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={selectedAnswer && typeof selectedAnswer === 'object' && !Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'word-problem' ? (
+              <WordProblemQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={typeof selectedAnswer === 'string' ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'input' ? (
               <InputQuestion
                 question={currentQuestion}
                 onAnswer={(answer) => handleAnswer(answer)}
@@ -414,6 +581,27 @@ export function QuizPage() {
                 onAnswer={(answer) => handleAnswer(answer)}
                 showResult={showResult}
                 selectedAnswer={Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'text-input' ? (
+              <TextInputQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={typeof selectedAnswer === 'string' ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'sentence-builder' ? (
+              <SentenceBuilderQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={Array.isArray(selectedAnswer) ? selectedAnswer : null}
+              />
+            ) : currentQuestion.type === 'table-fill' ? (
+              <TableFillQuestion
+                question={currentQuestion}
+                onAnswer={(answer) => handleAnswer(answer)}
+                showResult={showResult}
+                selectedAnswer={selectedAnswer && typeof selectedAnswer === 'object' && !Array.isArray(selectedAnswer) ? selectedAnswer : null}
               />
             ) : (
               /* Multiple-Choice (Standard) */

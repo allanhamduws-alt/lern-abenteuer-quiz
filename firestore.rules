@@ -11,6 +11,14 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
     
+    // Helper-Funktion: Prüft ob Benutzer ein Eltern-Konto ist und ob userId ein verknüpftes Kind ist
+    function isParentOfChild(userId) {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'parent' && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.children != null &&
+             userId in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.children;
+    }
+    
     // Benutzer: Alle authentifizierten Benutzer können lesen (für E-Mail-Suche)
     // Nur der Eigentümer kann schreiben
     // AUSNAHME: Kinder können Eltern-Dokumente aktualisieren, wenn eine gültige Einladung existiert
@@ -54,9 +62,14 @@ service cloud.firestore {
       allow read, write: if isOwner(userId);
     }
 
-    // Progress-Daten können nur vom eigenen Benutzer gelesen/geschrieben werden
+    // Progress-Daten: Eigentümer kann lesen/schreiben
+    // Eltern können Progress-Daten ihrer verknüpften Kinder lesen
     match /progress/{userId} {
+      // Eigentümer kann lesen und schreiben
       allow read, write: if isOwner(userId);
+      
+      // Eltern können Progress-Daten ihrer verknüpften Kinder lesen
+      allow read: if isParentOfChild(userId);
     }
     
     // Globale Tasks: Lesen für alle, Schreiben nur für Admins (wird serverseitig gemacht)

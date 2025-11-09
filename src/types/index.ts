@@ -4,7 +4,31 @@
  */
 
 // Fragetypen
-export type QuestionType = 'multiple-choice' | 'input' | 'drag-drop';
+export type QuestionType = 
+  // Bestehend
+  | 'multiple-choice' 
+  | 'input' 
+  | 'drag-drop'
+  // Phase 1A - 5 Kern-Typen
+  | 'fill-blank'              // Lückentext (Deutsch)
+  | 'word-classification'     // Wortarten zuordnen (Deutsch)
+  | 'number-input'            // Rechenaufgaben (Mathe)
+  | 'number-pyramid'          // Zahlenmauern (Mathe)
+  | 'word-problem'            // Textaufgaben (Mathe)
+  // Neue Typen für authentische Arbeitsblätter
+  | 'text-input'              // Freie Texteingabe (Wörter/Sätze)
+  | 'sentence-builder'        // Sätze aus Wortbausteinen bilden
+  | 'table-fill'              // Tabellen ausfüllen (z.B. Verb-Konjugation)
+  // Phase 1B - 9 weitere Typen (später)
+  | 'reading-comprehension'   // Leseproben (Deutsch)
+  | 'sentence-parts'          // Satzglieder (Deutsch)
+  | 'verb-conjugation'        // Zeitformen (Deutsch)
+  | 'word-order'              // Wörter ordnen (Deutsch)
+  | 'word-building'           // Wörter bilden (Deutsch)
+  | 'number-sequence'         // Zahlenreihen (Mathe)
+  | 'number-line'             // Zahlenstrahl (Mathe)
+  | 'geometry-shapes'         // Geometrie (Mathe)
+  | 'units-conversion';       // Maßeinheiten (Mathe)
 
 // Quiz-Frage Typ
 export interface Question {
@@ -30,6 +54,57 @@ export interface Question {
   // Bild-Support
   imageUrl?: string; // URL zu einem Bild für die Aufgabe (z.B. Firebase Storage URL)
   imagePrompt?: string; // Prompt für Bild-Generierung (falls Bild noch nicht existiert)
+  
+  // NEU: Felder für Phase 1A Typen
+  // fill-blank (Lückentext)
+  blanks?: string[];                    // Richtige Antworten für Lücken
+  blankOptions?: string[][];             // Optionen pro Lücke (z.B. [["ä","e"], ["ö","o"]])
+  caseSensitive?: boolean;               // Groß-/Kleinschreibung wichtig?
+  
+  // word-classification (Wortarten)
+  words?: string[];                      // Wörter zum Zuordnen
+  categories?: string[];                  // Kategorien (z.B. ["Nomen", "Verb", "Adjektiv"])
+  correctMapping?: Record<string, string>; // Mapping: Wort → Kategorie
+  
+  // number-input (Rechenaufgaben)
+  problems?: Array<{                     // Mehrere Rechenaufgaben
+    question: string;                    // z.B. "5 + 3 = "
+    answer: string;                       // z.B. "8"
+  }>;
+  operation?: 'addition' | 'subtraction' | 'multiplication' | 'division';
+  numberRange?: [number, number];        // Zahlenraum z.B. [1, 20]
+  
+  // number-pyramid (Zahlenmauern)
+  levels?: number;                        // Anzahl Ebenen (z.B. 3)
+  structure?: Array<Array<{              // Pyramiden-Struktur
+    value: number | null;                 // Zahl oder null (leer)
+    isBlank: boolean;                     // Ist dieses Feld leer?
+  }>>;
+  
+  // word-problem (Textaufgaben)
+  context?: string;                       // Kontext (z.B. "fruits", "shopping")
+  calculation?: string;                   // Rechnung (z.B. "5 + 3")
+  unit?: string;                          // Einheit (z.B. "Äpfel", "Euro")
+  
+  // text-input (Freie Texteingabe)
+  expectedAnswer?: string;                // Erwartete Antwort (für Vergleich)
+  placeholder?: string;                  // Platzhalter-Text im Input-Feld
+  maxLength?: number;                     // Maximale Zeichenanzahl
+  
+  // sentence-builder (Sätze bilden)
+  sentenceParts?: string[];               // Wortbausteine zum Sortieren
+  correctOrder?: number[];                 // Richtige Reihenfolge (Indizes)
+  
+  // table-fill (Tabellen ausfüllen)
+  tableHeaders?: string[];                // Spaltenüberschriften
+  tableRows?: Array<{                     // Tabellenzeilen
+    label: string;                         // Zeilenbeschriftung (z.B. "ich", "du")
+    cells: Array<{                        // Zellen in dieser Zeile
+      value?: string;                      // Vorgefüllter Wert (optional)
+      editable: boolean;                   // Ist diese Zelle editierbar?
+    }>;
+  }>;
+  correctValues?: Record<string, string>; // Korrekte Werte: "row-col" → "Wert"
 }
 
 // Quiz-Ergebnis Typ
