@@ -1,0 +1,25 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper-Funktion: Prüft ob Benutzer eingeloggt ist
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper-Funktion: Prüft ob Benutzer der Eigentümer des Pfads ist
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Benutzer können nur Dateien in ihrem eigenen Upload-Ordner hochladen/lesen
+    match /users/{userId}/uploads/{allPaths=**} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Alle anderen Pfade sind standardmäßig blockiert
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
+

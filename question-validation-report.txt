@@ -1,172 +1,35 @@
 Fragen-Validierungs-Report
-Erstellt am: 8.11.2025, 14:20:18
+Erstellt am: 8.11.2025, 16:29:32
 
 Gesamt: 353 Fragen
-OK: 185 Fragen
-Probleme: 168 Fragen
+OK: 216 Fragen
+Probleme: 137 Fragen
 
 ================================================================================
 PROBLEMATISCHE FRAGEN:
 ================================================================================
 
-❌ Frage 'deutsch-2-20':
-   Frage: "Lies den Text: "
-   Antwort: "blau"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "blau"
-      Kontext: "...lbe, rote und braune Blätter. Blau wird nicht erwähnt!..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "blau" zu nennen
-
-❌ Frage 'deutsch-3-8':
-   Frage: "Welche Zeitform ist das? "
-   Antwort: "gegenwart"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gegenwart"
-      Kontext: "...Die Gegenwart beschreibt, was jetzt passier..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "gegenwart" zu nennen
-
-❌ Frage 'deutsch-3-15':
-   Frage: "Welche Zeitform ist das? "
-   Antwort: "vergangenheit"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "vergangenheit"
-      Kontext: "...Die Vergangenheit beschreibt, was früher passie..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "vergangenheit" zu nennen
-
-❌ Frage 'deutsch-4-5':
-   Frage: "Welches Satzglied ist das? "
-   Antwort: "subjekt"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "subjekt"
-      Kontext: "...Das Subjekt ist die Person oder Sache, di..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "subjekt" zu nennen
-
-❌ Frage 'deutsch-4-8':
-   Frage: "Welches Satzglied ist das? "
-   Antwort: "prädikat"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "prädikat"
-      Kontext: "...Das Prädikat ist das Verb, das beschreibt,..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "prädikat" zu nennen
-
-❌ Frage 'deutsch-4-11':
-   Frage: "Welche Zeitform ist das? "
-   Antwort: "perfekt"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "perfekt"
-      Kontext: "...Das Perfekt beschreibt eine abgeschlossen..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "perfekt" zu nennen
-
-❌ Frage 'deutsch-4-13':
-   Frage: "Welches Satzglied ist das? "
-   Antwort: "adverbiale"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "adverbiale"
-      Kontext: "...Die Adverbiale beschreibt Umstände (Ort, Zei..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "adverbiale" zu nennen
-
-❌ Frage 'deutsch-4-14':
-   Frage: "Welches Wort steht im Nominativ (Wer-Fall)?"
-   Antwort: "der lehrer"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "der"
-      Kontext: "...Der Nominativ antwortet auf die F..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "der" zu nennen
-
-❌ Frage 'deutsch-4-17':
-   Frage: "Welche Wortart ist "
-   Antwort: "adjektiv"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "adjektive"
-      Kontext: "...Adjektive beschreiben, wie etwas ist. ..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "adjektive" zu nennen
-
-❌ Frage 'deutsch-4-19':
-   Frage: "Welche Zeitform ist das? "
-   Antwort: "futur"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "futur"
-      Kontext: "...Das Futur beschreibt eine Handlung in d..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "futur" zu nennen
-
-❌ Frage 'math-4-geo-1':
-   Frage: "Wie groß ist der Umfang des Spielplatzes?"
-   Antwort: "30 meter"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "meter"
-      Kontext: "...2 × 10 + 2 × 5 = 20 + 10 = 30 Meter!..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "meter" zu nennen
-
-❌ Frage 'math-1-geld-1':
-   Frage: "Wie viele Cent sind ein Euro?"
-   Antwort: "100"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "100"
-      Kontext: "...Ein Euro hat 100 Cent! Das ist wie 1 Meter = 1..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "100"
-      Kontext: "...0 Cent! Das ist wie 1 Meter = 100 Zentimeter!..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "100" zu nennen
-      - Erklärung umformulieren ohne "100" zu nennen
-
 ❌ Frage 'math-2-geld-1':
    Frage: "Luna hat 2 Euro und 50 Cent. Wie viele Cent hat sie insgesamt?"
    Antwort: "250"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "250"
       Kontext: "...ro = 200 Cent. Plus 50 Cent = 250 Cent insgesamt!..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "250" zu nennen
+      - helpText umformulieren ohne "250" zu nennen
 
 ❌ Frage 'math-2-geld-2':
    Frage: "Max kauft etwas für 1 Euro und 30 Cent. Wie viele Cent kostet es?"
    Antwort: "130"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "130"
       Kontext: "...ro = 100 Cent. Plus 30 Cent = 130 Cent!..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "130" zu nennen
+      - helpText umformulieren ohne "130" zu nennen
 
 ❌ Frage 'math-3-zeit-1':
    Frage: "Wie viele Minuten hat Max noch Zeit?"
@@ -184,20 +47,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "minuten"
       Kontext: "... kannst rechnen: 60 - 30 = 30 Minuten!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "minuten"
-      Kontext: "...on 13:30 bis 14:00 sind es 30 Minuten. Du kannst rechnen: 60 - 30 =..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "minuten"
-      Kontext: "... kannst rechnen: 60 - 30 = 30 Minuten!..."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "minuten" zu nennen
       - helpText umformulieren ohne "minuten" zu nennen
       - helpText umformulieren ohne "minuten" zu nennen
-      - Erklärung umformulieren ohne "minuten" zu nennen
-      - Erklärung umformulieren ohne "minuten" zu nennen
 
 ❌ Frage 'math-3-geld-1':
    Frage: "Wie viel Geld bekommt Luna zurück?"
@@ -223,235 +76,89 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "cent"
       Kontext: "... - 5 Euro 80 Cent = 4 Euro 20 Cent zurück!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "euro"
-      Kontext: "...10 Euro - 5 Euro 80 Cent = 4 Euro 20 ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "euro"
-      Kontext: "...10 Euro - 5 Euro 80 Cent = 4 Euro 20 Cent zurü..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "euro"
-      Kontext: "...10 Euro - 5 Euro 80 Cent = 4 Euro 20 Cent zurück!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "cent"
-      Kontext: "...10 Euro - 5 Euro 80 Cent = 4 Euro 20 Cent zurück!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "cent"
-      Kontext: "... - 5 Euro 80 Cent = 4 Euro 20 Cent zurück!..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "euro" zu nennen
       - helpText umformulieren ohne "euro" zu nennen
       - helpText umformulieren ohne "euro" zu nennen
       - helpText umformulieren ohne "cent" zu nennen
       - helpText umformulieren ohne "cent" zu nennen
-      - Erklärung umformulieren ohne "euro" zu nennen
-      - Erklärung umformulieren ohne "euro" zu nennen
-      - Erklärung umformulieren ohne "euro" zu nennen
-      - Erklärung umformulieren ohne "cent" zu nennen
-      - Erklärung umformulieren ohne "cent" zu nennen
 
 ❌ Frage 'math-4-geld-1':
    Frage: "Wie viele Cent sind 3,50 Euro?"
    Antwort: "350"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "350"
       Kontext: "...ro = 300 Cent, plus 50 Cent = 350 Cent!..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "350" zu nennen
-
-❌ Frage 'natur-1-2':
-   Frage: "Welches Tier lebt im Wasser?"
-   Antwort: "fisch"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "fische"
-      Kontext: "...Fische leben im Wasser! Sie haben Ki..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "fische" zu nennen
+      - helpText umformulieren ohne "350" zu nennen
 
 ❌ Frage 'natur-1-5':
    Frage: "Welche Jahreszeit kommt nach dem Winter?"
    Antwort: "frühling"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "frühling"
       Kontext: "...Nach dem Winter kommt der Frühling! Dann wird es wieder warm und..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "frühling" zu nennen
-
-❌ Frage 'natur-1-6':
-   Frage: "Welches Körperteil benutzt du zum Hören?"
-   Antwort: "ohren"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ohren"
-      Kontext: "...Mit den Ohren kannst du hören! Sie helfen d..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "ohren" zu nennen
-
-❌ Frage 'natur-1-7':
-   Frage: "Welches Tier hat einen Rüssel?"
-   Antwort: "elefant"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "elefanten"
-      Kontext: "...Elefanten haben einen langen Rüssel! Da..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "elefanten" zu nennen
-
-❌ Frage 'natur-1-8':
-   Frage: "Welche Farbe hat das Gras?"
-   Antwort: "grün"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...Gras ist grün! Das liegt am Chlorophyll in ..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "grün" zu nennen
-
-❌ Frage 'natur-2-1':
-   Frage: "Welches Tier ist ein Säugetier?"
-   Antwort: "hund"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "hunde"
-      Kontext: "...Hunde sind Säugetiere! Säugetiere t..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "hunde" zu nennen
-
-❌ Frage 'natur-2-2':
-   Frage: "Welches Wetter gibt es im Sommer?"
-   Antwort: "sonne"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sonne"
-      Kontext: "...Im Sommer scheint oft die Sonne! Es ist warm und die Tage sin..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "sonne" zu nennen
-
-❌ Frage 'natur-2-3':
-   Frage: "Welcher Körperteil pumpt das Blut?"
-   Antwort: "herz"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "herz"
-      Kontext: "...Das Herz pumpt das Blut durch den Körp..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "herz" zu nennen
+      - helpText umformulieren ohne "frühling" zu nennen
 
 ❌ Frage 'natur-2-5':
    Frage: "Welche Pflanze wächst aus einer Samen?"
    Antwort: "blume"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "blume"
       Kontext: "...en Samen in die Erde und eine Blume wächst...."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "blume" zu nennen
-
-❌ Frage 'natur-2-6':
-   Frage: "Welches Sinnesorgan benutzt du zum Riechen?"
-   Antwort: "nase"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "nase"
-      Kontext: "...Mit der Nase kannst du riechen! Sie hilft ..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "nase" zu nennen
+      - helpText umformulieren ohne "blume" zu nennen
 
 ❌ Frage 'natur-2-8':
    Frage: "Welche Jahreszeit hat die meisten Blätter am Boden?"
    Antwort: "herbst"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "herbst"
       Kontext: "...Im Herbst fallen die meisten Blätter vo..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "herbst" zu nennen
-
-❌ Frage 'natur-2-9':
-   Frage: "Welches Tier kann in der Wüste leben?"
-   Antwort: "kamel"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kamele"
-      Kontext: "...Kamele können in der Wüste leben! Si..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "kamele" zu nennen
-
-❌ Frage 'natur-2-10':
-   Frage: "Welche Farbe hat der Himmel tagsüber?"
-   Antwort: "blau"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "blau"
-      Kontext: "...Der Himmel ist tagsüber meist blau! Das liegt am Sonnenlicht...."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "blau" zu nennen
-
-❌ Frage 'natur-2-11':
-   Frage: "Welches Körperteil benutzt du zum Sehen?"
-   Antwort: "augen"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "augen"
-      Kontext: "...Mit den Augen kannst du sehen! Sie helfen d..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "augen" zu nennen
+      - helpText umformulieren ohne "herbst" zu nennen
 
 ❌ Frage 'natur-3-1':
    Frage: "Welches Tier hat einen Höcker?"
    Antwort: "kamel"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "kamele"
       Kontext: "...Kamele haben Höcker! Sie speichern d..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "kamele" zu nennen
+      - helpText umformulieren ohne "kamele" zu nennen
 
 ❌ Frage 'natur-3-3':
    Frage: "Was brauchen Pflanzen zum Wachsen?"
    Antwort: "wasser"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "wasser"
       Kontext: "...Pflanzen brauchen Wasser, Erde und Sonnenlicht zum Wac..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "wasser" zu nennen
+      - helpText umformulieren ohne "wasser" zu nennen
 
 ❌ Frage 'natur-3-4':
    Frage: "Welche Temperatur ist wärmer?"
    Antwort: "20°c"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "20°c"
       Kontext: "...20°C ist wärmer als 10°C, 0°C und ..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "20°c" zu nennen
+      - helpText umformulieren ohne "20°c" zu nennen
 
 ❌ Frage 'natur-3-5':
    Frage: "Welches Organ pumpt das Blut durch den Körper?"
@@ -461,135 +168,58 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "herz"
       Kontext: "...Das Herz pumpt das Blut durch den Körp..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "herz"
-      Kontext: "...Das Herz pumpt das Blut durch den Körp..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "herz" zu nennen
-      - Erklärung umformulieren ohne "herz" zu nennen
 
 ❌ Frage 'natur-3-6':
    Frage: "Welches Tier ist ein Fisch?"
    Antwort: "hai"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "haie"
       Kontext: "...Haie sind Fische! Sie haben Kiemen..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "haie" zu nennen
+      - helpText umformulieren ohne "haie" zu nennen
 
 ❌ Frage 'natur-3-7':
    Frage: "Was passiert, wenn viele Wolken zusammenkommen?"
    Antwort: "es kann regnen"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "kann"
-      Kontext: "...ken bestehen aus Wasser - was kann dann passieren?..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kann"
-      Kontext: "... viele Wolken zusammenkommen, kann es regnen! Wolken bestehen au..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "regnen"
       Kontext: "...olken zusammenkommen, kann es regnen! Wolken bestehen aus Wasser...."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "kann" zu nennen
-      - Erklärung umformulieren ohne "kann" zu nennen
-      - Erklärung umformulieren ohne "regnen" zu nennen
-
-❌ Frage 'natur-3-8':
-   Frage: "Welches Tier lebt im Wald?"
-   Antwort: "reh"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rehe"
-      Kontext: "...Rehe leben im Wald! Sie sind scheu..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "rehe" zu nennen
-
-❌ Frage 'natur-3-9':
-   Frage: "Wie machen Pflanzen ihre Nahrung?"
-   Antwort: "durch fotosynthese"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "durch"
-      Kontext: "...Pflanzen machen ihre Nahrung durch einen besonderen Prozess! Sie..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "durch" zu nennen
-
-❌ Frage 'natur-3-11':
-   Frage: "Welches Organ versorgt das Blut mit Sauerstoff?"
-   Antwort: "lunge"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lunge"
-      Kontext: "...Die Lunge versorgt das Blut mit Sauerst..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "lunge" zu nennen
+      - helpText umformulieren ohne "regnen" zu nennen
 
 ❌ Frage 'natur-3-12':
    Frage: "Welche Jahreszeit hat die längsten Tage?"
    Antwort: "sommer"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "sommer"
       Kontext: "...Im Sommer sind die Tage am längsten! Di..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "sommer" zu nennen
+      - helpText umformulieren ohne "sommer" zu nennen
 
 ❌ Frage 'natur-3-15':
    Frage: "Was passiert mit Wasser, wenn es sehr kalt wird?"
    Antwort: "es wird zu eis"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "wird"
-      Kontext: "...mit Wasser, wenn es sehr kalt wird?..."
-
    Problem im Feld 'helpText':
-      Gefundene Antwort: "wird"
-      Kontext: "...r passiert, wenn es sehr kalt wird (unter 0°C). Es wird fest und..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wird"
-      Kontext: "...ehr kalt wird (unter 0°C). Es wird fest und gefroren!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wird"
-      Kontext: "...Wenn Wasser sehr kalt wird (unter 0°C), wird es zu Eis! ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wird"
-      Kontext: "...r sehr kalt wird (unter 0°C), wird es zu Eis! Das ist gefrorenes..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "eis"
       Kontext: "... wird (unter 0°C), wird es zu Eis! Das ist gefrorenes Wasser...."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "wird" zu nennen
-      - helpText umformulieren ohne "wird" zu nennen
-      - helpText umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "eis" zu nennen
+      - helpText umformulieren ohne "eis" zu nennen
 
 ❌ Frage 'natur-4-1':
    Frage: "Was ist ein Ökosystem?"
    Antwort: "tiere und pflanzen zusammen"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "und"
-      Kontext: "... besteht aus Tieren, Pflanzen und ihrer Umgebung zusammen! Alle..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "pflanzen"
       Kontext: "...Ökosystem besteht aus Tieren, Pflanzen und ihrer Umgebung zusammen! ..."
 
@@ -598,262 +228,181 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "..., Pflanzen und ihrer Umgebung zusammen! Alle arbeiten zusammen...."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "zusammen"
-      Kontext: "...ebung zusammen! Alle arbeiten zusammen...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "und"
-      Kontext: "... besteht aus Tieren, Pflanzen und ihrer Umgebung zusammen! Alle..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "pflanzen"
-      Kontext: "...Ökosystem besteht aus Tieren, Pflanzen und ihrer Umgebung zusammen! ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "zusammen"
-      Kontext: "..., Pflanzen und ihrer Umgebung zusammen! Alle arbeiten zusammen...."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "zusammen"
       Kontext: "...ebung zusammen! Alle arbeiten zusammen...."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "und" zu nennen
       - helpText umformulieren ohne "pflanzen" zu nennen
       - helpText umformulieren ohne "zusammen" zu nennen
       - helpText umformulieren ohne "zusammen" zu nennen
-      - Erklärung umformulieren ohne "und" zu nennen
-      - Erklärung umformulieren ohne "pflanzen" zu nennen
-      - Erklärung umformulieren ohne "zusammen" zu nennen
-      - Erklärung umformulieren ohne "zusammen" zu nennen
 
 ❌ Frage 'natur-4-2':
    Frage: "Welches Tier ist ein Säugetier, das im Wasser lebt?"
    Antwort: "wal"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "wale"
       Kontext: "...Wale sind Säugetiere, die im Wasse..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "wale" zu nennen
+      - helpText umformulieren ohne "wale" zu nennen
 
 ❌ Frage 'natur-4-3':
    Frage: "Was passiert mit Wasser, wenn die Sonne darauf scheint?"
    Antwort: "es verdunstet"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "verdunstet"
       Kontext: "...die Sonne auf Wasser scheint, verdunstet es! Es wird zu Wasserdampf un..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "verdunstet" zu nennen
+      - helpText umformulieren ohne "verdunstet" zu nennen
 
 ❌ Frage 'natur-4-4':
    Frage: "Welches Organ verdaut die Nahrung?"
    Antwort: "magen"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "magen"
       Kontext: "...Der Magen verdaut die Nahrung! Er zerkl..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "magen" zu nennen
+      - helpText umformulieren ohne "magen" zu nennen
 
 ❌ Frage 'natur-4-5':
    Frage: "Was bedeutet es, wenn ein Tier "
    Antwort: "es gibt nicht mehr viele davon"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "gibt"
       Kontext: "...Gefährdete Tiere gibt es nicht mehr viele! Sie könn..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "nicht"
-      Kontext: "...Gefährdete Tiere gibt es nicht mehr viele! Sie könnten ausst..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "nicht"
-      Kontext: "...nten aussterben, wenn wir sie nicht schützen...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mehr"
-      Kontext: "...efährdete Tiere gibt es nicht mehr viele! Sie könnten aussterben..."
-
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "viele"
       Kontext: "...dete Tiere gibt es nicht mehr viele! Sie könnten aussterben, wenn..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "gibt" zu nennen
-      - Erklärung umformulieren ohne "nicht" zu nennen
-      - Erklärung umformulieren ohne "nicht" zu nennen
-      - Erklärung umformulieren ohne "mehr" zu nennen
-      - Erklärung umformulieren ohne "viele" zu nennen
+      - helpText umformulieren ohne "gibt" zu nennen
+      - helpText umformulieren ohne "viele" zu nennen
 
 ❌ Frage 'natur-4-7':
    Frage: "Welches Organ filtert das Blut?"
    Antwort: "leber"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "leber"
       Kontext: "...Die Leber filtert das Blut! Sie entfern..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "leber" zu nennen
+      - helpText umformulieren ohne "leber" zu nennen
 
 ❌ Frage 'natur-4-8':
    Frage: "Welches Tier ist ein Wirbeltier?"
    Antwort: "fisch"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "fische"
       Kontext: "...Fische sind Wirbeltiere! Sie haben e..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "fische" zu nennen
+      - helpText umformulieren ohne "fische" zu nennen
 
 ❌ Frage 'natur-4-9':
    Frage: "Wie transportieren Bäume Wasser?"
    Antwort: "durch die wurzeln"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "durch"
-      Kontext: "...Überlege, durch welche Pflanzenteile Bäume Wa..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "durch"
-      Kontext: "...Bäume transportieren Wasser durch die Wurzeln! Die Wurzeln nehm..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...e transportieren Wasser durch die Wurzeln! Die Wurzeln nehmen W..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...ren Wasser durch die Wurzeln! Die Wurzeln nehmen Wasser aus dem..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "wurzeln"
       Kontext: "...ansportieren Wasser durch die Wurzeln! Die Wurzeln nehmen Wasser au..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "wurzeln"
       Kontext: "...Wasser durch die Wurzeln! Die Wurzeln nehmen Wasser aus dem Boden a..."
 
+   Problem im Feld 'helpText':
+      Gefundene Antwort: "durch die wurzeln"
+      Kontext: "...Bäume transportieren Wasser durch die Wurzeln! Die Wurzeln nehmen Wasser au..."
+
    💡 Vorschläge:
-      - helpText umformulieren ohne "durch" zu nennen
-      - Erklärung umformulieren ohne "durch" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "wurzeln" zu nennen
-      - Erklärung umformulieren ohne "wurzeln" zu nennen
+      - helpText umformulieren ohne "wurzeln" zu nennen
+      - helpText umformulieren ohne "wurzeln" zu nennen
+      - helpText umformulieren ohne "durch die wurzeln" zu nennen
 
 ❌ Frage 'natur-4-10':
    Frage: "Welches Wetterphänomen entsteht durch kalte und warme Luft?"
    Antwort: "wind"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "wind"
       Kontext: "...Wind entsteht durch kalte und warm..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "wind" zu nennen
+      - helpText umformulieren ohne "wind" zu nennen
 
 ❌ Frage 'natur-4-11':
    Frage: "Was schützt das Gehirn?"
    Antwort: "der schädel"
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "der"
-      Kontext: "...Der Schädel schützt das Gehirn! E..."
-
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "schädel"
       Kontext: "...Der Schädel schützt das Gehirn! Er ist wi..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "der" zu nennen
-      - Erklärung umformulieren ohne "schädel" zu nennen
+      - helpText umformulieren ohne "schädel" zu nennen
 
 ❌ Frage 'natur-4-12':
    Frage: "Welches Tier ist ein Vogel, der nicht fliegen kann?"
    Antwort: "strauß"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "strauß"
       Kontext: "...Strauße sind Vögel, die nicht fliege..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "strauße"
       Kontext: "...Strauße sind Vögel, die nicht fliegen..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "strauß" zu nennen
-      - Erklärung umformulieren ohne "strauße" zu nennen
+      - helpText umformulieren ohne "strauß" zu nennen
+      - helpText umformulieren ohne "strauße" zu nennen
 
 ❌ Frage 'natur-4-13':
    Frage: "Was passiert mit Wasserdampf, wenn er kalt wird?"
    Antwort: "er wird zu wasser (regen)"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "wird"
-      Kontext: "...mit Wasserdampf, wenn er kalt wird?..."
-
    Problem im Feld 'helpText':
-      Gefundene Antwort: "wird"
-      Kontext: "...rdampf passiert, wenn er kalt wird. Er wird flüssig und fällt vo..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wird"
-      Kontext: "...ssiert, wenn er kalt wird. Er wird flüssig und fällt vom Himmel!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wird"
-      Kontext: "...Wenn Wasserdampf kalt wird, wird er zu Wasser! Das fällt..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wird"
-      Kontext: "...Wenn Wasserdampf kalt wird, wird er zu Wasser! Das fällt als R..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "wasser"
       Kontext: "...erdampf kalt wird, wird er zu Wasser! Das fällt als Regen vom Himm..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "wird" zu nennen
-      - helpText umformulieren ohne "wird" zu nennen
-      - helpText umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "wasser" zu nennen
+      - helpText umformulieren ohne "wasser" zu nennen
 
 ❌ Frage 'natur-4-15':
    Frage: "Welches Tier lebt in einer Herde?"
    Antwort: "elefant"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "elefanten"
       Kontext: "...Elefanten leben in Herden! Sie sind zus..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "elefanten" zu nennen
+      - helpText umformulieren ohne "elefanten" zu nennen
 
 ❌ Frage 'kunst-1-1':
    Frage: "Welche Farbe entsteht, wenn du Rot und Gelb mischst?"
    Antwort: "orange"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "orange"
       Kontext: "...ot und Gelb mischst, entsteht Orange! Das ist wie die Farbe einer ..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "orange"
       Kontext: "...! Das ist wie die Farbe einer Orange...."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "orange" zu nennen
-      - Erklärung umformulieren ohne "orange" zu nennen
+      - helpText umformulieren ohne "orange" zu nennen
+      - helpText umformulieren ohne "orange" zu nennen
 
 ❌ Frage 'kunst-1-2':
    Frage: "Welche Form hat ein Kreis?"
@@ -861,31 +410,26 @@ PROBLEMATISCHE FRAGEN:
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "rund"
-      Kontext: "...keine Ecken, sondern ist ganz rund!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rund"
       Kontext: "...Ein Kreis ist rund! Er hat keine Ecken, sondern ..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "rund"
       Kontext: "...keine Ecken, sondern ist ganz rund wie ein Ball...."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "rund" zu nennen
-      - Erklärung umformulieren ohne "rund" zu nennen
-      - Erklärung umformulieren ohne "rund" zu nennen
+      - helpText umformulieren ohne "rund" zu nennen
 
 ❌ Frage 'kunst-1-5':
    Frage: "Welche Farbe entsteht, wenn du Blau und Gelb mischst?"
    Antwort: "grün"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "grün"
       Kontext: "...au und Gelb mischst, entsteht Grün! Das ist wie die Farbe von Gr..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "grün" zu nennen
+      - helpText umformulieren ohne "grün" zu nennen
 
 ❌ Frage 'kunst-2-1':
    Frage: "Welche Farbe entsteht, wenn du Rot und Blau mischst?"
@@ -895,13 +439,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "lila"
       Kontext: "...ot und Blau mischst, entsteht Lila! Das ist eine schöne Mischfar..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lila"
-      Kontext: "...ot und Blau mischst, entsteht Lila! Das ist eine schöne Mischfar..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "lila" zu nennen
-      - Erklärung umformulieren ohne "lila" zu nennen
 
 ❌ Frage 'kunst-2-2':
    Frage: "Welche Form hat 6 Ecken?"
@@ -911,13 +450,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "sechseck"
       Kontext: "...Ein Sechseck hat genau 6 Ecken! Es sieht a..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sechseck"
-      Kontext: "...Ein Sechseck hat genau 6 Ecken! Es sieht a..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "sechseck" zu nennen
-      - Erklärung umformulieren ohne "sechseck" zu nennen
 
 ❌ Frage 'kunst-2-3':
    Frage: "Welche Farben sind Grundfarben?"
@@ -927,214 +461,89 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "rot"
       Kontext: "...Die Grundfarben sind Rot, Gelb und Blau! Aus diesen ka..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rot"
-      Kontext: "...Die Grundfarben sind Rot, Gelb und Blau! Aus diesen ka..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "rot" zu nennen
-      - Erklärung umformulieren ohne "rot" zu nennen
 
 ❌ Frage 'kunst-2-4':
    Frage: "Was passiert, wenn du Weiß zu einer Farbe hinzufügst?"
    Antwort: "sie wird heller"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "sie"
-      Kontext: "... einer Farbe hinzufügst, wird sie heller! Überlege, wie man das..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wird"
-      Kontext: "...iß zu einer Farbe hinzufügst, wird sie heller! Überlege, wie man..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "heller"
       Kontext: "...er Farbe hinzufügst, wird sie heller! Überlege, wie man das nennt!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sie"
-      Kontext: "... einer Farbe hinzufügst, wird sie heller! Das nennt man auch ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wird"
-      Kontext: "...iß zu einer Farbe hinzufügst, wird sie heller! Das nennt man auc..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "heller"
-      Kontext: "...er Farbe hinzufügst, wird sie heller! Das nennt man auch ..."
-
    💡 Vorschläge:
-      - helpText umformulieren ohne "sie" zu nennen
-      - helpText umformulieren ohne "wird" zu nennen
       - helpText umformulieren ohne "heller" zu nennen
-      - Erklärung umformulieren ohne "sie" zu nennen
-      - Erklärung umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "heller" zu nennen
 
 ❌ Frage 'kunst-2-6':
    Frage: "Was ist eine warme Farbe?"
    Antwort: "rot"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "rot"
       Kontext: "...Rot ist eine warme Farbe! Warme F..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "rot"
       Kontext: "...arme Farbe! Warme Farben sind Rot, Orange und Gelb - sie erinne..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "rot" zu nennen
-      - Erklärung umformulieren ohne "rot" zu nennen
+      - helpText umformulieren ohne "rot" zu nennen
+      - helpText umformulieren ohne "rot" zu nennen
 
 ❌ Frage 'kunst-2-7':
    Frage: "Was ist eine kalte Farbe?"
    Antwort: "blau"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "blau"
       Kontext: "...Blau ist eine kalte Farbe! Kalte F..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "blau"
       Kontext: "...alte Farbe! Kalte Farben sind Blau, Grün und Lila - sie erinnern..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "blau" zu nennen
-      - Erklärung umformulieren ohne "blau" zu nennen
+      - helpText umformulieren ohne "blau" zu nennen
+      - helpText umformulieren ohne "blau" zu nennen
 
 ❌ Frage 'kunst-2-9':
    Frage: "Was passiert, wenn du Schwarz zu einer Farbe hinzufügst?"
    Antwort: "sie wird dunkler"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "sie"
-      Kontext: "...e Farbe verändert sich - wird sie heller oder dunkler?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wird"
-      Kontext: "...t. Die Farbe verändert sich - wird sie heller oder dunkler?..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "dunkler"
-      Kontext: "...t sich - wird sie heller oder dunkler?..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sie"
-      Kontext: "... einer Farbe hinzufügst, wird sie dunkler! Das nennt man auch ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wird"
-      Kontext: "...rz zu einer Farbe hinzufügst, wird sie dunkler! Das nennt man au..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dunkler"
-      Kontext: "...er Farbe hinzufügst, wird sie dunkler! Das nennt man auch ..."
+      Kontext: "...er Farbe hinzufügst, wird sie dunkler! Überlege, wie man das nennt!..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "sie" zu nennen
-      - helpText umformulieren ohne "wird" zu nennen
       - helpText umformulieren ohne "dunkler" zu nennen
-      - Erklärung umformulieren ohne "sie" zu nennen
-      - Erklärung umformulieren ohne "wird" zu nennen
-      - Erklärung umformulieren ohne "dunkler" zu nennen
 
 ❌ Frage 'kunst-2-10':
    Frage: "Welche Form hat ein Oval?"
    Antwort: "rund wie ein ei"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Welche Form hat ein Oval?..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "rund"
       Kontext: "...Ein Oval ist rund wie ein Ei! Es ist wie ein Kr..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wie"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ist wie ein Kreis,..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wie"
-      Kontext: "...l ist rund wie ein Ei! Es ist wie ein Kreis, aber etwas länglic..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ist wie ein Kreis, abe..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...t rund wie ein Ei! Es ist wie ein Kreis, aber etwas länglich...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rund"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ist wie ein Kr..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wie"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ist wie ein Kreis,..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wie"
-      Kontext: "...l ist rund wie ein Ei! Es ist wie ein Kreis, aber etwas länglic..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Oval ist rund wie ein Ei! Es ist wie ein Kreis, abe..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...t rund wie ein Ei! Es ist wie ein Kreis, aber etwas länglich...."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "rund" zu nennen
-      - helpText umformulieren ohne "wie" zu nennen
-      - helpText umformulieren ohne "wie" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "rund" zu nennen
-      - Erklärung umformulieren ohne "wie" zu nennen
-      - Erklärung umformulieren ohne "wie" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
 
 ❌ Frage 'kunst-3-1':
    Frage: "Welche Farben sind Komplementärfarben (passen gut zusammen)?"
    Antwort: "rot und grün"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "rot"
       Kontext: "...Rot und Grün sind Komplementärfar..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "und"
-      Kontext: "...Rot und Grün sind Komplementärfarben!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "und"
-      Kontext: "...n sich im Farbkreis gegenüber und passen gut zusammen...."
-
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "grün"
       Kontext: "...Rot und Grün sind Komplementärfarben! Sie ..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "rot" zu nennen
-      - Erklärung umformulieren ohne "und" zu nennen
-      - Erklärung umformulieren ohne "und" zu nennen
-      - Erklärung umformulieren ohne "grün" zu nennen
+      - helpText umformulieren ohne "rot" zu nennen
+      - helpText umformulieren ohne "grün" zu nennen
 
 ❌ Frage 'kunst-3-2':
    Frage: "Was ist ein Primärfarben-Mix?"
@@ -1148,36 +557,14 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "grundfarben"
       Kontext: "...en-Mix ist, wenn du alle drei Grundfarben (Rot, Gelb, Blau) mischst! Da..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "drei"
-      Kontext: "...rfarben-Mix ist, wenn du alle drei Grundfarben (Rot, Gelb, Blau)..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grundfarben"
-      Kontext: "...en-Mix ist, wenn du alle drei Grundfarben (Rot, Gelb, Blau) mischst! Da..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "drei" zu nennen
       - helpText umformulieren ohne "grundfarben" zu nennen
-      - Erklärung umformulieren ohne "drei" zu nennen
-      - Erklärung umformulieren ohne "grundfarben" zu nennen
 
 ❌ Frage 'kunst-3-3':
    Frage: "Was ist ein Farbton?"
    Antwort: "eine hellere oder dunklere version einer farbe"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Farbton?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Ein Farbton ist eine hellere oder dunklere Version..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Farbton ist eine hellere oder..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "hellere"
       Kontext: "...Ein Farbton ist eine hellere oder dunklere Version einer F..."
@@ -1185,14 +572,6 @@ PROBLEMATISCHE FRAGEN:
    Problem im Feld 'helpText':
       Gefundene Antwort: "heller"
       Kontext: "...on einer Farbe! Du machst ihn heller mit Weiß oder dunkler mit Sch..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...Ein Farbton ist eine hellere oder dunklere Version einer Farbe!..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...Du machst ihn heller mit Weiß oder dunkler mit Schwarz...."
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "dunklere"
@@ -1207,81 +586,16 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...st eine hellere oder dunklere Version einer Farbe! Du machst ihn he..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "einer"
-      Kontext: "...hellere oder dunklere Version einer Farbe! Du machst ihn heller m..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "farbe"
-      Kontext: "...e oder dunklere Version einer Farbe! Du machst ihn heller mit Wei..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Ein Farbton ist eine hellere oder dunklere Version..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Farbton ist eine hellere oder..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "hellere"
-      Kontext: "...Ein Farbton ist eine hellere oder dunklere Version einer F..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "heller"
-      Kontext: "...on einer Farbe! Du machst ihn heller mit Weiß oder dunkler mit Sch..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...Ein Farbton ist eine hellere oder dunklere Version einer Farbe!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...Du machst ihn heller mit Weiß oder dunkler mit Schwarz...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dunklere"
-      Kontext: "...Farbton ist eine hellere oder dunklere Version einer Farbe! Du machs..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dunkler"
-      Kontext: "...chst ihn heller mit Weiß oder dunkler mit Schwarz...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "version"
-      Kontext: "...st eine hellere oder dunklere Version einer Farbe! Du machst ihn he..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "einer"
-      Kontext: "...hellere oder dunklere Version einer Farbe! Du machst ihn heller m..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "farbe"
       Kontext: "...e oder dunklere Version einer Farbe! Du machst ihn heller mit Wei..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "eine" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "hellere" zu nennen
       - helpText umformulieren ohne "heller" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "dunklere" zu nennen
       - helpText umformulieren ohne "dunkler" zu nennen
       - helpText umformulieren ohne "version" zu nennen
-      - helpText umformulieren ohne "einer" zu nennen
       - helpText umformulieren ohne "farbe" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "hellere" zu nennen
-      - Erklärung umformulieren ohne "heller" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "dunklere" zu nennen
-      - Erklärung umformulieren ohne "dunkler" zu nennen
-      - Erklärung umformulieren ohne "version" zu nennen
-      - Erklärung umformulieren ohne "einer" zu nennen
-      - Erklärung umformulieren ohne "farbe" zu nennen
 
 ❌ Frage 'kunst-3-4':
    Frage: "Welche Form hat ein Achteck?"
@@ -1295,42 +609,17 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "ecken"
       Kontext: "...n Namen langsam und zähle die Ecken!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ecken"
-      Kontext: "...Ein Achteck hat genau 8 Ecken! ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "ecken" zu nennen
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
 
 ❌ Frage 'kunst-3-5':
    Frage: "Was ist ein Gemälde?"
    Antwort: "ein bild mit farben auf leinwand"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Gemälde?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farb..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand!..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "bild"
       Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand! Küns..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand! Künstler..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "mit"
-      Kontext: "...f Leinwand! Künstler malen es mit Pinseln und Farben...."
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "farben"
@@ -1341,80 +630,14 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...tler malen es mit Pinseln und Farben...."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "auf"
-      Kontext: "...mälde ist ein Bild mit Farben auf Leinwand! Künstler malen es m..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "leinwand"
-      Kontext: "...e ist ein Bild mit Farben auf Leinwand! Künstler malen es mit Pinsel..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farb..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand!..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bild"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand! Küns..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand! Künstler..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...f Leinwand! Künstler malen es mit Pinseln und Farben...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...Ein Gemälde ist ein Bild mit Farben auf Leinwand! Künstler malen ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...tler malen es mit Pinseln und Farben...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auf"
-      Kontext: "...mälde ist ein Bild mit Farben auf Leinwand! Künstler malen es m..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "leinwand"
       Kontext: "...e ist ein Bild mit Farben auf Leinwand! Künstler malen es mit Pinsel..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "bild" zu nennen
-      - helpText umformulieren ohne "mit" zu nennen
-      - helpText umformulieren ohne "mit" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
-      - helpText umformulieren ohne "auf" zu nennen
       - helpText umformulieren ohne "leinwand" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "bild" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "auf" zu nennen
-      - Erklärung umformulieren ohne "leinwand" zu nennen
-
-❌ Frage 'kunst-3-6':
-   Frage: "Was ist eine Skulptur?"
-   Antwort: "eine dreidimensionale figur aus stein oder ton"
-
-   Problem im Feld 'question':
-      Gefundene Antwort: "eine"
-      Kontext: "...Was ist eine Skulptur?..."
-
-   💡 Vorschläge:
-      - Frage umformulieren ohne "eine" zu nennen
 
 ❌ Frage 'kunst-3-7':
    Frage: "Mit welchem Material kann man zeichnen?"
@@ -1424,30 +647,13 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "bleistift"
       Kontext: "... vielen Materialien zeichnen: Bleistift, Buntstift, Filzstift, Kohle ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bleistift"
-      Kontext: "... vielen Materialien zeichnen: Bleistift, Buntstift, Filzstift, Kohle ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "bleistift" zu nennen
-      - Erklärung umformulieren ohne "bleistift" zu nennen
 
 ❌ Frage 'kunst-3-8':
    Frage: "Was ist ein Muster?"
    Antwort: "eine sich wiederholende form oder farbe"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Muster?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form oder ..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Muster ist eine sich wiederho..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "sich"
       Kontext: "...Ein Muster ist eine sich wiederholende Form oder Farbe..."
@@ -1461,77 +667,20 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...r ist eine sich wiederholende Form oder Farbe! Zum Beispiel: Str..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "... eine sich wiederholende Form oder Farbe! Zum Beispiel: Streifen..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...um Beispiel: Streifen, Punkte oder Karos...."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "farbe"
-      Kontext: "... sich wiederholende Form oder Farbe! Zum Beispiel: Streifen, Punk..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form oder ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Muster ist eine sich wiederho..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sich"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form oder Farbe..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wiederholende"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form oder Farbe! Zum Beispiel..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "form"
-      Kontext: "...r ist eine sich wiederholende Form oder Farbe! Zum Beispiel: Str..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "... eine sich wiederholende Form oder Farbe! Zum Beispiel: Streifen..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...um Beispiel: Streifen, Punkte oder Karos...."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "farbe"
       Kontext: "... sich wiederholende Form oder Farbe! Zum Beispiel: Streifen, Punk..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "eine" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "sich" zu nennen
       - helpText umformulieren ohne "wiederholende" zu nennen
       - helpText umformulieren ohne "form" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "farbe" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "sich" zu nennen
-      - Erklärung umformulieren ohne "wiederholende" zu nennen
-      - Erklärung umformulieren ohne "form" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "farbe" zu nennen
 
 ❌ Frage 'kunst-3-9':
    Frage: "Was bedeutet Perspektive in der Kunst?"
    Antwort: "wie man dinge größer oder kleiner wirken lässt"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "wie"
-      Kontext: "...Perspektive bedeutet, wie man Dinge größer oder kleiner..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "man"
       Kontext: "...Perspektive bedeutet, wie man Dinge größer oder kleiner wir..."
 
@@ -1548,10 +697,6 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...ktive bedeutet, wie man Dinge größer oder kleiner wirken lässt! Di..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...edeutet, wie man Dinge größer oder kleiner wirken lässt! Dinge, ..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "kleiner"
       Kontext: "...et, wie man Dinge größer oder kleiner wirken lässt! Dinge, die weit..."
 
@@ -1564,70 +709,18 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...man Dinge größer oder kleiner wirken lässt! Dinge, die weiter weg ..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "lässt"
-      Kontext: "...ge größer oder kleiner wirken lässt! Dinge, die weiter weg sind, ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wie"
-      Kontext: "...Perspektive bedeutet, wie man Dinge größer oder kleiner..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "man"
-      Kontext: "...Perspektive bedeutet, wie man Dinge größer oder kleiner wir..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dinge"
-      Kontext: "...Perspektive bedeutet, wie man Dinge größer oder kleiner wirken lä..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dinge"
-      Kontext: "...er oder kleiner wirken lässt! Dinge, die weiter weg sind, sehen k..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "größer"
-      Kontext: "...ktive bedeutet, wie man Dinge größer oder kleiner wirken lässt! Di..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...edeutet, wie man Dinge größer oder kleiner wirken lässt! Dinge, ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kleiner"
-      Kontext: "...et, wie man Dinge größer oder kleiner wirken lässt! Dinge, die weit..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kleiner"
-      Kontext: "...e, die weiter weg sind, sehen kleiner aus...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wirken"
-      Kontext: "...man Dinge größer oder kleiner wirken lässt! Dinge, die weiter weg ..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "lässt"
       Kontext: "...ge größer oder kleiner wirken lässt! Dinge, die weiter weg sind, ..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "wie" zu nennen
       - helpText umformulieren ohne "man" zu nennen
       - helpText umformulieren ohne "dinge" zu nennen
       - helpText umformulieren ohne "dinge" zu nennen
       - helpText umformulieren ohne "größer" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "kleiner" zu nennen
       - helpText umformulieren ohne "kleiner" zu nennen
       - helpText umformulieren ohne "wirken" zu nennen
       - helpText umformulieren ohne "lässt" zu nennen
-      - Erklärung umformulieren ohne "wie" zu nennen
-      - Erklärung umformulieren ohne "man" zu nennen
-      - Erklärung umformulieren ohne "dinge" zu nennen
-      - Erklärung umformulieren ohne "dinge" zu nennen
-      - Erklärung umformulieren ohne "größer" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "kleiner" zu nennen
-      - Erklärung umformulieren ohne "kleiner" zu nennen
-      - Erklärung umformulieren ohne "wirken" zu nennen
-      - Erklärung umformulieren ohne "lässt" zu nennen
 
 ❌ Frage 'kunst-3-10':
    Frage: "Welche Form hat ein Pentagon?"
@@ -1641,70 +734,31 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "ecken"
       Kontext: "...n Namen langsam und zähle die Ecken!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ecken"
-      Kontext: "...Ein Pentagon hat genau 5 Ecken! ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "ecken" zu nennen
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
 
 ❌ Frage 'kunst-4-1':
    Frage: "Was ist Impressionismus?"
    Antwort: "eine kunstrichtung mit weichen"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Impressionismus ist eine Kunstrichtung mit weichen, ve..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "kunstrichtung"
       Kontext: "...Impressionismus ist eine Kunstrichtung mit weichen, verschwommenen F..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "mit"
-      Kontext: "...nismus ist eine Kunstrichtung mit weichen, verschwommenen Farbe..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "weichen"
-      Kontext: "...us ist eine Kunstrichtung mit weichen, verschwommenen Farben! Künst..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Impressionismus ist eine Kunstrichtung mit weichen, ve..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kunstrichtung"
-      Kontext: "...Impressionismus ist eine Kunstrichtung mit weichen, verschwommenen F..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...nismus ist eine Kunstrichtung mit weichen, verschwommenen Farbe..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "weichen"
       Kontext: "...us ist eine Kunstrichtung mit weichen, verschwommenen Farben! Künst..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "eine" zu nennen
       - helpText umformulieren ohne "kunstrichtung" zu nennen
-      - helpText umformulieren ohne "mit" zu nennen
       - helpText umformulieren ohne "weichen" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "kunstrichtung" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "weichen" zu nennen
 
 ❌ Frage 'kunst-4-2':
    Frage: "Was ist eine Collage?"
    Antwort: "ein kunstwerk aus verschiedenen materialien zusammengeklebt"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen M..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "kunstwerk"
       Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen Materialien..."
 
@@ -1721,148 +775,34 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...n Kunstwerk aus verschiedenen Materialien zusammengeklebt! Zum Beispiel..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "zusammengeklebt"
-      Kontext: "...aus verschiedenen Materialien zusammengeklebt! Zum Beispiel Papier, Stoff o..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen M..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kunstwerk"
-      Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen Materialien..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "aus"
-      Kontext: "...ine Collage ist ein Kunstwerk aus verschiedenen Materialien zus..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "verschiedenen"
-      Kontext: "...Collage ist ein Kunstwerk aus verschiedenen Materialien zusammengeklebt! ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "materialien"
-      Kontext: "...n Kunstwerk aus verschiedenen Materialien zusammengeklebt! Zum Beispiel..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "zusammengeklebt"
       Kontext: "...aus verschiedenen Materialien zusammengeklebt! Zum Beispiel Papier, Stoff o..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "kunstwerk" zu nennen
       - helpText umformulieren ohne "aus" zu nennen
       - helpText umformulieren ohne "verschiedenen" zu nennen
       - helpText umformulieren ohne "materialien" zu nennen
       - helpText umformulieren ohne "zusammengeklebt" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "kunstwerk" zu nennen
-      - Erklärung umformulieren ohne "aus" zu nennen
-      - Erklärung umformulieren ohne "verschiedenen" zu nennen
-      - Erklärung umformulieren ohne "materialien" zu nennen
-      - Erklärung umformulieren ohne "zusammengeklebt" zu nennen
-
-❌ Frage 'kunst-4-3':
-   Frage: "Was ist ein Farbkreis?"
-   Antwort: "ein kreis"
-
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Farbkreis?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Farbkreis zeigt, wie Farben z..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Farbkreis zeigt, wie Farben z..."
-
-   💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-
-❌ Frage 'kunst-4-4':
-   Frage: "Was ist eine Sekundärfarbe?"
-   Antwort: "eine farbe"
-
-   Problem im Feld 'question':
-      Gefundene Antwort: "eine"
-      Kontext: "...Was ist eine Sekundärfarbe?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Eine Sekundärfarbe wird aus zwei G..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Eine Sekundärfarbe wird aus zwei G..."
-
-   💡 Vorschläge:
-      - Frage umformulieren ohne "eine" zu nennen
-      - helpText umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
 
 ❌ Frage 'kunst-4-5':
    Frage: "Was ist eine Radierung?"
    Antwort: "ein druckverfahren"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Eine Radierung ist ein Druckverfahren! Der Künstler ..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...verfahren! Der Künstler ritzt ein Bild in eine Platte und druck..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "druckverfahren"
-      Kontext: "...Eine Radierung ist ein Druckverfahren! Der Künstler ritzt ein Bild ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Eine Radierung ist ein Druckverfahren! Der Künstler ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...verfahren! Der Künstler ritzt ein Bild in eine Platte und druck..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "druckverfahren"
       Kontext: "...Eine Radierung ist ein Druckverfahren! Der Künstler ritzt ein Bild ..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "druckverfahren" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "druckverfahren" zu nennen
 
 ❌ Frage 'kunst-4-6':
    Frage: "Was ist ein Stillleben?"
    Antwort: "ein bild von unbewegten gegenständen wie obst oder blumen"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Stillleben?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von u..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von unbewegten Gegenstän..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "bild"
       Kontext: "...Ein Stillleben ist ein Bild von unbewegten Gegenständen! ..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "von"
-      Kontext: "...Ein Stillleben ist ein Bild von unbewegten Gegenständen! Zum ..."
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "unbewegten"
@@ -1877,231 +817,52 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...en Gegenständen! Zum Beispiel Obst, Blumen oder andere Dinge, di..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...en! Zum Beispiel Obst, Blumen oder andere Dinge, die still stehe..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "blumen"
-      Kontext: "...enständen! Zum Beispiel Obst, Blumen oder andere Dinge, die still ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von u..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von unbewegten Gegenstän..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bild"
-      Kontext: "...Ein Stillleben ist ein Bild von unbewegten Gegenständen! ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "von"
-      Kontext: "...Ein Stillleben ist ein Bild von unbewegten Gegenständen! Zum ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "unbewegten"
-      Kontext: "...n Stillleben ist ein Bild von unbewegten Gegenständen! Zum Beispiel Ob..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gegenständen"
-      Kontext: "...n ist ein Bild von unbewegten Gegenständen! Zum Beispiel Obst, Blumen od..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "obst"
-      Kontext: "...en Gegenständen! Zum Beispiel Obst, Blumen oder andere Dinge, di..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...en! Zum Beispiel Obst, Blumen oder andere Dinge, die still stehe..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "blumen"
       Kontext: "...enständen! Zum Beispiel Obst, Blumen oder andere Dinge, die still ..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "bild" zu nennen
-      - helpText umformulieren ohne "von" zu nennen
       - helpText umformulieren ohne "unbewegten" zu nennen
       - helpText umformulieren ohne "gegenständen" zu nennen
       - helpText umformulieren ohne "obst" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "blumen" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "bild" zu nennen
-      - Erklärung umformulieren ohne "von" zu nennen
-      - Erklärung umformulieren ohne "unbewegten" zu nennen
-      - Erklärung umformulieren ohne "gegenständen" zu nennen
-      - Erklärung umformulieren ohne "obst" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "blumen" zu nennen
 
 ❌ Frage 'kunst-4-7':
    Frage: "Was ist abstrakte Kunst?"
    Antwort: "die genau wie die wirklichkeit aussieht"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "... verwendet Formen und Farben, die nicht genau wie die Wirklichk..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...d Farben, die nicht genau wie die Wirklichkeit aussehen! Sie ze..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "genau"
       Kontext: "... Formen und Farben, die nicht genau wie die Wirklichkeit aussehen..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "wie"
-      Kontext: "...n und Farben, die nicht genau wie die Wirklichkeit aussehen! Si..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "... verwendet Formen und Farben, die nicht genau wie die Wirklichk..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...d Farben, die nicht genau wie die Wirklichkeit aussehen! Sie ze..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "wirklichkeit"
-      Kontext: "...rben, die nicht genau wie die Wirklichkeit aussehen! Sie zeigt Gefühle u..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "... verwendet Formen und Farben, die nicht genau wie die Wirklichk..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...d Farben, die nicht genau wie die Wirklichkeit aussehen! Sie ze..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "genau"
-      Kontext: "... Formen und Farben, die nicht genau wie die Wirklichkeit aussehen..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wie"
-      Kontext: "...n und Farben, die nicht genau wie die Wirklichkeit aussehen! Si..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "... verwendet Formen und Farben, die nicht genau wie die Wirklichk..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...d Farben, die nicht genau wie die Wirklichkeit aussehen! Sie ze..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "wirklichkeit"
       Kontext: "...rben, die nicht genau wie die Wirklichkeit aussehen! Sie zeigt Gefühle u..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "die" zu nennen
-      - helpText umformulieren ohne "die" zu nennen
       - helpText umformulieren ohne "genau" zu nennen
-      - helpText umformulieren ohne "wie" zu nennen
-      - helpText umformulieren ohne "die" zu nennen
-      - helpText umformulieren ohne "die" zu nennen
       - helpText umformulieren ohne "wirklichkeit" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "genau" zu nennen
-      - Erklärung umformulieren ohne "wie" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "wirklichkeit" zu nennen
 
 ❌ Frage 'kunst-4-8':
    Frage: "Was ist eine Porträt?"
    Antwort: "ein bild von einer person"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Porträt ist ein Bild von eine..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zei..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "bild"
       Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zeigt da..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "von"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zeigt das Ge..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "einer"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zeigt das Gesicht ..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "einer"
-      Kontext: "...esicht oder den ganzen Körper einer Person...."
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "person"
       Kontext: "...orträt ist ein Bild von einer Person! Es zeigt das Gesicht oder de..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "person"
-      Kontext: "... oder den ganzen Körper einer Person...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Porträt ist ein Bild von eine..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zei..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bild"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zeigt da..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "von"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zeigt das Ge..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "einer"
-      Kontext: "...Ein Porträt ist ein Bild von einer Person! Es zeigt das Gesicht ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "einer"
-      Kontext: "...esicht oder den ganzen Körper einer Person...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "person"
-      Kontext: "...orträt ist ein Bild von einer Person! Es zeigt das Gesicht oder de..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "person"
       Kontext: "... oder den ganzen Körper einer Person...."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "bild" zu nennen
-      - helpText umformulieren ohne "von" zu nennen
-      - helpText umformulieren ohne "einer" zu nennen
-      - helpText umformulieren ohne "einer" zu nennen
       - helpText umformulieren ohne "person" zu nennen
       - helpText umformulieren ohne "person" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "bild" zu nennen
-      - Erklärung umformulieren ohne "von" zu nennen
-      - Erklärung umformulieren ohne "einer" zu nennen
-      - Erklärung umformulieren ohne "einer" zu nennen
-      - Erklärung umformulieren ohne "person" zu nennen
-      - Erklärung umformulieren ohne "person" zu nennen
 
 ❌ Frage 'kunst-4-9':
    Frage: "Was ist eine Aquarellmalerei?"
@@ -2120,30 +881,6 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...sliche Farben auf Papier! Die Farben sind transparent und sehen se..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "auf"
-      Kontext: "...rwendet wasserlösliche Farben auf Papier! Die Farben sind trans..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "papier"
-      Kontext: "...det wasserlösliche Farben auf Papier! Die Farben sind transparent ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wasserlösliche"
-      Kontext: "...Aquarellmalerei verwendet wasserlösliche Farben auf Papier! Die Farben..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...erei verwendet wasserlösliche Farben auf Papier! Die Farben sind t..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...sliche Farben auf Papier! Die Farben sind transparent und sehen se..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auf"
-      Kontext: "...rwendet wasserlösliche Farben auf Papier! Die Farben sind trans..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "papier"
       Kontext: "...det wasserlösliche Farben auf Papier! Die Farben sind transparent ..."
 
@@ -2151,13 +888,7 @@ PROBLEMATISCHE FRAGEN:
       - helpText umformulieren ohne "wasserlösliche" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
-      - helpText umformulieren ohne "auf" zu nennen
       - helpText umformulieren ohne "papier" zu nennen
-      - Erklärung umformulieren ohne "wasserlösliche" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "auf" zu nennen
-      - Erklärung umformulieren ohne "papier" zu nennen
 
 ❌ Frage 'kunst-4-10':
    Frage: "Was ist eine Landschaftsmalerei?"
@@ -2167,13 +898,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "natur"
       Kontext: "...Eine Landschaftsmalerei zeigt Natur! Zum Beispiel Berge, Wälder, ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "natur"
-      Kontext: "...Eine Landschaftsmalerei zeigt Natur! Zum Beispiel Berge, Wälder, ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "natur" zu nennen
-      - Erklärung umformulieren ohne "natur" zu nennen
 
 ❌ Frage 'logik-1-2':
    Frage: "Welches Tier ist das Größte?"
@@ -2183,13 +909,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "elefant"
       Kontext: "...Der Elefant ist das größte Tier! Er ist v..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "elefant"
-      Kontext: "...Der Elefant ist das größte Tier! Er ist v..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "elefant" zu nennen
-      - Erklärung umformulieren ohne "elefant" zu nennen
 
 ❌ Frage 'logik-1-4':
    Frage: "Welches passt nicht dazu? Apfel, Banane, Auto, Orange"
@@ -2207,20 +928,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "auto"
       Kontext: "...range sind alle Früchte, aber Auto ist ein Fahrzeug...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auto"
-      Kontext: "...Auto passt nicht dazu! Apfel, Bana..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auto"
-      Kontext: "...range sind alle Früchte, aber Auto ist ein Fahrzeug...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "auto" zu nennen
       - helpText umformulieren ohne "auto" zu nennen
       - helpText umformulieren ohne "auto" zu nennen
-      - Erklärung umformulieren ohne "auto" zu nennen
-      - Erklärung umformulieren ohne "auto" zu nennen
 
 ❌ Frage 'logik-1-8':
    Frage: "Welches passt nicht dazu? Hund, Katze, Vogel, Tisch"
@@ -2238,20 +949,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "tisch"
       Kontext: "...d Vogel sind alle Tiere, aber Tisch ist ein Möbelstück...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "tisch"
-      Kontext: "...Tisch passt nicht dazu! Hund, Katze..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "tisch"
-      Kontext: "...d Vogel sind alle Tiere, aber Tisch ist ein Möbelstück...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "tisch" zu nennen
       - helpText umformulieren ohne "tisch" zu nennen
       - helpText umformulieren ohne "tisch" zu nennen
-      - Erklärung umformulieren ohne "tisch" zu nennen
-      - Erklärung umformulieren ohne "tisch" zu nennen
 
 ❌ Frage 'logik-1-10':
    Frage: "Welche Farbe gehört nicht zu den Grundfarben?"
@@ -2265,19 +966,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "grün"
       Kontext: "...rben sind Rot, Gelb und Blau. Grün entsteht, wenn man Blau und G..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...Grün gehört nicht zu den Grundfarb..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...rben sind Rot, Gelb und Blau. Grün entsteht, wenn man Blau und G..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "grün" zu nennen
       - helpText umformulieren ohne "grün" zu nennen
-      - Erklärung umformulieren ohne "grün" zu nennen
-      - Erklärung umformulieren ohne "grün" zu nennen
 
 ❌ Frage 'logik-2-2':
    Frage: "Welches Wort passt in die Reihe? Apfel, Birne, Banane, ___"
@@ -2291,19 +982,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "orange"
       Kontext: "...azu! Apfel, Birne, Banane und Orange sind alle Früchte...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "orange"
-      Kontext: "...Orange passt dazu! Apfel, Birne, Ban..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "orange"
-      Kontext: "...azu! Apfel, Birne, Banane und Orange sind alle Früchte...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "orange" zu nennen
       - helpText umformulieren ohne "orange" zu nennen
-      - Erklärung umformulieren ohne "orange" zu nennen
-      - Erklärung umformulieren ohne "orange" zu nennen
 
 ❌ Frage 'logik-2-6':
    Frage: "Welches passt nicht dazu? Montag, Dienstag, Mittwoch, Apfel"
@@ -2321,20 +1002,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "apfel"
       Kontext: "...ch sind alle Wochentage, aber Apfel ist eine Frucht...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "apfel"
-      Kontext: "...Apfel passt nicht dazu! Montag, Die..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "apfel"
-      Kontext: "...ch sind alle Wochentage, aber Apfel ist eine Frucht...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "apfel" zu nennen
       - helpText umformulieren ohne "apfel" zu nennen
       - helpText umformulieren ohne "apfel" zu nennen
-      - Erklärung umformulieren ohne "apfel" zu nennen
-      - Erklärung umformulieren ohne "apfel" zu nennen
 
 ❌ Frage 'logik-2-10':
    Frage: "Welches Wort passt in die Reihe? Hund, Katze, Vogel, ___"
@@ -2348,19 +1019,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "fisch"
       Kontext: "... dazu! Hund, Katze, Vogel und Fisch sind alle Tiere...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "fisch"
-      Kontext: "...Fisch passt dazu! Hund, Katze, Voge..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "fisch"
-      Kontext: "... dazu! Hund, Katze, Vogel und Fisch sind alle Tiere...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "fisch" zu nennen
       - helpText umformulieren ohne "fisch" zu nennen
-      - Erklärung umformulieren ohne "fisch" zu nennen
-      - Erklärung umformulieren ohne "fisch" zu nennen
 
 ❌ Frage 'logik-3-3':
    Frage: "Welches passt nicht dazu? Buch, Heft, Stift, Auto"
@@ -2378,20 +1039,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "auto"
       Kontext: "...t sind alle Schulsachen, aber Auto ist ein Fahrzeug...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auto"
-      Kontext: "...Auto passt nicht dazu! Buch, Heft ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auto"
-      Kontext: "...t sind alle Schulsachen, aber Auto ist ein Fahrzeug...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "auto" zu nennen
       - helpText umformulieren ohne "auto" zu nennen
       - helpText umformulieren ohne "auto" zu nennen
-      - Erklärung umformulieren ohne "auto" zu nennen
-      - Erklärung umformulieren ohne "auto" zu nennen
 
 ❌ Frage 'logik-3-9':
    Frage: "Welches passt nicht dazu? Frühling, Sommer, Herbst, Montag"
@@ -2409,20 +1060,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "montag"
       Kontext: "... sind alle Jahreszeiten, aber Montag ist ein Wochentag...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "montag"
-      Kontext: "...Montag passt nicht dazu! Frühling, S..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "montag"
-      Kontext: "... sind alle Jahreszeiten, aber Montag ist ein Wochentag...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "montag" zu nennen
       - helpText umformulieren ohne "montag" zu nennen
       - helpText umformulieren ohne "montag" zu nennen
-      - Erklärung umformulieren ohne "montag" zu nennen
-      - Erklärung umformulieren ohne "montag" zu nennen
 
 ❌ Frage 'logik-4-4':
    Frage: "Welches passt nicht dazu? Quadrat, Kreis, Dreieck, Auto"
@@ -2440,20 +1081,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "auto"
       Kontext: "...lle geometrische Formen, aber Auto ist ein Fahrzeug...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auto"
-      Kontext: "...Auto passt nicht dazu! Quadrat, Kr..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auto"
-      Kontext: "...lle geometrische Formen, aber Auto ist ein Fahrzeug...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "auto" zu nennen
       - helpText umformulieren ohne "auto" zu nennen
       - helpText umformulieren ohne "auto" zu nennen
-      - Erklärung umformulieren ohne "auto" zu nennen
-      - Erklärung umformulieren ohne "auto" zu nennen
 
 ❌ Frage 'logik-4-10':
    Frage: "Wenn alle Katzen Tiere sind und alle Tiere Lebewesen sind, was sind dann alle Katzen?"
@@ -2471,20 +1102,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "lebewesen"
       Kontext: "...d, dann sind alle Katzen auch Lebewesen! Das ist logisches Denken...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lebewesen"
-      Kontext: "...zen Tiere sind und alle Tiere Lebewesen sind, dann sind alle Katzen a..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lebewesen"
-      Kontext: "...d, dann sind alle Katzen auch Lebewesen! Das ist logisches Denken...."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "lebewesen" zu nennen
       - helpText umformulieren ohne "lebewesen" zu nennen
       - helpText umformulieren ohne "lebewesen" zu nennen
-      - Erklärung umformulieren ohne "lebewesen" zu nennen
-      - Erklärung umformulieren ohne "lebewesen" zu nennen
 
 ❌ Frage 'natur-1-17':
    Frage: "Welche Farbe haben die meisten Äpfel?"
@@ -2495,32 +1116,12 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Die meisten Äpfel sind grün oder rot! Es gibt viele versc..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...Die meisten Äpfel sind grün oder rot! Es gibt viele verschiede..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "rot"
-      Kontext: "... meisten Äpfel sind grün oder rot! Es gibt viele verschiedene A..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...Die meisten Äpfel sind grün oder rot! Es gibt viele versc..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...Die meisten Äpfel sind grün oder rot! Es gibt viele verschiede..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "rot"
       Kontext: "... meisten Äpfel sind grün oder rot! Es gibt viele verschiedene A..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "grün" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "rot" zu nennen
-      - Erklärung umformulieren ohne "grün" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "rot" zu nennen
 
 ❌ Frage 'natur-1-19':
    Frage: "Welche Jahreszeit ist am wärmsten?"
@@ -2530,13 +1131,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "sommer"
       Kontext: "...Der Sommer ist am wärmsten! Die Sonne sc..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sommer"
-      Kontext: "...Der Sommer ist am wärmsten! Die Sonne sc..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "sommer" zu nennen
-      - Erklärung umformulieren ohne "sommer" zu nennen
 
 ❌ Frage 'natur-1-20':
    Frage: "Welches Körperteil benutzt du zum Sprechen?"
@@ -2546,13 +1142,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "mund"
       Kontext: "...Mit dem Mund kannst du sprechen! Die Zunge..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mund"
-      Kontext: "...Mit dem Mund kannst du sprechen! Die Zunge..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "mund" zu nennen
-      - Erklärung umformulieren ohne "mund" zu nennen
 
 ❌ Frage 'natur-2-14':
    Frage: "Welche Pflanze wächst am schnellsten?"
@@ -2562,13 +1153,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "gras"
       Kontext: "...Gras wächst sehr schnell! Du kanns..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gras"
-      Kontext: "...Gras wächst sehr schnell! Du kanns..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "gras" zu nennen
-      - Erklärung umformulieren ohne "gras" zu nennen
 
 ❌ Frage 'natur-2-15':
    Frage: "Welches Tier hat Streifen?"
@@ -2578,13 +1164,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "tiger"
       Kontext: "...Tiger haben Streifen! Die Streifen ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "tiger"
-      Kontext: "...Tiger haben Streifen! Die Streifen ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "tiger" zu nennen
-      - Erklärung umformulieren ohne "tiger" zu nennen
 
 ❌ Frage 'natur-2-16':
    Frage: "Welches Wetter gibt es im Winter?"
@@ -2594,13 +1175,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "schnee"
       Kontext: "...Im Winter gibt es oft Schnee! Es ist kalt und die Bäume ha..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "schnee"
-      Kontext: "...Im Winter gibt es oft Schnee! Es ist kalt und die Bäume ha..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "schnee" zu nennen
-      - Erklärung umformulieren ohne "schnee" zu nennen
 
 ❌ Frage 'natur-2-18':
    Frage: "Welches Organ hilft dir beim Atmen?"
@@ -2610,13 +1186,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "lunge"
       Kontext: "...Die Lunge hilft dir beim Atmen! Sie nim..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lunge"
-      Kontext: "...Die Lunge hilft dir beim Atmen! Sie nim..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "lunge" zu nennen
-      - Erklärung umformulieren ohne "lunge" zu nennen
 
 ❌ Frage 'natur-3-16':
    Frage: "Welches Tier lebt in einer Herde?"
@@ -2626,13 +1197,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "elefanten"
       Kontext: "...Elefanten leben in Herden! Sie bleiben ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "elefanten"
-      Kontext: "...Elefanten leben in Herden! Sie bleiben ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "elefanten" zu nennen
-      - Erklärung umformulieren ohne "elefanten" zu nennen
 
 ❌ Frage 'natur-3-19':
    Frage: "Welches Tier ist ein Raubvogel?"
@@ -2642,13 +1208,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "adler"
       Kontext: "...Adler sind Raubvögel! Sie jagen and..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "adler"
-      Kontext: "...Adler sind Raubvögel! Sie jagen and..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "adler" zu nennen
-      - Erklärung umformulieren ohne "adler" zu nennen
 
 ❌ Frage 'natur-3-20':
    Frage: "Woher kommt der Regen?"
@@ -2659,78 +1220,33 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Regen kommt aus den Wolken! Wenn Wolken zu sc..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "den"
-      Kontext: "...Regen kommt aus den Wolken! Wenn Wolken zu schwer..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "wolken"
       Kontext: "...Regen kommt aus den Wolken! Wenn Wolken zu schwer werden..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "wolken"
-      Kontext: "...en kommt aus den Wolken! Wenn Wolken zu schwer werden, fällt das W..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "aus"
-      Kontext: "...Regen kommt aus den Wolken! Wenn Wolken zu sc..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "den"
-      Kontext: "...Regen kommt aus den Wolken! Wenn Wolken zu schwer..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wolken"
-      Kontext: "...Regen kommt aus den Wolken! Wenn Wolken zu schwer werden..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "wolken"
       Kontext: "...en kommt aus den Wolken! Wenn Wolken zu schwer werden, fällt das W..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "aus" zu nennen
-      - helpText umformulieren ohne "den" zu nennen
       - helpText umformulieren ohne "wolken" zu nennen
       - helpText umformulieren ohne "wolken" zu nennen
-      - Erklärung umformulieren ohne "aus" zu nennen
-      - Erklärung umformulieren ohne "den" zu nennen
-      - Erklärung umformulieren ohne "wolken" zu nennen
-      - Erklärung umformulieren ohne "wolken" zu nennen
 
 ❌ Frage 'natur-4-12':
    Frage: "Warum sind Bienen wichtig für Pflanzen?"
    Antwort: "sie bestäuben blumen"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "sie"
-      Kontext: "...Bienen bestäuben Blumen! Sie tragen Pollen von Blüte zu Bl..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "bestäuben"
       Kontext: "...Bienen bestäuben Blumen! Sie tragen Pollen von..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "blumen"
-      Kontext: "...Bienen bestäuben Blumen! Sie tragen Pollen von Blüte ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sie"
-      Kontext: "...Bienen bestäuben Blumen! Sie tragen Pollen von Blüte zu Bl..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bestäuben"
-      Kontext: "...Bienen bestäuben Blumen! Sie tragen Pollen von..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "blumen"
       Kontext: "...Bienen bestäuben Blumen! Sie tragen Pollen von Blüte ..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "sie" zu nennen
       - helpText umformulieren ohne "bestäuben" zu nennen
       - helpText umformulieren ohne "blumen" zu nennen
-      - Erklärung umformulieren ohne "sie" zu nennen
-      - Erklärung umformulieren ohne "bestäuben" zu nennen
-      - Erklärung umformulieren ohne "blumen" zu nennen
 
 ❌ Frage 'natur-4-15':
    Frage: "Welches Tier kann am längsten ohne Wasser leben?"
@@ -2740,13 +1256,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "kamele"
       Kontext: "...Kamele können sehr lange ohne Wasser..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kamele"
-      Kontext: "...Kamele können sehr lange ohne Wasser..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "kamele" zu nennen
-      - Erklärung umformulieren ohne "kamele" zu nennen
 
 ❌ Frage 'natur-4-16':
    Frage: "Wie heißt der Prozess, bei dem Pflanzen Sonnenlicht nutzen?"
@@ -2756,24 +1267,19 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "fotosynthese"
       Kontext: "...Fotosynthese! Pflanzen nutzen Sonnenlicht,..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "fotosynthese"
-      Kontext: "...Fotosynthese! Pflanzen nutzen Sonnenlicht,..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "fotosynthese" zu nennen
-      - Erklärung umformulieren ohne "fotosynthese" zu nennen
 
 ❌ Frage 'natur-4-17':
    Frage: "Welches Tier ist ein Säugetier, das Eier legt?"
    Antwort: "platypus"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "platypus"
       Kontext: "...Der Platypus ist ein Säugetier, das Eier l..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "platypus" zu nennen
+      - helpText umformulieren ohne "platypus" zu nennen
 
 ❌ Frage 'natur-4-18':
    Frage: "Bei welcher Temperatur gefriert Wasser?"
@@ -2783,13 +1289,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "0°c"
       Kontext: "...Wasser gefriert bei 0°C! Das ist der Gefrierpunkt von..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "0°c"
-      Kontext: "...Wasser gefriert bei 0°C! Das ist der Gefrierpunkt von..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "0°c" zu nennen
-      - Erklärung umformulieren ohne "0°c" zu nennen
 
 ❌ Frage 'natur-4-19':
    Frage: "Welches Tier hat die meisten Zähne?"
@@ -2799,13 +1300,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "haie"
       Kontext: "...Haie haben sehr viele Zähne! Sie k..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "haie"
-      Kontext: "...Haie haben sehr viele Zähne! Sie k..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "haie" zu nennen
-      - Erklärung umformulieren ohne "haie" zu nennen
 
 ❌ Frage 'natur-4-20':
    Frage: "Welches ist das größte Organ des menschlichen Körpers?"
@@ -2815,13 +1311,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "haut"
       Kontext: "...Die Haut ist das größte Organ! Sie bed..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "haut"
-      Kontext: "...Die Haut ist das größte Organ! Sie bed..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "haut" zu nennen
-      - Erklärung umformulieren ohne "haut" zu nennen
 
 ❌ Frage 'kunst-1-1':
    Frage: "Welche Farbe entsteht, wenn du Rot und Blau mischst?"
@@ -2831,13 +1322,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "lila"
       Kontext: "...ot und Blau mischst, entsteht Lila! Das ist eine neue Farbe...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lila"
-      Kontext: "...ot und Blau mischst, entsteht Lila! Das ist eine neue Farbe...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "lila" zu nennen
-      - Erklärung umformulieren ohne "lila" zu nennen
 
 ❌ Frage 'kunst-1-2':
    Frage: "Welches Werkzeug benutzt du zum Malen?"
@@ -2847,13 +1333,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "pinsel"
       Kontext: "...Mit einem Pinsel kannst du malen! Du tauchst i..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "pinsel"
-      Kontext: "...Mit einem Pinsel kannst du malen! Du tauchst i..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "pinsel" zu nennen
-      - Erklärung umformulieren ohne "pinsel" zu nennen
 
 ❌ Frage 'kunst-1-4':
    Frage: "Welche Form hat ein Kreis?"
@@ -2863,92 +1344,61 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "rund"
       Kontext: "...Ein Kreis ist rund! Er hat keine Ecken...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rund"
-      Kontext: "...Ein Kreis ist rund! Er hat keine Ecken...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "rund" zu nennen
-      - Erklärung umformulieren ohne "rund" zu nennen
 
 ❌ Frage 'kunst-1-5':
    Frage: "Welche Farbe entsteht, wenn du Gelb und Blau mischst?"
    Antwort: "grün"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "grün"
       Kontext: "...lb und Blau mischst, entsteht Grün! Das ist die Farbe von Gras...."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "grün" zu nennen
+      - helpText umformulieren ohne "grün" zu nennen
 
 ❌ Frage 'kunst-1-6':
    Frage: "Welche Form hat ein Quadrat?"
    Antwort: "viereckig mit 4 gleichen seiten"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "gleich"
-      Kontext: ".... Es hat 4 Seiten - alle sind gleich lang!..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "seiten"
-      Kontext: "...orm ein Quadrat hat. Es hat 4 Seiten - alle sind gleich lang!..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "viereckig"
       Kontext: "...Ein Quadrat ist viereckig mit 4 gleichen Seiten! Alle S..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Quadrat ist viereckig mit 4 gleichen Seiten! Alle Seite..."
-
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "gleichen"
       Kontext: "...n Quadrat ist viereckig mit 4 gleichen Seiten! Alle Seiten sind glei..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "gleich"
       Kontext: "...chen Seiten! Alle Seiten sind gleich lang...."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "seiten"
       Kontext: "... ist viereckig mit 4 gleichen Seiten! Alle Seiten sind gleich lang..."
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "seiten"
       Kontext: "...g mit 4 gleichen Seiten! Alle Seiten sind gleich lang...."
 
    💡 Vorschläge:
+      - helpText umformulieren ohne "viereckig" zu nennen
+      - helpText umformulieren ohne "gleichen" zu nennen
       - helpText umformulieren ohne "gleich" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "viereckig" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "gleichen" zu nennen
-      - Erklärung umformulieren ohne "gleich" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
-
-❌ Frage 'kunst-1-7':
-   Frage: "Welche Farbe hat das Gras?"
-   Antwort: "grün"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...Gras ist grün! Das ist die natürliche Farbe..."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "grün" zu nennen
+      - helpText umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-1-8':
    Frage: "Welche Farbe entsteht, wenn du Rot und Gelb mischst?"
    Antwort: "orange"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "orange"
       Kontext: "...ot und Gelb mischst, entsteht Orange! Das ist die Farbe von Orange..."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "orange" zu nennen
+      - helpText umformulieren ohne "orange" zu nennen
 
 ❌ Frage 'kunst-1-9':
    Frage: "Welche Form hat ein Dreieck?"
@@ -2956,26 +1406,10 @@ PROBLEMATISCHE FRAGEN:
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "ecken"
-      Kontext: "...n Dreieck hat. Es hat mehrere Ecken - wie viele?..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ecken"
       Kontext: "...Ein Dreieck hat 3 Ecken! Es hat 3 Seiten...."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
-
-❌ Frage 'kunst-1-10':
-   Frage: "Welche Farbe hat der Himmel tagsüber?"
-   Antwort: "blau"
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "blau"
-      Kontext: "...Der Himmel ist tagsüber meist blau! Das liegt am Sonnenlicht...."
-
-   💡 Vorschläge:
-      - Erklärung umformulieren ohne "blau" zu nennen
 
 ❌ Frage 'kunst-1-11':
    Frage: "Welche Farbe hat eine Zitrone?"
@@ -2985,39 +1419,24 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "gelb"
       Kontext: "...Zitronen sind gelb! Das ist ihre natürliche Farb..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gelb"
-      Kontext: "...Zitronen sind gelb! Das ist ihre natürliche Farb..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "gelb" zu nennen
-      - Erklärung umformulieren ohne "gelb" zu nennen
 
 ❌ Frage 'kunst-1-12':
    Frage: "Welche Form hat ein Rechteck?"
    Antwort: "viereckig mit 4 ecken"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "ecken"
-      Kontext: "...rm ein Rechteck hat. Es hat 4 Ecken und unterschiedlich lange Sei..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "viereckig"
       Kontext: "...Ein Rechteck ist viereckig mit 4 Ecken! Es hat 2 lange u..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Rechteck ist viereckig mit 4 Ecken! Es hat 2 lange und 2..."
-
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "ecken"
       Kontext: "... Rechteck ist viereckig mit 4 Ecken! Es hat 2 lange und 2 kurze S..."
 
    💡 Vorschläge:
+      - helpText umformulieren ohne "viereckig" zu nennen
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "viereckig" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
 
 ❌ Frage 'kunst-1-13':
    Frage: "Welche Farbe hat eine Erdbeere?"
@@ -3027,13 +1446,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "rot"
       Kontext: "...Erdbeeren sind rot! Das ist ihre natürliche Farb..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rot"
-      Kontext: "...Erdbeeren sind rot! Das ist ihre natürliche Farb..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "rot" zu nennen
-      - Erklärung umformulieren ohne "rot" zu nennen
 
 ❌ Frage 'kunst-1-14':
    Frage: "Welche Farbe hat eine Banane?"
@@ -3047,19 +1461,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "gelb"
       Kontext: "... Wenn sie reif sind, sind sie gelb...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gelb"
-      Kontext: "...Bananen sind gelb! Wenn sie reif sind, sind sie..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gelb"
-      Kontext: "... Wenn sie reif sind, sind sie gelb...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "gelb" zu nennen
       - helpText umformulieren ohne "gelb" zu nennen
-      - Erklärung umformulieren ohne "gelb" zu nennen
-      - Erklärung umformulieren ohne "gelb" zu nennen
 
 ❌ Frage 'kunst-1-15':
    Frage: "Welche Form hat ein Stern?"
@@ -3069,13 +1473,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "spitzen"
       Kontext: "...Ein Stern hat Spitzen! Er sieht aus wie ein Stern a..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "spitzen"
-      Kontext: "...Ein Stern hat Spitzen! Er sieht aus wie ein Stern a..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "spitzen" zu nennen
-      - Erklärung umformulieren ohne "spitzen" zu nennen
 
 ❌ Frage 'kunst-2-1':
    Frage: "Welche Farben sind Primärfarben?"
@@ -3085,13 +1484,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "rot"
       Kontext: "...Die Primärfarben sind Rot, Gelb und Blau! Aus diesen ka..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rot"
-      Kontext: "...Die Primärfarben sind Rot, Gelb und Blau! Aus diesen ka..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "rot" zu nennen
-      - Erklärung umformulieren ohne "rot" zu nennen
 
 ❌ Frage 'kunst-2-2':
    Frage: "Welche Farbe entsteht, wenn du alle Farben mischst?"
@@ -3101,13 +1495,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "schwarz"
       Kontext: "...arben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunk..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "schwarz"
-      Kontext: "...arben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunk..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "schwarz" zu nennen
-      - Erklärung umformulieren ohne "schwarz" zu nennen
 
 ❌ Frage 'kunst-2-3':
    Frage: "Was ist eine Komplementärfarbe zu Rot?"
@@ -3117,13 +1506,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "grün"
       Kontext: "...Grün ist die Komplementärfarbe zu ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...Grün ist die Komplementärfarbe zu ..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "grün" zu nennen
-      - Erklärung umformulieren ohne "grün" zu nennen
 
 ❌ Frage 'kunst-2-4':
    Frage: "Welche Form hat ein Oval?"
@@ -3134,32 +1518,12 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Ein Oval ist länglich und rund! Es sieht aus wie ei..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "und"
-      Kontext: "...Ein Oval ist länglich und rund! Es sieht aus wie ein lä..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "rund"
-      Kontext: "...Ein Oval ist länglich und rund! Es sieht aus wie ein länglic..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "länglich"
-      Kontext: "...Ein Oval ist länglich und rund! Es sieht aus wie ei..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "und"
-      Kontext: "...Ein Oval ist länglich und rund! Es sieht aus wie ein lä..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "rund"
       Kontext: "...Ein Oval ist länglich und rund! Es sieht aus wie ein länglic..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "länglich" zu nennen
-      - helpText umformulieren ohne "und" zu nennen
       - helpText umformulieren ohne "rund" zu nennen
-      - Erklärung umformulieren ohne "länglich" zu nennen
-      - Erklärung umformulieren ohne "und" zu nennen
-      - Erklärung umformulieren ohne "rund" zu nennen
 
 ❌ Frage 'kunst-2-5':
    Frage: "Welche Farbe hat der Regenbogen?"
@@ -3177,20 +1541,10 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "farben"
       Kontext: "...Ein Regenbogen hat viele Farben! Rot, Orange, Gelb, Grün, Bla..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "viele"
-      Kontext: "...Ein Regenbogen hat viele Farben! Rot, Orange, Gelb, Gr..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...Ein Regenbogen hat viele Farben! Rot, Orange, Gelb, Grün, Bla..."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "farbe" zu nennen
       - helpText umformulieren ohne "viele" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "viele" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
 
 ❌ Frage 'kunst-2-6':
    Frage: "Welche Technik benutzt du, um mit Farben zu malen?"
@@ -3204,14 +1558,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "malen"
       Kontext: "...Malen ist eine Technik! Du benutzt ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "malen"
-      Kontext: "...Malen ist eine Technik! Du benutzt ..."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "malen" zu nennen
       - helpText umformulieren ohne "malen" zu nennen
-      - Erklärung umformulieren ohne "malen" zu nennen
 
 ❌ Frage 'kunst-2-7':
    Frage: "Welche Farbe entsteht, wenn du Weiß zu einer Farbe hinzufügst?"
@@ -3221,13 +1570,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "heller"
       Kontext: "...er Farbe hinzufügst, wird sie heller! Das nennt man Tönung...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "heller"
-      Kontext: "...er Farbe hinzufügst, wird sie heller! Das nennt man Tönung...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "heller" zu nennen
-      - Erklärung umformulieren ohne "heller" zu nennen
 
 ❌ Frage 'kunst-2-8':
    Frage: "Welche Form hat ein Herz?"
@@ -3237,13 +1581,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "herzförmig"
       Kontext: "...Ein Herz ist herzförmig! Es hat eine besondere Form m..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "herzförmig"
-      Kontext: "...Ein Herz ist herzförmig! Es hat eine besondere Form m..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "herzförmig" zu nennen
-      - Erklärung umformulieren ohne "herzförmig" zu nennen
 
 ❌ Frage 'kunst-2-9':
    Frage: "Welche Farbe entsteht, wenn du Schwarz zu einer Farbe hinzufügst?"
@@ -3251,15 +1590,10 @@ PROBLEMATISCHE FRAGEN:
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "dunkler"
-      Kontext: "...t sich - wird sie heller oder dunkler?..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dunkler"
       Kontext: "...er Farbe hinzufügst, wird sie dunkler! Das nennt man Schattierung...."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "dunkler" zu nennen
-      - Erklärung umformulieren ohne "dunkler" zu nennen
 
 ❌ Frage 'kunst-2-10':
    Frage: "Welche Form hat ein Sechseck?"
@@ -3269,13 +1603,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "ecken"
       Kontext: "...Ein Sechseck hat 6 Ecken! Es hat 6 Seiten...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ecken"
-      Kontext: "...Ein Sechseck hat 6 Ecken! Es hat 6 Seiten...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
 
 ❌ Frage 'kunst-2-11':
    Frage: "Welche Farbe hat eine Orange?"
@@ -3289,14 +1618,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "orange"
       Kontext: "...Orangen sind orange! Das ist ihre natürliche Farb..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "orange"
-      Kontext: "...Orangen sind orange! Das ist ihre natürliche Farb..."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "orange" zu nennen
       - helpText umformulieren ohne "orange" zu nennen
-      - Erklärung umformulieren ohne "orange" zu nennen
 
 ❌ Frage 'kunst-2-12':
    Frage: "Welche Form hat ein Fünfeck?"
@@ -3306,24 +1630,19 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "ecken"
       Kontext: "...Ein Fünfeck hat 5 Ecken! Es hat 5 Seiten...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ecken"
-      Kontext: "...Ein Fünfeck hat 5 Ecken! Es hat 5 Seiten...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
 
 ❌ Frage 'kunst-2-13':
    Frage: "Welche Farbe entsteht, wenn du Blau und Gelb mischst?"
    Antwort: "grün"
 
-   Problem im Feld 'explanation':
+   Problem im Feld 'helpText':
       Gefundene Antwort: "grün"
       Kontext: "...au und Gelb mischst, entsteht Grün! Das ist eine Sekundärfarbe...."
 
    💡 Vorschläge:
-      - Erklärung umformulieren ohne "grün" zu nennen
+      - helpText umformulieren ohne "grün" zu nennen
 
 ❌ Frage 'kunst-2-14':
    Frage: "Welche Form hat ein Achteck?"
@@ -3333,13 +1652,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "ecken"
       Kontext: "...Ein Achteck hat 8 Ecken! Es hat 8 Seiten...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ecken"
-      Kontext: "...Ein Achteck hat 8 Ecken! Es hat 8 Seiten...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "ecken" zu nennen
-      - Erklärung umformulieren ohne "ecken" zu nennen
 
 ❌ Frage 'kunst-2-15':
    Frage: "Welche Farbe hat eine Traube?"
@@ -3350,49 +1664,17 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Trauben können grün oder lila sein! Es gibt versc..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...Trauben können grün oder lila sein! Es gibt verschiede..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "lila"
-      Kontext: "...Trauben können grün oder lila sein! Es gibt verschiedene So..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "grün"
-      Kontext: "...Trauben können grün oder lila sein! Es gibt versc..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...Trauben können grün oder lila sein! Es gibt verschiede..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "lila"
       Kontext: "...Trauben können grün oder lila sein! Es gibt verschiedene So..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "grün" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "lila" zu nennen
-      - Erklärung umformulieren ohne "grün" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "lila" zu nennen
 
 ❌ Frage 'kunst-3-1':
    Frage: "Was ist eine Skulptur?"
    Antwort: "eine dreidimensionale figur"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "eine"
-      Kontext: "...Was ist eine Skulptur?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Eine Skulptur ist eine dreidimensi..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Eine Skulptur ist eine dreidimensionale Figur! Sie i..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "dreidimensionale"
       Kontext: "...Eine Skulptur ist eine dreidimensionale Figur! Sie ist aus Stein, Hol..."
@@ -3401,49 +1683,19 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "figur"
       Kontext: "...tur ist eine dreidimensionale Figur! Sie ist aus Stein, Holz oder..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Eine Skulptur ist eine dreidimensi..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Eine Skulptur ist eine dreidimensionale Figur! Sie i..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dreidimensionale"
-      Kontext: "...Eine Skulptur ist eine dreidimensionale Figur! Sie ist aus Stein, Hol..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "figur"
-      Kontext: "...tur ist eine dreidimensionale Figur! Sie ist aus Stein, Holz oder..."
+   Problem im Feld 'helpText':
+      Gefundene Antwort: "eine dreidimensionale figur"
+      Kontext: "...Eine Skulptur ist eine dreidimensionale Figur! Sie ist aus Stein, Holz oder..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "eine" zu nennen
-      - helpText umformulieren ohne "eine" zu nennen
-      - helpText umformulieren ohne "eine" zu nennen
       - helpText umformulieren ohne "dreidimensionale" zu nennen
       - helpText umformulieren ohne "figur" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "dreidimensionale" zu nennen
-      - Erklärung umformulieren ohne "figur" zu nennen
+      - helpText umformulieren ohne "eine dreidimensionale figur" zu nennen
 
 ❌ Frage 'kunst-3-4':
    Frage: "Was ist ein Muster?"
    Antwort: "eine sich wiederholende form"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Muster?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form! Es w..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Muster ist eine sich wiederho..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "sich"
       Kontext: "...Ein Muster ist eine sich wiederholende Form! Es wieder..."
@@ -3460,70 +1712,32 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "form"
       Kontext: "...r ist eine sich wiederholende Form! Es wiederholt sich immer wie..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form! Es w..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Muster ist eine sich wiederho..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sich"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form! Es wieder..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sich"
-      Kontext: "...erholende Form! Es wiederholt sich immer wieder...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "wiederholende"
-      Kontext: "...Ein Muster ist eine sich wiederholende Form! Es wiederholt sich imme..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "form"
-      Kontext: "...r ist eine sich wiederholende Form! Es wiederholt sich immer wie..."
+   Problem im Feld 'helpText':
+      Gefundene Antwort: "eine sich wiederholende form"
+      Kontext: "...Ein Muster ist eine sich wiederholende Form! Es wiederholt sich immer wie..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "eine" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "sich" zu nennen
       - helpText umformulieren ohne "sich" zu nennen
       - helpText umformulieren ohne "wiederholende" zu nennen
       - helpText umformulieren ohne "form" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "sich" zu nennen
-      - Erklärung umformulieren ohne "sich" zu nennen
-      - Erklärung umformulieren ohne "wiederholende" zu nennen
-      - Erklärung umformulieren ohne "form" zu nennen
+      - helpText umformulieren ohne "eine sich wiederholende form" zu nennen
 
 ❌ Frage 'kunst-3-5':
    Frage: "Was ist Perspektive in der Kunst?"
    Antwort: "eine technik"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "eine"
-      Kontext: "...Perspektive ist eine Technik, um Tiefe zu zeigen! ..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "technik"
       Kontext: "...Perspektive ist eine Technik, um Tiefe zu zeigen! Dinge, d..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eine"
-      Kontext: "...Perspektive ist eine Technik, um Tiefe zu zeigen! ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "technik"
+   Problem im Feld 'helpText':
+      Gefundene Antwort: "eine technik"
       Kontext: "...Perspektive ist eine Technik, um Tiefe zu zeigen! Dinge, d..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "eine" zu nennen
       - helpText umformulieren ohne "technik" zu nennen
-      - Erklärung umformulieren ohne "eine" zu nennen
-      - Erklärung umformulieren ohne "technik" zu nennen
+      - helpText umformulieren ohne "eine technik" zu nennen
 
 ❌ Frage 'kunst-3-6':
    Frage: "Welche Form hat ein Rhombus?"
@@ -3534,88 +1748,33 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Ein Rhombus ist viereckig mit 4 gleichen Seiten! Es ist..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Rhombus ist viereckig mit 4 gleichen Seiten! Es ist wie..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "gleichen"
       Kontext: "...n Rhombus ist viereckig mit 4 gleichen Seiten! Es ist wie ein versch..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "seiten"
-      Kontext: "... ist viereckig mit 4 gleichen Seiten! Es ist wie ein verschobenes ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "viereckig"
-      Kontext: "...Ein Rhombus ist viereckig mit 4 gleichen Seiten! Es ist..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Rhombus ist viereckig mit 4 gleichen Seiten! Es ist wie..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gleichen"
-      Kontext: "...n Rhombus ist viereckig mit 4 gleichen Seiten! Es ist wie ein versch..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "seiten"
       Kontext: "... ist viereckig mit 4 gleichen Seiten! Es ist wie ein verschobenes ..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "viereckig" zu nennen
-      - helpText umformulieren ohne "mit" zu nennen
       - helpText umformulieren ohne "gleichen" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "viereckig" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "gleichen" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-3-7':
    Frage: "Was ist eine Textur?"
    Antwort: "die oberfläche eines materials"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...Eine Textur ist die Oberfläche eines Materials! S..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "oberfläche"
       Kontext: "...Eine Textur ist die Oberfläche eines Materials! Sie kann gla..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "eines"
-      Kontext: "...ine Textur ist die Oberfläche eines Materials! Sie kann glatt, ra..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "materials"
-      Kontext: "...xtur ist die Oberfläche eines Materials! Sie kann glatt, rau, weich o..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...Eine Textur ist die Oberfläche eines Materials! S..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oberfläche"
-      Kontext: "...Eine Textur ist die Oberfläche eines Materials! Sie kann gla..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "eines"
-      Kontext: "...ine Textur ist die Oberfläche eines Materials! Sie kann glatt, ra..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "materials"
       Kontext: "...xtur ist die Oberfläche eines Materials! Sie kann glatt, rau, weich o..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "die" zu nennen
       - helpText umformulieren ohne "oberfläche" zu nennen
-      - helpText umformulieren ohne "eines" zu nennen
       - helpText umformulieren ohne "materials" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "oberfläche" zu nennen
-      - Erklärung umformulieren ohne "eines" zu nennen
-      - Erklärung umformulieren ohne "materials" zu nennen
 
 ❌ Frage 'kunst-3-8':
    Frage: "Welche Farbe entsteht, wenn du Rot und Weiß mischst?"
@@ -3625,13 +1784,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "rosa"
       Kontext: "...ot und Weiß mischst, entsteht Rosa! Es ist ein helles Rot...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "rosa"
-      Kontext: "...ot und Weiß mischst, entsteht Rosa! Es ist ein helles Rot...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "rosa" zu nennen
-      - Erklärung umformulieren ohne "rosa" zu nennen
 
 ❌ Frage 'kunst-3-9':
    Frage: "Was bedeutet symmetrisch?"
@@ -3642,42 +1796,17 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Symmetrisch bedeutet gleich auf beiden Seiten! Wenn du es..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "auf"
-      Kontext: "...Symmetrisch bedeutet gleich auf beiden Seiten! Wenn du es in ..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "beiden"
       Kontext: "...mmetrisch bedeutet gleich auf beiden Seiten! Wenn du es in der Mit..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "seiten"
-      Kontext: "...ch bedeutet gleich auf beiden Seiten! Wenn du es in der Mitte falt..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gleich"
-      Kontext: "...Symmetrisch bedeutet gleich auf beiden Seiten! Wenn du es..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "auf"
-      Kontext: "...Symmetrisch bedeutet gleich auf beiden Seiten! Wenn du es in ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "beiden"
-      Kontext: "...mmetrisch bedeutet gleich auf beiden Seiten! Wenn du es in der Mit..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "seiten"
       Kontext: "...ch bedeutet gleich auf beiden Seiten! Wenn du es in der Mitte falt..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "gleich" zu nennen
-      - helpText umformulieren ohne "auf" zu nennen
       - helpText umformulieren ohne "beiden" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "gleich" zu nennen
-      - Erklärung umformulieren ohne "auf" zu nennen
-      - Erklärung umformulieren ohne "beiden" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-3-10':
    Frage: "Welche Form hat ein Trapez?"
@@ -3688,10 +1817,6 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Ein Trapez ist viereckig mit 2 parallelen Seiten! Die ..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Trapez ist viereckig mit 2 parallelen Seiten! Die ande..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "parallelen"
       Kontext: "...in Trapez ist viereckig mit 2 parallelen Seiten! Die anderen beiden Se..."
 
@@ -3704,63 +1829,20 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...st viereckig mit 2 parallelen Seiten! Die anderen beiden Seiten si..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "seiten"
-      Kontext: "...en Seiten! Die anderen beiden Seiten sind nicht parallel...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "viereckig"
-      Kontext: "...Ein Trapez ist viereckig mit 2 parallelen Seiten! Die ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "...Ein Trapez ist viereckig mit 2 parallelen Seiten! Die ande..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "parallelen"
-      Kontext: "...in Trapez ist viereckig mit 2 parallelen Seiten! Die anderen beiden Se..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "parallel"
-      Kontext: "...eren beiden Seiten sind nicht parallel...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...st viereckig mit 2 parallelen Seiten! Die anderen beiden Seiten si..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "seiten"
       Kontext: "...en Seiten! Die anderen beiden Seiten sind nicht parallel...."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "viereckig" zu nennen
-      - helpText umformulieren ohne "mit" zu nennen
       - helpText umformulieren ohne "parallelen" zu nennen
       - helpText umformulieren ohne "parallel" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "viereckig" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "parallelen" zu nennen
-      - Erklärung umformulieren ohne "parallel" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-3-11':
    Frage: "Was ist ein Schatten?"
    Antwort: "ein dunkler bereich ohne licht"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Schatten?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Schatten ist ein dunkler Bere..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Schatten ist ein dunkler Bereich ohne Licht! E..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "dunkler"
       Kontext: "...Ein Schatten ist ein dunkler Bereich ohne Licht! Er entste..."
@@ -3778,53 +1860,15 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "... ist ein dunkler Bereich ohne Licht! Er entsteht, wenn etwas das ..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "licht"
-      Kontext: "...! Er entsteht, wenn etwas das Licht blockiert...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Schatten ist ein dunkler Bere..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Schatten ist ein dunkler Bereich ohne Licht! E..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "dunkler"
-      Kontext: "...Ein Schatten ist ein dunkler Bereich ohne Licht! Er entste..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bereich"
-      Kontext: "...Ein Schatten ist ein dunkler Bereich ohne Licht! Er entsteht, wenn..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ohne"
-      Kontext: "...atten ist ein dunkler Bereich ohne Licht! Er entsteht, wenn etwa..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "licht"
-      Kontext: "... ist ein dunkler Bereich ohne Licht! Er entsteht, wenn etwas das ..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "licht"
       Kontext: "...! Er entsteht, wenn etwas das Licht blockiert...."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "dunkler" zu nennen
       - helpText umformulieren ohne "bereich" zu nennen
       - helpText umformulieren ohne "ohne" zu nennen
       - helpText umformulieren ohne "licht" zu nennen
       - helpText umformulieren ohne "licht" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "dunkler" zu nennen
-      - Erklärung umformulieren ohne "bereich" zu nennen
-      - Erklärung umformulieren ohne "ohne" zu nennen
-      - Erklärung umformulieren ohne "licht" zu nennen
-      - Erklärung umformulieren ohne "licht" zu nennen
 
 ❌ Frage 'kunst-3-12':
    Frage: "Welche Farbe entsteht, wenn du Blau und Rot mischst?"
@@ -3834,23 +1878,14 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "lila"
       Kontext: "...lau und Rot mischst, entsteht Lila! Das ist eine Sekundärfarbe...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "lila"
-      Kontext: "...lau und Rot mischst, entsteht Lila! Das ist eine Sekundärfarbe...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "lila" zu nennen
-      - Erklärung umformulieren ohne "lila" zu nennen
 
 ❌ Frage 'kunst-3-13':
    Frage: "Was ist ein Kontrast?"
    Antwort: "sehr unterschiedliche farben oder formen"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "sehr"
-      Kontext: "...Ein Kontrast sind sehr unterschiedliche Farben oder ..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "unterschiedliche"
       Kontext: "...Ein Kontrast sind sehr unterschiedliche Farben oder Formen! Zum Beisp..."
 
@@ -3859,44 +1894,13 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...st sind sehr unterschiedliche Farben oder Formen! Zum Beispiel Sch..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "... sehr unterschiedliche Farben oder Formen! Zum Beispiel Schwarz ..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "formen"
-      Kontext: "... unterschiedliche Farben oder Formen! Zum Beispiel Schwarz und Wei..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "sehr"
-      Kontext: "...Ein Kontrast sind sehr unterschiedliche Farben oder ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "unterschiedliche"
-      Kontext: "...Ein Kontrast sind sehr unterschiedliche Farben oder Formen! Zum Beisp..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...st sind sehr unterschiedliche Farben oder Formen! Zum Beispiel Sch..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "... sehr unterschiedliche Farben oder Formen! Zum Beispiel Schwarz ..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "formen"
       Kontext: "... unterschiedliche Farben oder Formen! Zum Beispiel Schwarz und Wei..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "sehr" zu nennen
       - helpText umformulieren ohne "unterschiedliche" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "formen" zu nennen
-      - Erklärung umformulieren ohne "sehr" zu nennen
-      - Erklärung umformulieren ohne "unterschiedliche" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "formen" zu nennen
 
 ❌ Frage 'kunst-3-14':
    Frage: "Welche Form hat ein Parallelogramm?"
@@ -3907,10 +1911,6 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Ein Parallelogramm ist viereckig mit gegenüberliegenden parall..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "mit"
-      Kontext: "... Parallelogramm ist viereckig mit gegenüberliegenden parallelen..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "gegenüberliegenden"
       Kontext: "...allelogramm ist viereckig mit gegenüberliegenden parallelen Seiten! Es ist wie..."
 
@@ -3919,50 +1919,20 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...reckig mit gegenüberliegenden parallelen Seiten! Es ist wie ein versch..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "seiten"
-      Kontext: "...gegenüberliegenden parallelen Seiten! Es ist wie ein verschobenes ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "viereckig"
-      Kontext: "...Ein Parallelogramm ist viereckig mit gegenüberliegenden parall..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "mit"
-      Kontext: "... Parallelogramm ist viereckig mit gegenüberliegenden parallelen..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gegenüberliegenden"
-      Kontext: "...allelogramm ist viereckig mit gegenüberliegenden parallelen Seiten! Es ist wie..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "parallelen"
-      Kontext: "...reckig mit gegenüberliegenden parallelen Seiten! Es ist wie ein versch..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "seiten"
       Kontext: "...gegenüberliegenden parallelen Seiten! Es ist wie ein verschobenes ..."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "viereckig" zu nennen
-      - helpText umformulieren ohne "mit" zu nennen
       - helpText umformulieren ohne "gegenüberliegenden" zu nennen
       - helpText umformulieren ohne "parallelen" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "viereckig" zu nennen
-      - Erklärung umformulieren ohne "mit" zu nennen
-      - Erklärung umformulieren ohne "gegenüberliegenden" zu nennen
-      - Erklärung umformulieren ohne "parallelen" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-3-15':
    Frage: "Was sind Proportionen?"
    Antwort: "die größenverhältnisse zwischen teilen"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...Proportionen sind die Größenverhältnisse zwischen T..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "größenverhältnisse"
       Kontext: "...Proportionen sind die Größenverhältnisse zwischen Teilen! Zum Beispiel..."
 
@@ -3971,161 +1941,50 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...n sind die Größenverhältnisse zwischen Teilen! Zum Beispiel wie groß..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "teilen"
-      Kontext: "...e Größenverhältnisse zwischen Teilen! Zum Beispiel wie groß der Ko..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...Proportionen sind die Größenverhältnisse zwischen T..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "größenverhältnisse"
-      Kontext: "...Proportionen sind die Größenverhältnisse zwischen Teilen! Zum Beispiel..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "zwischen"
-      Kontext: "...n sind die Größenverhältnisse zwischen Teilen! Zum Beispiel wie groß..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "teilen"
       Kontext: "...e Größenverhältnisse zwischen Teilen! Zum Beispiel wie groß der Ko..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "die" zu nennen
       - helpText umformulieren ohne "größenverhältnisse" zu nennen
       - helpText umformulieren ohne "zwischen" zu nennen
       - helpText umformulieren ohne "teilen" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "größenverhältnisse" zu nennen
-      - Erklärung umformulieren ohne "zwischen" zu nennen
-      - Erklärung umformulieren ohne "teilen" zu nennen
 
 ❌ Frage 'kunst-4-1':
    Frage: "Was ist ein Stillleben?"
    Antwort: "ein bild von stillen"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Stillleben?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von s..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von stillen, unbewegten ..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "bild"
       Kontext: "...Ein Stillleben ist ein Bild von stillen, unbewegten Objek..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "von"
-      Kontext: "...Ein Stillleben ist ein Bild von stillen, unbewegten Objekten!..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "stillen"
-      Kontext: "...n Stillleben ist ein Bild von stillen, unbewegten Objekten! Zum Bei..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von s..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Stillleben ist ein Bild von stillen, unbewegten ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "bild"
-      Kontext: "...Ein Stillleben ist ein Bild von stillen, unbewegten Objek..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "von"
-      Kontext: "...Ein Stillleben ist ein Bild von stillen, unbewegten Objekten!..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "stillen"
       Kontext: "...n Stillleben ist ein Bild von stillen, unbewegten Objekten! Zum Bei..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "bild" zu nennen
-      - helpText umformulieren ohne "von" zu nennen
       - helpText umformulieren ohne "stillen" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "bild" zu nennen
-      - Erklärung umformulieren ohne "von" zu nennen
-      - Erklärung umformulieren ohne "stillen" zu nennen
 
 ❌ Frage 'kunst-4-3':
    Frage: "Was ist Komposition in der Kunst?"
    Antwort: "die anordnung von elementen im bild"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...Komposition ist die Anordnung von Elementen im Bi..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...ng von Elementen im Bild! Wie die Dinge platziert sind...."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "anordnung"
       Kontext: "...Komposition ist die Anordnung von Elementen im Bild! Wie di..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "von"
-      Kontext: "...Komposition ist die Anordnung von Elementen im Bild! Wie die Di..."
 
    Problem im Feld 'helpText':
       Gefundene Antwort: "elementen"
       Kontext: "...osition ist die Anordnung von Elementen im Bild! Wie die Dinge platzi..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "bild"
-      Kontext: "...ie Anordnung von Elementen im Bild! Wie die Dinge platziert sind..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...Komposition ist die Anordnung von Elementen im Bi..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...ng von Elementen im Bild! Wie die Dinge platziert sind...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "anordnung"
-      Kontext: "...Komposition ist die Anordnung von Elementen im Bild! Wie di..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "von"
-      Kontext: "...Komposition ist die Anordnung von Elementen im Bild! Wie die Di..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "elementen"
-      Kontext: "...osition ist die Anordnung von Elementen im Bild! Wie die Dinge platzi..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "bild"
       Kontext: "...ie Anordnung von Elementen im Bild! Wie die Dinge platziert sind..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "die" zu nennen
-      - helpText umformulieren ohne "die" zu nennen
       - helpText umformulieren ohne "anordnung" zu nennen
-      - helpText umformulieren ohne "von" zu nennen
       - helpText umformulieren ohne "elementen" zu nennen
       - helpText umformulieren ohne "bild" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "anordnung" zu nennen
-      - Erklärung umformulieren ohne "von" zu nennen
-      - Erklärung umformulieren ohne "elementen" zu nennen
-      - Erklärung umformulieren ohne "bild" zu nennen
 
 ❌ Frage 'kunst-4-4':
    Frage: "Welche Form hat ein Dodekaeder?"
@@ -4135,23 +1994,14 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "seiten"
       Kontext: "...Ein Dodekaeder hat 12 Seiten! Es ist ein geometrischer Kör..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...Ein Dodekaeder hat 12 Seiten! Es ist ein geometrischer Kör..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-4-5':
    Frage: "Was zeigt ein Farbkreis?"
    Antwort: "die beziehungen zwischen farben"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "die"
-      Kontext: "...Ein Farbkreis zeigt die Beziehungen zwischen Farben! ..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "beziehungen"
       Kontext: "...Ein Farbkreis zeigt die Beziehungen zwischen Farben! Welche Farbe..."
 
@@ -4164,40 +2014,14 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...eigt die Beziehungen zwischen Farben! Welche Farben zusammenpassen..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "farben"
-      Kontext: "...ungen zwischen Farben! Welche Farben zusammenpassen...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "die"
-      Kontext: "...Ein Farbkreis zeigt die Beziehungen zwischen Farben! ..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "beziehungen"
-      Kontext: "...Ein Farbkreis zeigt die Beziehungen zwischen Farben! Welche Farbe..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "zwischen"
-      Kontext: "...rbkreis zeigt die Beziehungen zwischen Farben! Welche Farben zusamme..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "farben"
-      Kontext: "...eigt die Beziehungen zwischen Farben! Welche Farben zusammenpassen..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "farben"
       Kontext: "...ungen zwischen Farben! Welche Farben zusammenpassen...."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "die" zu nennen
       - helpText umformulieren ohne "beziehungen" zu nennen
       - helpText umformulieren ohne "zwischen" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
       - helpText umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "die" zu nennen
-      - Erklärung umformulieren ohne "beziehungen" zu nennen
-      - Erklärung umformulieren ohne "zwischen" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
-      - Erklärung umformulieren ohne "farben" zu nennen
 
 ❌ Frage 'kunst-4-6':
    Frage: "Welche Farbe entsteht, wenn du alle Primärfarben mischst?"
@@ -4208,83 +2032,28 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...arben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunk..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "oder"
-      Kontext: "...schst, entsteht meist Schwarz oder Braun! Das ist eine dunkle Fa..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "braun"
-      Kontext: "..., entsteht meist Schwarz oder Braun! Das ist eine dunkle Farbe...."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "schwarz"
-      Kontext: "...arben mischst, entsteht meist Schwarz oder Braun! Das ist eine dunk..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "oder"
-      Kontext: "...schst, entsteht meist Schwarz oder Braun! Das ist eine dunkle Fa..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "braun"
       Kontext: "..., entsteht meist Schwarz oder Braun! Das ist eine dunkle Farbe...."
 
    💡 Vorschläge:
       - helpText umformulieren ohne "schwarz" zu nennen
-      - helpText umformulieren ohne "oder" zu nennen
       - helpText umformulieren ohne "braun" zu nennen
-      - Erklärung umformulieren ohne "schwarz" zu nennen
-      - Erklärung umformulieren ohne "oder" zu nennen
-      - Erklärung umformulieren ohne "braun" zu nennen
 
 ❌ Frage 'kunst-4-7':
    Frage: "Was ist ein Highlight?"
    Antwort: "ein heller bereich"
 
-   Problem im Feld 'question':
-      Gefundene Antwort: "ein"
-      Kontext: "...Was ist ein Highlight?..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Highlight ist ein heller Bere..."
-
-   Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Highlight ist ein heller Bereich, der Licht ref..."
-
    Problem im Feld 'helpText':
       Gefundene Antwort: "heller"
       Kontext: "...Ein Highlight ist ein heller Bereich, der Licht reflektier..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "bereich"
-      Kontext: "...Ein Highlight ist ein heller Bereich, der Licht reflektiert! Es is..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Highlight ist ein heller Bere..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Ein Highlight ist ein heller Bereich, der Licht ref..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "heller"
-      Kontext: "...Ein Highlight ist ein heller Bereich, der Licht reflektier..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "bereich"
       Kontext: "...Ein Highlight ist ein heller Bereich, der Licht reflektiert! Es is..."
 
    💡 Vorschläge:
-      - Frage umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "heller" zu nennen
       - helpText umformulieren ohne "bereich" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "heller" zu nennen
-      - Erklärung umformulieren ohne "bereich" zu nennen
 
 ❌ Frage 'kunst-4-8':
    Frage: "Welche Form hat ein Ikosaeder?"
@@ -4298,29 +2067,15 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "seiten"
       Kontext: "...ischer Körper mit dreieckigen Seiten...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...Ein Ikosaeder hat 20 Seiten! Es ist ein geometrischer Kör..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...ischer Körper mit dreieckigen Seiten...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "seiten" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-4-9':
    Frage: "Was ist eine Collage?"
    Antwort: "ein kunstwerk aus verschiedenen materialien"
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "ein"
-      Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen M..."
-
-   Problem im Feld 'helpText':
       Gefundene Antwort: "kunstwerk"
       Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen Materialien..."
 
@@ -4333,40 +2088,14 @@ PROBLEMATISCHE FRAGEN:
       Kontext: "...Collage ist ein Kunstwerk aus verschiedenen Materialien! Zum Beispiel Pap..."
 
    Problem im Feld 'helpText':
-      Gefundene Antwort: "materialien"
-      Kontext: "...n Kunstwerk aus verschiedenen Materialien! Zum Beispiel Papier, Stoff o..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "ein"
-      Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen M..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kunstwerk"
-      Kontext: "...Eine Collage ist ein Kunstwerk aus verschiedenen Materialien..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "aus"
-      Kontext: "...ine Collage ist ein Kunstwerk aus verschiedenen Materialien! Zu..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "verschiedenen"
-      Kontext: "...Collage ist ein Kunstwerk aus verschiedenen Materialien! Zum Beispiel Pap..."
-
-   Problem im Feld 'explanation':
       Gefundene Antwort: "materialien"
       Kontext: "...n Kunstwerk aus verschiedenen Materialien! Zum Beispiel Papier, Stoff o..."
 
    💡 Vorschläge:
-      - helpText umformulieren ohne "ein" zu nennen
       - helpText umformulieren ohne "kunstwerk" zu nennen
       - helpText umformulieren ohne "aus" zu nennen
       - helpText umformulieren ohne "verschiedenen" zu nennen
       - helpText umformulieren ohne "materialien" zu nennen
-      - Erklärung umformulieren ohne "ein" zu nennen
-      - Erklärung umformulieren ohne "kunstwerk" zu nennen
-      - Erklärung umformulieren ohne "aus" zu nennen
-      - Erklärung umformulieren ohne "verschiedenen" zu nennen
-      - Erklärung umformulieren ohne "materialien" zu nennen
 
 ❌ Frage 'kunst-4-10':
    Frage: "Welche Farbe entsteht, wenn du Grau zu einer Farbe hinzufügst?"
@@ -4376,13 +2105,8 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "gedämpfter"
       Kontext: "...er Farbe hinzufügst, wird sie gedämpfter! Sie wird weniger intensiv...."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "gedämpfter"
-      Kontext: "...er Farbe hinzufügst, wird sie gedämpfter! Sie wird weniger intensiv...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "gedämpfter" zu nennen
-      - Erklärung umformulieren ohne "gedämpfter" zu nennen
 
 ❌ Frage 'kunst-4-11':
    Frage: "Was ist abstrakte Kunst?"
@@ -4396,14 +2120,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "kunst"
       Kontext: "...Abstrakte Kunst sieht nicht realistisch aus! ..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "kunst"
-      Kontext: "...Abstrakte Kunst sieht nicht realistisch aus! ..."
-
    💡 Vorschläge:
       - Frage umformulieren ohne "kunst" zu nennen
       - helpText umformulieren ohne "kunst" zu nennen
-      - Erklärung umformulieren ohne "kunst" zu nennen
 
 ❌ Frage 'kunst-4-12':
    Frage: "Welche Form hat ein Tetraeder?"
@@ -4417,19 +2136,9 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "seiten"
       Kontext: "...n Seiten. Überlege, wie viele Seiten eine solche Pyramide hat!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...Ein Tetraeder hat 4 Seiten! Es ist eine Pyramide mit dre..."
-
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...eine Pyramide mit dreieckigen Seiten...."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "seiten" zu nennen
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen
 
 ❌ Frage 'kunst-4-14':
    Frage: "Welche Form hat ein Oktaeder?"
@@ -4439,10 +2148,5 @@ PROBLEMATISCHE FRAGEN:
       Gefundene Antwort: "seiten"
       Kontext: "...r Körper. Überlege, wie viele Seiten dieser Körper hat!..."
 
-   Problem im Feld 'explanation':
-      Gefundene Antwort: "seiten"
-      Kontext: "...Ein Oktaeder hat 8 Seiten! Es ist ein geometrischer Kör..."
-
    💡 Vorschläge:
       - helpText umformulieren ohne "seiten" zu nennen
-      - Erklärung umformulieren ohne "seiten" zu nennen

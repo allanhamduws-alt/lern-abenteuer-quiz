@@ -45,7 +45,7 @@ export function AdminPage() {
       if (currentUser?.role !== 'parent') {
         // Nicht-Eltern umleiten
         setLoading(false);
-        navigate('/home');
+        navigate('/dashboard');
         return;
       }
 
@@ -294,7 +294,7 @@ export function AdminPage() {
               >
                 Eltern-Dashboard
               </Button>
-              <Button variant="secondary" onClick={() => navigate('/home')}>
+              <Button variant="secondary" onClick={() => navigate('/dashboard')}>
                 Zur Startseite
               </Button>
             </div>

@@ -257,7 +257,7 @@ export function PracticePage() {
             <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Schwierige Aufgaben üben
             </h2>
-            <Button variant="secondary" onClick={() => navigate('/home')}>
+            <Button variant="secondary" onClick={() => navigate('/dashboard')}>
               ← Zurück
             </Button>
           </div>
@@ -272,7 +272,7 @@ export function PracticePage() {
                 Du hast aktuell keine schwierigen Aufgaben zu üben. Alle Aufgaben
                 sind gemeistert!
               </p>
-              <Button variant="primary" onClick={() => navigate('/home')}>
+              <Button variant="primary" onClick={() => navigate('/dashboard')}>
                 Zurück zur Startseite
               </Button>
             </Card>

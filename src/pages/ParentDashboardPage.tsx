@@ -70,7 +70,7 @@ export function ParentDashboardPage() {
         }
       } else if (currentUser?.role !== 'parent') {
         // Nicht-Eltern umleiten
-        navigate('/home');
+        navigate('/dashboard');
         return;
       }
       
@@ -111,7 +111,7 @@ export function ParentDashboardPage() {
               >
                 Verwaltung ⚙️
               </Button>
-              <Button variant="secondary" onClick={() => navigate('/home')}>
+              <Button variant="secondary" onClick={() => navigate('/dashboard')}>
                 Zur Startseite
               </Button>
             </div>

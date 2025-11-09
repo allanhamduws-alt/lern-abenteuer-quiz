@@ -297,7 +297,7 @@ export function ResultsPage() {
                 }
                 // Kurze Verzögerung, damit Daten gespeichert sind
                 await new Promise(resolve => setTimeout(resolve, 500));
-                navigate('/home');
+                navigate('/dashboard');
               }}
               disabled={isSaving}
             >

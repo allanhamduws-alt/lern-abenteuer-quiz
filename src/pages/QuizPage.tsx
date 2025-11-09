@@ -39,7 +39,7 @@ export function QuizPage() {
   const [showStars, setShowStars] = useState(false);
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
+  const [_lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const pointsAnimationRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [progress, setProgress] = useState<Progress | null>(null);
   const [isLoadingProgress, setIsLoadingProgress] = useState(true);
@@ -321,7 +321,7 @@ export function QuizPage() {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => navigate('/home')}
+                onClick={() => navigate('/dashboard')}
               >
                 Zurück zur Startseite
               </Button>

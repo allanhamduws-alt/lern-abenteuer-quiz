@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../services/auth';
-import { validateAndLinkCode } from '../services/linking';
+import { validateAndLinkCode, fetchInvitesForChild, acceptParentInvite, declineParentInvite, type ParentInvite } from '../services/linking';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
@@ -21,38 +21,91 @@ export function LinkParentPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLinking, setIsLinking] = useState(false);
+  const [invites, setInvites] = useState<ParentInvite[]>([]);
+  const [invitesLoading, setInvitesLoading] = useState(false);
+  const [inviteActionLoading, setInviteActionLoading] = useState<string | null>(null);
+  const formatDate = (date?: Date) => {
+    if (!date) {
+      return '-';
+    }
+    try {
+      return date.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+    } catch {
+      return '-';
+    }
+  };
 
   useEffect(() => {
+    let cancelled = false;
+    
     const loadUser = async () => {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
+      try {
+        const currentUser = await getCurrentUser();
+        
+        if (cancelled) return;
+        
+        if (!currentUser) {
+          setLoading(false);
+          navigate('/login');
+          return;
+        }
+        
+        setUser(currentUser);
 
-      if (!currentUser) {
-        navigate('/login');
-        return;
+        // Prüfe ob bereits verknüpft
+        if (currentUser.parentId && currentUser.parentId !== '') {
+          setLoading(false);
+          setSuccess(true);
+          setTimeout(() => {
+            if (!cancelled) {
+              navigate('/dashboard');
+            }
+          }, 2000);
+          return;
+        }
+
+        // Prüfe ob es ein Eltern-Konto ist
+        if (currentUser.role === 'parent') {
+          setLoading(false);
+          navigate('/admin');
+          return;
+        }
+
+        try {
+          setInvitesLoading(true);
+          const inviteList = await fetchInvitesForChild(currentUser.uid);
+          if (cancelled) return;
+          setInvites(inviteList);
+        } catch (error) {
+          console.error('Fehler beim Laden der Einladungen:', error);
+          if (cancelled) return;
+          setInvites([]); // Setze leeres Array bei Fehler
+        } finally {
+          if (!cancelled) {
+            setInvitesLoading(false);
+          }
+        }
+
+        if (!cancelled) {
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Fehler beim Laden des Benutzers:', error);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-
-      // Prüfe ob bereits verknüpft
-      if (currentUser.parentId && currentUser.parentId !== '') {
-        setLoading(false);
-        setSuccess(true);
-        setTimeout(() => {
-          navigate('/home');
-        }, 2000);
-        return;
-      }
-
-      // Prüfe ob es ein Eltern-Konto ist
-      if (currentUser.role === 'parent') {
-        setLoading(false);
-        navigate('/admin');
-        return;
-      }
-
-      setLoading(false);
     };
 
     loadUser();
+    
+    return () => {
+      cancelled = true;
+    };
   }, [navigate]);
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,13 +135,59 @@ export function LinkParentPage() {
       
       // Weiterleitung nach 2 Sekunden
       setTimeout(() => {
-        navigate('/home');
+        navigate('/dashboard');
       }, 2000);
     } catch (error: any) {
       console.error('Fehler beim Verknüpfen:', error);
       setError(error.message || 'Fehler beim Verknüpfen. Bitte versuche es erneut.');
     } finally {
       setIsLinking(false);
+    }
+  };
+
+  const refreshInvites = async (childId: string) => {
+    try {
+      setInvitesLoading(true);
+      const inviteList = await fetchInvitesForChild(childId);
+      setInvites(inviteList);
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren der Einladungen:', error);
+    } finally {
+      setInvitesLoading(false);
+    }
+  };
+
+  const handleAcceptInvite = async (invite: ParentInvite) => {
+    if (!user) return;
+    try {
+      setInviteActionLoading(invite.id);
+      await acceptParentInvite(invite.id);
+      await refreshInvites(user.uid);
+      setSuccess(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 2000);
+    } catch (error: any) {
+      console.error('Fehler beim Annehmen der Einladung:', error);
+      setError(error.message || 'Einladung konnte nicht angenommen werden.');
+    } finally {
+      setInviteActionLoading(null);
+    }
+  };
+
+  const handleDeclineInvite = async (invite: ParentInvite) => {
+    if (!user) return;
+    try {
+      setInviteActionLoading(invite.id);
+      await declineParentInvite(invite.id);
+      await refreshInvites(user.uid);
+      setError('Einladung abgelehnt.');
+      setTimeout(() => setError(''), 3000);
+    } catch (error: any) {
+      console.error('Fehler beim Ablehnen der Einladung:', error);
+      setError(error.message || 'Einladung konnte nicht abgelehnt werden.');
+    } finally {
+      setInviteActionLoading(null);
     }
   };
 
@@ -152,6 +251,72 @@ export function LinkParentPage() {
             )}
 
             <div className="space-y-4">
+              <div className="bg-white/80 rounded-xl border-2 border-purple-300 shadow-soft p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                    📬 Einladungen von Eltern
+                  </h3>
+                  {invitesLoading && (
+                    <span className="text-xs font-bold text-purple-600 uppercase">Lädt…</span>
+                  )}
+                </div>
+                {invites.length === 0 ? (
+                  <p className="text-sm text-gray-600">
+                    Keine Einladungen vorhanden. Bitte gib den Verknüpfungscode ein, den dir deine Eltern gegeben haben.
+                  </p>
+                ) : (
+                  <div className="space-y-3">
+                    {invites.map((invite) => (
+                      <div
+                        key={invite.id}
+                        className="border border-purple-200 rounded-lg p-3 bg-white shadow-sm"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                          <div>
+                            <div className="font-semibold text-gray-800">
+                              Einladung von {invite.parentName || 'deinem Elternteil'}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Gesendet am {formatDate(invite.createdAt)}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            {invite.status === 'pending' ? (
+                              <>
+                                <Button
+                                  variant="primary"
+                                  size="sm"
+                                  onClick={() => handleAcceptInvite(invite)}
+                                  disabled={inviteActionLoading === invite.id}
+                                  className="shadow-colored-lime"
+                                >
+                                  {inviteActionLoading === invite.id ? '⏳ …' : 'Annehmen'}
+                                </Button>
+                                <Button
+                                  variant="secondary"
+                                  size="sm"
+                                  onClick={() => handleDeclineInvite(invite)}
+                                  disabled={inviteActionLoading === invite.id}
+                                  className="shadow-soft"
+                                >
+                                  Ablehnen
+                                </Button>
+                              </>
+                            ) : (
+                              <span className="text-xs font-semibold text-gray-600 uppercase">
+                                {invite.status === 'accepted' ? 'Schon angenommen' : 'Nicht verfügbar'}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-4">
               <div>
                 <label htmlFor="code" className="block text-sm font-bold text-gray-700 mb-2">
                   Verknüpfungscode (6 Zeichen)
@@ -182,7 +347,7 @@ export function LinkParentPage() {
 
               <Button
                 variant="secondary"
-                onClick={() => navigate('/home')}
+                onClick={() => navigate('/dashboard')}
                 className="w-full shadow-colored-blue"
               >
                 Zurück zur Startseite

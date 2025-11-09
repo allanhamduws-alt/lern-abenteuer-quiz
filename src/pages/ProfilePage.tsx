@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser, logoutUser } from '../services/auth';
 import { loadProgress } from '../services/progress';
+import { fetchInvitesForChild, type ParentInvite } from '../services/linking';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { Button } from '../components/ui/Button';
@@ -19,6 +20,7 @@ export function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [progress, setProgress] = useState<Progress | null>(null);
   const [loading, setLoading] = useState(true);
+  const [pendingInvites, setPendingInvites] = useState<ParentInvite[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -34,6 +36,17 @@ export function ProfilePage() {
           
           const userProgress = await loadProgress(currentUser.uid);
           setProgress(userProgress);
+          
+          // Prüfe auf ausstehende Einladungen (nur für Kinder ohne Eltern-Verknüpfung)
+          if (!currentUser.parentId || currentUser.parentId === '') {
+            try {
+              const invites = await fetchInvitesForChild(currentUser.uid);
+              const pending = invites.filter(inv => inv.status === 'pending');
+              setPendingInvites(pending);
+            } catch (error) {
+              console.error('Fehler beim Laden der Einladungen:', error);
+            }
+          }
         }
       } catch (error) {
         console.error('Fehler beim Laden:', error);
@@ -170,6 +183,32 @@ export function ProfilePage() {
             </Card>
           )}
 
+          {/* Einladungs-Hinweis */}
+          {pendingInvites.length > 0 && (
+            <Card className="mb-6 bg-gradient-to-r from-yellow-200 via-orange-200 to-pink-200 border-2 border-orange-400 shadow-large animate-fade-in">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4">
+                <div className="flex items-center gap-4">
+                  <div className="text-5xl animate-bounce">📬</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-orange-900 mb-1">
+                      Du hast {pendingInvites.length} Einladung{pendingInvites.length > 1 ? 'en' : ''} von deinen Eltern! 🎉
+                    </h3>
+                    <p className="text-orange-800 text-sm">
+                      {pendingInvites.map(inv => inv.parentName).join(', ')} möchte{pendingInvites.length > 1 ? 'n' : ''} sich mit dir verknüpfen.
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="primary"
+                  onClick={() => navigate('/link-parent')}
+                  className="shadow-colored-lime whitespace-nowrap"
+                >
+                  📬 Einladung{pendingInvites.length > 1 ? 'en' : ''} ansehen
+                </Button>
+              </div>
+            </Card>
+          )}
+
           {/* Einstellungen */}
           <Card>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -179,11 +218,13 @@ export function ProfilePage() {
             <div className="space-y-4">
               {(!user.parentId || user.parentId === '') && (
                 <Button
-                  variant="secondary"
+                  variant={pendingInvites.length > 0 ? "primary" : "secondary"}
                   onClick={() => navigate('/link-parent')}
                   className="w-full"
                 >
-                  Mit Eltern verknüpfen
+                  {pendingInvites.length > 0 
+                    ? `📬 Mit Eltern verknüpfen (${pendingInvites.length} Einladung${pendingInvites.length > 1 ? 'en' : ''})`
+                    : 'Mit Eltern verknüpfen'}
                 </Button>
               )}
               

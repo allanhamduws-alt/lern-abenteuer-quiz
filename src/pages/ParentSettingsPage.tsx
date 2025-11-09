@@ -10,10 +10,19 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Header } from '../components/ui/Header';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
+import { UploadForm } from '../components/parent/UploadForm';
+import { UploadReview } from '../components/parent/UploadReview';
 import type { User } from '../types';
 import { collection, query, where, getDocs, doc, updateDoc, getDoc, deleteField } from 'firebase/firestore';
 import { db } from '../services/firebase';
-import { generateLinkingCode, getCurrentLinkingCode } from '../services/linking';
+import { 
+  generateLinkingCode,
+  getCurrentLinkingCode,
+  createParentInvite,
+  fetchInvitesForParent,
+  cancelParentInvite,
+  type ParentInvite
+} from '../services/linking';
 
 interface ChildAccount {
   uid: string;
@@ -36,49 +45,130 @@ export function ParentSettingsPage() {
   const [codeExpiresAt, setCodeExpiresAt] = useState<Date | null>(null);
   const [codeLoading, setCodeLoading] = useState(false);
   const [codeError, setCodeError] = useState('');
+  const [invites, setInvites] = useState<ParentInvite[]>([]);
+  const [invitesLoading, setInvitesLoading] = useState(false);
+
+  const formatDate = (date?: Date) => {
+    if (!date) {
+      return '-';
+    }
+    try {
+      return date.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+    } catch {
+      return '-';
+    }
+  };
+
+  const loadChildrenForParent = async (parentUser: User): Promise<ChildAccount[]> => {
+    const childrenData: ChildAccount[] = [];
+
+    if (parentUser.children && parentUser.children.length > 0) {
+      for (const childId of parentUser.children) {
+        try {
+          const childDoc = await getDoc(doc(db, 'users', childId));
+          if (childDoc.exists()) {
+            const childData = childDoc.data() as User;
+            childrenData.push({
+              uid: childId,
+              name: childData.name,
+              email: childData.email,
+              class: childData.class,
+              avatar: childData.avatar,
+              totalPoints: childData.totalPoints || 0,
+            });
+          }
+        } catch (error) {
+          console.error(`Fehler beim Laden von Kind ${childId}:`, error);
+        }
+      }
+    }
+
+    return childrenData;
+  };
+
+  const refreshInvites = async (parentId: string) => {
+    try {
+      setInvitesLoading(true);
+      const inviteList = await fetchInvitesForParent(parentId);
+      setInvites(inviteList);
+
+      const parentDoc = await getDoc(doc(db, 'users', parentId));
+      if (parentDoc.exists()) {
+        const parentData = { ...(parentDoc.data() as User), uid: parentId };
+        setUser(parentData);
+        const childrenData = await loadChildrenForParent(parentData);
+        setChildren(childrenData);
+      }
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren der Einladungen:', error);
+    } finally {
+      setInvitesLoading(false);
+    }
+  };
 
   useEffect(() => {
+    let cancelled = false;
+    
     const loadData = async () => {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
-
-      if (currentUser?.role !== 'parent') {
-        // Nicht-Eltern umleiten
-        setLoading(false);
-        navigate('/home');
-        return;
-      }
-
-      // Lade verknüpfte Kinder
-      if (currentUser.children && currentUser.children.length > 0) {
-        const childrenData: ChildAccount[] = [];
+      try {
+        const currentUser = await getCurrentUser();
         
-        for (const childId of currentUser.children) {
-          try {
-            const childDoc = await getDoc(doc(db, 'users', childId));
-            if (childDoc.exists()) {
-              const childData = childDoc.data() as User;
-              childrenData.push({
-                uid: childId,
-                name: childData.name,
-                email: childData.email,
-                class: childData.class,
-                avatar: childData.avatar,
-                totalPoints: childData.totalPoints || 0,
-              });
-            }
-          } catch (error) {
-            console.error(`Fehler beim Laden von Kind ${childId}:`, error);
+        if (cancelled) return;
+        
+        if (!currentUser) {
+          setLoading(false);
+          navigate('/dashboard');
+          return;
+        }
+        
+        setUser(currentUser);
+
+        if (currentUser.role !== 'parent') {
+          // Nicht-Eltern umleiten
+          setLoading(false);
+          navigate('/dashboard');
+          return;
+        }
+
+        const childrenData = await loadChildrenForParent(currentUser);
+        if (cancelled) return;
+        setChildren(childrenData);
+
+        try {
+          setInvitesLoading(true);
+          const inviteList = await fetchInvitesForParent(currentUser.uid);
+          if (cancelled) return;
+          setInvites(inviteList);
+        } catch (error) {
+          console.error('Fehler beim Laden der Einladungen:', error);
+          if (cancelled) return;
+          setInvites([]); // Setze leeres Array bei Fehler
+        } finally {
+          if (!cancelled) {
+            setInvitesLoading(false);
           }
         }
         
-        setChildren(childrenData);
+        if (!cancelled) {
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Fehler beim Laden der Daten:', error);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-      
-      setLoading(false);
     };
 
     loadData();
+    
+    return () => {
+      cancelled = true;
+    };
   }, [navigate]);
 
   // Lade aktuellen Verknüpfungscode
@@ -204,40 +294,24 @@ export function ParentSettingsPage() {
         return;
       }
 
-      // Füge Kind zum Eltern-Konto hinzu
-      const updatedChildren = [...(user?.children || []), childId];
-      await updateDoc(doc(db, 'users', user!.uid), {
-        children: updatedChildren,
-      });
+      if (!user) {
+        setLinkError('Benutzerdaten konnten nicht geladen werden.');
+        return;
+      }
 
-      // Verknüpfe Kind mit Eltern
-      await updateDoc(doc(db, 'users', childId), {
-        parentId: user!.uid,
-      });
+      await createParentInvite(
+        { ...user, uid: user.uid } as User,
+        { ...childData, uid: childId } as User
+      );
 
-      // Aktualisiere lokalen State
-      setChildren([
-        ...children,
-        {
-          uid: childId,
-          name: childData.name,
-          email: childData.email,
-          class: childData.class,
-          avatar: childData.avatar,
-          totalPoints: childData.totalPoints || 0,
-        },
-      ]);
+      await refreshInvites(user.uid);
 
-      setLinkSuccess(`Kind "${childData.name}" erfolgreich verknüpft!`);
+      setLinkSuccess(`Einladung für "${childData.name}" wurde versendet. Das Kind kann sie nun bestätigen.`);
       setLinkEmail('');
-      
-      // Aktualisiere user state
-      const updatedUser = await getCurrentUser();
-      setUser(updatedUser);
     } catch (error: any) {
-      console.error('Fehler beim Verknüpfen:', error);
+      console.error('Fehler beim Versenden der Einladung:', error);
       setLinkError(
-        error.message || 'Fehler beim Verknüpfen des Kindes. Bitte versuchen Sie es erneut.'
+        error.message || 'Fehler beim Versenden der Einladung. Bitte versuchen Sie es erneut.'
       );
     }
   };
@@ -267,6 +341,9 @@ export function ParentSettingsPage() {
       // Aktualisiere user state
       const updatedUser = await getCurrentUser();
       setUser(updatedUser);
+      if (updatedUser?.uid) {
+        await refreshInvites(updatedUser.uid);
+      }
       
       // Zeige Erfolgsmeldung
       setLinkSuccess(`${childName} wurde erfolgreich entfernt.`);
@@ -274,6 +351,48 @@ export function ParentSettingsPage() {
     } catch (error: any) {
       console.error('Fehler beim Entfernen:', error);
       setLinkError(error.message || 'Fehler beim Entfernen des Kindes. Bitte versuchen Sie es erneut.');
+      setTimeout(() => setLinkError(''), 5000);
+    }
+  };
+
+  const handleCancelInvite = async (invite: ParentInvite) => {
+    if (!user?.uid) {
+      return;
+    }
+
+    try {
+      await cancelParentInvite(user.uid, invite.childId);
+      await refreshInvites(user.uid);
+      setLinkSuccess(`Einladung für ${invite.childName} wurde zurückgezogen.`);
+      setTimeout(() => setLinkSuccess(''), 3000);
+    } catch (error: any) {
+      console.error('Fehler beim Zurückziehen der Einladung:', error);
+      setLinkError(error.message || 'Einladung konnte nicht zurückgezogen werden.');
+      setTimeout(() => setLinkError(''), 5000);
+    }
+  };
+
+  const handleResendInvite = async (invite: ParentInvite) => {
+    if (!user) return;
+
+    try {
+      const childSnap = await getDoc(doc(db, 'users', invite.childId));
+      if (!childSnap.exists()) {
+        throw new Error('Kind-Konto nicht gefunden.');
+      }
+      const childData = childSnap.data() as User;
+
+      await createParentInvite(
+        { ...user, uid: user.uid } as User,
+        { ...childData, uid: invite.childId } as User
+      );
+
+      await refreshInvites(user.uid);
+      setLinkSuccess(`Einladung an "${invite.childName}" wurde erneut versendet.`);
+      setTimeout(() => setLinkSuccess(''), 3000);
+    } catch (error: any) {
+      console.error('Fehler beim erneuten Versenden der Einladung:', error);
+      setLinkError(error.message || 'Einladung konnte nicht erneut versendet werden.');
       setTimeout(() => setLinkError(''), 5000);
     }
   };
@@ -397,7 +516,7 @@ export function ParentSettingsPage() {
             <div className="mb-6">
               <h4 className="text-xl font-bold mb-3 text-gray-800">E-Mail-Verknüpfung 📧</h4>
               <p className="text-gray-600 mb-4 text-sm">
-                Geben Sie die E-Mail-Adresse des Kind-Kontos ein, um es direkt zu verknüpfen.
+                Geben Sie die E-Mail-Adresse des Kind-Kontos ein, um eine Einladung zu senden. Das Kind muss die Einladung bestätigen.
               </p>
               
               {linkError && (
@@ -415,9 +534,97 @@ export function ParentSettingsPage() {
                   className="flex-1 px-4 py-3 border-2 border-purple-300 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 bg-white shadow-soft text-lg"
                 />
                 <Button variant="primary" onClick={handleLinkChild} className="shadow-colored-lime">
-                  Verknüpfen
+                  Einladung senden
                 </Button>
               </div>
+            </div>
+
+            {/* Einladungen */}
+            <div className="mb-6">
+              <h4 className="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                📬 Einladungen
+                {invitesLoading && (
+                  <span className="text-sm font-semibold text-purple-600">Lädt...</span>
+                )}
+              </h4>
+              
+              {invites.length === 0 ? (
+                <div className="text-center py-6 text-gray-600 bg-white/60 rounded-xl border-2 border-purple-300">
+                  <p className="text-sm">
+                    Keine Einladungen vorhanden. Senden Sie eine Einladung per E-Mail oder teilen Sie einen Code.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {invites.map((invite) => {
+                    const statusBadge =
+                      invite.status === 'pending'
+                        ? 'bg-yellow-100 text-yellow-800 border-yellow-300'
+                        : invite.status === 'accepted'
+                        ? 'bg-green-100 text-green-800 border-green-300'
+                        : invite.status === 'declined'
+                        ? 'bg-red-100 text-red-700 border-red-300'
+                        : 'bg-gray-100 text-gray-700 border-gray-300';
+
+                    const statusLabel =
+                      invite.status === 'pending'
+                        ? 'Ausstehend'
+                        : invite.status === 'accepted'
+                        ? 'Akzeptiert'
+                        : invite.status === 'declined'
+                        ? 'Abgelehnt'
+                        : 'Zurückgezogen';
+
+                    return (
+                      <div
+                        key={invite.id}
+                        className="border-2 border-purple-200 rounded-xl p-4 bg-white shadow-soft"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                          <div>
+                            <div className="font-bold text-lg text-gray-800">{invite.childName}</div>
+                            <div className="text-sm text-gray-600">{invite.childEmail}</div>
+                            <div className="text-xs text-gray-500 mt-1">
+                              Eingeladen am {formatDate(invite.createdAt)}
+                              {invite.respondedAt && (
+                                <>
+                                  {' • '}
+                                  {invite.status === 'accepted' ? 'Bestätigt' : 'Reaktion'} am {formatDate(invite.respondedAt)}
+                                </>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wide rounded-full border ${statusBadge}`}>
+                              {statusLabel}
+                            </span>
+                            {invite.status === 'pending' && (
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                onClick={() => handleCancelInvite(invite)}
+                                className="shadow-soft"
+                              >
+                                Zurückziehen
+                              </Button>
+                            )}
+                            {(invite.status === 'declined' || invite.status === 'cancelled') && (
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                onClick={() => handleResendInvite(invite)}
+                                className="shadow-soft"
+                              >
+                                Erneut senden
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Verknüpfte Kinder */}
@@ -469,6 +676,24 @@ export function ParentSettingsPage() {
               )}
             </div>
           </Card>
+
+          {/* Eltern-Uploads (MVP) */}
+          <Card className="mb-6 bg-white shadow-large border-2 border-emerald-300">
+            <h3 className="text-2xl font-bold mb-4 text-emerald-800">
+              Arbeitsblätter/Material hochladen 📄
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Lade ein PDF oder Bild hoch, ordne es einem Fach und einer Klassenstufe zu. Der Agent verarbeitet es und macht passende Aufgaben daraus.
+            </p>
+            {user?.uid && <UploadForm parentUid={user.uid} />}
+          </Card>
+
+          {/* Upload-Review & Freigabe */}
+          {user?.uid && (
+            <Card className="mb-6 bg-white shadow-large border-2 border-blue-300">
+              <UploadReview parentUid={user.uid} />
+            </Card>
+          )}
 
           {/* Weitere Einstellungen */}
           <Card className="bg-gradient-card shadow-large">

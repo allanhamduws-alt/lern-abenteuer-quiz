@@ -51,18 +51,18 @@ export function Header({ user }: HeaderProps) {
       if (user.role === 'parent') {
         navigate('/parent-dashboard');
       } else {
-        navigate('/home');
+        navigate('/dashboard');
       }
     } else {
       // Wenn nicht eingeloggt, gehe zur Login-Seite (von dort kann man sich einloggen)
-      // Aber wenn man bereits auf einer anderen Seite ist, versuche zur Home zu gehen
+      // Aber wenn man bereits auf einer anderen Seite ist, versuche zur Dashboard zu gehen
       const currentPath = location.pathname;
       if (currentPath === '/login') {
         // Bleibe auf Login-Seite wenn bereits dort
         return;
       }
-      // Sonst versuche zur Home-Seite zu gehen (wird dann zu Login umgeleitet wenn nicht eingeloggt)
-      navigate('/home');
+      // Sonst versuche zur Dashboard-Seite zu gehen (wird dann zu Login umgeleitet wenn nicht eingeloggt)
+      navigate('/dashboard');
     }
   };
 
@@ -87,45 +87,34 @@ export function Header({ user }: HeaderProps) {
               
               <nav className="hidden md:flex items-center gap-2">
                 <button
-                  onClick={() => navigate('/home')}
+                  onClick={() => navigate('/dashboard')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                    isActive('/home') 
-                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
-                      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
-                  }`}
-                >
-                  <MathIcon className="w-5 h-5" />
-                  <span className="font-semibold">Fächer</span>
-                </button>
-                
-                <button
-                  onClick={() => navigate('/progress')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                    isActive('/progress') 
-                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                    isActive('/dashboard') 
+                      ? 'bg-indigo-600 text-white shadow-md hover:bg-indigo-700' 
                       : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
                   <ProgressIcon className="w-5 h-5" />
-                  <span className="font-semibold">Fortschritt</span>
+                  <span className="font-semibold">Dashboard</span>
                 </button>
                 
                 <button
-                  onClick={() => navigate('/practice')}
+                  onClick={() => navigate('/learn')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                    isActive('/practice') 
-                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                    isActive('/learn') 
+                      ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700' 
                       : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >
-                  <span className="font-semibold">Üben</span>
+                  <MathIcon className="w-5 h-5" />
+                  <span className="font-semibold">Lernen</span>
                 </button>
                 
                 <button
-                  onClick={() => navigate('/games')}
+                  onClick={() => navigate('/play')}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                    isActive('/games') 
-                      ? 'bg-green-600 text-white shadow-md hover:bg-green-700' 
+                    isActive('/play') 
+                      ? 'bg-emerald-600 text-white shadow-md hover:bg-emerald-700' 
                       : 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-sm'
                   }`}
                 >

@@ -17,6 +17,7 @@ import { ParentDashboardPage } from './pages/ParentDashboardPage';
 import { AdminPage } from './pages/AdminPage';
 import { ParentSettingsPage } from './pages/ParentSettingsPage';
 import { LinkParentPage } from './pages/LinkParentPage';
+import { LearnPage } from './pages/LearnPage';
 import { onAuthChange } from './services/auth';
 import { useState, useEffect } from 'react';
 import type { User as FirebaseUser } from 'firebase/auth';
@@ -51,10 +52,26 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: '/home',
+    path: '/dashboard',
     element: (
       <ProtectedRoute>
         <HomePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/learn',
+    element: (
+      <ProtectedRoute>
+        <LearnPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/play',
+    element: (
+      <ProtectedRoute>
+        <GamesPage />
       </ProtectedRoute>
     ),
   },
@@ -99,14 +116,6 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/games',
-    element: (
-      <ProtectedRoute>
-        <GamesPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
     path: '/profile',
     element: (
       <ProtectedRoute>
@@ -147,8 +156,12 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/home',
+    element: <Navigate to="/dashboard" replace />,
+  },
+  {
     path: '/',
-    element: <Navigate to="/login" replace />,
+    element: <Navigate to="/dashboard" replace />,
   },
 ]);
 

@@ -40,7 +40,7 @@ export function GamePage() {
             Spiel nicht gefunden
           </h1>
           <button
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/dashboard')}
             className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transform hover:scale-105 transition-all shadow-md hover:shadow-lg"
           >
             Zurück zur Startseite
@@ -77,7 +77,7 @@ export function GamePage() {
   };
 
   const handleExit = () => {
-    navigate('/home');
+    navigate('/dashboard');
   };
 
   const GameComponent = gameComponents[gameId];

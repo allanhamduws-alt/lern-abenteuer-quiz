@@ -37,7 +37,7 @@ export function LoginPage() {
         if (loggedInUser.role === 'parent') {
           navigate('/parent-dashboard');
         } else {
-          navigate('/home');
+          navigate('/dashboard');
         }
       } else {
         const newUser = await registerUser(
@@ -54,7 +54,7 @@ export function LoginPage() {
         if (newUser.role === 'parent') {
           navigate('/parent-dashboard');
         } else {
-          navigate('/home');
+          navigate('/dashboard');
         }
       }
     } catch (err: any) {

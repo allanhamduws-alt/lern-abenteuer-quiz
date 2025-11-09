@@ -3,7 +3,7 @@
  * Ermöglicht es Komponenten, Events an das Maskottchen zu senden
  */
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 
 export type MascotState = 'idle' | 'speaking' | 'happy' | 'thinking' | 'sad' | 'excited' | 'proud';
 

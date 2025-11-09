@@ -76,7 +76,7 @@ export function ProgressPage() {
                 Schau dir an, wie weit du schon gekommen bist! 🎉
               </p>
             </div>
-            <Button variant="secondary" onClick={() => navigate('/home')}>
+            <Button variant="secondary" onClick={() => navigate('/dashboard')}>
               ← Zurück
             </Button>
           </div>

@@ -13,6 +13,7 @@ import { Header } from '../components/ui/Header';
 import { Button } from '../components/ui/Button';
 import { GameIcon } from '../components/icons';
 import type { User } from '../types';
+import { getGameCost, hasEnoughPoints, spendPointsInFirebase } from '../utils/points';
 
 const games = [
   {
@@ -94,8 +95,25 @@ export function GamesPage() {
     loadUser();
   }, [navigate]);
 
-  const handlePlayGame = (gameId: string, subject: string) => {
-    if (!user?.class) return;
+  const handlePlayGame = async (gameId: any, subject: string) => {
+    if (!user?.class || !user?.uid) return;
+    const cost = getGameCost(gameId);
+    if (cost.costType === 'points') {
+      if (!hasEnoughPoints(user, gameId)) {
+        alert(`Du brauchst ${cost.costValue} Punkte, um dieses Spiel zu starten.`);
+        return;
+      }
+      try {
+        await spendPointsInFirebase(user.uid, cost.costValue);
+        // Lokalen Zustand optimistisch aktualisieren
+        setUser({ ...user, totalPoints: (user.totalPoints || 0) - cost.costValue });
+      } catch (e) {
+        console.error('Punkte-Abzug fehlgeschlagen:', e);
+        alert('Konnte Punkte nicht abbuchen. Bitte später erneut versuchen.');
+        return;
+      }
+    }
+    // Zeit-Tickets werden später umgesetzt (Timerverwaltung)
     navigate(`/game?gameId=${gameId}&class=${user.class}&subject=${subject}`);
   };
 
@@ -128,6 +146,8 @@ export function GamesPage() {
               const unlocked = subjectProgress ? isGameUnlocked(game.id, game.subject as any, subjectProgress) : true;
               const requirement = getGameLevelRequirement(game.id, game.subject as any);
               
+              const cost = getGameCost(game.id as any);
+              const enough = hasEnoughPoints(user, game.id as any);
               return (
                 <Card key={game.id} className={`bg-gradient-card shadow-medium transform hover:scale-105 transition-all duration-300 animate-fade-in ${!unlocked ? 'opacity-60' : ''}`}>
                   <div className="flex items-start gap-4 mb-4">
@@ -153,6 +173,9 @@ export function GamesPage() {
                         <span className="text-xs text-gray-500">
                           {game.subject}
                         </span>
+                        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                          {cost.costType === 'points' ? `${cost.costValue} Punkte` : `${cost.costValue} Min`}
+                        </span>
                         {requirement && (
                           <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
                             unlocked
@@ -173,10 +196,14 @@ export function GamesPage() {
                   <Button
                     variant="primary"
                     onClick={() => handlePlayGame(game.id, game.subject)}
-                    disabled={!unlocked}
+                    disabled={!unlocked || (getGameCost(game.id as any).costType === 'points' && !enough)}
                     className="w-full shadow-colored-lime"
                   >
-                    {unlocked ? 'Spielen 🚀' : '🔒 Gesperrt'}
+                    {unlocked
+                      ? (getGameCost(game.id as any).costType === 'points'
+                          ? (enough ? 'Spielen 🚀' : 'Nicht genug Punkte')
+                          : 'Spielen (Zeit-Ticket) 🚀')
+                      : '🔒 Gesperrt'}
                   </Button>
                 </Card>
               );

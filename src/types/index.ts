@@ -27,6 +27,9 @@ export interface Question {
   bonusMultiplier?: number; // Multiplikator für Punkte bei Bonus-Aufgaben (Standard: 1.5)
   // Hilfe-Feld
   helpText?: string; // Altersgerechte Erklärung der Aufgabe (optional, kann durch KI generiert werden)
+  // Bild-Support
+  imageUrl?: string; // URL zu einem Bild für die Aufgabe (z.B. Firebase Storage URL)
+  imagePrompt?: string; // Prompt für Bild-Generierung (falls Bild noch nicht existiert)
 }
 
 // Quiz-Ergebnis Typ
@@ -140,6 +143,7 @@ export interface FirebaseConfig {
   authDomain: string;
   projectId: string;
   appId: string;
+  storageBucket?: string;
 }
 
 // Mini-Spiel Typen

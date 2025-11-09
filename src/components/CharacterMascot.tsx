@@ -113,7 +113,7 @@ export function CharacterMascot({
               alt="Charakter Maskottchen"
               className={`w-24 h-24 md:w-32 md:h-32 object-contain ${getStateClasses(state)}`}
               style={{
-                imageRendering: 'high-quality',
+                imageRendering: 'auto' as const,
                 filter: state === 'speaking' ? 'brightness(1.05) saturate(1.1)' : 
                         state === 'happy' || state === 'excited' ? 'brightness(1.1) saturate(1.15)' :
                         state === 'sad' ? 'brightness(0.95) saturate(0.9)' : 'none',

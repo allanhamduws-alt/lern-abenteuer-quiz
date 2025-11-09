@@ -12,13 +12,22 @@
     "generate-explanations": "node scripts/generateExplanations.mjs",
     "validate-questions": "node scripts/validateQuestions.mjs",
     "validate-answers": "node scripts/validateQuestionAnswers.mjs",
-    "validate-all": "npm run validate-questions && npm run validate-answers"
+    "validate-all": "npm run validate-questions && npm run validate-answers",
+    "agent:ingest-curriculum": "node scripts/agents/ingestCurriculum.mjs",
+    "agent:uploads:watch": "node scripts/agents/processUploads.mjs"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@tailwindcss/postcss": "^4.1.16",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "firebase": "^12.5.0",
+    "firebase-admin": "^12.7.0",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.104.0",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^5.4.394",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

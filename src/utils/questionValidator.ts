@@ -19,17 +19,34 @@ export interface ValidationResult {
 }
 
 // Stoppwörter die ignoriert werden sollen
+// Diese Wörter sind grammatisch notwendig und verraten keine Lösung
+// Siehe VALIDATION_RULES.md für Details
 const STOP_WORDS = new Set([
+  // Artikel
   'der', 'die', 'das', 'den', 'dem', 'des',
   'ein', 'eine', 'einer', 'einem', 'eines',
-  'und', 'oder', 'aber', 'dass', 'wenn',
-  'ist', 'sind', 'war', 'waren', 'wird', 'werden',
+  
+  // Pronomen
+  'es', 'sie', 'er', 'ihr', 'ihm', 'ihn', 'ihnen', 'uns', 'euch',
+  
+  // Verben (Hilfsverben & Modalverben)
+  'ist', 'sind', 'war', 'waren', 'wird', 'werden', 'wurde', 'wurden',
   'hat', 'haben', 'hatte', 'hatten',
   'kann', 'können', 'muss', 'müssen',
   'soll', 'sollen', 'will', 'wollen',
-  'nicht', 'kein', 'keine', 'keinen',
-  'auch', 'noch', 'schon', 'immer', 'nie',
-  'sehr', 'viel', 'wenig', 'mehr', 'meist',
+  
+  // Präpositionen
+  'mit', 'von', 'zu', 'für', 'auf', 'in', 'an', 'bei', 'über', 'unter', 'durch',
+  
+  // Konjunktionen
+  'und', 'oder', 'aber', 'dass', 'wenn', 'weil', 'obwohl', 'damit',
+  
+  // Adverbien & Partikel
+  'nicht', 'kein', 'keine', 'keinen', 'keinem',
+  'auch', 'noch', 'schon', 'immer', 'nie', 'manchmal',
+  'sehr', 'viel', 'wenig', 'mehr', 'meist', 'oft',
+  
+  // Fragewörter
   'wie', 'was', 'wo', 'wann', 'warum', 'wer',
 ]);
 
@@ -103,7 +120,7 @@ function getCorrectAnswerText(question: Question): string {
 function containsAnswer(text: string, answer: string): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const lowerText = text.toLowerCase();
-  const answerVariants = getWordVariants(answer);
+  // const answerVariants = getWordVariants(answer); // Für zukünftige Verwendung
 
   // Entferne Stoppwörter aus der Antwort
   const answerWords = answer
